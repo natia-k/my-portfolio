@@ -3,190 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | LABYRINTH</title>
+    <title>NATIA DESIGN | Editorial</title>
     <style>
         :root { --accent: #ff0000; }
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background: #000; color: #fff;
-            overflow: hidden; 
-            font-family: 'Helvetica', sans-serif;
-        }
+        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Helvetica', sans-serif; }
 
-        /* --- THE MOVING HUD --- */
-        nav {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            padding: 40px;
-            display: flex;
-            justify-content: space-between;
-            z-index: 1000;
-            pointer-events: none;
-        }
-        nav div, nav a { pointer-events: auto; color: #fff; text-decoration: none; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; font-size: 12px; }
-
-        /* SPINNING EXPLORE ICON */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 40px;
-            left: 40px;
-            z-index: 1000;
-            animation: rotate 10s linear infinite;
-        }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* --- THE LABYRINTH TRACK --- */
-        .labyrinth-track {
-            display: flex;
+        /* --- THE STICKY LAYERS --- */
+        section {
+            position: sticky;
+            top: 0;
             height: 100vh;
-            width: fit-content;
-            will-change: transform;
+            width: 100%;
+            display: flex;
             align-items: center;
-        }
-
-        .project-gate {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            position: relative;
-            flex-shrink: 0;
+            overflow: hidden;
+            background: #000;
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        /* TEXT THAT POPS */
-        .project-gate h2 {
-            font-size: clamp(100px, 18vw, 300px);
-            text-transform: uppercase;
-            line-height: 0.7;
-            margin: 0;
-            z-index: 10;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-            color: transparent;
-        }
-
-        .project-gate:hover h2 {
-            color: #fff;
-            -webkit-text-stroke: 1px #fff;
-            transform: scale(1.05);
-        }
-
-        /* FULL COLOR ACTION IMAGES */
-        .project-gate img {
-            position: absolute;
-            width: 45vw;
-            max-width: 600px;
-            height: auto;
-            object-fit: cover;
-            opacity: 0.3;
-            transition: all 0.8s ease;
-            filter: saturate(1.5); /* Boosts colors for that "Wow" */
-        }
-
-        .project-gate:hover img {
-            opacity: 1;
-            transform: scale(1.1) rotate(2deg);
-            filter: saturate(1) drop-shadow(0 0 50px var(--accent));
-        }
-
-        /* --- CREATIVE CONTACT SECTION --- */
-        .contact-gate {
-            width: 100vw;
-            height: 100vh;
-            background: var(--accent);
+        /* PROJECT CONTENT */
+        .project-content {
+            width: 90%;
+            height: 80%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
         }
-        .contact-gate h2 {
-            color: #000 !important;
-            -webkit-text-stroke: 0px !important;
-            font-size: 15vw;
+
+        .project-title {
+            font-size: clamp(80px, 15vw, 250px);
+            text-transform: uppercase;
+            line-height: 0.8;
+            margin: 0;
+            font-weight: 900;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .contact-gate a {
+
+        /* PROJECT IMAGE (REVEAL STYLE) */
+        .project-img {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40vw;
+            height: 60vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s ease;
+            filter: saturate(1.2);
+        }
+
+        /* HOVER ACTION */
+        section:hover .project-title { transform: translateX(30px); color: var(--accent); }
+        section:hover .project-img img { transform: scale(1.1); }
+
+        /* --- THE "WOW" HUD --- */
+        nav {
+            position: fixed;
+            top: 40px; left: 5%; width: 90%;
+            display: flex; justify-content: space-between;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            pointer-events: none;
+        }
+        nav * { pointer-events: auto; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; font-size: 12px; }
+
+        /* THE CONTACT SECTION (RED PUNCH) */
+        .contact-section {
+            background: var(--accent);
+            color: #000;
+            z-index: 100;
+        }
+        .contact-section h2 { font-size: 12vw; -webkit-text-stroke: 0; color: #000; }
+        .contact-link {
+            font-size: 40px;
+            font-weight: 900;
             text-decoration: none;
             color: #000;
-            font-weight: 900;
-            border: 5px solid #000;
-            padding: 20px 40px;
-            font-size: 30px;
-            margin-top: 20px;
-            transition: background 0.3s;
+            border-bottom: 5px solid #000;
+            margin-top: 50px;
         }
-        .contact-gate a:hover { background: #000; color: var(--accent); }
 
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="studio-name">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
+        <div>NATIA DESIGN</div>
+        <a href="mailto:natia.kurtanidze55@gmail.com" style="color:white; text-decoration:none;">START A RIOT</a>
     </nav>
 
-    <div class="scroll-indicator">
-        <svg width="100" height="100">
-            <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent"/>
-            <text fill="white" font-size="10" font-weight="bold" letter-spacing="3">
-                <textPath xlink:href="#circlePath">SCROLL • EXPLORE • NATIA • DESIGN •</textPath>
-            </text>
-        </svg>
-    </div>
+    <main>
+        <section onclick="location.href='kombucha.html'">
+            <div class="project-content">
+                <span style="opacity: 0.5;">01 / CASE STUDY</span>
+                <h2 class="project-title">Kombu<br>cha</h2>
+                <div class="project-img"><img src="kombucha1.jpg"></div>
+            </div>
+        </section>
 
-    <div class="labyrinth-track" id="track">
-        <div class="project-gate" onclick="location.href='kombucha.html'">
-            <img src="kombucha1.jpg" style="left: 10%; top: 20%;">
-            <h2>Kombu<br>cha</h2>
-        </div>
+        <section onclick="location.href='oatmilk.html'">
+            <div class="project-content">
+                <span style="opacity: 0.5;">02 / IDENTITY</span>
+                <h2 class="project-title">Oat<br>Milk</h2>
+                <div class="project-img"><img src="oat-hero.jpg"></div>
+            </div>
+        </section>
 
-        <div class="project-gate" onclick="location.href='oatmilk.html'">
-            <img src="oat-hero.jpg" style="right: 15%; bottom: 10%;">
-            <h2>Oat<br>Milk</h2>
-        </div>
+        <section onclick="location.href='others.html'">
+            <div class="project-content">
+                <span style="opacity: 0.5;">03 / EDITORIAL</span>
+                <h2 class="project-title">The<br>Others</h2>
+                <div class="project-img"><img src="others-hero.jpg"></div>
+            </div>
+        </section>
 
-        <div class="project-gate" onclick="location.href='others.html'">
-            <img src="others-hero.jpg" style="left: 15%; bottom: 15%;">
-            <h2>The<br>Others</h2>
-        </div>
+        <section onclick="location.href='go-left.html'">
+            <div class="project-content">
+                <span style="opacity: 0.5;">04 / POSTER</span>
+                <h2 class="project-title">Go<br>Left</h2>
+                <div class="project-img"><img src="goleft-hero.jpg"></div>
+            </div>
+        </section>
 
-        <div class="project-gate" onclick="location.href='go-left.html'">
-            <img src="goleft-hero.jpg" style="right: 10%; top: 15%;">
-            <h2>Go<br>Left</h2>
-        </div>
-
-        <div class="contact-gate">
-            <h2>WORK<br>TOGETHER</h2>
-            <a href="mailto:natia.kurtanidze55@gmail.com">LET'S TALK</a>
-        </div>
-    </div>
-
-    <script>
-        const track = document.getElementById('track');
-        let scrollAmount = 0;
-        let targetScroll = 0;
-
-        window.addEventListener('wheel', (e) => {
-            targetScroll += e.deltaY;
-            
-            // Boundary checks
-            const maxScroll = track.offsetWidth - window.innerWidth;
-            if (targetScroll < 0) targetScroll = 0;
-            if (targetScroll > maxScroll) targetScroll = maxScroll;
-        });
-
-        // Smooth Lerp Animation for that "Butter" feel
-        function animate() {
-            scrollAmount += (targetScroll - scrollAmount) * 0.05;
-            track.style.transform = `translateX(-${scrollAmount}px)`;
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
+        <section class="contact-section">
+            <div class="project-content" style="align-items: center; justify-content: center; text-align: center;">
+                <h2>WORK<br>TOGETHER</h2>
+                <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-link">LET'S TALK</a>
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>

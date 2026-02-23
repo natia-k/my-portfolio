@@ -3,99 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA STUDIO | Visual Designer</title>
+    <title>NATIA STUDIO | Berlin</title>
     <style>
         :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; }
-        html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-
-        /* ─── INTERACTION ─── */
-        #cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.08s ease-out; display: none; }
-        #image-preview { position: fixed; width: 40vw; height: 80vh; pointer-events: none; z-index: 9000; opacity: 0; transform: translate(-50%, -50%) scale(0.8); transition: opacity 0.4s ease, transform 0.4s ease; overflow: hidden; display: none; }
-        #image-preview img { width: 100%; height: 100%; object-fit: contain; }
-
-        /* ─── NAV ─── */
+        
         nav { padding: 40px 60px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; position: fixed; width: 100%; top: 0; z-index: 1000; mix-blend-mode: difference; }
         nav a { color: var(--fg); text-decoration: none; margin-left: 30px; }
 
-        /* ─── HERO ─── */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px; }
-        .hero h1 { font-size: clamp(60px, 16vw, 300px); line-height: 0.8; letter-spacing: -0.06em; text-transform: uppercase; font-weight: 900; }
-        .hero h1 span { transition: color 0.4s ease; display: block; }
-        .hero h1:hover span { color: var(--accent); }
-
-        /* ─── PROJECTS ─── */
-        .project-list { margin-top: -10vh; }
-        .project-row { display: block; text-decoration: none; color: inherit; padding: 12vh 60px; width: 100%; border-bottom: 1px solid #1a1a1a; position: relative; }
-        .project-row h2 { font-size: clamp(40px, 12vw, 220px); text-transform: uppercase; letter-spacing: -0.05em; font-weight: 900; line-height: 0.8; transition: color 0.3s ease, padding-left 0.4s ease; }
-        .project-row:hover h2 { color: var(--accent); padding-left: 40px; }
+        .hero { height: 100vh; display: flex; align-items: center; padding: 60px; }
+        .hero h1 { font-size: clamp(60px, 15vw, 280px); line-height: 0.8; letter-spacing: -0.06em; text-transform: uppercase; font-weight: 900; }
         
-        .click-hint { position: absolute; right: 60px; top: 50%; transform: translateY(-50%); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: 0; transition: opacity 0.3s; color: var(--accent); }
-        .project-row:hover .click-hint { opacity: 1; }
+        .project-list { padding-bottom: 20vh; }
+        .project-row { display: block; text-decoration: none; color: inherit; padding: 10vh 60px; border-top: 1px solid #222; position: relative; overflow: hidden; }
+        .project-row h2 { font-size: clamp(40px, 10vw, 180px); text-transform: uppercase; font-weight: 900; line-height: 0.8; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-row:hover h2 { color: var(--accent); transform: translateX(30px); }
+        
+        #image-preview { position: fixed; width: 30vw; height: 60vh; pointer-events: none; z-index: 9000; opacity: 0; transform: translate(-50%, -50%) scale(0.8); transition: opacity 0.4s ease, transform 0.4s ease; display: none; }
+        #image-preview img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* ─── ABOUT ─── */
-        #about { padding: 20vh 60px; }
-        .about-title { font-size: clamp(24px, 3.5vw, 45px); max-width: 1000px; line-height: 1.2; margin-bottom: 40px; }
-        .email-link { font-size: clamp(30px, 8vw, 120px); font-weight: 900; text-decoration: none; color: var(--fg); transition: color 0.3s; }
-        .email-link:hover { color: var(--accent); }
-
-        @media (min-width: 1024px) { * { cursor: none; } #cursor, #image-preview { display: block; } }
-        @media (max-width: 1023px) { .project-row { padding: 60px 20px; } .hero h1 span { color: var(--accent); } }
+        @media (min-width: 1024px) { body { cursor: crosshair; } #image-preview { display: block; } }
     </style>
 </head>
 <body>
-    <div id="cursor"></div>
     <div id="image-preview"><img src="" alt=""></div>
-
     <nav>
         <div>NATIA STUDIO</div>
-        <div><a href="#work">Work</a><a href="cv.html">CV</a><a href="#about">About</a></div>
+        <div><a href="cv.html">CV</a><a href="mailto:natia.kurtanidze55@gmail.com">Contact</a></div>
     </nav>
 
     <section class="hero">
-        <h1><span>Visual</span><span>Designer</span></h1>
+        <h1>Visual<br>Designer</h1>
     </section>
 
-    <div id="work" class="project-list">
-        <a href="project-kombucha.html" class="project-row" data-img="kombucha1.jpg">
-            <h2>Kombucha</h2>
-            <span class="click-hint">View Case Study →</span>
-        </a>
-        <a href="project-oatmilk.html" class="project-row" style="text-align: right;" data-img="Oat Milk.jpg">
-            <h2>Oat Milk</h2>
-            <span class="click-hint" style="left: 60px; right: auto;">View Case Study →</span>
-        </a>
-        <a href="project-nurture.html" class="project-row" data-img="Nurture.jpg">
-            <h2>Nurture</h2>
-            <span class="click-hint">View Case Study →</span>
-        </a>
+    <div class="project-list">
+        <a href="kombucha.html" class="project-row" data-img="kombucha1.jpg"><h2>Kombucha</h2></a>
+        <a href="oatmilk.html" class="project-row" style="text-align: right;" data-img="Oat Milk.jpg"><h2>Oat Milk</h2></a>
+        <a href="nurture.html" class="project-row" data-img="Nurture.jpg"><h2>Nurture</h2></a>
+        <a href="others.html" class="project-row" style="text-align: right;" data-img="others.jpg"><h2>The Others</h2></a>
     </div>
 
-    <section id="about">
-        <h3 class="about-title">Based in Berlin. Working at the intersection of brand identity, 3D systems, and creative code.</h3>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="email-link">HELLO@NATIA.DESIGN</a>
-    </section>
-
     <script>
-        const cursor = document.getElementById('cursor');
         const preview = document.getElementById('image-preview');
         const previewImg = preview.querySelector('img');
-        if (window.innerWidth >= 1024) {
-            window.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-                preview.style.left = e.clientX + 'px'; preview.style.top = e.clientY + 'px';
+        window.addEventListener('mousemove', (e) => {
+            preview.style.left = e.clientX + 'px'; preview.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('.project-row').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                previewImg.src = row.getAttribute('data-img');
+                preview.style.opacity = '1'; preview.style.transform = 'translate(-50%, -50%) scale(1)';
             });
-            document.querySelectorAll('.project-row').forEach(row => {
-                row.addEventListener('mouseenter', () => {
-                    previewImg.src = row.getAttribute('data-img');
-                    preview.style.opacity = '1'; preview.style.transform = 'translate(-50%, -50%) scale(1)';
-                });
-                row.addEventListener('mouseleave', () => {
-                    preview.style.opacity = '0'; preview.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                });
+            row.addEventListener('mouseleave', () => {
+                preview.style.opacity = '0'; preview.style.transform = 'translate(-50%, -50%) scale(0.8)';
             });
-        }
+        });
     </script>
 </body>
 </html>

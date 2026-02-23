@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | NATIA KURTANIDZE</title>
+    <style>
+        :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; --muted: #666; --border: #1a1a1a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.5; }
+        nav { padding: 40px 60px; display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; position: fixed; width: 100%; top: 0; z-index: 1000; mix-blend-mode: difference; }
+        nav a { color: var(--fg); text-decoration: none; }
+        .wrapper { max-width: 1400px; margin: 0 auto; padding: 180px 60px 100px; }
+        header { margin-bottom: 120px; }
+        .cv-title { font-size: clamp(40px, 10vw, 160px); font-weight: 900; line-height: 0.85; text-transform: uppercase; letter-spacing: -0.05em; }
+        .cv-subtitle { font-size: 18px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; }
+        .cv-grid { display: grid; grid-template-columns: 300px 1fr; gap: 40px; padding: 60px 0; border-top: 1px solid var(--border); }
+        .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+        .entry { margin-bottom: 60px; }
+        .entry-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 15px; }
+        .entry-title { font-size: 28px; font-weight: 700; text-transform: uppercase; }
+        .entry-date { font-size: 14px; color: var(--muted); font-family: monospace; }
+        .entry-sub { font-size: 14px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; }
+        .entry-description { font-size: 17px; color: #aaa; max-width: 700px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .tag { border: 1px solid #333; padding: 8px 16px; font-size: 11px; text-transform: uppercase; border-radius: 4px; }
+        @media (max-width: 900px) { .wrapper { padding: 120px 30px; } .cv-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html">← BACK</a><a href="mailto:natia.kurtanidze55@gmail.com">CONTACT</a></nav>
+    <div class="wrapper">
+        <header><div class="cv-title">NATIA<br>KURTANIDZE</div><div class="cv-subtitle">Visual Designer & Creative Developer</div></header>
+        <section class="cv-grid">
+            <div class="section-label">Experience</div>
+            <div class="content">
+                <div class="entry">
+                    <div class="entry-header"><div class="entry-title">Graphic Designer</div><div class="entry-date">2021 — 2025</div></div>
+                    <div class="entry-sub">STK 118 GmbH & Mandarin Facility Services (Berlin)</div>
+                    <p class="entry-description">Developed visual systems and website designs for digital and print media.</p>
+                </div>
+                <div class="entry">
+                    <div class="entry-header"><div class="entry-title">Freelance Creative</div><div class="entry-date">2017 — 2020</div></div>
+                    <p class="entry-description">Led branding and identity projects with a focus on experimental typography.</p>
+                </div>
+            </div>
+        </section>
+        <section class="cv-grid">
+            <div class="section-label">Education</div>
+            <div class="content">
+                <div class="entry">
+                    <div class="entry-header"><div class="entry-title">HarvardX CS50x</div><div class="entry-date">2024</div></div>
+                    <p class="entry-description">Computer Science foundations: C, Python, JavaScript, and Web Development.</p>
+                </div>
+            </div>
+        </section>
+        <section class="cv-grid">
+            <div class="section-label">Toolkit</div>
+            <div class="content">
+                <div class="tags">
+                    <span class="tag">Adobe Suite</span><span class="tag">Figma</span><span class="tag">3D Design</span>
+                    <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Python</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

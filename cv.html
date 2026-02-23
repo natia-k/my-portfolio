@@ -5,81 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV | NATIA KURTANIDZE</title>
     <style>
-        :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; --muted: #666; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; padding: 60px; }
+        :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; }
+        body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; padding: 80px 60px; }
         nav { position: fixed; top: 40px; left: 60px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
         nav a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--accent); }
-        
-        .cv-container { max-width: 1200px; margin: 100px auto 0; }
-        h1 { font-size: clamp(40px, 8vw, 120px); text-transform: uppercase; font-weight: 900; line-height: 0.9; margin-bottom: 80px; }
-        
-        .cv-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; padding: 40px 0; border-top: 1px solid #222; }
-        .label { font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 2px; }
-        
-        .entry { margin-bottom: 40px; }
-        .entry h2 { font-size: 24px; text-transform: uppercase; margin-bottom: 5px; }
-        .entry h3 { font-size: 14px; color: var(--accent); text-transform: uppercase; margin-bottom: 15px; }
-        .entry p { color: #AAA; line-height: 1.6; }
-
-        .tag-list { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag { border: 1px solid #333; padding: 8px 15px; font-size: 11px; text-transform: uppercase; border-radius: 20px; }
-
-        @media (max-width: 768px) { body { padding: 30px; } .cv-grid { grid-template-columns: 1fr; gap: 20px; } }
+        h1 { font-size: clamp(50px, 10vw, 150px); text-transform: uppercase; font-weight: 900; line-height: 0.8; margin-bottom: 100px; }
+        .grid { display: grid; grid-template-columns: 1fr 2.5fr; gap: 60px; border-top: 1px solid #333; padding: 40px 0; }
+        .label { font-size: 11px; text-transform: uppercase; color: #666; letter-spacing: 2px; }
+        .item { margin-bottom: 40px; }
+        .item h2 { font-size: 28px; text-transform: uppercase; font-weight: 900; }
+        .item h3 { font-size: 14px; color: var(--accent); text-transform: uppercase; margin: 10px 0; }
+        .item p { color: #BBB; max-width: 600px; line-height: 1.6; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html">← Back to Portfolio</a></nav>
-    <div class="cv-container">
-        <h1>Curriculum<br>Vitae <span style="color:var(--accent)">2025</span></h1>
+    <nav><a href="index.html">← INDEX</a></nav>
+    <h1>Curriculum<br>Vitae 2025</h1>
 
-        <div class="cv-grid">
-            <div class="label">Professional Experience</div>
-            <div class="content">
-                <div class="entry">
-                    <h2>Graphic Designer</h2>
-                    <h3>STK 118 GmbH & Mandarin Facility Services | Berlin | 2021 — 2025</h3>
-                    <p>Directing visual identity for print/digital and website architecture.</p>
-                </div>
-                <div class="entry">
-                    <h2>Freelance Designer</h2>
-                    <h3>2017 — 2020</h3>
-                    <p>Focusing on Brand Design, Typography, and Digital Illustration.</p>
-                </div>
+    <div class="grid">
+        <div class="label">Experience</div>
+        <div class="content">
+            <div class="item">
+                <h2>Graphic Designer</h2>
+                <h3>STK 118 GmbH & Mandarin Facility Services | Berlin | 2021 — 2025</h3>
+                <p>Developing visual concepts and high-end digital media for Berlin-based services.</p>
             </div>
         </div>
+    </div>
 
-        <div class="cv-grid">
-            <div class="label">Education</div>
-            <div class="content">
-                <div class="entry">
-                    <h2>BA Graphic Design & Fine Arts</h2>
-                    <h3>Ilia State University</h3>
-                </div>
-                <div class="entry">
-                    <h2>Brand & UI/UX Design</h2>
-                    <h3>Academy of Digital Industry</h3>
-                </div>
-                <div class="entry">
-                    <h2>Graphic & 3D Design</h2>
-                    <h3>Academy of Digital Industry</h3>
-                </div>
-                <div class="entry">
-                    <h2>CS50: Computer Science</h2>
-                    <h3>HarvardX</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="cv-grid">
-            <div class="label">Toolkit</div>
-            <div class="content">
-                <div class="tag-list">
-                    <span class="tag">Photoshop</span><span class="tag">Illustrator</span><span class="tag">InDesign</span>
-                    <span class="tag">After Effects</span><span class="tag">3D Design</span><span class="tag">Figma</span>
-                    <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Python</span>
-                </div>
-            </div>
+    <div class="grid">
+        <div class="label">Education</div>
+        <div class="content">
+            <div class="item"><h2>BA Graphic Design & Fine Arts</h2><h3>Ilia State University</h3></div>
+            <div class="item"><h2>Brand, UI/UX & 3D Design</h2><h3>Academy of Digital Industry</h3></div>
+            <div class="item"><h2>Computer Science (CS50x)</h2><h3>HarvardX</h3></div>
         </div>
     </div>
 </body>

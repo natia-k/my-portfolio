@@ -5,6 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kombucha | NATIA DESIGN</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .project-hero { 
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            padding: 0 80px; 
+            gap: 60px;
+            cursor: default;
+        }
+
+        /* --- IMAGE SIDE: Focused & Clean --- */
+        .main-visual {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .main-visual img { 
+            width: 100%;
+            max-width: 320px; /* Small default for full visibility */
+            height: auto;
+            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+        }
+
+        /* --- TEXT SIDE: Reactive --- */
+        .content-right {
+            flex: 1;
+            text-align: left;
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .content-right h1 { 
+            font-size: clamp(80px, 12vw, 150px); 
+            line-height: 0.8;
+            margin-bottom: 20px;
+            letter-spacing: -0.05em;
+            transition: all 0.8s ease;
+        }
+
+        /* --- THE STRONK INTERACTION --- */
+        .project-hero:hover .main-visual img {
+            transform: scale(1.25);
+        }
+
+        .project-hero:hover .content-right {
+            transform: scale(1.1);
+        }
+
+        .project-hero:hover h1 {
+            color: var(--accent); /* Turns Red on hover */
+        }
+
+        @media (max-width: 1000px) {
+            .project-hero { flex-direction: column; padding: 120px 40px; gap: 40px; }
+            .main-visual { justify-content: center; }
+            .content-right { text-align: center; }
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -16,13 +77,13 @@
     <main>
         <section class="project-hero">
             <div class="main-visual">
-                <img src="kombucha1.jpg" alt="Kombucha Design">
+                <img src="kombucha1.jpg" alt="Kombucha Label">
             </div>
 
             <div class="content-right">
                 <h1>Kom<br>bucha</h1>
                 <p class="description">"It started as simple tea. <br>Then time, patience. <br>And a little magic happened."</p>
-                <div class="meta">BOTANICAL ILLUSTRATION · LABEL DESIGN</div>
+                <div class="meta">BOTANICAL ILLUSTRATION · 2026</div>
             </div>
         </section>
 
@@ -32,11 +93,11 @@
         </section>
 
         <footer class="next-btn-container">
-    <a href="oatmilk.html" class="next-project-link">
-        <span>Next Project</span>
-        <h3>Oat Milk</h3>
-    </a>
-</footer>>
+            <a href="oatmilk.html" class="next-project-link">
+                <span>Next Project</span>
+                <h3>Oat Milk</h3>
+            </a>
+        </footer>
     </main>
 </body>
 </html>

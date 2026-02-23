@@ -15,7 +15,7 @@
             overflow: hidden; 
         }
 
-        /* --- NAV: NO MORE GRAY --- */
+        /* --- CLEAN NAV --- */
         nav {
             position: fixed;
             top: 40px; left: 5%; width: 90%;
@@ -39,45 +39,53 @@
             width: 100vw;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
             flex-shrink: 0;
+            overflow: hidden;
         }
 
-        /* TEXT DESIGN */
+        /* CENTERED ARCHITECTURAL TITLES */
         .node h2 {
-            font-size: clamp(80px, 18vw, 320px);
+            font-size: clamp(60px, 12vw, 200px);
             text-transform: uppercase;
-            line-height: 0.75;
+            line-height: 0.8;
             margin: 0;
-            z-index: 10;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-            color: transparent;
-            transition: all 0.6s ease;
+            z-index: 2;
+            text-align: center;
+            pointer-events: none;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .node:hover h2 {
-            -webkit-text-stroke: 1px #fff;
-            color: #fff;
-        }
-
-        /* IMAGE DEPTH (RE-MAPPED) */
-        .img-wrap {
+        /* THE IMAGE - NO MORE SIDE SLIDING */
+        .img-reveal {
             position: absolute;
-            width: 38vw;
+            width: 40vw;
             max-width: 550px;
-            z-index: 5;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            transition: transform 0.1s ease-out;
+            aspect-ratio: 4/5;
+            z-index: 1;
+            opacity: 0.6;
+            filter: grayscale(1);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .img-wrap img { width: 100%; height: auto; display: block; filter: saturate(1.2); }
 
-        /* SCROLL HINT */
-        #hint {
-            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-            font-size: 10px; letter-spacing: 8px; text-transform: uppercase;
-            opacity: 0.5;
+        .img-reveal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* HOVER STATE: FOCUS & COLOR */
+        .node:hover .img-reveal {
+            opacity: 1;
+            filter: grayscale(0);
+            transform: scale(1.05) translateY(-20px);
+        }
+        .node:hover h2 {
+            transform: translateY(20px);
+            color: var(--accent);
         }
 
         /* RIOT FINALE */
@@ -89,7 +97,7 @@
             flex-shrink: 0;
             z-index: 100;
         }
-        .riot-node h2 { color: #000; -webkit-text-stroke: 0; font-size: 12vw; font-weight: 900; text-align: center; }
+        .riot-node h2 { color: #000; font-size: 10vw; font-weight: 900; -webkit-text-stroke: 0; }
         .riot-node a { color: #000; font-weight: 900; margin-top: 40px; text-decoration: none; border-bottom: 4px solid #000; font-size: 20px; }
 
     </style>
@@ -101,64 +109,46 @@
         <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-btn">START A RIOT</a>
     </nav>
 
-    <div id="hint">Scroll to Journey</div>
-
     <div class="labyrinth-track" id="track">
         
         <div class="node" onclick="location.href='kombucha.html'">
-            <div class="img-wrap" style="right: 15%; top: 20%;" data-speed="0.2">
-                <img src="kombucha1.jpg">
-            </div>
-            <h2>KOMBU<br>CHA</h2>
+            <div class="img-reveal"><img src="kombucha1.jpg"></div>
+            <h2>KOMBUCHA</h2>
         </div>
 
         <div class="node" onclick="location.href='oatmilk.html'">
-            <div class="img-wrap" style="left: 10%; bottom: 15%;" data-speed="-0.15">
-                <img src="oat-hero.jpg">
-            </div>
-            <h2>OAT<br>MILK</h2>
+            <div class="img-reveal"><img src="oat-hero.jpg"></div>
+            <h2>OAT MILK</h2>
         </div>
 
         <div class="node" onclick="location.href='others.html'">
-            <div class="img-wrap" style="right: 10%; bottom: 10%;" data-speed="0.25">
-                <img src="others-hero.jpg">
-            </div>
-            <h2>THE<br>OTHERS</h2>
+            <div class="img-reveal"><img src="others-hero.jpg"></div>
+            <h2>THE OTHERS</h2>
         </div>
 
         <div class="node" onclick="location.href='nurture.html'">
-            <div class="img-wrap" style="left: 15%; top: 10%;" data-speed="-0.2">
-                <img src="Nurture.jpg">
-            </div>
-            <h2>NUR<br>TURE</h2>
+            <div class="img-reveal"><img src="Nurture.jpg"></div>
+            <h2>NURTURE</h2>
         </div>
 
         <div class="node" onclick="location.href='go-left.html'">
-            <div class="img-wrap" style="right: 18%; top: 25%;" data-speed="0.15">
-                <img src="goleft-hero.jpg">
-            </div>
-            <h2>GO<br>LEFT</h2>
+            <div class="img-reveal"><img src="goleft-hero.jpg"></div>
+            <h2>GO LEFT</h2>
         </div>
 
         <div class="node" onclick="location.href='cd-covers.html'">
-            <div class="img-wrap" style="left: 20%; bottom: 20%;" data-speed="-0.3">
-                <img src="cd-hero.jpg">
-            </div>
-            <h2>CD<br>COVERS</h2>
+            <div class="img-reveal"><img src="cd-hero.jpg"></div>
+            <h2>CD COVERS</h2>
         </div>
 
         <div class="node" onclick="location.href='circle.html'">
-            <div class="img-wrap" style="right: 10%; top: 15%;" data-speed="0.12">
-                <img src="circle-hero.jpg">
-            </div>
-            <h2>CIR<br>CLE</h2>
+            <div class="img-reveal"><img src="circle-hero.jpg"></div>
+            <h2>CIRCLE</h2>
         </div>
 
         <div class="node" onclick="location.href='dreamer.html'">
-            <div class="img-wrap" style="left: 12%; bottom: 15%;" data-speed="-0.25">
-                <img src="dreamer-hero.jpg">
-            </div>
-            <h2>DREA<br>MER</h2>
+            <div class="img-reveal"><img src="dreamer-hero.jpg"></div>
+            <h2>DREAMER</h2>
         </div>
 
         <div class="riot-node">
@@ -170,7 +160,6 @@
 
     <script>
         const track = document.getElementById('track');
-        const images = document.querySelectorAll('.img-wrap');
         let scrollAmount = 0;
         let targetScroll = 0;
 
@@ -181,17 +170,8 @@
         });
 
         function animate() {
-            // Smooth "Lerp" inertia
             scrollAmount += (targetScroll - scrollAmount) * 0.05;
             track.style.transform = `translateX(-${scrollAmount}px)`;
-
-            images.forEach(img => {
-                const speed = img.getAttribute('data-speed');
-                const xMove = (scrollAmount * speed);
-                // Parallax Vertical Shift + Subtle Tilt for "Organimo" feel
-                img.style.transform = `translateY(${xMove * 0.15}px) rotate(${xMove * 0.02}deg)`;
-            });
-
             requestAnimationFrame(animate);
         }
         animate();

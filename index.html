@@ -6,142 +6,203 @@
     <title>NATIA DESIGN | Editorial</title>
     <style>
         :root { --accent: #ff0000; }
-        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Helvetica', sans-serif; }
+        
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; padding: 0; 
+            background: #000; color: #fff; 
+            font-family: 'Helvetica', sans-serif;
+            overflow-x: hidden;
+        }
 
-        /* --- THE STICKY LAYERS --- */
+        /* --- THE WOW NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 40px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference; /* Makes text visible over any color */
+        }
+        nav .logo { font-weight: 900; letter-spacing: 5px; font-size: 14px; text-transform: uppercase; }
+        nav .cta-top { font-weight: 900; color: var(--accent); text-decoration: none; font-size: 12px; letter-spacing: 2px; }
+
+        /* --- THE STACKING LABYRINTH --- */
+        .stack-container {
+            width: 100%;
+        }
+
         section {
             position: sticky;
             top: 0;
             height: 100vh;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             background: #000;
-            border-bottom: 1px solid #1a1a1a;
+            overflow: hidden;
+            border-top: 1px solid #111;
         }
 
-        /* PROJECT CONTENT */
-        .project-content {
+        .project-inner {
             width: 90%;
-            height: 80%;
+            max-width: 1400px;
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
+            align-items: center;
             position: relative;
-            z-index: 10;
         }
 
+        /* TYPOGRAPHY */
         .project-title {
-            font-size: clamp(80px, 15vw, 250px);
+            font-size: clamp(80px, 15vw, 240px);
             text-transform: uppercase;
-            line-height: 0.8;
+            line-height: 0.75;
             margin: 0;
             font-weight: 900;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 5;
+            cursor: pointer;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
         }
 
-        /* PROJECT IMAGE (REVEAL STYLE) */
-        .project-img {
+        .project-title span {
+            font-size: 14px;
+            display: block;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        section:hover .project-title {
+            transform: translateX(40px);
+            color: var(--accent);
+        }
+
+        /* FLOATING IMAGES */
+        .image-box {
             position: absolute;
             right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40vw;
-            height: 60vh;
+            width: 45%;
+            height: 65vh;
             overflow: hidden;
-            z-index: -1;
+            z-index: 2;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            transition: transform 1s ease;
         }
 
-        .project-img img {
+        .image-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.2s ease;
-            filter: saturate(1.2);
+            transition: transform 1.5s ease;
         }
 
-        /* HOVER ACTION */
-        section:hover .project-title { transform: translateX(30px); color: var(--accent); }
-        section:hover .project-img img { transform: scale(1.1); }
-
-        /* --- THE "WOW" HUD --- */
-        nav {
-            position: fixed;
-            top: 40px; left: 5%; width: 90%;
-            display: flex; justify-content: space-between;
-            z-index: 1000;
-            mix-blend-mode: difference;
-            pointer-events: none;
+        section:hover .image-box img {
+            transform: scale(1.15);
         }
-        nav * { pointer-events: auto; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; font-size: 12px; }
 
-        /* THE CONTACT SECTION (RED PUNCH) */
-        .contact-section {
+        /* --- CREATIVE FOOTER / CONTACT --- */
+        .riot-section {
             background: var(--accent);
             color: #000;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             z-index: 100;
-        }
-        .contact-section h2 { font-size: 12vw; -webkit-text-stroke: 0; color: #000; }
-        .contact-link {
-            font-size: 40px;
-            font-weight: 900;
-            text-decoration: none;
-            color: #000;
-            border-bottom: 5px solid #000;
-            margin-top: 50px;
+            text-align: center;
         }
 
+        .riot-section h2 {
+            font-size: 12vw;
+            line-height: 0.8;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .riot-btn {
+            margin-top: 50px;
+            padding: 25px 60px;
+            border: 4px solid #000;
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 24px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .riot-btn:hover {
+            background: #000;
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .project-inner { flex-direction: column; justify-content: center; text-align: center; }
+            .image-box { position: relative; width: 100%; height: 40vh; margin-top: 40px; }
+            section:hover .project-title { transform: none; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <div>NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com" style="color:white; text-decoration:none;">START A RIOT</a>
+        <div class="logo">NATIA DESIGN</div>
+        <a href="mailto:natia.kurtanidze55@gmail.com" class="cta-top">LET'S CAUSE A SCENE</a>
     </nav>
 
-    <main>
+    <div class="stack-container">
         <section onclick="location.href='kombucha.html'">
-            <div class="project-content">
-                <span style="opacity: 0.5;">01 / CASE STUDY</span>
-                <h2 class="project-title">Kombu<br>cha</h2>
-                <div class="project-img"><img src="kombucha1.jpg"></div>
+            <div class="project-inner">
+                <h2 class="project-title"><span>01 / IDENTITY</span>KOMBU<br>CHA</h2>
+                <div class="image-box"><img src="kombucha1.jpg"></div>
             </div>
         </section>
 
         <section onclick="location.href='oatmilk.html'">
-            <div class="project-content">
-                <span style="opacity: 0.5;">02 / IDENTITY</span>
-                <h2 class="project-title">Oat<br>Milk</h2>
-                <div class="project-img"><img src="oat-hero.jpg"></div>
+            <div class="project-inner">
+                <h2 class="project-title"><span>02 / PACKAGING</span>OAT<br>MILK</h2>
+                <div class="image-box"><img src="oat-hero.jpg"></div>
+            </div>
+        </section>
+
+        <section onclick="location.href='nurture.html'">
+            <div class="project-inner">
+                <h2 class="project-title"><span>03 / BRANDING</span>NUR<br>TURE</h2>
+                <div class="image-box"><img src="Nurture.jpg"></div>
             </div>
         </section>
 
         <section onclick="location.href='others.html'">
-            <div class="project-content">
-                <span style="opacity: 0.5;">03 / EDITORIAL</span>
-                <h2 class="project-title">The<br>Others</h2>
-                <div class="project-img"><img src="others-hero.jpg"></div>
+            <div class="project-inner">
+                <h2 class="project-title"><span>04 / EDITORIAL</span>THE<br>OTHERS</h2>
+                <div class="image-box"><img src="others-hero.jpg"></div>
             </div>
         </section>
 
         <section onclick="location.href='go-left.html'">
-            <div class="project-content">
-                <span style="opacity: 0.5;">04 / POSTER</span>
-                <h2 class="project-title">Go<br>Left</h2>
-                <div class="project-img"><img src="goleft-hero.jpg"></div>
+            <div class="project-inner">
+                <h2 class="project-title"><span>05 / POSTER</span>GO<br>LEFT</h2>
+                <div class="image-box"><img src="goleft-hero.jpg"></div>
             </div>
         </section>
 
-        <section class="contact-section">
-            <div class="project-content" style="align-items: center; justify-content: center; text-align: center;">
-                <h2>WORK<br>TOGETHER</h2>
-                <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-link">LET'S TALK</a>
-            </div>
+        <section onclick="location.href='cd-covers.html'">
+            <div class="project-inner">
+                <h2 class="project-title"><span>06 / MUSIC</span>CD<br>COVERS</h2>
+                <div class="image-box"><img src="cd-hero.jpg"></div> </div>
         </section>
-    </main>
+
+        <section class="riot-section">
+            <h2>BUILD THE<br>UNUSUAL</h2>
+            <a href="mailto:natia.kurtanidze55@gmail.com" class="riot-btn">START A PROJECT</a>
+        </section>
+    </div>
 
 </body>
 </html>

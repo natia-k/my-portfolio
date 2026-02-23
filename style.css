@@ -62,11 +62,21 @@ nav a {
     align-items: flex-start; 
 }
 
+/* --- UPDATED MAIN IMAGE ZOOM --- */
 .main-visual img { 
     width: 100%; 
-    max-width: 650px; 
+    max-width: 450px; /* This makes it smaller by default */
     height: auto; 
-    object-fit: contain; 
+    object-fit: contain;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth, high-end transition */
+    cursor: zoom-in;
+    display: block;
+}
+
+/* When you hover, it scales up significantly */
+.main-visual img:hover { 
+    transform: scale(1.4); /* Makes it 40% bigger on hover */
+    z-index: 10;
 }
 
 /* --- STRONK TYPOGRAPHY --- */

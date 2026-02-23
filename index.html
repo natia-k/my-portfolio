@@ -3,111 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | JOURNEY</title>
+    <title>NATIA DESIGN | LABYRINTH</title>
     <style>
         :root { --accent: #ff0000; }
         
-        * { box-sizing: border-box; cursor: crosshair; }
+        * { box-sizing: border-box; }
         body, html { 
             margin: 0; padding: 0; 
             background: #000; color: #fff; 
             font-family: 'Helvetica', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden; /* We handle scroll via JS for the 'sick' flow */
         }
 
-        /* --- LOGO & NAV --- */
+        /* --- NAVIGATION HUD --- */
         nav {
             position: fixed;
-            top: 40px; left: 5%; width: 90%;
-            display: flex; justify-content: space-between;
+            top: 0; left: 0; width: 100%;
+            padding: 40px 5%;
+            display: flex;
+            justify-content: space-between;
             z-index: 1000;
             mix-blend-mode: difference;
         }
-        .logo { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; font-size: 14px; }
-        .contact-btn { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 2px; font-size: 12px; }
+        .logo { font-weight: 900; letter-spacing: 5px; font-size: 14px; text-transform: uppercase; }
+        .contact-trigger { color: var(--accent); text-decoration: none; font-weight: 900; }
 
-        /* --- THE ORGANIMO FLOW --- */
-        .scroll-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .project-section {
-            height: 120vh; /* Extra height for more "travel" time */
-            width: 100%;
+        /* --- THE LABYRINTH TRACK --- */
+        .labyrinth-wrapper {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* PINNED TITLE (STAYS CENTERED) */
-        .title-container {
-            position: sticky;
-            top: 0;
             height: 100vh;
-            width: 100%;
-            display: flex;
+            width: fit-content;
             align-items: center;
+            will-change: transform;
+        }
+
+        .project-node {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
             justify-content: center;
-            pointer-events: none;
-            z-index: 5;
+            align-items: center;
+            position: relative;
+            flex-shrink: 0;
+            padding: 0 10vw;
         }
 
-        .project-title {
-            font-size: clamp(80px, 15vw, 250px);
+        /* TEXT DESIGN */
+        .project-node h2 {
+            font-size: clamp(100px, 18vw, 320px);
             text-transform: uppercase;
-            font-weight: 900;
-            line-height: 0.8;
-            text-align: center;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            line-height: 0.7;
+            margin: 0;
+            z-index: 10;
+            cursor: pointer;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
             color: transparent;
-            transition: all 0.6s ease;
-            pointer-events: auto;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .project-section:hover ~ .title-container .project-title,
-        .project-section:hover .project-title {
+        .project-node:hover h2 {
             color: #fff;
             -webkit-text-stroke: 1px #fff;
+            transform: skewX(-10deg);
         }
 
-        /* FLOATING PASSING IMAGES */
-        .floating-img {
+        /* COLOR IMAGES */
+        .project-node img {
             position: absolute;
-            width: 35vw;
-            max-width: 500px;
-            z-index: 2;
-            transition: transform 0.1s linear; /* Smooth parallax */
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            cursor: pointer;
+            width: 40vw;
+            max-width: 600px;
+            height: auto;
+            opacity: 0.2;
+            filter: saturate(1.5);
+            transition: all 0.8s ease;
+            z-index: 1;
         }
 
-        .img-left { left: 10%; top: 20%; }
-        .img-right { right: 10%; top: 60%; }
+        .project-node:hover img {
+            opacity: 1;
+            transform: scale(1.1) rotate(3deg);
+            filter: saturate(1) drop-shadow(0 0 50px var(--accent));
+        }
 
         /* --- THE FINALE --- */
-        .finale {
+        .riot-node {
+            width: 100vw;
             height: 100vh;
             background: var(--accent);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            position: relative;
+            flex-shrink: 0;
         }
-        .finale h2 { font-size: 12vw; color: #000; margin: 0; text-align: center; font-weight: 900; }
-        .finale a { 
-            margin-top: 40px; 
-            padding: 20px 50px; 
-            border: 4px solid #000; 
-            color: #000; 
-            text-decoration: none; 
-            font-weight: 900; 
-            font-size: 24px;
+
+        .riot-node h2 {
+            color: #000 !important;
+            -webkit-text-stroke: 0 !important;
+            font-size: 12vw;
+            text-align: center;
         }
-        .finale a:hover { background: #000; color: var(--accent); }
 
     </style>
 </head>
@@ -115,58 +110,78 @@
 
     <nav>
         <div class="logo">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-btn">BUILD THE UNUSUAL</a>
+        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-trigger">LET'S CAUSE A SCENE</a>
     </nav>
 
-    <div class="scroll-container">
+    <div class="labyrinth-wrapper" id="track">
         
-        <section class="project-section" onclick="location.href='kombucha.html'">
-            <div class="title-container">
-                <h2 class="project-title">KOMBU<br>CHA</h2>
-            </div>
-            <img src="kombucha1.jpg" class="floating-img img-left" data-speed="2">
-        </section>
+        <div class="project-node" onclick="location.href='kombucha.html'">
+            <img src="kombucha1.jpg" style="right: 15%; top: 20%;">
+            <h2>Kombu<br>cha</h2>
+        </div>
 
-        <section class="project-section" onclick="location.href='oatmilk.html'">
-            <div class="title-container">
-                <h2 class="project-title">OAT<br>MILK</h2>
-            </div>
-            <img src="oat-hero.jpg" class="floating-img img-right" data-speed="-1.5">
-        </section>
+        <div class="project-node" onclick="location.href='oatmilk.html'">
+            <img src="oat-hero.jpg" style="left: 10%; bottom: 15%;">
+            <h2>Oat<br>Milk</h2>
+        </div>
 
-        <section class="project-section" onclick="location.href='others.html'">
-            <div class="title-container">
-                <h2 class="project-title">THE<br>OTHERS</h2>
-            </div>
-            <img src="others-hero.jpg" class="floating-img img-left" data-speed="1.2">
-        </section>
+        <div class="project-node" onclick="location.href='nurture.html'">
+            <img src="Nurture.jpg" style="right: 10%; bottom: 10%;">
+            <h2>Nur<br>ture</h2>
+        </div>
 
-        <section class="project-section" onclick="location.href='go-left.html'">
-            <div class="title-container">
-                <h2 class="project-title">GO<br>LEFT</h2>
-            </div>
-            <img src="goleft-hero.jpg" class="floating-img img-right" data-speed="2.5">
-        </section>
+        <div class="project-node" onclick="location.href='others.html'">
+            <img src="others-hero.jpg" style="left: 15%; top: 15%;">
+            <h2>The<br>Others</h2>
+        </div>
 
-        <section class="finale">
+        <div class="project-node" onclick="location.href='go-left.html'">
+            <img src="goleft-hero.jpg" style="right: 20%; top: 25%;">
+            <h2>Go<br>Left</h2>
+        </div>
+
+        <div class="project-node" onclick="location.href='cd-covers.html'">
+            <img src="cd-hero.jpg" style="left: 20%; bottom: 20%;">
+            <h2>CD<br>Covers</h2>
+        </div>
+
+        <div class="project-node">
+            <h2>Project<br>Seven</h2>
+        </div>
+
+        <div class="project-node">
+            <h2>Project<br>Eight</h2>
+        </div>
+
+        <div class="riot-node">
             <h2>START A<br>RIOT</h2>
-            <a href="mailto:natia.kurtanidze55@gmail.com">LET'S TALK</a>
-        </section>
+            <p style="color:#000; font-weight:900; margin-top:20px; letter-spacing:5px;">NATIA.KURTANIDZE55@GMAIL.COM</p>
+        </div>
 
     </div>
 
     <script>
-        // SIMPLE PARALLAX FOR THE "ORGANIMO" FEEL
-        window.addEventListener('scroll', () => {
-            const images = document.querySelectorAll('.floating-img');
-            const scrolled = window.pageYOffset;
+        const track = document.getElementById('track');
+        let scrollAmount = 0;
+        let targetScroll = 0;
 
-            images.forEach(img => {
-                const speed = img.getAttribute('data-speed');
-                const yPos = -(scrolled * speed / 10);
-                img.style.transform = `translateY(${yPos}px)`;
-            });
+        window.addEventListener('wheel', (e) => {
+            targetScroll += e.deltaY;
+            
+            // Boundary checks
+            const maxScroll = track.offsetWidth - window.innerWidth;
+            if (targetScroll < 0) targetScroll = 0;
+            if (targetScroll > maxScroll) targetScroll = maxScroll;
         });
+
+        // The Smooth "Lerp" Logic
+        function animate() {
+            // This 0.05 value creates the "weight" - change to 0.1 for faster, 0.02 for heavier
+            scrollAmount += (targetScroll - scrollAmount) * 0.05;
+            track.style.transform = `translateX(-${scrollAmount}px)`;
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 
 </body>

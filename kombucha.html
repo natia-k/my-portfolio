@@ -9,26 +9,25 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
         
-        /* Navigation - Clean White */
+        /* Navigation */
         nav { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; z-index: 1000; display: flex; justify-content: space-between; mix-blend-mode: difference; align-items: center; }
         nav a { color: #FFF; text-decoration: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
         .studio-name { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; }
 
-        /* HERO - Side-by-Side Alignment */
+        /* HERO Section */
         .project-hero { 
             display: grid; 
             grid-template-columns: 1.2fr 1fr; 
             min-height: 95vh; 
             padding: 140px 40px 60px;
             gap: 60px;
-            align-items: flex-start; /* Aligns top of pic with top of text */
+            align-items: flex-start;
         }
         .main-visual img { width: 100%; height: auto; object-fit: contain; }
         
-        /* Content - Pure White & Bold */
-        .content-right { padding-top: 0; } 
+        /* Typography & Visibility */
         .content-right h1 { 
-            font-size: clamp(70px, 12vw, 150px); /* Massive Title */
+            font-size: clamp(70px, 12vw, 150px); 
             text-transform: uppercase; 
             font-weight: 900; 
             margin-bottom: 20px; 
@@ -37,7 +36,7 @@
             color: #FFFFFF;
         }
         .content-right .description { 
-            font-size: 22px; /* Large & Visible */
+            font-size: 22px; 
             line-height: 1.3; 
             font-style: italic; 
             color: #FFFFFF; 
@@ -51,19 +50,20 @@
             letter-spacing: 2px; 
             font-weight: 700;
             margin-bottom: 35px; 
-            opacity: 1; /* Pure white, no gray */
         }
 
-        /* 4 PICS GRID - The Color Selection */
+        /* 4 LIL PICS - Hover zoom added */
         .lil-pics-row { display: flex; gap: 10px; margin-top: 20px; }
         .lil-pics-row img { 
             width: 70px; 
             height: 70px; 
             object-fit: cover; 
             border: 1px solid #222; 
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth zoom */
         }
+        .lil-pics-row img:hover { transform: scale(1.15); z-index: 10; cursor: pointer; }
 
-        /* BOTTOM MOCKUPS */
+        /* BOTTOM MOCKUPS - Hover zoom added */
         .mockup-section { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -72,14 +72,17 @@
             max-width: 1500px; 
             margin: 0 auto;
         }
-        .mockup-section img { width: 100%; height: auto; object-fit: contain; }
+        .mockup-section img { 
+            width: 100%; 
+            height: auto; 
+            object-fit: contain; 
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Slower, elegant zoom */
+        }
+        .mockup-section img:hover { transform: scale(1.03); cursor: pointer; }
 
         @media (max-width: 900px) {
             .project-hero, .mockup-section { grid-template-columns: 1fr; }
-            .content-right { text-align: left; padding-top: 40px; }
             .content-right h1 { font-size: 80px; }
-            .lil-pics-row { justify-content: flex-start; }
-            .studio-name { display: none; }
         }
     </style>
 </head>
@@ -98,12 +101,8 @@
 
             <div class="content-right">
                 <h1>Kombucha</h1>
-                <p class="description">
-                    "It started as simple tea. <br>Then time, patience. <br>And a little magic happened."
-                </p>
-                <div class="meta">
-                    BOTANICAL ILLUSTRATION · LABEL DESIGN · COLOUR EXPLORATION
-                </div>
+                <p class="description">"It started as simple tea. <br>Then time, patience. <br>And a little magic happened."</p>
+                <div class="meta">BOTANICAL ILLUSTRATION · LABEL DESIGN · COLOUR EXPLORATION</div>
 
                 <div class="lil-pics-row">
                     <img src="k4-1.jpg" alt="Color 1">
@@ -115,8 +114,8 @@
         </section>
 
         <section class="mockup-section">
-            <img src="kombucha2.jpg" alt="Bottle Mockup 1">
-            <img src="kombucha3.jpg" alt="Bottle Mockup 2">
+            <img src="kombucha2.jpg" alt="Mockup 1">
+            <img src="kombucha3.jpg" alt="Mockup 2">
         </section>
     </main>
 </body>

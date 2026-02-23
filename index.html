@@ -8,13 +8,7 @@
         :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; --muted: #666; }
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background: var(--bg); color: var(--fg); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            -webkit-font-smoothing: antialiased; overflow-x: hidden;
-            min-height: 100vh;
-        }
+        body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
         /* ─── INTERACTION ─── */
         #cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.08s ease-out; display: none; }
@@ -34,23 +28,15 @@
 
         /* ─── PROJECTS ─── */
         .project-row { display: block; text-decoration: none; color: inherit; padding: 12vh 60px; width: 100%; border-bottom: 1px solid #1a1a1a; transition: background 0.3s ease; }
-        .row-left { text-align: left; }
-        .row-right { text-align: right; }
-        .row-center { text-align: center; }
-        
         .project-row h2 { font-size: clamp(40px, 10vw, 180px); text-transform: uppercase; letter-spacing: -0.05em; font-weight: 900; line-height: 0.85; transition: color 0.3s ease; }
-        .project-desc { font-size: clamp(14px, 1.2vw, 18px); color: var(--muted); max-width: 400px; margin-top: 15px; display: inline-block; transition: color 0.3s ease; line-height: 1.4; }
-        .row-right .project-desc { margin-left: auto; }
-        .row-center .project-desc { margin-left: auto; margin-right: auto; }
-
+        .project-desc { font-size: clamp(14px, 1.2vw, 18px); color: var(--muted); max-width: 450px; margin-top: 15px; display: inline-block; transition: color 0.3s ease; line-height: 1.4; }
         .project-row:hover h2, .project-row:hover .project-desc { color: var(--accent); }
 
         /* ─── ABOUT ─── */
         #about { padding: 20vh 60px; border-top: 1px solid #1a1a1a; }
         .about-title { font-size: clamp(28px, 4vw, 50px); line-height: 1.1; font-weight: 500; max-width: 900px; margin-bottom: 30px; transition: color 0.4s; }
         .about-title:hover { color: var(--accent); }
-        .about-sub { color: #888; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.6; max-width: 600px; margin-bottom: 60px; }
-        .email-link { font-size: clamp(24px, 4vw, 80px); font-weight: 900; text-decoration: none; color: var(--fg); transition: color 0.3s; letter-spacing: -0.03em; }
+        .email-link { font-size: clamp(24px, 4vw, 80px); font-weight: 900; text-decoration: none; color: var(--fg); transition: color 0.3s; }
         .email-link:hover { color: var(--accent); }
 
         /* ─── MOBILE ─── */
@@ -66,77 +52,46 @@
 <body>
     <div id="cursor"></div>
     <div id="image-preview"><img src="" alt=""></div>
-
     <nav>
         <div>NATIA STUDIO</div>
-        <div><a href="#work">Work</a><a href="#about">About</a></div>
+        <div><a href="#work">Work</a><a href="cv.html">CV</a><a href="#about">About</a></div>
     </nav>
-
     <section class="hero">
         <h1><span>Visual</span><span>Designer</span></h1>
         <p class="hero-tag">Graphic & Branding | Packaging & Visual Systems — Berlin</p>
     </section>
-
     <div id="work">
-        <a href="#" class="project-row row-left" data-img="kombucha1.jpg">
+        <a href="#" class="project-row" style="text-align: left;" data-img="kombucha1.jpg">
             <h2>Kombucha</h2>
-            <p class="project-desc">Branding + label design for craft beverages. Focus on organic textures and modern botanical aesthetics.</p>
+            <p class="project-desc">Branding + label design. Focus on organic textures and modern botanical aesthetics.</p>
             <img src="kombucha1.jpg" class="mobile-img">
         </a>
-        <a href="#" class="project-row row-right" data-img="Oat Milk.jpg">
+        <a href="#" class="project-row" style="text-align: right;" data-img="Oat Milk.jpg">
             <h2>Oat Milk</h2>
-            <p class="project-desc">Visual identity exploration for a modern oat milk brand. Minimalist typography with sensory-focused packaging.</p>
+            <p class="project-desc">Visual identity for a modern brand. Minimalist typography and sensory packaging.</p>
             <img src="Oat Milk.jpg" class="mobile-img">
         </a>
-        <a href="#" class="project-row row-center" data-img="Nurture.jpg">
-            <h2>Nurture</h2>
-            <p class="project-desc">Editorial design and visual systems for lifestyle publications. Balancing white space with bold, structured layouts.</p>
-            <img src="Nurture.jpg" class="mobile-img">
-        </a>
-        <a href="#" class="project-row row-left" data-img="others.jpg">
-            <h2>The Others</h2>
-            <p class="project-desc">Brand identity and digital presence for creative collectives. Experimental systems and high-contrast visuals.</p>
-            <img src="others.jpg" class="mobile-img">
-        </a>
-        <a href="#" class="project-row row-right" data-img="goleft.jpg">
-            <h2>Go Left</h2>
-            <p class="project-desc">Typography study and poster series. Exploring the intersection of motion and static letterforms.</p>
-            <img src="goleft.jpg" class="mobile-img">
-        </a>
-        <a href="#" class="project-row row-center" data-img="cdcovers.jpg">
-            <h2>CD Covers</h2>
-            <p class="project-desc">Music packaging and album art. Translating sound into tactile, visual experiences through 3D and photography.</p>
-            <img src="cdcovers.jpg" class="mobile-img">
-        </a>
     </div>
-
     <section id="about">
         <h3 class="about-title">I'm Natia, a visual designer based in Berlin. I build expressive, purposeful design systems that help brands stand out.</h3>
-        <p class="about-sub">From strategic packaging to experimental typography, I focus on work that is both functional and visually striking. Currently available for new projects and collaborations.</p>
-        <p style="text-transform:uppercase; font-size:11px; color:#444; letter-spacing:2px; margin-bottom:15px;">Inquiries</p>
         <a href="mailto:natia.kurtanidze55@gmail.com" class="email-link">hello@natia.design</a>
     </section>
-
     <script>
         const cursor = document.getElementById('cursor');
         const preview = document.getElementById('image-preview');
         const previewImg = preview.querySelector('img');
-
         if (window.innerWidth >= 1024) {
             window.addEventListener('mousemove', (e) => {
                 cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-                preview.style.left = e.clientX + 'px';
-                preview.style.top = e.clientY + 'px';
+                preview.style.left = e.clientX + 'px'; preview.style.top = e.clientY + 'px';
             });
             document.querySelectorAll('.project-row').forEach(row => {
                 row.addEventListener('mouseenter', () => {
                     previewImg.src = row.getAttribute('data-img');
-                    preview.style.opacity = '1';
-                    preview.style.transform = 'translate(-50%, -50%) scale(1)';
+                    preview.style.opacity = '1'; preview.style.transform = 'translate(-50%, -50%) scale(1)';
                 });
                 row.addEventListener('mouseleave', () => {
-                    preview.style.opacity = '0';
-                    preview.style.transform = 'translate(-50%, -50%) scale(0.6)';
+                    preview.style.opacity = '0'; preview.style.transform = 'translate(-50%, -50%) scale(0.6)';
                 });
             });
         }

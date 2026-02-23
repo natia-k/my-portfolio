@@ -3,206 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | Editorial</title>
+    <title>NATIA DESIGN | 2026</title>
     <style>
         :root { --accent: #ff0000; }
         
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; cursor: crosshair; }
         body, html { 
             margin: 0; padding: 0; 
             background: #000; color: #fff; 
             font-family: 'Helvetica', sans-serif;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* --- THE WOW NAVIGATION --- */
+        /* --- THE HUD --- */
         nav {
             position: fixed;
             top: 0; left: 0; width: 100%;
             padding: 40px 5%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             z-index: 1000;
-            mix-blend-mode: difference; /* Makes text visible over any color */
+            mix-blend-mode: difference;
         }
-        nav .logo { font-weight: 900; letter-spacing: 5px; font-size: 14px; text-transform: uppercase; }
-        nav .cta-top { font-weight: 900; color: var(--accent); text-decoration: none; font-size: 12px; letter-spacing: 2px; }
+        .logo { font-weight: 900; letter-spacing: 5px; font-size: 14px; text-transform: uppercase; }
+        .riot-link { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; }
 
-        /* --- THE STACKING LABYRINTH --- */
-        .stack-container {
-            width: 100%;
-        }
-
-        section {
+        /* --- THE STACKING LOGIC --- */
+        .project-section {
             position: sticky;
             top: 0;
             height: 100vh;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #000;
             overflow: hidden;
-            border-top: 1px solid #111;
         }
 
-        .project-inner {
+        /* Darkening overlay so the previous project fades away as you scroll */
+        .project-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .container {
             width: 90%;
             max-width: 1400px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: relative;
+            z-index: 10;
         }
 
-        /* TYPOGRAPHY */
-        .project-title {
-            font-size: clamp(80px, 15vw, 240px);
+        /* TYPOGRAPHY WITH MASSIVE OUTLINE */
+        .title-wrapper {
+            flex: 1;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .title-wrapper span {
+            font-size: 12px;
+            letter-spacing: 8px;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(80px, 14vw, 220px);
             text-transform: uppercase;
             line-height: 0.75;
             margin: 0;
             font-weight: 900;
-            z-index: 5;
-            cursor: pointer;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            color: transparent;
+            transition: all 0.5s ease;
         }
 
-        .project-title span {
-            font-size: 14px;
-            display: block;
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            color: var(--accent);
+        .project-section:hover h2 {
+            -webkit-text-stroke: 1px #fff;
+            color: #fff;
+            transform: skewX(-5deg);
         }
 
-        section:hover .project-title {
-            transform: translateX(40px);
-            color: var(--accent);
-        }
-
-        /* FLOATING IMAGES */
-        .image-box {
+        /* THE FLOATING IMAGE */
+        .image-reveal {
             position: absolute;
             right: 0;
             width: 45%;
-            height: 65vh;
+            height: 60vh;
+            transform: rotate(2deg);
             overflow: hidden;
-            z-index: 2;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            transition: transform 1s ease;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .image-box img {
+        .image-reveal img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.5s ease;
+            transition: transform 2s ease;
         }
 
-        section:hover .image-box img {
-            transform: scale(1.15);
+        .project-section:hover .image-reveal {
+            transform: rotate(0deg) scale(1.05);
         }
 
-        /* --- CREATIVE FOOTER / CONTACT --- */
-        .riot-section {
+        /* --- THE "BUILD THE UNUSUAL" FINALE --- */
+        .riot-finale {
+            height: 100vh;
             background: var(--accent);
             color: #000;
-            height: 100vh;
+            position: sticky;
+            top: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 100;
+        }
+
+        .riot-finale h2 {
+            color: #000;
+            -webkit-text-stroke: 0;
+            font-size: 12vw;
             text-align: center;
         }
 
-        .riot-section h2 {
-            font-size: 12vw;
-            line-height: 0.8;
-            margin: 0;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        .riot-btn {
-            margin-top: 50px;
-            padding: 25px 60px;
-            border: 4px solid #000;
-            color: #000;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 24px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .riot-btn:hover {
+        .cta-button {
+            margin-top: 40px;
+            padding: 30px 80px;
             background: #000;
             color: var(--accent);
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 20px;
+            text-transform: uppercase;
+            transition: transform 0.3s;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .project-inner { flex-direction: column; justify-content: center; text-align: center; }
-            .image-box { position: relative; width: 100%; height: 40vh; margin-top: 40px; }
-            section:hover .project-title { transform: none; }
+        .cta-button:hover {
+            transform: scale(1.1);
         }
+
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="cta-top">LET'S CAUSE A SCENE</a>
+        <a href="mailto:natia.kurtanidze55@gmail.com" class="riot-link">BUILD THE UNUSUAL</a>
     </nav>
 
-    <div class="stack-container">
-        <section onclick="location.href='kombucha.html'">
-            <div class="project-inner">
-                <h2 class="project-title"><span>01 / IDENTITY</span>KOMBU<br>CHA</h2>
-                <div class="image-box"><img src="kombucha1.jpg"></div>
+    <main>
+        <section class="project-section" onclick="location.href='kombucha.html'">
+            <div class="container">
+                <div class="title-wrapper">
+                    <span>01 / IDENTITY</span>
+                    <h2>KOMBU<br>CHA</h2>
+                </div>
+                <div class="image-reveal"><img src="kombucha1.jpg"></div>
             </div>
         </section>
 
-        <section onclick="location.href='oatmilk.html'">
-            <div class="project-inner">
-                <h2 class="project-title"><span>02 / PACKAGING</span>OAT<br>MILK</h2>
-                <div class="image-box"><img src="oat-hero.jpg"></div>
+        <section class="project-section" onclick="location.href='oatmilk.html'">
+            <div class="container">
+                <div class="title-wrapper">
+                    <span>02 / PACKAGING</span>
+                    <h2>OAT<br>MILK</h2>
+                </div>
+                <div class="image-reveal"><img src="oat-hero.jpg"></div>
             </div>
         </section>
 
-        <section onclick="location.href='nurture.html'">
-            <div class="project-inner">
-                <h2 class="project-title"><span>03 / BRANDING</span>NUR<br>TURE</h2>
-                <div class="image-box"><img src="Nurture.jpg"></div>
+        <section class="project-section" onclick="location.href='nurture.html'">
+            <div class="container">
+                <div class="title-wrapper">
+                    <span>03 / BRANDING</span>
+                    <h2>NUR<br>TURE</h2>
+                </div>
+                <div class="image-reveal"><img src="Nurture.jpg"></div>
             </div>
         </section>
 
-        <section onclick="location.href='others.html'">
-            <div class="project-inner">
-                <h2 class="project-title"><span>04 / EDITORIAL</span>THE<br>OTHERS</h2>
-                <div class="image-box"><img src="others-hero.jpg"></div>
+        <section class="project-section" onclick="location.href='others.html'">
+            <div class="container">
+                <div class="title-wrapper">
+                    <span>04 / EDITORIAL</span>
+                    <h2>THE<br>OTHERS</h2>
+                </div>
+                <div class="image-reveal"><img src="others-hero.jpg"></div>
             </div>
         </section>
 
-        <section onclick="location.href='go-left.html'">
-            <div class="project-inner">
-                <h2 class="project-title"><span>05 / POSTER</span>GO<br>LEFT</h2>
-                <div class="image-box"><img src="goleft-hero.jpg"></div>
+        <section class="project-section" onclick="location.href='go-left.html'">
+            <div class="container">
+                <div class="title-wrapper">
+                    <span>05 / POSTER</span>
+                    <h2>GO<br>LEFT</h2>
+                </div>
+                <div class="image-reveal"><img src="goleft-hero.jpg"></div>
             </div>
         </section>
 
-        <section onclick="location.href='cd-covers.html'">
-            <div class="project-inner">
-                <h2 class="project-title"><span>06 / MUSIC</span>CD<br>COVERS</h2>
-                <div class="image-box"><img src="cd-hero.jpg"></div> </div>
+        <section class="project-section" onclick="location.href='cd-covers.html'">
+            <div class="container">
+                <div class="title-wrapper">
+                    <span>06 / MUSIC</span>
+                    <h2>CD<br>COVERS</h2>
+                </div>
+                <div class="image-reveal"><img src="cd-hero.jpg"></div>
+            </div>
         </section>
 
-        <section class="riot-section">
-            <h2>BUILD THE<br>UNUSUAL</h2>
-            <a href="mailto:natia.kurtanidze55@gmail.com" class="riot-btn">START A PROJECT</a>
+        <section class="riot-finale">
+            <h2>START A<br>RIOT</h2>
+            <a href="mailto:natia.kurtanidze55@gmail.com" class="cta-button">LET'S TALK</a>
         </section>
-    </div>
+    </main>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | 2026</title>
+    <title>NATIA DESIGN | LABYRINTH</title>
     <style>
         :root { --accent: #ff0000; }
         
@@ -12,103 +12,90 @@
             margin: 0; padding: 0; 
             background: #000; color: #fff; 
             font-family: 'Helvetica', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden; 
         }
 
-        /* --- LOGO & NAV --- */
+        /* --- THE HUD --- */
         nav {
             position: fixed;
             top: 40px; left: 5%; width: 90%;
             display: flex; justify-content: space-between;
-            z-index: 1000;
-            mix-blend-mode: difference;
+            z-index: 1000; mix-blend-mode: difference;
         }
-        .logo { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; font-size: 14px; text-decoration: none; color: #fff; }
+        .logo { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 14px; }
         .logo:hover { color: var(--accent); }
-        .contact-trigger { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
 
-        /* --- THE STACKING LABYRINTH --- */
-        section {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100%;
+        /* --- THE TRACK --- */
+        .labyrinth-wrapper {
             display: flex;
+            height: 100vh;
+            width: fit-content;
             align-items: center;
-            justify-content: center;
-            background: #000;
-            overflow: hidden;
-            border-top: 1px solid #111;
+            will-change: transform;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1400px;
+        .project-node {
+            width: 100vw;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             position: relative;
+            flex-shrink: 0;
         }
 
-        /* BIG TEXT THAT FEELS ARCHITECTURAL */
-        h2 {
-            font-size: clamp(80px, 14vw, 220px);
+        /* TYPOGRAPHY */
+        .project-node h2 {
+            font-size: clamp(100px, 18vw, 300px);
             text-transform: uppercase;
-            line-height: 0.8;
+            line-height: 0.75;
             margin: 0;
-            font-weight: 900;
+            z-index: 10;
             -webkit-text-stroke: 1px rgba(255,255,255,0.2);
             color: transparent;
-            transition: all 0.6s ease;
-            z-index: 5;
+            transition: all 0.5s ease;
         }
 
-        section:hover h2 {
+        .project-node:hover h2 {
             -webkit-text-stroke: 1px #fff;
             color: #fff;
         }
 
-        /* IMAGES THAT FLOAT WITH DEPTH */
-        .img-reveal {
+        /* THE PARALLAX IMAGES (THE DEPTH FIX) */
+        .img-container {
             position: absolute;
-            right: 0;
-            width: 45%;
-            height: 65vh;
+            width: 35vw;
+            max-width: 500px;
+            z-index: 5;
             overflow: hidden;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
-            transform: rotate(2deg) translateY(50px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 10;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            transition: transform 0.1s ease-out; /* Smooth follow */
         }
 
-        .img-reveal img {
+        .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scale(1.2);
-            transition: transform 1.2s ease;
+            transform: scale(1.1);
+            transition: transform 0.8s ease;
         }
 
-        section:hover .img-reveal {
-            transform: rotate(0deg) translateY(0);
-        }
+        .project-node:hover img { transform: scale(1); }
 
-        section:hover .img-reveal img {
-            transform: scale(1);
-        }
-
-        /* THE "START A RIOT" FINALE */
-        .finale {
+        /* --- THE FINALE --- */
+        .riot-node {
+            width: 100vw;
+            height: 100vh;
             background: var(--accent);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
             z-index: 100;
         }
-        .finale h2 { color: #000; -webkit-text-stroke: 0; font-size: 12vw; text-align: center; width: 100%; }
-        .finale a { 
-            position: absolute; bottom: 10%; 
-            color: #000; font-weight: 900; 
-            text-decoration: none; border-bottom: 4px solid #000;
-            font-size: 20px;
-        }
+        .riot-node h2 { color: #000; font-size: 12vw; font-weight: 900; line-height: 0.8; margin: 0; text-align: center; }
+        .riot-node a { color: #000; font-weight: 900; margin-top: 40px; text-decoration: none; border-bottom: 3px solid #000; }
 
     </style>
 </head>
@@ -116,69 +103,67 @@
 
     <nav>
         <a href="index.html" class="logo">NATIA DESIGN</a>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-trigger">START A RIOT</a>
+        <a href="mailto:natia.kurtanidze55@gmail.com" style="color:var(--accent); text-decoration:none; font-weight:900;">START A RIOT</a>
     </nav>
 
-    <section onclick="location.href='kombucha.html'">
-        <div class="container">
+    <div class="labyrinth-wrapper" id="track">
+        
+        <div class="project-node" onclick="location.href='kombucha.html'">
+            <div class="img-container" style="right: 15%; top: 20%;" data-speed="0.15">
+                <img src="kombucha1.jpg">
+            </div>
             <h2>KOMBU<br>CHA</h2>
-            <div class="img-reveal"><img src="kombucha1.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='oatmilk.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='oatmilk.html'">
+            <div class="img-container" style="left: 10%; bottom: 15%;" data-speed="-0.1">
+                <img src="oat-hero.jpg">
+            </div>
             <h2>OAT<br>MILK</h2>
-            <div class="img-reveal" style="right: auto; left: 0; transform: rotate(-2deg);"><img src="oat-hero.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='others.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='others.html'">
+            <div class="img-container" style="right: 10%; bottom: 10%;" data-speed="0.2">
+                <img src="others-hero.jpg">
+            </div>
             <h2>THE<br>OTHERS</h2>
-            <div class="img-reveal"><img src="others-hero.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='nurture.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='nurture.html'">
+            <div class="img-container" style="left: 15%; top: 10%;" data-speed="-0.15">
+                <img src="Nurture.jpg">
+            </div>
             <h2>NUR<br>TURE</h2>
-            <div class="img-reveal" style="right: auto; left: 0;"><img src="Nurture.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='go-left.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='go-left.html'">
+            <div class="img-container" style="right: 20%; top: 25%;" data-speed="0.1">
+                <img src="goleft-hero.jpg">
+            </div>
             <h2>GO<br>LEFT</h2>
-            <div class="img-reveal"><img src="goleft-hero.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='cd-covers.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='cd-covers.html'">
+            <div class="img-container" style="left: 20%; bottom: 20%;" data-speed="-0.2">
+                <img src="cd-hero.jpg">
+            </div>
             <h2>CD<br>COVERS</h2>
-            <div class="img-reveal" style="right: auto; left: 0;"><img src="cd-hero.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='circle.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='circle.html'">
+            <div class="img-container" style="right: 15%; bottom: 15%;" data-speed="0.1">
+                <img src="circle-hero.jpg">
+            </div>
             <h2>CIR<br>CLE</h2>
-            <div class="img-reveal"><img src="circle-hero.jpg"></div>
         </div>
-    </section>
 
-    <section onclick="location.href='dreamer.html'">
-        <div class="container">
+        <div class="project-node" onclick="location.href='dreamer.html'">
+            <div class="img-container" style="left: 10%; top: 15%;" data-speed="-0.1">
+                <img src="dreamer-hero.jpg">
+            </div>
             <h2>DREA<br>MER</h2>
-            <div class="img-reveal" style="right: auto; left: 0;"><img src="dreamer-hero.jpg"></div>
         </div>
-    </section>
 
-    <section class="finale">
-        <h2>BUILD THE<br>UNUSUAL</h2>
-        <a href="mailto:natia.kurtanidze55@gmail.com">NATIA.KURTANIDZE55@GMAIL.COM</a>
-    </section>
-
-</body>
-</html>
+        <div class="riot-node">
+            <h2>BUILD THE<br>UNUSUAL</h2>
+            <a href="mailto:natia.kurtanidze55@gmail.com">NATIA.KURTANID

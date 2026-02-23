@@ -9,73 +9,79 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
         
-        /* MINI NAV - Smaller and no white background */
         nav { position: fixed; top: 30px; left: 30px; z-index: 1000; mix-blend-mode: difference; }
-        nav a { color: #FFF; text-decoration: none; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; transition: opacity 0.3s; }
-        nav a:hover { opacity: 1; }
+        nav a { color: #FFF; text-decoration: none; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; }
 
-        /* PREVENT STRETCHING */
-        .project-hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; padding: 0 40px; }
-        .category { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; margin-bottom: 10px; }
-        h1 { font-size: clamp(40px, 10vw, 120px); text-transform: uppercase; font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; }
-        
-        /* COMPACT STORY SECTION */
-        .story-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 60px 40px; border-top: 1px solid #1a1a1a; }
-        .quote { font-size: clamp(18px, 2.5vw, 28px); line-height: 1.3; font-style: italic; color: #CCC; border-left: 1px solid var(--accent); padding-left: 20px; }
-        .details { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #555; line-height: 1.8; }
-        .details span { color: #AAA; display: block; margin-top: 2px; }
-
-        /* GALLERY - FIXED ASPECT RATIOS */
-        .gallery { padding: 0 10px 80px; max-width: 1400px; margin: 0 auto; }
-        .gallery img { 
-            width: 100%; 
-            height: auto; 
-            max-height: 85vh; /* Prevents image from being taller than the screen */
-            object-fit: contain; /* THE FIX FOR STRETCHING */
-            margin-bottom: 10px; 
-            display: block; 
+        /* SPLIT SECTION: Illustration + Text */
+        .intro-grid { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1fr; 
+            min-height: 80vh; 
+            align-items: center; 
+            padding: 100px 40px 60px;
+            gap: 60px;
         }
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .intro-img img { 
+            width: 100%; 
+            max-height: 70vh; 
+            object-fit: contain; 
+        }
+        .intro-text h1 { font-size: clamp(40px, 8vw, 90px); text-transform: uppercase; margin-bottom: 20px; font-weight: 900; }
+        .intro-text .quote { font-size: 20px; line-height: 1.4; font-style: italic; color: #CCC; margin-bottom: 20px; }
+        .intro-text .scope { font-size: 11px; text-transform: uppercase; color: #666; letter-spacing: 1.5px; }
 
-        /* PHONE OPTIMIZATION */
-        @media (max-width: 768px) {
-            .story-section { grid-template-columns: 1fr; padding: 40px 20px; }
-            .project-hero { height: 50vh; padding: 0 20px; }
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery img { max-height: 60vh; }
+        /* TINY ICONS SECTION (Color Selection) */
+        .color-study { padding: 20px 40px; text-align: center; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+        .color-study p { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #444; margin-bottom: 15px; }
+        .mini-icons { display: flex; justify-content: center; gap: 15px; }
+        .mini-icons img { width: 60px; height: 60px; object-fit: cover; border-radius: 2px; filter: grayscale(0.5); transition: 0.3s; }
+        .mini-icons img:hover { filter: grayscale(0); transform: scale(1.1); }
+
+        /* BOTTLE MOCKUPS UNDERNEATH */
+        .bottle-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            padding: 60px 40px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        .bottle-grid img { width: 100%; height: auto; object-fit: contain; }
+
+        @media (max-width: 850px) {
+            .intro-grid { grid-template-columns: 1fr; padding-top: 80px; }
+            .bottle-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <nav><a href="index.html">← index</a></nav>
+    <nav><a href="index.html">← back</a></nav>
 
     <main>
-        <section class="project-hero">
-            <p class="category">01 — Case Study</p>
-            <h1>Kombucha</h1>
-        </section>
-
-        <section class="story-section">
-            <div class="quote">
-                "It started as simple tea. <br>Then time, patience. <br>And a little magic happened."
+        <section class="intro-grid">
+            <div class="intro-img">
+                <img src="kombucha4.jpg" alt="Botanical Design">
             </div>
-            <div class="details">
-                Scope:
-                <span>Botanical illustration · Label design</span>
-                <br>Tools:
-                <span>Adobe Suite · Blender</span>
+            <div class="intro-text">
+                <h1>Kombucha</h1>
+                <p class="quote">"It started as simple tea. <br>Then time, patience. <br>And a little magic happened."</p>
+                <p class="scope">Botanical illustration · Label design · Colour exploration</p>
             </div>
         </section>
 
-        <section class="gallery">
-            <img src="kombucha2.jpg" alt="Mockup">
-            
-            <div class="gallery-grid">
-                <img src="kombucha1.jpg" alt="Detail">
-                <img src="kombucha3.jpg" alt="Detail">
+        <section class="color-study">
+            <p>Color Selection & Patterns</p>
+            <div class="mini-icons">
+                <img src="kombucha4.jpg" alt="Swatch 1">
+                <img src="kombucha1.jpg" alt="Swatch 2">
+                <img src="kombucha3.jpg" alt="Swatch 3">
+                <img src="kombucha2.jpg" alt="Swatch 4">
             </div>
+        </section>
 
-            <img src="kombucha4.jpg" alt="Graphic">
+        <section class="bottle-grid">
+            <img src="kombucha2.jpg" alt="Bottle Mockup 1">
+            <img src="kombucha3.jpg" alt="Bottle Mockup 2">
         </section>
     </main>
 </body>

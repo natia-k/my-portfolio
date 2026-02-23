@@ -12,19 +12,27 @@
             margin: 0; padding: 0; 
             background: #000; color: #fff; 
             font-family: 'Helvetica Neue', Helvetica, sans-serif;
-            overflow-x: hidden;
+            /* We need vertical scroll to drive the movement */
+            overflow-x: hidden; 
         }
 
-        /* The container that "turns corners" */
-        .labyrinth-container {
+        /* THE CAMERA BOX */
+        .viewport {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100vh;
+            overflow: hidden;
+        }
+
+        /* THE ACTUAL MAP */
+        #laby {
+            position: absolute;
+            top: 0; left: 0;
             will-change: transform;
         }
 
-        /* Proxy to create enough scroll room for all "turns" */
-        .scroll-proxy { height: 1500vh; } 
+        /* SPACE FOR SCROLLING (10 screens worth of height) */
+        .height-proxy { height: 1000vh; }
 
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
@@ -33,7 +41,6 @@
         }
         .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 13px; }
 
-        /* THE NODES - Positioned in a "Step" pattern */
         .node {
             position: absolute;
             width: 100vw; height: 100vh;
@@ -41,36 +48,29 @@
             justify-content: center; align-items: center;
         }
 
-        .node h2 { font-size: clamp(40px, 9vw, 120px); font-weight: 900; margin: 0; text-transform: uppercase; line-height: 0.8; z-index: 5; }
+        .node h2 { font-size: clamp(40px, 9vw, 120px); font-weight: 900; margin: 0; text-transform: uppercase; line-height: 0.8; z-index: 5; text-align: center;}
         .node span { color: var(--accent); font-size: 11px; letter-spacing: 5px; margin-bottom: 15px; font-weight: 900; }
 
         .img-box {
             position: absolute; width: 35vw; max-width: 500px;
             opacity: 0.4; filter: grayscale(1); transition: 0.8s ease;
+            z-index: 1;
         }
         .node:hover .img-box { opacity: 1; filter: grayscale(0); transform: scale(1.05); }
+        .img-box img { width: 100%; height: auto; }
 
-        /* MANUALLY POSITIONING THE "PATH" */
-        /* Node 0: Start */
-        #n0 { left: 0; top: 0; }
-        /* Node 1: Move Right */
-        #n1 { left: 100vw; top: 0; }
-        /* Node 2: Move Right */
-        #n2 { left: 200vw; top: 0; }
-        /* Node 3: DROPS DOWN */
-        #n3 { left: 200vw; top: 100vh; }
-        /* Node 4: DROPS DOWN */
-        #n4 { left: 200vw; top: 200vh; }
-        /* Node 5: Moves Right again */
-        #n5 { left: 300vw; top: 200vh; }
-        /* Node 6: Moves Right */
-        #n6 { left: 400vw; top: 200vh; }
-        /* Node 7: DROPS DOWN */
-        #n7 { left: 400vw; top: 300vh; }
-        /* Node 8: Finale */
-        #n8 { left: 400vw; top: 400vh; }
+        /* --- THE LABYRINTH MAP (X and Y coordinates) --- */
+        #n0 { left: 0; top: 0; }                   /* Intro */
+        #n1 { left: 100vw; top: 0; }               /* Kombucha */
+        #n2 { left: 200vw; top: 0; }               /* Oat Milk */
+        #n3 { left: 200vw; top: 100vh; }             /* Others (DROPS DOWN) */
+        #n4 { left: 200vw; top: 200vh; }             /* Nurture (STILL DOWN) */
+        #n5 { left: 300vw; top: 200vh; }             /* Go Left (MOVES RIGHT) */
+        #n6 { left: 400vw; top: 200vh; }             /* CD Covers (STILL RIGHT) */
+        #n7 { left: 400vw; top: 300vh; }             /* Circle (DROPS DOWN) */
+        #n8 { left: 400vw; top: 400vh; }             /* Dreamer (STILL DOWN) */
 
-        .riot-node { background: var(--accent); color: #000; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .riot-node { background: var(--accent); color: #000; width: 100vw; height: 100vh; position: absolute; left: 500vw; top: 400vh; display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 768px) {
             .node h2 { font-size: 55px; }
@@ -82,60 +82,62 @@
 
     <nav><a href="index.html" class="logo">NATIA</a></nav>
 
-    <div class="labyrinth-container" id="laby">
-        
-        <div class="node" id="n0">
-            <span>START</span>
-            <h2>CREATIVE<br>DIRECTOR</h2>
-        </div>
+    <div class="viewport">
+        <div id="laby">
+            
+            <div class="node" id="n0">
+                <span>EST. 2026</span>
+                <h2>CREATIVE<br>DIRECTOR</h2>
+            </div>
 
-        <div class="node" id="n1" onclick="location.href='kombucha.html'">
-            <div class="img-box"><img src="kombucha1.jpg"></div>
-            <span>01</span><h2>LIQUID<br>REBELLION</h2>
-        </div>
+            <div class="node" id="n1" onclick="location.href='kombucha.html'">
+                <div class="img-box"><img src="kombucha1.jpg"></div>
+                <span>01</span><h2>LIQUID<br>REBELLION</h2>
+            </div>
 
-        <div class="node" id="n2" onclick="location.href='oatmilk.html'">
-            <div class="img-box"><img src="oat-hero.jpg"></div>
-            <span>02</span><h2>THE OAT<br>STANDARD</h2>
-        </div>
+            <div class="node" id="n2" onclick="location.href='oatmilk.html'">
+                <div class="img-box"><img src="oat-hero.jpg"></div>
+                <span>02</span><h2>THE OAT<br>IDENTITY</h2>
+            </div>
 
-        <div class="node" id="n3" onclick="location.href='others.html'">
-            <div class="img-box"><img src="others-hero.jpg"></div>
-            <span>03</span><h2>RAW<br>SAMPLES</h2>
-        </div>
+            <div class="node" id="n3" onclick="location.href='others.html'">
+                <div class="img-box"><img src="others-hero.jpg"></div>
+                <span>03</span><h2>RAW<br>SAMPLES</h2>
+            </div>
 
-        <div class="node" id="n4" onclick="location.href='nurture.html'">
-            <div class="img-box"><img src="Nurture.jpg"></div>
-            <span>04</span><h2>GENTLE<br>FORCE</h2>
-        </div>
+            <div class="node" id="n4" onclick="location.href='nurture.html'">
+                <div class="img-box"><img src="Nurture.jpg"></div>
+                <span>04</span><h2>GENTLE<br>FORCE</h2>
+            </div>
 
-        <div class="node" id="n5" onclick="location.href='go-left.html'">
-            <div class="img-box"><img src="goleft-hero.jpg"></div>
-            <span>05</span><h2>WRONG<br>TURN</h2>
-        </div>
+            <div class="node" id="n5" onclick="location.href='go-left.html'">
+                <div class="img-box"><img src="goleft-hero.jpg"></div>
+                <span>05</span><h2>WRONG<br>TURN</h2>
+            </div>
 
-        <div class="node" id="n6" onclick="location.href='cd-covers.html'">
-            <div class="img-box"><img src="cd-hero.jpg"></div>
-            <span>06</span><h2>SOUND &<br>VISION</h2>
-        </div>
+            <div class="node" id="n6" onclick="location.href='cd-covers.html'">
+                <div class="img-box"><img src="cd-hero.jpg"></div>
+                <span>06</span><h2>SOUND &<br>VISION</h2>
+            </div>
 
-        <div class="node" id="n7" onclick="location.href='circle.html'">
-            <div class="img-box"><img src="circle-hero.jpg"></div>
-            <span>07</span><h2>INFINITE<br>LOOPS</h2>
-        </div>
+            <div class="node" id="n7" onclick="location.href='circle.html'">
+                <div class="img-box"><img src="circle-hero.jpg"></div>
+                <span>07</span><h2>INFINITE<br>LOOPS</h2>
+            </div>
 
-        <div class="node" id="n8" onclick="location.href='dreamer.html'">
-            <div class="img-box"><img src="dreamer-hero.jpg"></div>
-            <span>08</span><h2>LUCID<br>DREAMS</h2>
-        </div>
+            <div class="node" id="n8" onclick="location.href='dreamer.html'">
+                <div class="img-box"><img src="dreamer-hero.jpg"></div>
+                <span>08</span><h2>LUCID<br>DREAMS</h2>
+            </div>
 
-        <div class="node riot-node" style="left: 500vw; top: 400vh;">
-            <h2 style="font-size: 10vw;">START A RIOT</h2>
-        </div>
+            <div class="riot-node">
+                <h2 style="font-size: 10vw;">START A RIOT</h2>
+            </div>
 
+        </div>
     </div>
 
-    <div class="scroll-proxy"></div>
+    <div class="height-proxy"></div>
 
     <script>
         const laby = document.getElementById('laby');
@@ -146,29 +148,42 @@
             target = window.scrollY;
         });
 
-        function stepPath() {
-            curr += (target - curr) * 0.08;
+        function render() {
+            curr += (target - curr) * 0.08; // Smoothness factor
             
-            // This is the logic that decides when to move X or Y
-            // It maps the vertical scroll to the "Step" layout in the CSS
-            let x, y;
-            
-            if (curr < 2000) { // Moving from N0 to N2 (Horizontal)
-                x = curr; y = 0;
-            } else if (curr >= 2000 && curr < 4000) { // Dropping to N4 (Vertical)
-                x = 2000; y = curr - 2000;
-            } else if (curr >= 4000 && curr < 6000) { // Moving to N6 (Horizontal)
-                x = 2000 + (curr - 4000); y = 2000;
-            } else { // Final Drop
-                x = 4000; y = 2000 + (curr - 6000);
+            // MATH FOR THE PATH
+            // We want to move 100vw for every 100vh scrolled, until we turn.
+            let x = 0;
+            let y = 0;
+
+            if (curr < window.innerHeight * 2) {
+                // MOVE RIGHT (N0 -> N1 -> N2)
+                x = curr;
+                y = 0;
+            } else if (curr < window.innerHeight * 4) {
+                // MOVE DOWN (N2 -> N3 -> N4)
+                x = window.innerHeight * 2;
+                y = curr - (window.innerHeight * 2);
+            } else if (curr < window.innerHeight * 6) {
+                // MOVE RIGHT (N4 -> N5 -> N6)
+                x = (window.innerHeight * 2) + (curr - (window.innerHeight * 4));
+                y = window.innerHeight * 2;
+            } else {
+                // MOVE DOWN (N6 -> N7 -> N8)
+                x = window.innerHeight * 4;
+                y = (window.innerHeight * 2) + (curr - (window.innerHeight * 6));
             }
 
-            // We use a small fraction of the scroll to make it "Expensive"
-            laby.style.transform = `translateX(-${x * 0.5}px) translateY(-${y * 0.5}px)`;
+            // Using "vh" and "vw" units in JS to match CSS
+            // We convert the scroll pixels to Viewport units
+            const moveX = (x / window.innerHeight) * 100;
+            const moveY = (y / window.innerHeight) * 100;
+
+            laby.style.transform = `translate3d(-${moveX}vw, -${moveY}vh, 0)`;
             
-            requestAnimationFrame(stepPath);
+            requestAnimationFrame(render);
         }
-        stepPath();
+        render();
     </script>
 </body>
 </html>

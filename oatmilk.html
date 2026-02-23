@@ -9,33 +9,34 @@
         .project-hero { 
             display: flex;
             flex-direction: row;
-            justify-content: center; /* Centers the whole block */
+            justify-content: center;
             align-items: center;
             min-height: 100vh; 
             padding: 0 80px; 
-            gap: 100px; /* Space between image and text */
+            gap: 60px;
+            cursor: default;
         }
 
-        /* --- STABLE IMAGE SIDE --- */
+        /* --- IMAGE SIDE: Clear & Visible --- */
         .main-visual {
             flex: 1;
             display: flex;
-            justify-content: flex-end; /* Pushes image toward the center gap */
+            justify-content: flex-end;
         }
 
         .main-visual img { 
             width: 100%;
-            max-width: 400px; /* Solid size */
+            max-width: 320px; /* Smaller default so you see the whole print */
             height: auto;
             transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
-            filter: drop-shadow(0 15px 40px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
         }
 
-        /* --- STABLE TEXT SIDE --- */
+        /* --- TEXT SIDE: Reactive --- */
         .content-right {
             flex: 1;
-            text-align: left; /* Standard left align for readability */
-            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+            text-align: left;
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .content-right h1 { 
@@ -43,16 +44,21 @@
             line-height: 0.8;
             margin-bottom: 20px;
             letter-spacing: -0.05em;
+            transition: all 0.8s ease; /* Smooth color and size change */
         }
 
-        /* --- THE CLEAN HOVER --- */
-        /* Only scales UP, no sliding to the side */
+        /* --- THE INTERACTION --- */
+        /* When hovering the hero area... */
         .project-hero:hover .main-visual img {
-            transform: scale(1.2); 
+            transform: scale(1.25); /* Zooms in to show detail */
         }
 
         .project-hero:hover .content-right {
-            transform: scale(1.05);
+            transform: scale(1.1); /* Text zooms out toward the user */
+        }
+
+        .project-hero:hover h1 {
+            color: var(--accent); /* Text turns your signature Red */
         }
 
         @media (max-width: 1000px) {

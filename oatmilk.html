@@ -12,8 +12,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh; 
-            padding: 0 80px; 
-            gap: 60px;
+            padding: 0 10%; /* Percentage padding scales better on different screens */
+            gap: 80px;
         }
 
         /* --- IMAGE SIDE --- */
@@ -21,58 +21,69 @@
             flex: 1;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
         }
 
         .main-visual img { 
             width: 100%;
-            max-width: 320px; 
+            max-width: 340px; 
             height: auto;
-            /* Added 'will-change' for smoother performance */
+            /* Ultra-smooth transition for that "luxury" feel */
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
             will-change: transform;
-            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
         }
 
-        /* ONLY zoom when the mouse is EXACTLY on the image */
+        /* Precise Image Hover */
         .main-visual img:hover {
-            transform: scale(1.3);
-            z-index: 10;
+            transform: scale(1.15); /* Slightly more subtle zoom for elegance */
         }
 
         /* --- TEXT SIDE --- */
         .content-right {
             flex: 1;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        /* We wrap the text in a span or div to control the hit area */
+        /* The trigger box only surrounds the text itself */
         .text-trigger {
             display: inline-block;
-            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            cursor: default;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
 
         .text-trigger h1 { 
-            font-size: clamp(80px, 12vw, 150px); 
-            line-height: 0.8;
-            margin-bottom: 20px;
-            letter-spacing: -0.05em;
-            transition: color 0.6s ease;
+            font-size: clamp(80px, 11vw, 140px); 
+            line-height: 0.85;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+            transition: color 0.8s ease;
+            color: #FFFFFF;
         }
 
-        /* ONLY react when the mouse is EXACTLY on the text */
+        /* Precise Text Hover */
         .text-trigger:hover {
-            transform: scale(1.1);
+            transform: translateX(15px) scale(1.05); /* Moves slightly right and grows */
         }
 
         .text-trigger:hover h1 {
-            color: var(--accent);
+            color: var(--accent); /* Only turns red when touching the text */
+        }
+
+        .description {
+            max-width: 380px;
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.9;
         }
 
         @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 120px 40px; gap: 40px; }
+            .project-hero { flex-direction: column; padding: 120px 40px; gap: 60px; text-align: center; }
             .main-visual { justify-content: center; }
-            .content-right { text-align: center; }
+            .text-trigger:hover { transform: scale(1.05); } /* No side-move on mobile */
         }
     </style>
 </head>
@@ -93,7 +104,9 @@
                 <div class="text-trigger">
                     <h1>Oat<br>Milk</h1>
                     <p class="description">"Creamy, sustainable, and purely plant-based. <br>A modern take on a classic staple."</p>
-                    <div class="meta">PACKAGING DESIGN · 2026</div>
+                    <div class="meta" style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; display: inline-block; font-size: 12px; letter-spacing: 2px;">
+                        PACKAGING DESIGN · 2026
+                    </div>
                 </div>
             </div>
         </section>

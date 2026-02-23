@@ -1,23 +1,44 @@
-/* style.css - Changing this file updates EVERY page */
+/* style.css - MASTER BRANDING */
+:root { --bg: #000000; --fg: #FFFFFF; --accent: #E8220A; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* THE BRAND HEADER */
+body { 
+    background: var(--bg); 
+    color: var(--fg); 
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+/* THE BRAND HEADER (Courier Font) */
 nav { 
     position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; 
     z-index: 1000; display: flex; justify-content: space-between; 
     mix-blend-mode: difference; align-items: center; 
 }
-
 .studio-name { 
     font-family: 'Courier New', Courier, monospace; 
-    font-size: 13px; 
-    letter-spacing: 6px; 
-    text-transform: uppercase; 
-    font-weight: 400; 
-    color: #FFFFFF; 
+    font-size: 13px; letter-spacing: 6px; 
+    text-transform: uppercase; font-weight: 400; color: #FFFFFF; 
 }
+nav a { text-decoration: none; color: #FFF; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
 
-nav a { 
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    text-decoration: none; color: #FFF; font-size: 10px; 
-    letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; 
+/* THE "STRONK" PROJECT LAYOUT */
+.project-hero { 
+    display: grid; grid-template-columns: 1.1fr 1fr; 
+    min-height: 95vh; padding: 140px 40px 40px; gap: 40px; 
+    align-items: flex-start; 
 }
+.main-visual img { width: 100%; max-width: 600px; height: auto; object-fit: contain; }
+
+.content-right h1 { 
+    font-size: clamp(80px, 14vw, 160px); text-transform: uppercase; 
+    font-weight: 900; margin-bottom: 15px; line-height: 0.75; 
+    letter-spacing: -0.06em; color: #FFFFFF; 
+}
+.content-right .description { font-size: 24px; line-height: 1.25; font-style: italic; margin-bottom: 30px; max-width: 400px; }
+.content-right .meta { font-size: 13px; text-transform: uppercase; letter-spacing: 3px; font-weight: 800; border-top: 1px solid #333; padding-top: 20px; display: inline-block; }
+
+/* GALLERY & FOOTER */
+.mockup-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 40px; max-width: 1500px; margin: 0 auto; }
+.mockup-section img { width: 100%; height: auto; transition: transform 0.6s ease; }
+.next-btn-container { text-align: center; padding: 120px 0 150px; }

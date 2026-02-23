@@ -3,166 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | 2026</title>
+    <title>NATIA | PORTFOLIO 2026</title>
     <style>
-        :root { --accent: #ff0000; }
+        :root { --accent: #ff0000; --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
         
         * { box-sizing: border-box; cursor: crosshair; }
         body, html { 
-            margin: 0; padding: 0; 
-            background: #000; color: #fff; 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow: hidden; 
+            margin: 0; padding: 0; background: #000; color: #fff; 
+            font-family: var(--font-main); overflow: hidden; 
         }
 
-        /* --- HUD (Pure White/Red) --- */
+        /* --- THE HUD (CLEAN & MINIMAL) --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 40px 5%; display: flex; justify-content: space-between;
+            padding: 50px 6%; display: flex; justify-content: space-between;
             z-index: 1000; mix-blend-mode: difference;
         }
-        .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 14px; }
-        .logo:hover { color: var(--accent); }
-        .contact-btn { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 3px; font-size: 12px; }
+        .logo { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 14px; }
+        .contact { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 3px; font-size: 11px; }
 
-        /* --- THE LIQUID TRACK --- */
-        .main-container {
+        /* --- THE VIEWPORT --- */
+        #viewport {
             display: flex; height: 100vh; width: fit-content;
             align-items: center; will-change: transform;
         }
 
-        .section {
+        .scene {
             width: 100vw; height: 100vh; display: flex;
             justify-content: center; align-items: center;
             position: relative; flex-shrink: 0;
-            padding: 0 5vw;
+            perspective: 1000px; /* Essential for depth */
         }
 
-        /* MASSIVE TYPEFACE */
-        .section h2 {
-            font-size: 20vw; font-weight: 900; text-transform: uppercase;
-            line-height: 0.8; margin: 0; letter-spacing: -5px;
-            color: #fff; z-index: 2; pointer-events: none;
-            transition: opacity 0.5s ease;
+        /* TYPOGRAPHY: MASSIVE & ANCHORED */
+        .scene h2 {
+            font-size: 22vw; font-weight: 900; text-transform: uppercase;
+            line-height: 0.8; margin: 0; letter-spacing: -10px;
+            color: rgba(255,255,255,0.05); /* Ghostly background text */
+            pointer-events: none; position: absolute;
+            transition: color 0.4s ease;
         }
+        .scene:hover h2 { color: rgba(255,255,255,0.2); }
 
-        /* THE IMAGE: ANCHORED & SCALEABLE */
-        .img-container {
-            position: absolute;
-            width: 35vw; max-width: 600px;
-            z-index: 1; overflow: hidden;
-            pointer-events: auto;
-            /* No "side-sliding" - it starts centered in its section */
-            transform-origin: center;
+        /* IMAGE: THE CENTERPIECE */
+        .frame {
+            position: relative; width: 35vw; max-width: 600px;
+            z-index: 10; transform-style: preserve-3d;
         }
-
-        .img-container img {
+        .frame img {
             width: 100%; height: auto; display: block;
-            filter: grayscale(1);
-            transition: filter 0.8s ease, transform 0.5s ease;
+            filter: grayscale(1); 
+            transition: filter 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 100px 150px rgba(0,0,0,0.7);
         }
+        .scene:hover img { filter: grayscale(0); transform: scale(1.05) translateZ(50px); }
 
-        .section:hover img { filter: grayscale(0); transform: scale(1.05); }
-        .section:hover h2 { opacity: 0.1; } /* Text fades so image is hero */
+        /* PROJECT LABEL */
+        .label {
+            position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
+            font-size: 12px; letter-spacing: 5px; text-transform: uppercase;
+            font-weight: 900; color: var(--accent); opacity: 0; transition: 0.4s;
+        }
+        .scene:hover .label { opacity: 1; bottom: 12%; }
 
-        /* --- THE RIOT --- */
-        .riot-node {
+        /* THE RIOT (END) */
+        .riot {
             width: 100vw; height: 100vh; background: var(--accent);
             display: flex; flex-direction: column; justify-content: center;
-            align-items: center; flex-shrink: 0; z-index: 100;
+            align-items: center; flex-shrink: 0;
         }
-        .riot-node h2 { color: #000 !important; font-size: 15vw !important; letter-spacing: -5px; }
-        .riot-node a { color: #000; font-weight: 900; margin-top: 50px; text-decoration: none; border-bottom: 6px solid #000; font-size: 24px; }
+        .riot h2 { color: #000; font-size: 12vw; letter-spacing: -5px; position: relative; }
+        .riot a { color: #000; font-weight: 900; margin-top: 30px; text-decoration: none; border-bottom: 5px solid #000; font-size: 24px; }
 
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="logo">NATIA DESIGN</a>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-btn">START A RIOT</a>
+        <a href="index.html" class="logo">NATIA</a>
+        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact">START A RIOT</a>
     </nav>
 
-    <div class="main-container" id="track">
+    <div id="viewport">
         
-        <div class="section" onclick="location.href='kombucha.html'">
-            <div class="img-container"><img src="kombucha1.jpg"></div>
+        <div class="scene" onclick="location.href='kombucha.html'">
             <h2>KOMBU</h2>
+            <div class="frame"><img src="kombucha1.jpg"></div>
+            <div class="label">01 / BRANDING</div>
         </div>
 
-        <div class="section" onclick="location.href='oatmilk.html'">
-            <div class="img-container"><img src="oat-hero.jpg"></div>
+        <div class="scene" onclick="location.href='oatmilk.html'">
             <h2>OAT</h2>
+            <div class="frame"><img src="oat-hero.jpg"></div>
+            <div class="label">02 / PACKAGING</div>
         </div>
 
-        <div class="section" onclick="location.href='others.html'">
-            <div class="img-container"><img src="others-hero.jpg"></div>
+        <div class="scene" onclick="location.href='others.html'">
             <h2>OTHERS</h2>
+            <div class="frame"><img src="others-hero.jpg"></div>
+            <div class="label">03 / EDITORIAL</div>
         </div>
 
-        <div class="section" onclick="location.href='nurture.html'">
-            <div class="img-container"><img src="Nurture.jpg"></div>
+        <div class="scene" onclick="location.href='nurture.html'">
             <h2>NURTURE</h2>
+            <div class="frame"><img src="Nurture.jpg"></div>
+            <div class="label">04 / CONCEPT</div>
         </div>
 
-        <div class="section" onclick="location.href='go-left.html'">
-            <div class="img-container"><img src="goleft-hero.jpg"></div>
+        <div class="scene" onclick="location.href='go-left.html'">
             <h2>LEFT</h2>
+            <div class="frame"><img src="goleft-hero.jpg"></div>
+            <div class="label">05 / DIRECTION</div>
         </div>
 
-        <div class="section" onclick="location.href='cd-covers.html'">
-            <div class="img-container"><img src="cd-hero.jpg"></div>
-            <h2>CD</h2>
+        <div class="scene" onclick="location.href='cd-covers.html'">
+            <h2>COVERS</h2>
+            <div class="frame"><img src="cd-hero.jpg"></div>
+            <div class="label">06 / MUSIC</div>
         </div>
 
-        <div class="section" onclick="location.href='circle.html'">
-            <div class="img-container"><img src="circle-hero.jpg"></div>
+        <div class="scene" onclick="location.href='circle.html'">
             <h2>CIRCLE</h2>
+            <div class="frame"><img src="circle-hero.jpg"></div>
+            <div class="label">07 / GEOMETRY</div>
         </div>
 
-        <div class="section" onclick="location.href='dreamer.html'">
-            <div class="img-container"><img src="dreamer-hero.jpg"></div>
+        <div class="scene" onclick="location.href='dreamer.html'">
             <h2>DREAM</h2>
+            <div class="frame"><img src="dreamer-hero.jpg"></div>
+            <div class="label">08 / VISION</div>
         </div>
 
-        <div class="riot-node">
+        <div class="riot">
             <h2>START A RIOT</h2>
-            <a href="mailto:natia.kurtanidze55@gmail.com">NATIA.KURTANIDZE55@GMAIL.COM</a>
+            <a href="mailto:natia.kurtanidze55@gmail.com">CONTACT ME</a>
         </div>
 
     </div>
 
     <script>
-        const track = document.getElementById('track');
-        const containers = document.querySelectorAll('.img-container');
-        let current = 0;
-        let target = 0;
-        let ease = 0.05;
+        const view = document.getElementById('viewport');
+        const images = document.querySelectorAll('.frame img');
+        let curr = 0; let target = 0;
 
         window.addEventListener('wheel', (e) => {
-            target += e.deltaY * 1.5;
-            const max = track.offsetWidth - window.innerWidth;
+            target += e.deltaY * 1.8; // High friction
+            const max = view.offsetWidth - window.innerWidth;
             target = Math.max(0, Math.min(target, max));
         });
 
-        function update() {
-            // THE SECRET: Velocity-based Skew
-            let diff = target - current;
-            let velocity = diff * 0.15;
-            current += diff * ease;
+        function play() {
+            let diff = target - curr;
+            let acc = diff * 0.06; // The "Liquid" factor
+            curr += acc;
 
-            // Apply horizontal scroll + liquid skew effect
-            track.style.transform = `translateX(-${current}px) skewX(${velocity * 0.02}deg)`;
+            // Velocity-based SKEW (The J-or-Y secret)
+            // As you scroll faster, the whole thing tilts
+            let skew = diff * 0.03;
+            view.style.transform = `translateX(-${curr}px) skewX(${skew}deg)`;
 
-            // Individual image scaling based on movement
-            containers.forEach(container => {
-                let zoom = 1 + Math.abs(velocity * 0.001);
-                container.style.transform = `scale(${Math.min(zoom, 1.2)})`;
+            // Image stretching based on movement
+            images.forEach(img => {
+                let scale = 1 + Math.abs(skew * 0.005);
+                img.style.transform = `scale(${scale})`;
             });
 
-            requestAnimationFrame(update);
+            requestAnimationFrame(play);
         }
-        update();
+        play();
     </script>
 </body>
 </html>

@@ -48,7 +48,7 @@
             padding: 0 10vw;
         }
 
-        /* TEXT DESIGN - STICKY FEEL */
+        /* TYPOGRAPHY */
         .project-node h2 {
             font-size: clamp(100px, 18vw, 320px);
             text-transform: uppercase;
@@ -75,14 +75,13 @@
             height: auto;
             opacity: 0.4;
             filter: saturate(1.2);
-            transition: opacity 0.5s ease, filter 0.5s ease;
+            transition: opacity 0.5s ease;
             z-index: 1;
             box-shadow: 0 40px 100px rgba(0,0,0,0.5);
         }
 
         .project-node:hover img {
             opacity: 1;
-            filter: saturate(1);
         }
 
         /* --- THE FINALE --- */
@@ -104,7 +103,6 @@
             text-align: center;
             font-weight: 900;
             line-height: 0.8;
-            margin: 0;
         }
 
         .riot-node p {
@@ -113,7 +111,6 @@
             margin-top: 40px;
             letter-spacing: 5px;
             border-bottom: 3px solid #000;
-            padding-bottom: 5px;
         }
 
     </style>
@@ -171,7 +168,6 @@
             <h2>BUILD THE<br>UNUSUAL</h2>
             <p>NATIA.KURTANIDZE55@GMAIL.COM</p>
         </div>
-
     </div>
 
     <script>
@@ -182,19 +178,24 @@
 
         window.addEventListener('wheel', (e) => {
             targetScroll += e.deltaY;
-            
             const maxScroll = track.offsetWidth - window.innerWidth;
             if (targetScroll < 0) targetScroll = 0;
             if (targetScroll > maxScroll) targetScroll = maxScroll;
         });
 
         function animate() {
-            // Smooth horizontal scroll
             scrollAmount += (targetScroll - scrollAmount) * 0.05;
             track.style.transform = `translateX(-${scrollAmount}px)`;
 
-            // Organimo-style Image Parallax
             parallaxImgs.forEach(img => {
                 const depth = img.getAttribute('data-depth');
                 const move = scrollAmount * depth;
-                // Move images
+                img.style.transform = `translateY(${move * 0.15}px)`;
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>

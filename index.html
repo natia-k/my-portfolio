@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | LABYRINTH</title>
+    <title>NATIA DESIGN | 2026</title>
     <style>
         :root { --accent: #ff0000; }
         
@@ -13,6 +13,17 @@
             background: #000; color: #fff; 
             font-family: 'Helvetica', sans-serif;
             overflow: hidden; 
+        }
+
+        /* --- THE GRAIN (THE SECRET SAUCE) --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Noise.png');
+            opacity: 0.04; /* Very subtle texture */
+            pointer-events: none;
+            z-index: 2000;
         }
 
         /* --- NAVIGATION --- */
@@ -25,48 +36,11 @@
             z-index: 1000;
             mix-blend-mode: difference;
         }
-        
-        /* Logo: No more gray, turns red on hover */
-        .logo { 
-            font-weight: 900; 
-            letter-spacing: 5px; 
-            font-size: 14px; 
-            text-transform: uppercase; 
-            text-decoration: none;
-            color: #fff;
-            transition: color 0.3s ease;
-        }
+        .logo { font-weight: 900; letter-spacing: 5px; font-size: 14px; text-transform: uppercase; text-decoration: none; color: #fff; transition: 0.3s; }
         .logo:hover { color: var(--accent); }
+        .contact-trigger { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 2px; font-size: 12px; }
 
-        .contact-trigger { 
-            color: var(--accent); 
-            text-decoration: none; 
-            font-weight: 900; 
-            letter-spacing: 2px; 
-            font-size: 12px;
-        }
-
-        /* --- SCROLL HINT --- */
-        #scroll-hint {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            font-size: 10px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-weight: 900;
-            opacity: 0.6;
-            animation: breathe 2s infinite ease-in-out;
-            pointer-events: none;
-        }
-        @keyframes breathe {
-            0%, 100% { opacity: 0.2; transform: translate(-50%, 0); }
-            50% { opacity: 1; transform: translate(-50%, -10px); }
-        }
-
-        /* --- THE LABYRINTH TRACK --- */
+        /* --- THE TRACK --- */
         .labyrinth-wrapper {
             display: flex;
             height: 100vh;
@@ -86,33 +60,44 @@
             padding: 0 10vw;
         }
 
+        /* TITLES WITH DEPTH */
         .project-node h2 {
             font-size: clamp(100px, 18vw, 320px);
             text-transform: uppercase;
-            line-height: 0.7;
+            line-height: 0.75;
             margin: 0;
             z-index: 10;
             cursor: pointer;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.4);
             color: transparent;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .project-node:hover h2 {
             color: #fff;
             -webkit-text-stroke: 1px #fff;
+            transform: scale(1.05) rotate(-1deg);
         }
 
+        /* IMAGE HOVER WOW FACTOR */
         .project-node img {
             position: absolute;
-            width: 35vw;
-            max-width: 550px;
+            width: 32vw;
+            max-width: 500px;
             opacity: 0.3;
-            filter: saturate(1.2);
-            transition: opacity 0.5s ease;
+            filter: grayscale(1) brightness(0.5);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
             z-index: 1;
+            box-shadow: 0 0 0 rgba(255,0,0,0);
         }
-        .project-node:hover img { opacity: 1; }
+
+        .project-node:hover img {
+            opacity: 1;
+            filter: grayscale(0) brightness(1);
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+            z-index: 15; /* Image jumps in front of text slightly on hover */
+        }
 
         /* --- THE FINALE --- */
         .riot-node {
@@ -126,25 +111,9 @@
             flex-shrink: 0;
             z-index: 100;
         }
-
-        .riot-node h2 {
-            color: #000 !important;
-            font-size: 12vw;
-            text-align: center;
-            font-weight: 900;
-            line-height: 0.8;
-            margin: 0;
-        }
-
-        .riot-node a {
-            color: #000;
-            font-weight: 900;
-            margin-top: 40px;
-            letter-spacing: 5px;
-            text-decoration: none;
-            border-bottom: 3px solid #000;
-            font-size: 18px;
-        }
+        .riot-node h2 { font-size: 12vw; color: #000; font-weight: 900; line-height: 0.8; margin: 0; }
+        .riot-node a { color: #000; font-weight: 900; margin-top: 40px; text-decoration: none; font-size: 1.5vw; border-bottom: 4px solid #000; transition: 0.3s; }
+        .riot-node a:hover { background: #000; color: var(--accent); }
 
     </style>
 </head>
@@ -155,47 +124,45 @@
         <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-trigger">START A RIOT</a>
     </nav>
 
-    <div id="scroll-hint">Scroll to Explore</div>
-
     <div class="labyrinth-wrapper" id="track">
         
         <div class="project-node" onclick="location.href='kombucha.html'">
-            <img src="kombucha1.jpg" style="right: 15%; top: 15%;" class="parallax" data-depth="0.2">
+            <img src="kombucha1.jpg" style="right: 15%; top: 15%;" class="parallax" data-depth="0.3">
             <h2>Kombu<br>cha</h2>
         </div>
 
         <div class="project-node" onclick="location.href='oatmilk.html'">
-            <img src="oat-hero.jpg" style="left: 10%; bottom: 10%;" class="parallax" data-depth="-0.1">
+            <img src="oat-hero.jpg" style="left: 10%; bottom: 10%;" class="parallax" data-depth="-0.2">
             <h2>Oat<br>Milk</h2>
         </div>
 
         <div class="project-node" onclick="location.href='others.html'">
-            <img src="others-hero.jpg" style="right: 10%; bottom: 20%;" class="parallax" data-depth="0.3">
+            <img src="others-hero.jpg" style="right: 12%; bottom: 15%;" class="parallax" data-depth="0.4">
             <h2>The<br>Others</h2>
         </div>
 
         <div class="project-node" onclick="location.href='nurture.html'">
-            <img src="Nurture.jpg" style="left: 15%; top: 10%;" class="parallax" data-depth="-0.2">
+            <img src="Nurture.jpg" style="left: 15%; top: 12%;" class="parallax" data-depth="-0.3">
             <h2>Nur<br>ture</h2>
         </div>
 
         <div class="project-node" onclick="location.href='go-left.html'">
-            <img src="goleft-hero.jpg" style="right: 15%; bottom: 15%;" class="parallax" data-depth="0.15">
+            <img src="goleft-hero.jpg" style="right: 18%; bottom: 10%;" class="parallax" data-depth="0.25">
             <h2>Go<br>Left</h2>
         </div>
 
         <div class="project-node" onclick="location.href='cd-covers.html'">
-            <img src="cd-hero.jpg" style="left: 20%; top: 20%;" class="parallax" data-depth="-0.25">
+            <img src="cd-hero.jpg" style="left: 20%; top: 20%;" class="parallax" data-depth="-0.4">
             <h2>CD<br>Covers</h2>
         </div>
 
         <div class="project-node" onclick="location.href='circle.html'">
-            <img src="circle-hero.jpg" style="right: 10%; top: 10%;" class="parallax" data-depth="0.1">
+            <img src="circle-hero.jpg" style="right: 10%; top: 10%;" class="parallax" data-depth="0.2">
             <h2>Cir<br>cle</h2>
         </div>
 
         <div class="project-node" onclick="location.href='dreamer.html'">
-            <img src="dreamer-hero.jpg" style="left: 10%; bottom: 15%;" class="parallax" data-depth="-0.2">
+            <img src="dreamer-hero.jpg" style="left: 12%; bottom: 12%;" class="parallax" data-depth="-0.3">
             <h2>Drea<br>mer</h2>
         </div>
 
@@ -208,30 +175,26 @@
 
     <script>
         const track = document.getElementById('track');
-        const hint = document.getElementById('scroll-hint');
         const parallaxImgs = document.querySelectorAll('.parallax');
         let scrollAmount = 0;
         let targetScroll = 0;
 
         window.addEventListener('wheel', (e) => {
-            targetScroll += e.deltaY;
-            
-            // Hide hint on first scroll
-            if(targetScroll > 50) hint.style.opacity = "0";
-
+            targetScroll += e.deltaY * 1.2; // Slightly faster scroll for better energy
             const maxScroll = track.offsetWidth - window.innerWidth;
             if (targetScroll < 0) targetScroll = 0;
             if (targetScroll > maxScroll) targetScroll = maxScroll;
         });
 
         function animate() {
-            scrollAmount += (targetScroll - scrollAmount) * 0.05;
+            scrollAmount += (targetScroll - scrollAmount) * 0.04; // Heavier lerp
             track.style.transform = `translateX(-${scrollAmount}px)`;
 
             parallaxImgs.forEach(img => {
                 const depth = img.getAttribute('data-depth');
                 const move = scrollAmount * depth;
-                img.style.transform = `translateY(${move * 0.15}px)`;
+                // Vertical movement PLUS a slight tilt as you scroll
+                img.style.transform = `translateY(${move * 0.2}px) rotate(${move * 0.01}deg)`;
             });
 
             requestAnimationFrame(animate);

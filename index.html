@@ -3,89 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | VISUAL ARTIST 2026</title>
+    <title>NATIA | VISUAL ARTIST</title>
     <style>
-        :root { --accent: #ff0000; --bg: #000; }
+        :root { --accent: #ff0000; }
         
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
         body, html { 
             margin: 0; padding: 0; 
-            background: var(--bg); color: #fff; 
+            background: #000; color: #fff; 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow: hidden; /* JS will handle the smooth liquid scroll */
+            overflow-y: hidden; overflow-x: auto;
+            scroll-snap-type: x mandatory; /* The magic for phone/desktop */
+            scrollbar-width: none;
         }
+        body::-webkit-scrollbar { display: none; }
 
-        /* --- THE HUD --- */
+        /* --- NAV (NO GRAY) --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 40px 6%; display: flex; justify-content: space-between;
             z-index: 1000; mix-blend-mode: difference;
         }
-        .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 14px; }
+        .logo { font-weight: 900; letter-spacing: 10px; text-decoration: none; color: #fff; font-size: 14px; text-transform: uppercase; }
         .contact { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 2px; font-size: 11px; }
 
-        /* --- PROGRESS TRACKER (The "Where am I") --- */
+        /* --- HUD ELEMENTS --- */
         .tracker {
             position: fixed; bottom: 50px; left: 6%;
             z-index: 1000; display: flex; align-items: center;
             font-size: 12px; font-weight: 900; mix-blend-mode: difference;
         }
-        .line { width: 60px; height: 2px; background: rgba(255,255,255,0.2); margin: 0 15px; position: relative; }
-        #progress-bar { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); width: 0%; transition: width 0.1s ease-out; }
+        .line { width: 60px; height: 2px; background: rgba(255,255,255,0.2); margin: 0 15px; }
 
-        /* --- THE LIQUID TRACK --- */
-        #viewport {
-            display: flex; height: 100vh; width: fit-content;
-            align-items: center; will-change: transform;
-        }
+        /* --- THE TRACK --- */
+        .main-container { display: flex; width: fit-content; }
 
         .section {
-            width: 100vw; height: 100vh; display: flex;
-            justify-content: center; align-items: center;
-            position: relative; flex-shrink: 0;
+            width: 100vw; height: 100vh; flex-shrink: 0;
+            display: flex; justify-content: center; align-items: center;
+            position: relative; scroll-snap-align: start;
             padding: 0 10%;
         }
 
-        /* 00: THE IDENTITY INTRO */
-        .intro-content { max-width: 800px; }
-        .intro-content h1 { font-size: clamp(60px, 12vw, 180px); line-height: 0.85; margin: 0; font-weight: 900; text-transform: uppercase; letter-spacing: -5px; }
-        .intro-content p { font-size: 14px; letter-spacing: 3px; max-width: 450px; margin-top: 40px; opacity: 0.5; line-height: 1.8; text-transform: uppercase; }
+        /* INTRO STYLE */
+        .intro-text h1 { font-size: clamp(60px, 12vw, 180px); line-height: 0.85; margin: 0; font-weight: 900; letter-spacing: -5px; }
+        .intro-text p { font-size: 14px; letter-spacing: 3px; max-width: 400px; margin-top: 40px; color: #fff; opacity: 0.8; line-height: 1.8; text-transform: uppercase; }
 
-        /* PROJECT TYPOGRAPHY */
+        /* PROJECT TITLES (HUGE & WHITE) */
         .section h2 {
-            font-size: 22vw; font-weight: 900; text-transform: uppercase;
-            line-height: 0.7; margin: 0; letter-spacing: -10px;
-            color: rgba(255,255,255,0.05); pointer-events: none;
-            transition: color 0.5s ease; position: absolute; z-index: 1;
+            font-size: 20vw; font-weight: 900; text-transform: uppercase;
+            line-height: 0.8; margin: 0; letter-spacing: -8px;
+            color: rgba(255,255,255,0.1); position: absolute; z-index: 1;
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .section:hover h2 { color: rgba(255,255,255,0.15); }
+        .section:hover h2 { color: #fff; transform: scale(1.05); }
 
-        /* IMAGE: CENTERED & SCALEABLE */
-        .img-container {
-            position: relative; width: 35vw; max-width: 600px;
-            z-index: 5; filter: grayscale(1);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-            box-shadow: 0 80px 150px rgba(0,0,0,0.8);
+        /* IMAGE: LOCKED TO CENTER */
+        .img-wrap {
+            position: relative; width: 38vw; max-width: 600px;
+            z-index: 5; box-shadow: 0 80px 150px rgba(0,0,0,0.9);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .img-container img { width: 100%; height: auto; display: block; }
-        .section:hover .img-container { filter: grayscale(0); transform: scale(1.03); }
+        .img-wrap img { width: 100%; height: auto; display: block; }
+        .section:hover .img-wrap { transform: scale(1.02) translateY(-20px); }
 
-        /* MOBILE OVERRIDES */
+        /* MOBILE FIX */
         @media (max-width: 768px) {
-            body { overflow-x: auto; overflow-y: hidden; } /* Native touch scroll for mobile */
-            .section h2 { font-size: 30vw; }
-            .img-container { width: 75vw; filter: grayscale(0); opacity: 0.9; }
-            .intro-content h1 { font-size: 80px; }
-            .tracker { bottom: 30px; }
+            .section h2 { font-size: 25vw; color: rgba(255,255,255,0.3); }
+            .img-wrap { width: 80vw; }
+            .intro-text h1 { font-size: 70px; }
+            nav { padding: 30px 6%; }
         }
 
-        /* THE RIOT FINALE */
-        .riot {
-            width: 100vw; height: 100vh; background: var(--accent);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; flex-shrink: 0;
-        }
-        .riot h2 { color: #000; font-size: 15vw; letter-spacing: -8px; -webkit-text-stroke: 0; opacity: 1; position: relative; }
-        .riot a { color: #000; font-weight: 900; margin-top: 40px; text-decoration: none; border-bottom: 6px solid #000; font-size: 24px; text-transform: uppercase; }
+        /* THE RIOT */
+        .riot { width: 100vw; height: 100vh; background: var(--accent); flex-shrink: 0; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .riot h2 { color: #000 !important; font-size: 14vw !important; opacity: 1 !important; position: relative !important; letter-spacing: -5px; }
+        .riot a { color: #000; font-weight: 900; margin-top: 30px; text-decoration: none; border-bottom: 5px solid #000; font-size: 24px; text-transform: uppercase; }
 
     </style>
 </head>
@@ -97,111 +91,74 @@
     </nav>
 
     <div class="tracker">
-        <span id="idx">00</span>
-        <div class="line"><div id="progress-bar"></div></div>
+        <span id="num">00</span>
+        <div class="line"></div>
         <span>08</span>
     </div>
 
-    <div id="viewport">
+    <div class="main-container">
         
         <section class="section">
-            <div class="intro-content">
+            <div class="intro-text">
                 <h1>NATIA<br><span style="color:var(--accent)">DESIGN</span></h1>
-                <p>Visual Artist & Brand Architect. Creating digital experiences through organic chaos and intentional design. Scroll to explore the work.</p>
+                <p>Visual Artist & Brand Architect. Creating digital experiences through organic chaos. Scroll to explore the labyrinth.</p>
             </div>
         </section>
 
         <div class="section" onclick="location.href='kombucha.html'">
-            <div class="img-container"><img src="kombucha1.jpg"></div>
+            <div class="img-wrap"><img src="kombucha1.jpg"></div>
             <h2>KOMBU</h2>
         </div>
 
         <div class="section" onclick="location.href='oatmilk.html'">
-            <div class="img-container"><img src="oat-hero.jpg"></div>
+            <div class="img-wrap"><img src="oat-hero.jpg"></div>
             <h2>OAT</h2>
         </div>
 
         <div class="section" onclick="location.href='others.html'">
-            <div class="img-container"><img src="others-hero.jpg"></div>
+            <div class="img-wrap"><img src="others-hero.jpg"></div>
             <h2>OTHERS</h2>
         </div>
 
         <div class="section" onclick="location.href='nurture.html'">
-            <div class="img-container"><img src="Nurture.jpg"></div>
+            <div class="img-wrap"><img src="Nurture.jpg"></div>
             <h2>NURTURE</h2>
         </div>
 
         <div class="section" onclick="location.href='go-left.html'">
-            <div class="img-container"><img src="goleft-hero.jpg"></div>
+            <div class="img-wrap"><img src="goleft-hero.jpg"></div>
             <h2>LEFT</h2>
         </div>
 
         <div class="section" onclick="location.href='cd-covers.html'">
-            <div class="img-container"><img src="cd-hero.jpg"></div>
+            <div class="img-wrap"><img src="cd-hero.jpg"></div>
             <h2>COVERS</h2>
         </div>
 
         <div class="section" onclick="location.href='circle.html'">
-            <div class="img-container"><img src="circle-hero.jpg"></div>
+            <div class="img-wrap"><img src="circle-hero.jpg"></div>
             <h2>CIRCLE</h2>
         </div>
 
         <div class="section" onclick="location.href='dreamer.html'">
-            <div class="img-container"><img src="dreamer-hero.jpg"></div>
+            <div class="img-wrap"><img src="dreamer-hero.jpg"></div>
             <h2>DREAM</h2>
         </div>
 
         <div class="riot">
             <h2>START A RIOT</h2>
-            <a href="mailto:natia.kurtanidze55@gmail.com">Work With Me</a>
+            <a href="mailto:natia.kurtanidze55@gmail.com">Collaborate</a>
         </div>
 
     </div>
 
     <script>
-        const view = document.getElementById('viewport');
-        const bar = document.getElementById('progress-bar');
-        const idx = document.getElementById('idx');
-        let curr = 0; let target = 0;
-
-        // Custom Inertia Scroll for Desktop
-        window.addEventListener('wheel', (e) => {
-            target += e.deltaY * 1.5;
-            const max = view.offsetWidth - window.innerWidth;
-            target = Math.max(0, Math.min(target, max));
+        const numDisplay = document.getElementById('num');
+        window.addEventListener('scroll', () => {
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const index = Math.round(scrollLeft / window.innerWidth);
+            numDisplay.innerText = index.toString().padStart(2, '0');
         });
-
-        function smoothScroll() {
-            // THE J-OR-Y LIQUID PHYSICS
-            let diff = target - curr;
-            let skew = diff * 0.04; // The lean/skew effect
-            curr += diff * 0.05; // The inertia glide
-
-            view.style.transform = `translateX(-${curr}px) skewX(${skew}deg)`;
-
-            // Update Progress Bar & Index
-            const max = view.offsetWidth - window.innerWidth;
-            const progress = (curr / max) * 100;
-            bar.style.width = `${progress}%`;
-            
-            const currentIdx = Math.round(curr / window.innerWidth);
-            idx.innerText = currentIdx.toString().padStart(2, '0');
-
-            requestAnimationFrame(smoothScroll);
-        }
-
-        // Only use JS scroll on Desktop to keep mobile touch native/smooth
-        if (window.innerWidth > 768) {
-            smoothScroll();
-        } else {
-            // Mobile Progress logic
-            window.addEventListener('scroll', () => {
-                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-                const max = document.documentElement.scrollWidth - window.innerWidth;
-                bar.style.width = `${(scrollLeft / max) * 100}%`;
-                idx.innerText = Math.round(scrollLeft / window.innerWidth).toString().padStart(2, '0');
-            }, { passive: true });
-        }
     </script>
 </body>
 </html>

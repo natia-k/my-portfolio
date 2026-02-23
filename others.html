@@ -1,153 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Others | NATIA DESIGN</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Force layout to be centered and clean */
-        .project-hero { 
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; 
-            padding: 0 8%; 
-            gap: 60px;
+<style>
+        /* --- NEW MOCKUP GRID STYLE --- */
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two images side-by-side */
+            gap: 20px;
+            padding: 50px 5%;
             background: #000;
         }
 
-        /* IMAGE SIDE: MASSIVE */
-        .main-visual {
-            flex: 1.2; 
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .main-visual img { 
+        .mockup-grid img {
             width: 100%;
-            max-width: 600px; /* Big enough to show the detail */
-            height: auto;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
-            will-change: transform;
-            cursor: zoom-in;
+            height: 600px; /* Fixed height for a clean "gallery" look */
+            object-fit: cover; /* Crops images perfectly to fit the box */
+            transition: opacity 0.4s ease;
         }
 
-        .main-visual img:hover {
-            transform: scale(1.3); /* Balanced zoom */
-            z-index: 100;
-        }
-
-        /* TEXT SIDE: STRONK */
-        .content-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: #fff;
-        }
-
-        .text-trigger h1 { 
-            font-size: clamp(60px, 10vw, 120px); 
-            line-height: 0.8;
-            margin-bottom: 30px;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-        }
-
-        .description {
-            max-width: 350px;
-            font-size: 20px;
-            line-height: 1.4;
+        .mockup-grid img:hover {
             opacity: 0.8;
-            border-left: 3px solid var(--accent); /* Your red line */
-            padding-left: 20px;
         }
 
-        /* MOCKUPS: FULL WIDTH */
-        .mockup-section {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            padding: 100px 5%;
-        }
-
-        .mockup-section img {
-            width: 100%;
-            height: auto;
-        }
-
-        /* NEXT PROJECT: PROPER LINKING */
-        .next-btn-container {
-            display: flex;
-            justify-content: center; 
-            padding: 150px 0;
-            border-top: 1px solid #1a1a1a;
-        }
-
-        .next-project-link {
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .next-project-link span {
-            font-size: 14px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            opacity: 0.5;
-        }
-
-        .next-project-link h3 {
-            font-size: 60px;
-            text-transform: uppercase;
-            margin-top: 15px;
-            transition: color 0.4s ease;
-        }
-
-        .next-project-link:hover h3 {
-            color: var(--accent);
-        }
-
-        /* MOBILE FIX */
-        @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
-            .main-visual { justify-content: center; width: 100%; }
-            .content-right { align-items: center; }
-            .description { border-left: none; padding-left: 0; }
+        /* Responsive: Stack them on mobile */
+        @media (max-width: 800px) {
+            .mockup-grid {
+                grid-template-columns: 1fr;
+            }
+            .mockup-grid img {
+                height: auto;
+            }
         }
     </style>
-</head>
-<body>
-    <nav>
-        <a href="index.html">← back</a>
-        <div class="studio-name">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
-    </nav>
 
     <main>
         <section class="project-hero">
             <div class="main-visual">
                 <img src="others-hero.jpg" alt="The Others Poster">
             </div>
-
             <div class="content-right">
                 <div class="text-trigger">
                     <h1>The<br>Others</h1>
                     <p class="description">"Where creativity unfolds beyond boundaries."</p>
-                    <div class="meta" style="margin-top: 40px; font-size: 12px; letter-spacing: 4px; opacity: 0.5; font-weight: 800;">
+                    <div class="meta" style="margin-top: 40px; font-size: 12px; letter-spacing: 4px; opacity: 0.5;">
                         BERLIN · ISSUE I · 2026
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="mockup-section">
-            <img src="others-mockup1.jpg" alt="Mockup 1">
-            <img src="others-mockup2.jpg" alt="Mockup 2">
+        <section class="mockup-grid">
+            <img src="others-mockup1.jpg" alt="Detail View">
+            <img src="others-mockup2.jpg" alt="Atmosphere View">
         </section>
 
         <footer class="next-btn-container">
@@ -157,5 +58,3 @@
             </a>
         </footer>
     </main>
-</body>
-</html>

@@ -12,21 +12,17 @@
             margin: 0; padding: 0; 
             background: #000; color: #fff; 
             font-family: 'Helvetica', sans-serif;
-            overflow: hidden; /* We use JS for custom heavy-scroll */
+            overflow: hidden; 
         }
 
-        /* --- THE HUD --- */
+        /* --- NAV: NO MORE GRAY --- */
         nav {
             position: fixed;
             top: 40px; left: 5%; width: 90%;
             display: flex; justify-content: space-between;
             z-index: 1000; mix-blend-mode: difference;
         }
-        .logo { 
-            font-weight: 900; letter-spacing: 5px; text-transform: uppercase; 
-            text-decoration: none; color: #fff; font-size: 14px; 
-            transition: color 0.3s;
-        }
+        .logo { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 14px; }
         .logo:hover { color: var(--accent); }
         .contact-btn { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 2px; font-size: 12px; }
 
@@ -49,29 +45,28 @@
             flex-shrink: 0;
         }
 
-        /* TITLES */
+        /* TEXT DESIGN */
         .node h2 {
-            font-size: clamp(80px, 15vw, 300px);
+            font-size: clamp(80px, 18vw, 320px);
             text-transform: uppercase;
             line-height: 0.75;
             margin: 0;
             z-index: 10;
             -webkit-text-stroke: 1px rgba(255,255,255,0.2);
             color: transparent;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s ease;
         }
 
         .node:hover h2 {
             -webkit-text-stroke: 1px #fff;
             color: #fff;
-            transform: skewX(-5deg);
         }
 
-        /* FLOATING IMAGES */
+        /* IMAGE DEPTH (RE-MAPPED) */
         .img-wrap {
             position: absolute;
-            width: 35vw;
-            max-width: 500px;
+            width: 38vw;
+            max-width: 550px;
             z-index: 5;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
             transition: transform 0.1s ease-out;
@@ -80,22 +75,21 @@
 
         /* SCROLL HINT */
         #hint {
-            position: fixed;
-            bottom: 40px; left: 50%; transform: translateX(-50%);
-            font-size: 10px; letter-spacing: 10px; text-transform: uppercase;
-            opacity: 0.4; animation: pulse 2s infinite;
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            font-size: 10px; letter-spacing: 8px; text-transform: uppercase;
+            opacity: 0.5;
         }
-        @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
-        /* --- THE RIOT --- */
+        /* RIOT FINALE */
         .riot-node {
             width: 100vw; height: 100vh;
             background: var(--accent);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             flex-shrink: 0;
+            z-index: 100;
         }
-        .riot-node h2 { color: #000; -webkit-text-stroke: 0; font-size: 12vw; font-weight: 900; text-align: center; line-height: 0.8; }
+        .riot-node h2 { color: #000; -webkit-text-stroke: 0; font-size: 12vw; font-weight: 900; text-align: center; }
         .riot-node a { color: #000; font-weight: 900; margin-top: 40px; text-decoration: none; border-bottom: 4px solid #000; font-size: 20px; }
 
     </style>
@@ -112,42 +106,58 @@
     <div class="labyrinth-track" id="track">
         
         <div class="node" onclick="location.href='kombucha.html'">
-            <div class="img-wrap" style="right: 15%; top: 20%;" data-speed="0.2"><img src="kombucha1.jpg"></div>
+            <div class="img-wrap" style="right: 15%; top: 20%;" data-speed="0.2">
+                <img src="kombucha1.jpg">
+            </div>
             <h2>KOMBU<br>CHA</h2>
         </div>
 
         <div class="node" onclick="location.href='oatmilk.html'">
-            <div class="img-wrap" style="left: 10%; bottom: 15%;" data-speed="-0.1"><img src="oat-hero.jpg"></div>
+            <div class="img-wrap" style="left: 10%; bottom: 15%;" data-speed="-0.15">
+                <img src="oat-hero.jpg">
+            </div>
             <h2>OAT<br>MILK</h2>
         </div>
 
         <div class="node" onclick="location.href='others.html'">
-            <div class="img-wrap" style="right: 10%; bottom: 10%;" data-speed="0.3"><img src="others-hero.jpg"></div>
+            <div class="img-wrap" style="right: 10%; bottom: 10%;" data-speed="0.25">
+                <img src="others-hero.jpg">
+            </div>
             <h2>THE<br>OTHERS</h2>
         </div>
 
         <div class="node" onclick="location.href='nurture.html'">
-            <div class="img-wrap" style="left: 15%; top: 10%;" data-speed="-0.2"><img src="Nurture.jpg"></div>
+            <div class="img-wrap" style="left: 15%; top: 10%;" data-speed="-0.2">
+                <img src="Nurture.jpg">
+            </div>
             <h2>NUR<br>TURE</h2>
         </div>
 
         <div class="node" onclick="location.href='go-left.html'">
-            <div class="img-wrap" style="right: 15%; top: 25%;" data-speed="0.15"><img src="goleft-hero.jpg"></div>
+            <div class="img-wrap" style="right: 18%; top: 25%;" data-speed="0.15">
+                <img src="goleft-hero.jpg">
+            </div>
             <h2>GO<br>LEFT</h2>
         </div>
 
         <div class="node" onclick="location.href='cd-covers.html'">
-            <div class="img-wrap" style="left: 20%; bottom: 20%;" data-speed="-0.25"><img src="cd-hero.jpg"></div>
+            <div class="img-wrap" style="left: 20%; bottom: 20%;" data-speed="-0.3">
+                <img src="cd-hero.jpg">
+            </div>
             <h2>CD<br>COVERS</h2>
         </div>
 
         <div class="node" onclick="location.href='circle.html'">
-            <div class="img-wrap" style="right: 10%; top: 15%;" data-speed="0.1"><img src="circle-hero.jpg"></div>
+            <div class="img-wrap" style="right: 10%; top: 15%;" data-speed="0.12">
+                <img src="circle-hero.jpg">
+            </div>
             <h2>CIR<br>CLE</h2>
         </div>
 
         <div class="node" onclick="location.href='dreamer.html'">
-            <div class="img-wrap" style="left: 12%; bottom: 15%;" data-speed="-0.15"><img src="dreamer-hero.jpg"></div>
+            <div class="img-wrap" style="left: 12%; bottom: 15%;" data-speed="-0.25">
+                <img src="dreamer-hero.jpg">
+            </div>
             <h2>DREA<br>MER</h2>
         </div>
 
@@ -161,28 +171,25 @@
     <script>
         const track = document.getElementById('track');
         const images = document.querySelectorAll('.img-wrap');
-        const hint = document.getElementById('hint');
         let scrollAmount = 0;
         let targetScroll = 0;
 
         window.addEventListener('wheel', (e) => {
             targetScroll += e.deltaY;
-            if(targetScroll > 100) hint.style.opacity = "0";
-
             const maxScroll = track.offsetWidth - window.innerWidth;
             targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
         });
 
         function animate() {
-            // "Lerp" for expensive feel
+            // Smooth "Lerp" inertia
             scrollAmount += (targetScroll - scrollAmount) * 0.05;
             track.style.transform = `translateX(-${scrollAmount}px)`;
 
-            // Depth movement
             images.forEach(img => {
                 const speed = img.getAttribute('data-speed');
                 const xMove = (scrollAmount * speed);
-                img.style.transform = `translateX(${xMove}px) rotate(${xMove * 0.02}deg)`;
+                // Parallax Vertical Shift + Subtle Tilt for "Organimo" feel
+                img.style.transform = `translateY(${xMove * 0.15}px) rotate(${xMove * 0.02}deg)`;
             });
 
             requestAnimationFrame(animate);

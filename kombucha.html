@@ -9,58 +9,52 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
         
-        /* NAV - Minimalist back | NATIA DESIGN | email */
+        /* Minimalist Nav */
         nav { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; z-index: 1000; display: flex; justify-content: space-between; mix-blend-mode: difference; align-items: center; }
         nav a { color: #FFF; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
         .studio-name { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 600; color: #FFF; }
 
-        /* HERO - Split Screen layout based on mockup */
+        /* HERO - Split Screen */
         .project-hero { 
             display: grid; 
-            grid-template-columns: 1.1fr 1fr; 
-            min-height: 85vh; 
-            padding: 100px 40px 40px;
-            gap: 80px;
+            grid-template-columns: 1.2fr 1fr; 
+            min-height: 90vh; 
+            padding: 120px 40px 60px;
+            gap: 60px;
             align-items: center;
         }
-        .main-visual img { 
-            width: 100%; 
-            height: auto; 
-            object-fit: contain; 
-        }
+        .main-visual img { width: 100%; height: auto; object-fit: contain; }
         
-        /* TEXT CONTENT */
-        .content-right h1 { font-size: clamp(50px, 8vw, 100px); text-transform: uppercase; font-weight: 900; margin-bottom: 20px; }
-        .content-right .description { font-size: 16px; line-height: 1.4; font-style: italic; color: #BBB; margin-bottom: 30px; }
-        .content-right .meta { font-size: 9px; text-transform: uppercase; color: #555; letter-spacing: 2px; line-height: 2; margin-bottom: 40px; }
-        .content-right .meta span { color: #888; display: block; }
+        /* RIGHT SIDE CONTENT */
+        .content-right h1 { font-size: clamp(40px, 8vw, 100px); text-transform: uppercase; font-weight: 900; margin-bottom: 20px; line-height: 0.9; }
+        .content-right .description { font-size: 16px; line-height: 1.4; font-style: italic; color: #BBB; margin-bottom: 25px; }
+        .content-right .meta { font-size: 9px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 25px; }
 
-        /* COLOR SWATCH GRID - 4 small squares */
-        .swatch-row { display: flex; gap: 10px; }
-        .swatch-row img { width: 65px; height: 65px; object-fit: cover; border-radius: 2px; }
-
-        /* BOTTOM THUMBNAILS */
-        .bottom-thumbnails { 
-            display: flex; 
-            gap: 15px; 
-            padding: 0 40px 100px; 
-            margin-top: -40px;
-        }
-        .bottom-thumbnails img { 
-            width: 80px; 
-            height: 80px; 
+        /* THE 4 LIL PICS TOGETHER (Color Selection) */
+        .lil-pics-row { display: flex; gap: 8px; margin-top: 10px; }
+        .lil-pics-row img { 
+            width: 55px; 
+            height: 55px; 
             object-fit: cover; 
-            opacity: 0.6; 
-            transition: 0.3s;
-            cursor: pointer;
+            border-radius: 2px; 
+            background: transparent; /* No background as requested */
         }
-        .bottom-thumbnails img:hover { opacity: 1; }
 
-        /* MOBILE FIX */
+        /* LARGE BOTTLE MOCKUPS AT THE BOTTOM */
+        .mockup-section { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            padding: 40px; 
+            max-width: 1400px; 
+            margin: 0 auto 100px;
+        }
+        .mockup-section img { width: 100%; height: auto; object-fit: contain; }
+
         @media (max-width: 900px) {
-            .project-hero { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .swatch-row { justify-content: center; }
-            .bottom-thumbnails { justify-content: center; }
+            .project-hero, .mockup-section { grid-template-columns: 1fr; }
+            .content-right { text-align: center; }
+            .lil-pics-row { justify-content: center; }
             .studio-name { display: none; }
         }
     </style>
@@ -75,7 +69,7 @@
     <main>
         <section class="project-hero">
             <div class="main-visual">
-                <img src="kombucha1.jpg" alt="Kombucha Main Visual">
+                <img src="kombucha1.jpg" alt="Kombucha Red Design">
             </div>
 
             <div class="content-right">
@@ -84,17 +78,22 @@
                     "It started as simple tea. <br>Then time, patience. <br>And a little magic happened."
                 </p>
                 <div class="meta">
-                    Project Scope:
-                    <span>Botanical illustration · Label design · Colour exploration</span>
+                    BOTANICAL ILLUSTRATION · LABEL DESIGN · COLOUR EXPLORATION
                 </div>
 
-                <div class="swatch-row">
-                    <img src="kombucha4.jpg" alt="Swatch 1">
-                    <img src="kombucha4.jpg" alt="Swatch 2">
-                    <img src="kombucha4.jpg" alt="Swatch 3">
-                    <img src="kombucha4.jpg" alt="Swatch 4">
+                <div class="lil-pics-row">
+                    <img src="kombucha4.jpg" alt="Detail 1">
+                    <img src="kombucha4.jpg" alt="Detail 2">
+                    <img src="kombucha4.jpg" alt="Detail 3">
+                    <img src="kombucha4.jpg" alt="Detail 4">
                 </div>
             </div>
         </section>
 
-        <section class="
+        <section class="mockup-section">
+            <img src="kombucha2.jpg" alt="Bottle Mockup 1">
+            <img src="kombucha3.jpg" alt="Bottle Mockup 2">
+        </section>
+    </main>
+</body>
+</html>

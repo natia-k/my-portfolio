@@ -3,196 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>NATIA DESIGN | LABYRINTH</title>
     <style>
-        /* --- RESET & FOUNDATION --- */
         :root { --accent: #ff0000; }
-        body { 
-            background-color: #000; 
-            color: #fff; 
-            margin: 0; 
-            overflow-x: hidden; 
-            font-family: sans-serif; /* Replace with your 'Stronk' font */
-        }
-
-        /* --- NAVIGATION --- */
-        nav { 
-            padding: 30px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            position: fixed; 
-            width: 90%; 
-            top: 0; 
-            z-index: 1000;
-            mix-blend-mode: difference;
-        }
-        nav a, .studio-name { 
-            color: #fff; 
-            text-decoration: none; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            font-size: 14px;
-        }
-
-        /* --- PROJECT LIST --- */
-        .project-container {
-            margin-top: 15vh;
-            padding-bottom: 10vh;
-        }
-
-        .project-link {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            padding: 40px 5%;
-            border-bottom: 1px solid #222;
-            position: relative;
-            overflow: hidden;
-            transition: padding 0.4s ease;
-        }
-
-        .project-link:hover {
-            padding-left: 7%;
-            background-color: #050505;
-        }
-
-        .project-info {
-            display: flex;
-            align-items: baseline;
-            gap: 20px;
-        }
-
-        .project-number {
-            font-size: 18px;
-            font-weight: 300;
-            opacity: 0.4;
-        }
-
-        .project-link h2 {
-            font-size: clamp(60px, 12vw, 180px);
-            text-transform: uppercase;
-            line-height: 0.8;
+        body, html {
             margin: 0;
-            transition: color 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .project-link:hover h2 {
-            color: var(--accent);
-            transform: skewX(-5deg); /* Adds that edgy design feel */
-        }
-
-        /* --- FLOATING IMAGE PREVIEW --- */
-        /* This creates the "Wow" effect when hovering */
-        .hover-reveal {
-            position: absolute;
-            top: 50%;
-            left: 60%;
-            width: 400px;
-            height: 250px;
-            pointer-events: none;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1;
-        }
-
-        .project-link:hover .hover-reveal {
-            opacity: 0.6;
-            left: 70%;
-            transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
-        }
-
-        .hover-reveal img {
+            padding: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            filter: grayscale(1) brightness(0.8); /* Chic look, turns to color on link click */
+            background: #000;
+            color: #fff;
+            overflow: hidden; /* Stops standard vertical scroll */
+            font-family: sans-serif;
         }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 100px 5%;
-            text-align: left;
-            border-top: 1px solid #222;
+        /* THE LABYRINTH TRACK */
+        .labyrinth-container {
+            display: flex;
+            height: 100vh;
+            width: fit-content; /* Expands with content */
+            will-change: transform;
         }
 
-        footer p { font-size: 24px; max-width: 600px; line-height: 1.2; }
+        /* INDIVIDUAL PROJECT GATES */
+        .project-gate {
+            width: 80vw; /* Each project takes up most of the screen */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10vw;
+            border-right: 1px solid #222;
+            position: relative;
+        }
 
-        @media (max-width: 768px) {
-            .hover-reveal { display: none; } /* Hide for mobile performance */
-            .project-link h2 { font-size: 60px; }
+        .project-gate h2 {
+            font-size: clamp(80px, 15vw, 250px);
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 0.8;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-gate:hover h2 {
+            color: var(--accent);
+            transform: translateX(20px);
+        }
+
+        .project-gate img {
+            position: absolute;
+            width: 400px;
+            height: auto;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.8s ease;
+            z-index: -1;
+            filter: grayscale(1);
+        }
+
+        .project-gate:hover img {
+            opacity: 0.4;
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        /* HUD NAVIGATION */
+        nav {
+            position: fixed;
+            top: 40px;
+            left: 5%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+            mix-blend-mode: difference;
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="studio-name">NATIA DESIGN</div>
-        <div>
-            <a href="index.html" style="margin-right: 20px;">Work</a>
-            <a href="mailto:natia.kurtanidze55@gmail.com">Contact</a>
-        </div>
+        <div style="font-weight: 900;">NATIA DESIGN</div>
+        <div>SCROLL TO EXPLORE</div>
     </nav>
 
-    <main class="project-container">
-        
-        <a href="kombucha.html" class="project-link">
-            <div class="project-info">
-                <span class="project-number">01</span>
-                <h2>Kombucha</h2>
-            </div>
-            <div class="hover-reveal">
-                <img src="kombucha1.jpg" alt="Kombucha Preview">
-            </div>
-        </a>
+    <div class="labyrinth-container" id="track">
+        <div class="project-gate" onclick="location.href='kombucha.html'">
+            <img src="kombucha1.jpg" style="top: 10%; right: 10%;">
+            <h2>Kombucha</h2>
+        </div>
 
-        <a href="oatmilk.html" class="project-link">
-            <div class="project-info">
-                <span class="project-number">02</span>
-                <h2>Oat Milk</h2>
-            </div>
-            <div class="hover-reveal">
-                <img src="oat-hero.jpg" alt="Oat Milk Preview">
-            </div>
-        </a>
+        <div class="project-gate" onclick="location.href='oatmilk.html'">
+            <img src="oat-hero.jpg" style="bottom: 15%; left: 5%;">
+            <h2>Oat Milk</h2>
+        </div>
 
-        <a href="nurture.html" class="project-link">
-            <div class="project-info">
-                <span class="project-number">03</span>
-                <h2>Nurture</h2>
-            </div>
-            <div class="hover-reveal">
-                <img src="Nurture.jpg" alt="Nurture Preview">
-            </div>
-        </a>
+        <div class="project-gate" onclick="location.href='others.html'">
+            <img src="others-hero.jpg" style="top: 20%; left: 20%;">
+            <h2>Others</h2>
+        </div>
 
-        <a href="others.html" class="project-link">
-            <div class="project-info">
-                <span class="project-number">04</span>
-                <h2>The Others</h2>
-            </div>
-            <div class="hover-reveal">
-                <img src="others-hero.jpg" alt="Others Preview">
-            </div>
-        </a>
+        <div class="project-gate" onclick="location.href='go-left.html'">
+            <img src="goleft-hero.jpg" style="bottom: 10%; right: 20%;">
+            <h2>Go Left</h2>
+        </div>
 
-        <a href="go-left.html" class="project-link">
-            <div class="project-info">
-                <span class="project-number">05</span>
-                <h2>Go Left</h2>
-            </div>
-            <div class="hover-reveal">
-                <img src="goleft-hero.jpg" alt="Go Left Preview">
-            </div>
-        </a>
+        <div class="project-gate" onclick="location.href='kombucha.html'">
+            <h2>Kombucha</h2>
+        </div>
+    </div>
 
-    </main>
+    <script>
+        const track = document.getElementById('track');
+        let scrollAmount = 0;
 
-    <footer>
-        <p>Independent Designer based in Berlin. Focused on high-impact visual identities and liquid typography.</p>
-    </footer>
+        window.addEventListener('wheel', (e) => {
+            // Converts vertical scroll (deltaY) into horizontal movement
+            scrollAmount += e.deltaY;
+            
+            // Limit the scroll range
+            const maxScroll = track.offsetWidth - window.innerWidth;
+            
+            // Loop back to start if we go past the end
+            if (scrollAmount > maxScroll) scrollAmount = 0;
+            if (scrollAmount < 0) scrollAmount = maxScroll;
+
+            track.style.transform = `translateX(-${scrollAmount}px)`;
+        });
+    </script>
 
 </body>
 </html>

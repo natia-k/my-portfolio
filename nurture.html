@@ -13,36 +13,38 @@
             align-items: center;
             min-height: 100vh; 
             padding: 0 5%; 
-            gap: 40px;
+            gap: 60px;
         }
 
+        /* --- THE BIG IMAGE --- */
         .main-visual {
             flex: 1.5; 
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
         }
 
         .main-visual img { 
-            width: 95%;
-            max-width: 550px; 
+            width: 100%;
+            max-width: 580px; /* Even bigger to show the glow and grain */
             height: auto;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
             will-change: transform;
         }
 
+        /* MASSIVE ZOOM */
         .main-visual img:hover {
             transform: scale(1.6); 
-            z-index: 999;
+            z-index: 100;
         }
 
+        /* --- THE TEXT --- */
         .content-right {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            z-index: 10;
         }
 
         .text-trigger {
@@ -53,30 +55,74 @@
         .text-trigger h1 { 
             font-size: clamp(60px, 11vw, 140px); 
             line-height: 0.75;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             letter-spacing: -0.07em;
             transition: color 0.8s ease;
             text-transform: uppercase;
         }
 
         .text-trigger:hover {
-            transform: scale(1.05) translateX(10px);
+            transform: scale(1.1) translateX(15px);
         }
 
         .text-trigger:hover h1 {
-            color: var(--accent);
+            color: var(--accent); /* Turns Red on hover */
         }
 
         .description {
-            max-width: 320px;
-            font-size: 18px;
+            max-width: 380px;
+            font-size: 19px;
             line-height: 1.4;
-            opacity: 0.7;
+            opacity: 0.8;
             border-left: 2px solid var(--accent);
-            padding-left: 15px;
+            padding-left: 20px;
         }
 
         @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 100px 20px; text-align: center; }
+            .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
             .main-visual { justify-content: center; order: 2; }
-            .content-right { order: 1; margin-bottom: 5
+            .content-right { order: 1; margin-bottom: 60px; }
+            .description { margin: 0 auto; border-left: none; padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">← back</a>
+        <div class="studio-name">NATIA DESIGN</div>
+        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
+    </nav>
+
+    <main>
+        <section class="project-hero">
+            <div class="main-visual">
+                <img src="Nurture.jpg" alt="Nurture Main Visual">
+            </div>
+
+            <div class="content-right">
+                <div class="text-trigger">
+                    <h1>Nur<br>ture</h1>
+                    <p class="description">
+                        "Some of the learnings of nurture, started in the Bronx in the fall of 2022, ended in Neukölln in the spring 2023."
+                    </p>
+                    <div class="meta" style="margin-top: 30px; font-size: 11px; letter-spacing: 4px; opacity: 0.5; font-weight: 800;">
+                        EXPERIMENTAL · MUSIC · 2023
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mockup-section">
+            <img src="nurture–mockup1.jpg" alt="Learnings Poster">
+            <img src="nurture–mockup2.jpg" alt="Cassette Tape Design">
+        </section>
+
+        <footer class="next-btn-container">
+            <a href="others.html" class="next-project-link">
+                <span>Next Project</span>
+                <h3>The Others</h3>
+            </a>
+        </footer>
+    </main>
+</body>
+</html>

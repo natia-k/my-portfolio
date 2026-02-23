@@ -6,7 +6,17 @@
     <title>The Others | NATIA DESIGN</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- LAYOUT CONFIG --- */
+        /* --- ELIMINATE ALL GRAY --- */
+        :root {
+            --accent: #ff0000; /* Force pure red */
+        }
+
+        body { 
+            background-color: #000 !important; 
+            color: #ffffff !important; 
+            margin: 0; 
+        }
+
         .project-hero { 
             display: flex;
             flex-direction: row;
@@ -15,10 +25,9 @@
             min-height: 100vh; 
             padding: 0 8%; 
             gap: 60px;
-            background: #000;
         }
 
-        /* --- THE HERO IMAGE --- */
+        /* --- IMAGE SIDE --- */
         .main-visual {
             flex: 1.2; 
             display: flex;
@@ -31,23 +40,32 @@
             max-width: 580px; 
             height: auto;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.9));
             will-change: transform;
-            cursor: pointer;
         }
 
         .main-visual img:hover {
-            transform: scale(1.4); /* Impactful but balanced zoom */
-            z-index: 100;
+            transform: scale(1.4); 
         }
 
-        /* --- PROJECT TEXT --- */
+        /* --- TEXT SIDE: PURE WHITE & COLOR CHANGE --- */
         .content-right {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            color: #fff;
+        }
+
+        /* THE FIX: This forces the block to move and color to change */
+        .text-trigger {
+            display: block;
+            text-decoration: none;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+
+        .text-trigger:hover {
+            transform: translateX(40px); /* Moves text to the right */
         }
 
         .text-trigger h1 { 
@@ -56,14 +74,21 @@
             margin-bottom: 30px;
             letter-spacing: -0.05em;
             text-transform: uppercase;
+            color: #ffffff !important; /* Pure White */
+            transition: color 0.4s ease;
+        }
+
+        .text-trigger:hover h1 {
+            color: var(--accent) !important; /* Pure Red on Hover */
         }
 
         .description {
             max-width: 350px;
             font-size: 20px;
             line-height: 1.4;
-            opacity: 0.8;
-            border-left: 3px solid var(--accent); /* Red accent line */
+            color: #ffffff !important; /* Pure White */
+            opacity: 1; /* No graying out */
+            border-left: 3px solid var(--accent);
             padding-left: 20px;
         }
 
@@ -71,11 +96,11 @@
             margin-top: 40px; 
             font-size: 12px; 
             letter-spacing: 4px; 
-            opacity: 0.5;
+            color: #ffffff !important;
             font-weight: 800;
         }
 
-        /* --- REFINED MOCKUP GRID --- */
+        /* --- MOCKUP GRID --- */
         .mockup-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -86,35 +111,29 @@
 
         .mockup-grid img {
             width: 100%;
-            height: 600px; /* Fixed height for consistent look */
-            object-fit: cover; /* Prevents stretching */
-            transition: opacity 0.4s ease;
+            height: 600px; 
+            object-fit: cover;
+            border: 1px solid #1a1a1a; /* Very subtle border so black images don't vanish */
         }
 
-        .mockup-grid img:hover {
-            opacity: 0.8;
-        }
-
-        /* --- FOOTER NAVIGATION --- */
+        /* --- FOOTER --- */
         .next-btn-container {
             display: flex;
             justify-content: center; 
             padding: 150px 0;
-            border-top: 1px solid #1a1a1a;
-            background: #000;
+            border-top: 1px solid #333;
         }
 
         .next-project-link {
             text-align: center;
             text-decoration: none;
-            color: #fff;
+            color: #ffffff !important;
         }
 
         .next-project-link span {
             font-size: 14px;
             letter-spacing: 5px;
             text-transform: uppercase;
-            opacity: 0.5;
         }
 
         .next-project-link h3 {
@@ -125,15 +144,14 @@
         }
 
         .next-project-link:hover h3 {
-            color: var(--accent);
+            color: var(--accent) !important;
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 1000px) {
             .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
             .main-visual { justify-content: center; width: 100%; }
-            .content-right { align-items: center; }
-            .description { border-left: none; padding-left: 0; }
+            .text-trigger:hover { transform: none; }
+            .description { border-left: none; padding-left: 0; margin: 0 auto; }
             .mockup-grid { grid-template-columns: 1fr; }
             .mockup-grid img { height: auto; }
         }
@@ -141,9 +159,9 @@
 </head>
 <body>
     <nav>
-        <a href="index.html">← back</a>
-        <div class="studio-name">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
+        <a href="index.html" style="color:white; text-decoration:none;">← back</a>
+        <div class="studio-name" style="color:white;">NATIA DESIGN</div>
+        <a href="mailto:natia.kurtanidze55@gmail.com" style="color:white; text-decoration:none;">Email</a>
     </nav>
 
     <main>
@@ -162,8 +180,8 @@
         </section>
 
         <section class="mockup-grid">
-            <img src="others-mockup1.jpg" alt="Others Detail View">
-            <img src="others-mockup2.jpg" alt="Others Atmosphere View">
+            <img src="others-mockup1.jpg" alt="Others Detail">
+            <img src="others-mockup2.jpg" alt="Others Scene">
         </section>
 
         <footer class="next-btn-container">

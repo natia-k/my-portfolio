@@ -6,44 +6,91 @@
     <title>CV 2026 | NATIA KURTANIDZE</title>
     <style>
         :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; padding: 80px 60px; line-height: 1.4; }
-        nav { position: fixed; top: 40px; left: 60px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        
+        nav { position: fixed; top: 40px; left: 60px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; z-index: 100; }
         nav a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+        .cv-content { max-width: 1100px; margin: 0 auto; }
         h1 { font-size: clamp(50px, 10vw, 150px); text-transform: uppercase; font-weight: 900; line-height: 0.8; margin-bottom: 100px; }
+        
         .grid { display: grid; grid-template-columns: 1fr 2.5fr; gap: 60px; border-top: 1px solid #333; padding: 40px 0; }
         .label { font-size: 11px; text-transform: uppercase; color: #666; letter-spacing: 2px; }
+        
         .item { margin-bottom: 40px; }
-        .item h2 { font-size: 28px; text-transform: uppercase; font-weight: 900; }
-        .item h3 { font-size: 14px; color: var(--accent); text-transform: uppercase; margin: 10px 0; }
-        .item p { color: #BBB; max-width: 600px; }
+        .item h2 { font-size: 28px; text-transform: uppercase; font-weight: 900; margin-bottom: 8px; }
+        .item h3 { font-size: 14px; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; font-weight: 400; }
+        .item p { color: #BBB; max-width: 600px; font-size: 17px; }
+
+        .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .tag { border: 1px solid #333; padding: 6px 14px; font-size: 10px; text-transform: uppercase; border-radius: 20px; color: #888; }
+
+        @media (max-width: 800px) {
+            body { padding: 80px 30px; }
+            .grid { grid-template-columns: 1fr; gap: 20px; }
+        }
     </style>
 </head>
 <body>
-    <nav><a href="index.html">← INDEX</a></nav>
-    <h1>Curriculum<br>Vitae 2026</h1>
+    <nav><a href="index.html">← Back to Index</a></nav>
 
-    <div class="grid">
-        <div class="label">Experience</div>
-        <div class="content">
-            <div class="item">
-                <h2>Graphic Designer</h2>
-                <h3>STK 118 GmbH & Mandarin Facility Services | Berlin | 2021 — 2025</h3>
-                <p>Visual concepts, print/digital media, and website design[cite: 22, 23].</p>
-            </div>
-            <div class="item">
-                <h2>Freelance Designer</h2>
-                <h3>Graphic & Illustration | 2017 — 2020</h3>
-                <p>Brand development, logo design, and social media[cite: 24].</p>
+    <div class="cv-content">
+        <h1>Curriculum<br>Vitae 2026</h1>
+
+        <div class="grid">
+            <div class="label">Experience</div>
+            <div class="content">
+                <div class="item">
+                    <h2>Graphic Designer</h2>
+                    <h3>STK 118 GmbH & Mandarin Facility Services | Berlin | 2021 — 2025</h3>
+                    <p>Visual concepts, layout design, and digital media for Berlin-based service providers.</p>
+                </div>
+                <div class="item">
+                    <h2>Freelance Creative</h2>
+                    <h3>Graphic & Illustration | 2017 — 2020</h3>
+                    <p>Brand development, logo design, and social media campaigns.</p>
+                </div>
+                <div class="item">
+                    <h2>Graphic Designer</h2>
+                    <h3>Fortis Marketing Agency | 2015 — 2017</h3>
+                    <p>Branding and digital advertising campaigns.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="grid">
-        <div class="label">Education</div>
-        <div class="content">
-            <div class="item"><h2>BA Graphic Design & Fine Arts</h2><h3>Ilia State University</h3></div>
-            <div class="item"><h2>Brand, UI/UX & 3D Design</h2><h3>Academy of Digital Industry</h3></div>
-            <div class="item"><h2>Computer Science (CS50x)</h2><h3>HarvardX</h3></div>
+        <div class="grid">
+            <div class="label">Education</div>
+            <div class="content">
+                <div class="item">
+                    <h2>BA Graphic Design & Fine Arts</h2>
+                    <h3>Ilia State University</h3>
+                </div>
+                <div class="item">
+                    <h2>Brand & UI/UX Design</h2>
+                    <h3>Academy of Digital Industry</h3>
+                </div>
+                <div class="item">
+                    <h2>Graphic & 3D Design</h2>
+                    <h3>Academy of Digital Industry</h3>
+                </div>
+                <div class="item">
+                    <h2>Computer Science (CS50x)</h2>
+                    <h3>HarvardX</h3>
+                    <p>Foundation in C, Python, JavaScript, HTML/CSS, and algorithms.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="label">Toolkit</div>
+            <div class="content">
+                <div class="tag-list">
+                    <span class="tag">Adobe Photoshop</span><span class="tag">Illustrator</span><span class="tag">InDesign</span>
+                    <span class="tag">After Effects</span><span class="tag">Figma</span><span class="tag">CorelDRAW</span>
+                    <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Python</span>
+                </div>
+            </div>
         </div>
     </div>
 </body>

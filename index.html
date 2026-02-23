@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA DESIGN | Portfolio</title>
+    <title>NATIA DESIGN | Visual Designer</title>
     <style>
         :root { --bg: #0D0D0D; --fg: #FFFFFF; --accent: #E8220A; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         
-        /* NAV: back (to CV) | NATIA DESIGN | email */
-        nav { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; z-index: 1000; display: flex; justify-content: space-between; mix-blend-mode: difference; align-items: center; }
-        nav a { color: #FFF; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
-        .studio-name { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 600; color: #FFF; }
+        /* NOTE: Nav styles are now handled by style.css */
 
         .hero { height: 80vh; display: flex; align-items: center; padding: 60px; }
         .hero h1 { font-size: clamp(50px, 12vw, 200px); line-height: 0.8; letter-spacing: -0.06em; text-transform: uppercase; font-weight: 900; }
@@ -33,7 +32,6 @@
             .hero { height: 50vh; padding: 20px; }
             .project-row { padding: 40px 20px; }
             #image-preview { display: none; }
-            .studio-name { font-size: 9px; letter-spacing: 2px; }
         }
     </style>
 </head>
@@ -52,7 +50,7 @@
 
     <div class="project-list">
         <a href="kombucha.html" class="project-row" data-img="kombucha1.jpg"><h2>Kombucha</h2></a>
-        <a href="oatmilk.html" class="project-row" data-img="Oat Milk.jpg"><h2>Oat Milk</h2></a>
+        <a href="oatmilk.html" class="project-row" data-img="oat-hero.jpg"><h2>Oat Milk</h2></a>
         <a href="nurture.html" class="project-row" data-img="Nurture.jpg"><h2>Nurture</h2></a>
         <a href="others.html" class="project-row" data-img="others.jpg"><h2>The Others</h2></a>
         <a href="goleft.html" class="project-row" data-img="goleft.jpg"><h2>Go Left</h2></a>

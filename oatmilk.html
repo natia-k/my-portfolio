@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oat Milk | NATIA DESIGN</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* This specific effect for the hero image */
+        .main-visual img { 
+            max-width: 400px; /* Smaller default size */
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .main-visual img:hover { 
+            transform: scale(1.5) translateX(50px); /* Grows and shifts slightly for drama */
+            z-index: 100;
+        }
+        
+        /* Ensures the text stays on top during the zoom */
+        .content-right {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
     <nav>

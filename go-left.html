@@ -6,6 +6,8 @@
     <title>Go Left | NATIA DESIGN</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        body { background-color: #000; color: #fff; margin: 0; }
+
         .project-hero { 
             display: flex;
             flex-direction: row;
@@ -14,10 +16,9 @@
             min-height: 100vh; 
             padding: 0 8%; 
             gap: 60px;
-            background: #000;
         }
 
-        /* --- THE BIG IMAGE --- */
+        /* --- THE HERO IMAGE --- */
         .main-visual {
             flex: 1.2; 
             display: flex;
@@ -27,38 +28,51 @@
 
         .main-visual img { 
             width: 100%;
-            max-width: 500px; /* Vertical posters look better at 500px */
+            max-width: 480px; 
             height: auto;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
             will-change: transform;
-            cursor: pointer;
         }
 
         .main-visual img:hover {
-            transform: scale(1.6); 
+            transform: scale(1.5); 
             z-index: 100;
         }
 
-        /* --- THE TEXT --- */
+        /* --- THE TEXT (FIXED MOVE ANIMATION) --- */
         .content-right {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            color: #fff;
+        }
+
+        .text-trigger {
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+
+        .text-trigger:hover {
+            transform: translateX(30px); /* This makes the text slide left-to-right */
         }
 
         .text-trigger h1 { 
-            font-size: clamp(60px, 10vw, 120px); 
+            font-size: clamp(60px, 10vw, 130px); 
             line-height: 0.8;
             margin-bottom: 30px;
             letter-spacing: -0.05em;
             text-transform: uppercase;
+            transition: color 0.5s ease;
+        }
+
+        .text-trigger:hover h1 {
+            color: var(--accent);
         }
 
         .description {
-            max-width: 350px;
+            max-width: 380px;
             font-size: 20px;
             line-height: 1.4;
             opacity: 0.8;
@@ -66,22 +80,21 @@
             padding-left: 20px;
         }
 
-        /* --- NEW DYNAMIC GRID MOCKUPS --- */
+        /* --- DYNAMIC MOCKUP GRID --- */
         .mockup-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             padding: 50px 5%;
-            background: #000;
         }
 
         .mockup-grid img {
             width: 100%;
-            height: 600px; 
+            height: 650px; 
             object-fit: cover;
-            transition: opacity 0.4s ease;
         }
 
+        /* --- FOOTER (NEXT: CD COVERS) --- */
         .next-btn-container {
             display: flex;
             justify-content: center; 
@@ -93,6 +106,12 @@
             text-align: center;
             text-decoration: none;
             color: #fff;
+        }
+
+        .next-project-link span {
+            font-size: 14px;
+            letter-spacing: 5px;
+            opacity: 0.5;
         }
 
         .next-project-link h3 {
@@ -109,8 +128,8 @@
         @media (max-width: 1000px) {
             .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
             .main-visual { justify-content: center; width: 100%; }
-            .content-right { align-items: center; }
-            .description { border-left: none; padding-left: 0; }
+            .text-trigger:hover { transform: none; }
+            .description { border-left: none; padding-left: 0; margin: 0 auto; }
             .mockup-grid { grid-template-columns: 1fr; }
             .mockup-grid img { height: auto; }
         }
@@ -132,23 +151,23 @@
             <div class="content-right">
                 <div class="text-trigger">
                     <h1>Go<br>Left</h1>
-                    <p class="description">"If nothing is going right, go left. A study in liquid typography."</p>
-                    <div class="meta" style="margin-top: 40px; font-size: 12px; letter-spacing: 4px; opacity: 0.5;">
-                        POSTER · BERLIN · 2026
+                    <p class="description">"If nothing is going right, go left. A study in liquid typography and bold rebellion."</p>
+                    <div class="meta" style="margin-top: 40px; font-size: 12px; letter-spacing: 4px; opacity: 0.5; font-weight: 800;">
+                        BERLIN · 2026
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="mockup-grid">
-            <img src="goleft-mockup1.jpg" alt="Go Left Mockup 1">
-            <img src="goleft-mockup2.jpg" alt="Go Left Mockup 2">
+            <img src="goleft-mockup1.jpg" alt="Print Mockup">
+            <img src="goleft-mockup2.jpg" alt="Poster Mockup">
         </section>
 
         <footer class="next-btn-container">
-            <a href="kombucha.html" class="next-project-link">
-                <span style="opacity: 0.5; letter-spacing: 5px;">NEXT PROJECT</span>
-                <h3>Kombucha</h3>
+            <a href="cd-covers.html" class="next-project-link">
+                <span>NEXT PROJECT</span>
+                <h3>CD Covers</h3>
             </a>
         </footer>
     </main>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Left | NATIA DESIGN</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-hero { 
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            padding: 0 8%; 
+            gap: 60px;
+            background: #000;
+        }
+
+        /* --- THE BIG IMAGE --- */
+        .main-visual {
+            flex: 1.2; 
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .main-visual img { 
+            width: 100%;
+            max-width: 500px; /* Vertical posters look better at 500px */
+            height: auto;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+            will-change: transform;
+            cursor: pointer;
+        }
+
+        .main-visual img:hover {
+            transform: scale(1.6); 
+            z-index: 100;
+        }
+
+        /* --- THE TEXT --- */
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .text-trigger h1 { 
+            font-size: clamp(60px, 10vw, 120px); 
+            line-height: 0.8;
+            margin-bottom: 30px;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .description {
+            max-width: 350px;
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.8;
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        /* --- NEW DYNAMIC GRID MOCKUPS --- */
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 50px 5%;
+            background: #000;
+        }
+
+        .mockup-grid img {
+            width: 100%;
+            height: 600px; 
+            object-fit: cover;
+            transition: opacity 0.4s ease;
+        }
+
+        .next-btn-container {
+            display: flex;
+            justify-content: center; 
+            padding: 150px 0;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .next-project-link {
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .next-project-link h3 {
+            font-size: 60px;
+            text-transform: uppercase;
+            margin-top: 15px;
+            transition: color 0.4s ease;
+        }
+
+        .next-project-link:hover h3 {
+            color: var(--accent);
+        }
+
+        @media (max-width: 1000px) {
+            .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
+            .main-visual { justify-content: center; width: 100%; }
+            .content-right { align-items: center; }
+            .description { border-left: none; padding-left: 0; }
+            .mockup-grid { grid-template-columns: 1fr; }
+            .mockup-grid img { height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">← back</a>
+        <div class="studio-name">NATIA DESIGN</div>
+        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
+    </nav>
+
+    <main>
+        <section class="project-hero">
+            <div class="main-visual">
+                <img src="goleft-hero.jpg" alt="Go Left Poster">
+            </div>
+
+            <div class="content-right">
+                <div class="text-trigger">
+                    <h1>Go<br>Left</h1>
+                    <p class="description">"If nothing is going right, go left. A study in liquid typography."</p>
+                    <div class="meta" style="margin-top: 40px; font-size: 12px; letter-spacing: 4px; opacity: 0.5;">
+                        POSTER · BERLIN · 2026
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mockup-grid">
+            <img src="goleft-mockup1.jpg" alt="Go Left Mockup 1">
+            <img src="goleft-mockup2.jpg" alt="Go Left Mockup 2">
+        </section>
+
+        <footer class="next-btn-container">
+            <a href="kombucha.html" class="next-project-link">
+                <span style="opacity: 0.5; letter-spacing: 5px;">NEXT PROJECT</span>
+                <h3>Kombucha</h3>
+            </a>
+        </footer>
+    </main>
+</body>
+</html>

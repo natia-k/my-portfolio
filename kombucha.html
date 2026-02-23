@@ -12,58 +12,76 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh; 
-            padding: 0 80px; 
-            gap: 60px;
-            cursor: default;
+            padding: 0 10%; 
+            gap: 80px;
         }
 
-        /* --- IMAGE SIDE: Focused & Clean --- */
+        /* --- IMAGE SIDE --- */
         .main-visual {
             flex: 1;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
         }
 
         .main-visual img { 
             width: 100%;
-            max-width: 320px; /* Small default for full visibility */
+            max-width: 340px; 
             height: auto;
-            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
-            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
+            will-change: transform;
         }
 
-        /* --- TEXT SIDE: Reactive --- */
+        /* Precise Image Hover */
+        .main-visual img:hover {
+            transform: scale(1.15);
+        }
+
+        /* --- TEXT SIDE --- */
         .content-right {
             flex: 1;
-            text-align: left;
-            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .content-right h1 { 
-            font-size: clamp(80px, 12vw, 150px); 
-            line-height: 0.8;
-            margin-bottom: 20px;
-            letter-spacing: -0.05em;
-            transition: all 0.8s ease;
+        .text-trigger {
+            display: inline-block;
+            cursor: default;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
 
-        /* --- THE STRONK INTERACTION --- */
-        .project-hero:hover .main-visual img {
-            transform: scale(1.25);
+        .text-trigger h1 { 
+            font-size: clamp(80px, 11vw, 140px); 
+            line-height: 0.85;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+            transition: color 0.8s ease;
+            color: #FFFFFF;
         }
 
-        .project-hero:hover .content-right {
-            transform: scale(1.1);
+        /* Precise Text Hover */
+        .text-trigger:hover {
+            transform: translateX(15px) scale(1.05);
         }
 
-        .project-hero:hover h1 {
-            color: var(--accent); /* Turns Red on hover */
+        .text-trigger:hover h1 {
+            color: var(--accent);
+        }
+
+        .description {
+            max-width: 380px;
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.9;
         }
 
         @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 120px 40px; gap: 40px; }
+            .project-hero { flex-direction: column; padding: 120px 40px; gap: 60px; text-align: center; }
             .main-visual { justify-content: center; }
-            .content-right { text-align: center; }
+            .text-trigger:hover { transform: scale(1.05); }
         }
     </style>
 </head>
@@ -81,9 +99,13 @@
             </div>
 
             <div class="content-right">
-                <h1>Kom<br>bucha</h1>
-                <p class="description">"It started as simple tea. <br>Then time, patience. <br>And a little magic happened."</p>
-                <div class="meta">BOTANICAL ILLUSTRATION · 2026</div>
+                <div class="text-trigger">
+                    <h1>Kom<br>bucha</h1>
+                    <p class="description">"It started as simple tea. <br>Then time, patience. <br>And a little magic happened."</p>
+                    <div class="meta" style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; display: inline-block; font-size: 12px; letter-spacing: 2px;">
+                        BOTANICAL ILLUSTRATION · 2026
+                    </div>
+                </div>
             </div>
         </section>
 

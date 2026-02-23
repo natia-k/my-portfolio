@@ -4,88 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kombucha | NATIA DESIGN</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root { --bg: #000000; --fg: #FFFFFF; --accent: #E8220A; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-        
-        /* Navigation */
-        nav { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; z-index: 1000; display: flex; justify-content: space-between; mix-blend-mode: difference; align-items: center; }
-        nav a { color: #FFF; text-decoration: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
-        .studio-name { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; }
-
-        /* HERO Section */
+        /* PROJECT SPECIFIC LAYOUT */
         .project-hero { 
             display: grid; 
-            grid-template-columns: 1.2fr 1fr; 
+            grid-template-columns: 1.1fr 1fr; 
             min-height: 95vh; 
-            padding: 140px 40px 60px;
-            gap: 60px;
-            align-items: flex-start;
+            padding: 140px 40px 40px; 
+            gap: 40px; 
+            align-items: flex-start; 
         }
-        .main-visual img { width: 100%; height: auto; object-fit: contain; }
+        .main-visual img { 
+            width: 100%; 
+            max-width: 600px; 
+            height: auto; 
+            object-fit: contain; 
+        }
         
-        /* Typography */
+        /* Typography - Huge & Tightly Spaced */
+        .content-right { padding-top: 10px; }
         .content-right h1 { 
-            font-size: clamp(70px, 12vw, 150px); 
+            font-size: clamp(80px, 14vw, 160px); 
             text-transform: uppercase; 
             font-weight: 900; 
-            margin-bottom: 20px; 
-            line-height: 0.8;
-            letter-spacing: -0.05em;
+            margin-bottom: 15px; 
+            line-height: 0.75; 
+            letter-spacing: -0.06em; 
+            color: #FFFFFF;
         }
         .content-right .description { 
-            font-size: 22px; 
-            line-height: 1.3; 
+            font-size: 24px; 
+            line-height: 1.25; 
             font-style: italic; 
-            margin-bottom: 35px; 
-            max-width: 450px;
+            margin-bottom: 30px; 
+            max-width: 400px;
         }
         .content-right .meta { 
-            font-size: 12px; 
+            font-size: 13px; 
             text-transform: uppercase; 
-            letter-spacing: 2px; 
-            font-weight: 700;
-            margin-bottom: 35px; 
+            letter-spacing: 3px; 
+            font-weight: 800; 
+            border-top: 1px solid #333; 
+            padding-top: 20px; 
+            display: inline-block;
         }
 
-        /* 4 LIL PICS - Zoom on hover */
-        .lil-pics-row { display: flex; gap: 12px; margin-top: 20px; }
-        .lil-pics-row img { 
-            width: 70px; height: 70px; object-fit: cover; border: 1px solid #222; 
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
-        }
-        .lil-pics-row img:hover { transform: scale(1.15); z-index: 10; cursor: pointer; }
-
-        /* MOCKUPS - Subtle zoom */
+        /* Lower Gallery */
         .mockup-section { 
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px; 
-            padding: 20px 40px 60px; max-width: 1500px; margin: 0 auto;
+            padding: 40px; max-width: 1500px; margin: 0 auto;
         }
         .mockup-section img { 
             width: 100%; height: auto; object-fit: contain; 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+            transition: transform 0.6s ease; 
         }
-        .mockup-section img:hover { transform: scale(1.03); cursor: pointer; }
-
-        /* NEXT PROJECT BUTTON */
-        .next-btn-container { text-align: center; padding: 100px 0 150px; }
-        .next-project-link { 
-            display: inline-block;
-            font-size: clamp(40px, 6vw, 80px);
-            font-weight: 900;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: #FFFFFF;
-            letter-spacing: -0.03em;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s;
-        }
-        .next-project-link:hover { transform: scale(1.1); color: var(--accent); }
-        .next-project-link span { display: block; font-size: 12px; letter-spacing: 4px; opacity: 0.6; margin-bottom: 10px; }
+        .mockup-section img:hover { transform: scale(1.02); }
 
         @media (max-width: 900px) {
-            .project-hero, .mockup-section { grid-template-columns: 1fr; }
-            .content-right h1 { font-size: 80px; }
+            .project-hero { grid-template-columns: 1fr; }
+            .content-right h1 { font-size: 100px; }
         }
     </style>
 </head>
@@ -99,26 +77,19 @@
     <main>
         <section class="project-hero">
             <div class="main-visual">
-                <img src="kombucha1.jpg" alt="Main Design">
+                <img src="kombucha1.jpg" alt="Kombucha Design">
             </div>
 
             <div class="content-right">
-                <h1>Kombucha</h1>
+                <h1>Kom<br>bucha</h1>
                 <p class="description">"It started as simple tea. <br>Then time, patience. <br>And a little magic happened."</p>
-                <div class="meta">BOTANICAL ILLUSTRATION · LABEL DESIGN · COLOUR EXPLORATION</div>
-
-                <div class="lil-pics-row">
-                    <img src="k4-1.jpg" alt="Color 1">
-                    <img src="k4-2.jpg" alt="Color 2">
-                    <img src="k4-3.jpg" alt="Color 3">
-                    <img src="k4-4.jpg" alt="Color 4">
-                </div>
+                <div class="meta">BOTANICAL ILLUSTRATION · LABEL DESIGN</div>
             </div>
         </section>
 
         <section class="mockup-section">
-            <img src="kombucha2.jpg" alt="Mockup 1">
-            <img src="kombucha3.jpg" alt="Mockup 2">
+            <img src="kombucha2.jpg" alt="Kombucha Mockup 1">
+            <img src="kombucha3.jpg" alt="Kombucha Mockup 2">
         </section>
 
         <footer class="next-btn-container">

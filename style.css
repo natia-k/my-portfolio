@@ -1,35 +1,165 @@
-/* NEXT PROJECT BUTTON STYLING */
+/* style.css - THE COMPLETE BRAND BRAIN */
+
+:root { 
+    --bg: #000000; 
+    --fg: #FFFFFF; 
+    --accent: #E8220A; /* Your signature red */
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    background: var(--bg); 
+    color: var(--fg); 
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    -webkit-font-smoothing: antialiased; 
+    overflow-x: hidden;
+}
+
+/* --- NAVIGATION (NATIA DESIGN) --- */
+nav { 
+    position: fixed; 
+    top: 30px; 
+    left: 0; 
+    width: 100%; 
+    padding: 0 40px; 
+    z-index: 1000; 
+    display: flex; 
+    justify-content: space-between; 
+    mix-blend-mode: difference; 
+    align-items: center; 
+}
+
+.studio-name { 
+    font-family: 'Courier New', Courier, monospace; 
+    font-size: 13px; 
+    letter-spacing: 6px; 
+    text-transform: uppercase; 
+    font-weight: 400; 
+    color: #FFFFFF; 
+}
+
+nav a { 
+    text-decoration: none; 
+    color: #FFF; 
+    font-size: 10px; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    opacity: 0.8; 
+}
+
+/* --- PROJECT HERO LAYOUT --- */
+.project-hero { 
+    display: grid; 
+    grid-template-columns: 1.1fr 1fr; 
+    min-height: 95vh; 
+    padding: 140px 40px 40px; 
+    gap: 60px; 
+    align-items: flex-start; 
+}
+
+.main-visual img { 
+    width: 100%; 
+    max-width: 650px; 
+    height: auto; 
+    object-fit: contain; 
+}
+
+/* --- STRONK TYPOGRAPHY --- */
+.content-right h1 { 
+    font-size: clamp(80px, 14vw, 160px); 
+    text-transform: uppercase; 
+    font-weight: 900; 
+    margin-bottom: 20px; 
+    line-height: 0.75; 
+    letter-spacing: -0.06em; 
+    color: #FFFFFF; 
+}
+
+.content-right .description { 
+    font-size: 24px; 
+    line-height: 1.25; 
+    font-style: italic; 
+    margin-bottom: 40px; 
+    max-width: 450px; 
+}
+
+.content-right .meta { 
+    font-size: 13px; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    font-weight: 800; 
+    border-top: 1px solid #333; 
+    padding-top: 25px; 
+    display: inline-block; 
+}
+
+/* --- GALLERY SECTION --- */
+.mockup-section { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    padding: 40px; 
+    max-width: 1600px; 
+    margin: 0 auto; 
+}
+
+.mockup-section img { 
+    width: 100%; 
+    height: auto; 
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+.mockup-section img:hover { 
+    transform: scale(1.02); 
+}
+
+/* --- NEXT PROJECT BUTTON (The Fixed Version) --- */
 .next-btn-container {
     text-align: center;
-    padding: 100px 40px 150px;
+    padding: 150px 40px 200px;
     border-top: 1px solid #1a1a1a;
+    margin-top: 100px;
 }
 
 .next-project-link {
     text-decoration: none;
     display: inline-block;
-    transition: all 0.4s ease;
 }
 
 .next-project-link span {
     display: block;
     font-size: 12px;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     text-transform: uppercase;
-    color: #666; /* Subtle grey for the "Next Project" text */
-    margin-bottom: 10px;
+    color: #666;
+    margin-bottom: 15px;
 }
 
 .next-project-link h3 {
-    font-size: clamp(40px, 6vw, 80px); /* Big and bold like your headers */
+    font-size: clamp(50px, 8vw, 100px);
     text-transform: uppercase;
     font-weight: 900;
     color: #FFF;
     line-height: 0.8;
+    letter-spacing: -0.04em;
+    transition: all 0.4s ease;
 }
 
-/* HOVER EFFECT: Changes color to red when you mouse over */
 .next-project-link:hover h3 {
-    color: var(--accent); /* Uses your red brand color */
-    transform: translateY(-5px);
+    color: var(--accent);
+    transform: scale(1.05);
+}
+
+/* --- RESPONSIVE MOBILE FIXES --- */
+@media (max-width: 900px) {
+    .project-hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .content-right h1 { font-size: 80px; }
+    .mockup-section { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+    .studio-name { font-size: 10px; letter-spacing: 3px; }
 }

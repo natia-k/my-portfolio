@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurture | NATIA DESIGN</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-hero { 
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            padding: 0 10%; 
+            gap: 100px;
+        }
+
+        /* --- IMAGE SIDE --- */
+        .main-visual {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .main-visual img { 
+            width: 100%;
+            max-width: 320px; 
+            height: auto;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
+            will-change: transform;
+        }
+
+        .main-visual img:hover {
+            transform: scale(1.15);
+        }
+
+        /* --- TEXT SIDE --- */
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-trigger {
+            display: inline-block;
+            cursor: default;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .text-trigger h1 { 
+            font-size: clamp(70px, 10vw, 130px); 
+            line-height: 0.75;
+            margin-bottom: 24px;
+            letter-spacing: -0.06em;
+            transition: color 0.8s ease;
+            color: #FFFFFF;
+            text-transform: uppercase;
+        }
+
+        .text-trigger:hover {
+            transform: translateX(15px) scale(1.05);
+        }
+
+        .text-trigger:hover h1 {
+            color: var(--accent);
+        }
+
+        .description {
+            max-width: 380px;
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 1000px) {
+            .project-hero { flex-direction: column; padding: 120px 40px; gap: 60px; text-align: center; }
+            .main-visual { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">← back</a>
+        <div class="studio-name">NATIA DESIGN</div>
+        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
+    </nav>
+
+    <main>
+        <section class="project-hero">
+            <div class="main-visual">
+                <img src="nurture-hero.jpg" alt="Nurture Branding">
+            </div>
+
+            <div class="content-right">
+                <div class="text-trigger">
+                    <h1>Nur<br>ture</h1>
+                    <p class="description">"Skincare rooted in nature. <br>Designed for the gentle soul."</p>
+                    <div class="meta" style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; display: inline-block; font-size: 11px; letter-spacing: 3px; font-weight: 800;">
+                        IDENTITY · PACKAGING · 2026
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mockup-section">
+            <img src="nurture1.jpg" alt="Nurture Mockup 1">
+            <img src="nurture2.jpg" alt="Nurture Mockup 2">
+        </section>
+
+        <footer class="next-btn-container">
+            <a href="kombucha.html" class="next-project-link">
+                <span>Next Project</span>
+                <h3>Kombucha</h3>
+            </a>
+        </footer>
+    </main>
+</body>
+</html>

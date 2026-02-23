@@ -9,42 +9,51 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
         
-        /* Minimalist Nav */
+        /* Navigation */
         nav { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; z-index: 1000; display: flex; justify-content: space-between; mix-blend-mode: difference; align-items: center; }
         nav a { color: #FFF; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
         .studio-name { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 600; color: #FFF; }
 
-        /* HERO - Split Screen */
+        /* Split Screen Hero */
         .project-hero { 
             display: grid; 
             grid-template-columns: 1.2fr 1fr; 
-            min-height: 90vh; 
-            padding: 120px 40px 60px;
+            min-height: 85vh; 
+            padding: 120px 40px 40px;
             gap: 60px;
             align-items: center;
         }
         .main-visual img { width: 100%; height: auto; object-fit: contain; }
         
-        /* RIGHT SIDE CONTENT */
-        .content-right h1 { font-size: clamp(40px, 8vw, 100px); text-transform: uppercase; font-weight: 900; margin-bottom: 20px; line-height: 0.9; }
+        /* Right Side Content */
+        .content-right h1 { font-size: clamp(40px, 8vw, 90px); text-transform: uppercase; font-weight: 900; margin-bottom: 20px; line-height: 0.9; }
         .content-right .description { font-size: 16px; line-height: 1.4; font-style: italic; color: #BBB; margin-bottom: 25px; }
-        .content-right .meta { font-size: 9px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 25px; }
+        .content-right .meta { font-size: 9px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 20px; }
 
-        /* THE 4 LIL PICS TOGETHER (Color Selection) */
-        .lil-pics-row { display: flex; gap: 8px; margin-top: 10px; }
-        .lil-pics-row img { 
-            width: 55px; 
-            height: 55px; 
-            object-fit: cover; 
-            border-radius: 2px; 
-            background: transparent; /* No background as requested */
+        /* THE 4 COLOR PICS (Cropped from kombucha4.jpg) */
+        .lil-pics-row { display: flex; gap: 10px; margin-top: 10px; }
+        .swatch { 
+            width: 60px; 
+            height: 60px; 
+            overflow: hidden; 
+            border-radius: 2px;
         }
+        .swatch img { 
+            height: 100%; 
+            width: 400%; /* Because there are 4 variations in the one image */
+            object-fit: cover;
+        }
+        /* Positioning each swatch to show a different color from kombucha4.jpg */
+        .s1 img { object-position: 0% 0%; }
+        .s2 img { object-position: 33% 0%; }
+        .s3 img { object-position: 66% 0%; }
+        .s4 img { object-position: 100% 0%; }
 
-        /* LARGE BOTTLE MOCKUPS AT THE BOTTOM */
+        /* MOCKUPS SECTION */
         .mockup-section { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 20px; 
+            gap: 30px; 
             padding: 40px; 
             max-width: 1400px; 
             margin: 0 auto 100px;
@@ -69,7 +78,7 @@
     <main>
         <section class="project-hero">
             <div class="main-visual">
-                <img src="kombucha1.jpg" alt="Kombucha Red Design">
+                <img src="kombucha1.jpg" alt="Main Design">
             </div>
 
             <div class="content-right">
@@ -82,17 +91,17 @@
                 </div>
 
                 <div class="lil-pics-row">
-                    <img src="kombucha4.jpg" alt="Detail 1">
-                    <img src="kombucha4.jpg" alt="Detail 2">
-                    <img src="kombucha4.jpg" alt="Detail 3">
-                    <img src="kombucha4.jpg" alt="Detail 4">
+                    <div class="swatch s1"><img src="kombucha4.jpg"></div>
+                    <div class="swatch s2"><img src="kombucha4.jpg"></div>
+                    <div class="swatch s3"><img src="kombucha4.jpg"></div>
+                    <div class="swatch s4"><img src="kombucha4.jpg"></div>
                 </div>
             </div>
         </section>
 
         <section class="mockup-section">
-            <img src="kombucha2.jpg" alt="Bottle Mockup 1">
-            <img src="kombucha3.jpg" alt="Bottle Mockup 2">
+            <img src="kombucha2.jpg" alt="Bottle 1">
+            <img src="kombucha3.jpg" alt="Bottle 2">
         </section>
     </main>
 </body>

@@ -3,170 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | VISUAL ARCHITECT</title>
+    <title>NATIA | THE LABYRINTH</title>
     <style>
         :root { --accent: #ff0000; }
-        
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         
         body, html { 
             margin: 0; padding: 0; 
             background: #000; color: #fff; 
             font-family: 'Helvetica Neue', Helvetica, sans-serif;
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
 
-        /* The container that glides */
-        .labyrinth-track {
+        /* The container that "turns corners" */
+        .labyrinth-container {
             position: fixed;
             top: 0; left: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
+            width: 100%; height: 100vh;
             will-change: transform;
         }
 
-        /* Proxy height to allow scrolling */
-        .scroll-proxy { height: 1200vh; } 
+        /* Proxy to create enough scroll room for all "turns" */
+        .scroll-proxy { height: 1500vh; } 
 
-        /* --- NAV --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 40px 6%; display: flex; justify-content: space-between;
             z-index: 1000; mix-blend-mode: difference;
         }
         .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 13px; }
-        .contact { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 2px; font-size: 11px; }
 
-        /* --- THE NODES (STAGGERED HEIGHTS) --- */
-        .section {
-            width: 80vw; height: 100vh; flex-shrink: 0;
-            display: flex; justify-content: center; align-items: center;
-            position: relative;
+        /* THE NODES - Positioned in a "Step" pattern */
+        .node {
+            position: absolute;
+            width: 100vw; height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
         }
 
-        /* These classes create the "Down and Left" staggered feel */
-        .high { align-self: flex-start; margin-top: 10vh; }
-        .low { align-self: flex-end; margin-bottom: 10vh; }
-        .mid { align-self: center; }
-
-        .section-header { text-align: center; z-index: 5; pointer-events: none; }
-        .section-header span { 
-            display: block; font-size: 11px; letter-spacing: 6px; 
-            color: var(--accent); margin-bottom: 15px; font-weight: 900;
-        }
-        .section h2 {
-            font-size: clamp(40px, 8vw, 110px);
-            font-weight: 900; text-transform: uppercase;
-            line-height: 0.9; margin: 0; letter-spacing: -3px;
-        }
+        .node h2 { font-size: clamp(40px, 9vw, 120px); font-weight: 900; margin: 0; text-transform: uppercase; line-height: 0.8; z-index: 5; }
+        .node span { color: var(--accent); font-size: 11px; letter-spacing: 5px; margin-bottom: 15px; font-weight: 900; }
 
         .img-box {
-            position: absolute; width: 30vw; max-width: 450px;
-            z-index: 1; opacity: 0.3; filter: grayscale(1);
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: absolute; width: 35vw; max-width: 500px;
+            opacity: 0.4; filter: grayscale(1); transition: 0.8s ease;
         }
-        .img-box img { width: 100%; height: auto; box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
+        .node:hover .img-box { opacity: 1; filter: grayscale(0); transform: scale(1.05); }
 
-        .section:hover .img-box { opacity: 1; filter: grayscale(0); transform: scale(1.05); }
+        /* MANUALLY POSITIONING THE "PATH" */
+        /* Node 0: Start */
+        #n0 { left: 0; top: 0; }
+        /* Node 1: Move Right */
+        #n1 { left: 100vw; top: 0; }
+        /* Node 2: Move Right */
+        #n2 { left: 200vw; top: 0; }
+        /* Node 3: DROPS DOWN */
+        #n3 { left: 200vw; top: 100vh; }
+        /* Node 4: DROPS DOWN */
+        #n4 { left: 200vw; top: 200vh; }
+        /* Node 5: Moves Right again */
+        #n5 { left: 300vw; top: 200vh; }
+        /* Node 6: Moves Right */
+        #n6 { left: 400vw; top: 200vh; }
+        /* Node 7: DROPS DOWN */
+        #n7 { left: 400vw; top: 300vh; }
+        /* Node 8: Finale */
+        #n8 { left: 400vw; top: 400vh; }
 
-        /* MOBILE */
+        .riot-node { background: var(--accent); color: #000; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
         @media (max-width: 768px) {
-            .section { width: 100vw; }
-            .section h2 { font-size: 50px; }
-            .img-box { width: 70vw; opacity: 0.6; filter: grayscale(0); }
-            .high, .low { align-self: center; margin: 0; }
-        }
-
-        .riot-node { 
-            width: 100vw; height: 100vh; background: var(--accent); flex-shrink: 0; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            .node h2 { font-size: 55px; }
+            .img-box { width: 80vw; opacity: 0.7; filter: grayscale(0); }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo">NATIA</a>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact">START A RIOT</a>
-    </nav>
+    <nav><a href="index.html" class="logo">NATIA</a></nav>
 
-    <div class="labyrinth-track" id="track">
+    <div class="labyrinth-container" id="laby">
         
-        <section class="section mid">
-            <div class="section-header">
-                <span>EST. 2026</span>
-                <h2>CREATIVE<br>DIRECTOR</h2>
-            </div>
-        </section>
+        <div class="node" id="n0">
+            <span>START</span>
+            <h2>CREATIVE<br>DIRECTOR</h2>
+        </div>
 
-        <div class="section high" onclick="location.href='kombucha.html'">
+        <div class="node" id="n1" onclick="location.href='kombucha.html'">
             <div class="img-box"><img src="kombucha1.jpg"></div>
-            <div class="section-header"><span>01</span><h2>FERMENTED<br>CHAOS</h2></div>
+            <span>01</span><h2>LIQUID<br>REBELLION</h2>
         </div>
 
-        <div class="section low" onclick="location.href='oatmilk.html'">
+        <div class="node" id="n2" onclick="location.href='oatmilk.html'">
             <div class="img-box"><img src="oat-hero.jpg"></div>
-            <div class="section-header"><span>02</span><h2>THE OAT<br>STANDARD</h2></div>
+            <span>02</span><h2>THE OAT<br>STANDARD</h2>
         </div>
 
-        <div class="section mid" onclick="location.href='others.html'">
+        <div class="node" id="n3" onclick="location.href='others.html'">
             <div class="img-box"><img src="others-hero.jpg"></div>
-            <div class="section-header"><span>03</span><h2>RAW<br>EXTRACTS</h2></div>
+            <span>03</span><h2>RAW<br>SAMPLES</h2>
         </div>
 
-        <div class="section high" onclick="location.href='nurture.html'">
+        <div class="node" id="n4" onclick="location.href='nurture.html'">
             <div class="img-box"><img src="Nurture.jpg"></div>
-            <div class="section-header"><span>04</span><h2>GENTLE<br>FORCE</h2></div>
+            <span>04</span><h2>GENTLE<br>FORCE</h2>
         </div>
 
-        <div class="section low" onclick="location.href='go-left.html'">
+        <div class="node" id="n5" onclick="location.href='go-left.html'">
             <div class="img-box"><img src="goleft-hero.jpg"></div>
-            <div class="section-header"><span>05</span><h2>WRONG<br>TURN</h2></div>
+            <span>05</span><h2>WRONG<br>TURN</h2>
         </div>
 
-        <div class="section mid" onclick="location.href='cd-covers.html'">
+        <div class="node" id="n6" onclick="location.href='cd-covers.html'">
             <div class="img-box"><img src="cd-hero.jpg"></div>
-            <div class="section-header"><span>06</span><h2>SOUND &<br>SHELTER</h2></div>
+            <span>06</span><h2>SOUND &<br>VISION</h2>
         </div>
 
-        <div class="section high" onclick="location.href='circle.html'">
+        <div class="node" id="n7" onclick="location.href='circle.html'">
             <div class="img-box"><img src="circle-hero.jpg"></div>
-            <div class="section-header"><span>07</span><h2>INFINITE<br>LOOPS</h2></div>
+            <span>07</span><h2>INFINITE<br>LOOPS</h2>
         </div>
 
-        <div class="section low" onclick="location.href='dreamer.html'">
+        <div class="node" id="n8" onclick="location.href='dreamer.html'">
             <div class="img-box"><img src="dreamer-hero.jpg"></div>
-            <div class="section-header"><span>08</span><h2>LUCID<br>DREAMS</h2></div>
+            <span>08</span><h2>LUCID<br>DREAMS</h2>
         </div>
 
-        <div class="riot-node">
-            <h2 style="color:#000; font-size: 8vw;">START A RIOT</h2>
+        <div class="node riot-node" style="left: 500vw; top: 400vh;">
+            <h2 style="font-size: 10vw;">START A RIOT</h2>
         </div>
+
     </div>
 
     <div class="scroll-proxy"></div>
 
     <script>
-        const track = document.getElementById('track');
-        let current = 0;
+        const laby = document.getElementById('laby');
+        let curr = 0;
         let target = 0;
 
         window.addEventListener('scroll', () => {
             target = window.scrollY;
         });
 
-        function animate() {
-            current += (target - current) * 0.08;
+        function stepPath() {
+            curr += (target - curr) * 0.08;
             
-            // This moves it left AND slightly up/down based on scroll
-            // Creating that "Snake" movement
-            const yMove = Math.sin(current * 0.002) * 50; 
-            track.style.transform = `translateX(-${current}px) translateY(${yMove}px)`;
+            // This is the logic that decides when to move X or Y
+            // It maps the vertical scroll to the "Step" layout in the CSS
+            let x, y;
             
-            requestAnimationFrame(animate);
+            if (curr < 2000) { // Moving from N0 to N2 (Horizontal)
+                x = curr; y = 0;
+            } else if (curr >= 2000 && curr < 4000) { // Dropping to N4 (Vertical)
+                x = 2000; y = curr - 2000;
+            } else if (curr >= 4000 && curr < 6000) { // Moving to N6 (Horizontal)
+                x = 2000 + (curr - 4000); y = 2000;
+            } else { // Final Drop
+                x = 4000; y = 2000 + (curr - 6000);
+            }
+
+            // We use a small fraction of the scroll to make it "Expensive"
+            laby.style.transform = `translateX(-${x * 0.5}px) translateY(-${y * 0.5}px)`;
+            
+            requestAnimationFrame(stepPath);
         }
-        animate();
+        stepPath();
     </script>
 </body>
 </html>

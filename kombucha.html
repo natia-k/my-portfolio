@@ -9,10 +9,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: var(--fg); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
         
+        /* Navigation */
         nav { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; z-index: 1000; display: flex; justify-content: space-between; mix-blend-mode: difference; align-items: center; }
         nav a { color: #FFF; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-        .studio-name { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 600; color: #FFF; }
+        .studio-name { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 600; }
 
+        /* Split Layout */
         .project-hero { display: grid; grid-template-columns: 1.2fr 1fr; min-height: 85vh; padding: 120px 40px 40px; gap: 60px; align-items: center; }
         .main-visual img { width: 100%; height: auto; object-fit: contain; }
         
@@ -20,16 +22,11 @@
         .content-right .description { font-size: 16px; line-height: 1.4; font-style: italic; color: #BBB; margin-bottom: 25px; }
         .content-right .meta { font-size: 9px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 20px; }
 
-        /* THE 4 LIL PICS FROM SCREENSHOT */
+        /* THE 4 LIL PICS (Individual files) */
         .lil-pics-row { display: flex; gap: 10px; margin-top: 10px; }
-        .swatch { width: 60px; height: 60px; overflow: hidden; border-radius: 2px; border: 1px solid #333; }
-        .swatch img { height: 100%; width: 400%; object-fit: cover; }
-        .s1 img { object-position: 0% 0%; }
-        .s2 img { object-position: 33% 0%; }
-        .s3 img { object-position: 66% 0%; }
-        .s4 img { object-position: 100% 0%; }
+        .lil-pics-row img { width: 60px; height: 60px; object-fit: cover; border-radius: 2px; }
 
-        /* THE BOTTLE MOCKUPS AT THE BOTTOM */
+        /* MOCKUPS SECTION */
         .mockup-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 40px; max-width: 1400px; margin: 0 auto 100px; }
         .mockup-section img { width: 100%; height: auto; object-fit: contain; }
 
@@ -59,17 +56,17 @@
                 <div class="meta">BOTANICAL ILLUSTRATION · LABEL DESIGN · COLOUR EXPLORATION</div>
 
                 <div class="lil-pics-row">
-                    <div class="swatch s1"><img src="kombucha4.jpg"></div>
-                    <div class="swatch s2"><img src="kombucha4.jpg"></div>
-                    <div class="swatch s3"><img src="kombucha4.jpg"></div>
-                    <div class="swatch s4"><img src="kombucha4.jpg"></div>
+                    <img src="k4-1.jpg" alt="Color 1">
+                    <img src="k4-2.jpg" alt="Color 2">
+                    <img src="k4-3.jpg" alt="Color 3">
+                    <img src="k4-4.jpg" alt="Color 4">
                 </div>
             </div>
         </section>
 
         <section class="mockup-section">
-            <img src="kombucha2.jpg">
-            <img src="kombucha3.jpg">
+            <img src="kombucha2.jpg" alt="Mockup 1">
+            <img src="kombucha3.jpg" alt="Mockup 2">
         </section>
     </main>
 </body>

@@ -16,48 +16,48 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Nav - Pure High Contrast */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; align-items: center; 
             z-index: 1000; font-size: 13px; letter-spacing: 5px; font-weight: 900; 
         }
         nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 8px; }
 
-        /* THE INTERACTIVE HERO SPLIT */
+        /* THE SPLIT HERO */
         .hero-split { 
             display: flex; 
             height: 100vh; 
             width: 100%; 
-            align-items: center;
-            cursor: crosshair;
+            align-items: stretch;
+            background: var(--black);
         }
         
+        /* The Container: Stays still */
         .hero-left { 
             flex: 1.4; 
             height: 100vh;
+            overflow: hidden; /* Important: crops the image as it grows */
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            background: #050505; /* Subtle depth */
+            background: #000; 
         }
         
-        /* The Image: Starts smaller, grows on hover */
+        /* The Image: Starts smaller (framed) */
         .hero-left img { 
-            width: 85%; /* Smaller start size */
-            height: 85%; 
-            object-fit: contain; 
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(20%);
+            width: 80%; /* Smaller "framed" look */
+            height: 80%; 
+            object-fit: cover; 
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); /* Premium smooth transition */
+            transform: scale(1);
         }
 
-        /* When the mouse enters the hero section, the image expands */
+        /* THE TRIGGER: When mouse enters the hero area */
         .hero-split:hover .hero-left img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover;
-            filter: grayscale(0%);
+            width: 100%; /* Grows to full width of container */
+            height: 100%; /* Grows to full height of container */
+            transform: scale(1.1); /* Adds extra depth/zoom */
         }
 
         .hero-right { 
@@ -67,7 +67,6 @@
             flex-direction: column; 
             justify-content: center;
             height: 100vh;
-            z-index: 2;
         }
         
         h1 { 
@@ -77,13 +76,6 @@
             letter-spacing: -10px; 
             margin-bottom: 50px; 
             text-transform: uppercase;
-            transition: transform 0.5s ease;
-        }
-
-        /* Text also reacts slightly */
-        .hero-split:hover h1 {
-            transform: translateX(10px);
-            color: var(--accent);
         }
 
         .quote { 
@@ -92,7 +84,6 @@
             margin-bottom: 25px; 
             line-height: 1.1; 
             max-width: 480px;
-            font-weight: 400;
         }
 
         .project-scope { 
@@ -106,41 +97,29 @@
             font-weight: 900;
         }
 
+        /* 4-Image Grid */
         .color-grid { 
-            display: flex;
-            gap: 15px;
-            margin-top: 40px;
+            display: flex; gap: 15px; margin-top: 40px;
         }
-        .color-grid img { 
-            width: 70px; 
-            height: auto; 
-            transition: 0.3s ease;
-            border: 1px solid #333;
-        }
-        .color-grid img:hover { transform: translateY(-10px); border-color: var(--white); }
+        .color-grid img { width: 70px; border: 1px solid #444; transition: 0.3s; }
+        .color-grid img:hover { transform: scale(1.2); border-color: var(--white); }
 
+        /* Secondary Gallery */
         .gallery { 
-            padding: 40px 6%; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px;
-            background: var(--black);
+            padding: 20px 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
         }
-        .gallery img { width: 100%; height: auto; display: block; }
+        .gallery img { width: 100%; display: block; }
 
         .next-btn {
-            padding: 160px 6% 200px;
-            text-align: right;
-            border-top: 4px solid var(--white);
+            padding: 160px 6% 200px; text-align: right; border-top: 4px solid var(--white);
         }
         .next-btn a { text-decoration: none; color: var(--white); }
         .next-btn h2 { font-size: clamp(60px, 11vw, 130px); font-weight: 900; letter-spacing: -6px; }
 
         @media (max-width: 1100px) {
             .hero-split { flex-direction: column; height: auto; }
-            .hero-left { height: 60vh; }
-            .hero-right { padding: 60px 10%; height: auto; }
-            .hero-left img { width: 90%; height: 90%; }
+            .hero-left { height: 65vh; }
+            .hero-left img { width: 100%; height: 100%; }
         }
     </style>
 </head>
@@ -148,7 +127,7 @@
 
     <nav>
         <a href="index.html">← BACK</a>
-        <div class="nav-center">NATIA DESIGN</div>
+        <span style="letter-spacing:8px; font-weight:900;">NATIA DESIGN</span>
         <a href="mailto:contact@natiadesign.com">EMAIL</a>
     </nav>
 

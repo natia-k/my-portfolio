@@ -14,7 +14,7 @@
             line-height: 1.5; padding-bottom: 20vh;
         }
 
-        /* NAVIGATION */
+        /* HUD NAVIGATION */
         nav {
             padding: 40px 6%; display: flex; justify-content: space-between;
             position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
@@ -23,7 +23,7 @@
         .logo { font-weight: 900; letter-spacing: 12px; text-decoration: none; color: var(--white); font-size: 14px; }
         .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 11px; letter-spacing: 2px; }
 
-        /* EXHIBITION HEADER */
+        /* THEMED HEADER */
         header { padding: 25vh 6% 15vh; max-width: 1200px; }
         header span { color: var(--accent); font-weight: 900; letter-spacing: 6px; font-size: 12px; text-transform: uppercase; }
         header h1 { 
@@ -32,26 +32,27 @@
             margin: 10px 0 30px -8px; letter-spacing: -8px; line-height: 0.8; 
         }
 
-        /* THE WORKS */
-        .work-section { padding: 0 6%; margin-bottom: 30vh; }
-        .work-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 20px; }
-        .work-header h2 { font-size: 40px; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; }
-        .work-header .year { color: var(--accent); font-weight: 900; }
+        /* EXHIBITION FLOW */
+        .work-section { padding: 0 6%; margin-bottom: 35vh; }
+        .work-meta { display: flex; justify-content: space-between; margin-bottom: 30px; border-bottom: 2px solid #111; padding-bottom: 15px; }
+        .work-meta h2 { font-size: 45px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; }
+        .work-meta .tag { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 2px; }
 
-        .img-container { width: 100%; max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
-        .img-container img { width: 100%; display: block; filter: brightness(0.8); transition: 1.2s ease; }
-        .img-container:hover img { filter: brightness(1); transform: scale(1.02); }
+        .image-stage { width: 100%; position: relative; overflow: hidden; background: #050505; }
+        .image-stage img { width: 100%; display: block; filter: brightness(0.7); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .image-stage:hover img { filter: brightness(1); transform: scale(1.03); }
 
-        .text-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 50px; }
-        .text-content .poetry { font-size: 24px; font-weight: 500; line-height: 1.2; letter-spacing: -0.5px; border-left: 3px solid var(--accent); padding-left: 30px; }
-        .text-content .description { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; line-height: 1.8; }
+        .text-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px; }
+        .poetry-side { font-size: 26px; font-weight: 500; line-height: 1.2; letter-spacing: -0.5px; border-left: 4px solid var(--accent); padding-left: 40px; }
+        .detail-side { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; line-height: 2; }
 
         /* FOOTER */
         .footer-cta { text-align: center; padding: 10vh 0; }
         .footer-cta a { font-size: 8vw; font-weight: 900; color: var(--accent); text-decoration: none; letter-spacing: -4px; }
 
         @media (max-width: 900px) {
-            .text-content { grid-template-columns: 1fr; }
+            .text-stage { grid-template-columns: 1fr; gap: 40px; }
+            .poetry-side { font-size: 20px; padding-left: 20px; }
             header h1 { letter-spacing: -3px; }
         }
     </style>
@@ -60,46 +61,46 @@
 
     <nav>
         <a href="index.html" class="logo">NATIA</a>
-        <a href="index.html" class="back">← EXIT GALLERY</a>
+        <a href="index.html" class="back">← EXIT VOID</a>
     </nav>
 
     <header>
-        <span>Exhibition 2024-2025</span>
+        <span>Exhibition Pieces 2024—2025</span>
         <h1>STARS &<br>SHADOWS</h1>
     </header>
 
     <section class="work-section">
-        <div class="work-header">
-            <h2>01. Circle of Life</h2>
-            <div class="year">2025</div>
+        <div class="work-meta">
+            <h2>Circle of Life</h2>
+            <div class="tag">ILLUSTRATION / 2025</div>
         </div>
-        <div class="img-container">
+        <div class="image-stage">
             <img src="circle.jpg" alt="Circle of Life">
         </div>
-        <div class="text-content">
-            <div class="poetry">
+        <div class="text-stage">
+            <div class="poetry-side">
                 "Tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat. We don’t disappear; we fall back into the universe."
             </div>
-            <div class="description">
-                A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Becoming, shining, dissolving, returning.
+            <div class="detail-side">
+                This piece is the whole circle in one glow: becoming, shining, dissolving, returning. Little stars walking on a planet made of older stars—finding our way back to the light that made us.
             </div>
         </div>
     </section>
 
     <section class="work-section">
-        <div class="work-header">
-            <h2>02. Nostalgia</h2>
-            <div class="year">2024</div>
+        <div class="work-meta">
+            <h2>Nostalgia</h2>
+            <div class="tag">DIGITAL PRINT / 2024</div>
         </div>
-        <div class="img-container">
+        <div class="image-stage">
             <img src="nostalgia.jpg" alt="Nostalgia">
         </div>
-        <div class="text-content">
-            <div class="poetry">
+        <div class="text-stage">
+            <div class="poetry-side">
                 "That sharp ache of sadness. Being an outsider in your own past life; never fully here, never fully there."
             </div>
-            <div class="description">
-                An exploration of temporal displacement. Capturing the feeling of a shadow standing in a room that no longer exists.
+            <div class="detail-side">
+                An exploration of temporal displacement. A shadow of who you were, standing in a room that no longer exists. Memory is a ghost that refuses to leave the house.
             </div>
         </div>
     </section>

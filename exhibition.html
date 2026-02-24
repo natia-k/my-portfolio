@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | EXHIBITION SERIES</title>
+    <title>NATIA | EXHIBITION 24-25</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,10 +11,10 @@
         body { 
             background: var(--black); color: var(--white); 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            line-height: 1.5; padding-bottom: 20vh;
+            line-height: 1.1; overflow-x: hidden;
         }
 
-        /* HUD NAVIGATION */
+        /* HUD NAV */
         nav {
             padding: 40px 6%; display: flex; justify-content: space-between;
             position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
@@ -23,37 +23,54 @@
         .logo { font-weight: 900; letter-spacing: 12px; text-decoration: none; color: var(--white); font-size: 14px; }
         .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 11px; letter-spacing: 2px; }
 
-        /* THEMED HEADER */
-        header { padding: 25vh 6% 15vh; max-width: 1200px; }
-        header span { color: var(--accent); font-weight: 900; letter-spacing: 6px; font-size: 12px; text-transform: uppercase; }
+        /* LARGE TYPO HEADER */
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 6%; }
+        header span { font-size: 12px; font-weight: 900; letter-spacing: 8px; color: var(--accent); margin-bottom: 20px; text-transform: uppercase; }
         header h1 { 
-            font-size: clamp(50px, 12vw, 180px); 
+            font-size: clamp(80px, 20vw, 300px); 
             font-weight: 900; text-transform: uppercase; 
-            margin: 10px 0 30px -8px; letter-spacing: -8px; line-height: 0.8; 
+            letter-spacing: -12px; line-height: 0.75; 
+            margin-left: -10px;
         }
 
-        /* EXHIBITION FLOW */
-        .work-section { padding: 0 6%; margin-bottom: 35vh; }
-        .work-meta { display: flex; justify-content: space-between; margin-bottom: 30px; border-bottom: 2px solid #111; padding-bottom: 15px; }
-        .work-meta h2 { font-size: 45px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; }
-        .work-meta .tag { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 2px; }
+        /* BRUTALIST GRID LAYOUT */
+        .section { 
+            position: relative; min-height: 160vh; padding: 10vh 6%;
+            border-top: 1px solid #222; margin-top: 10vh;
+        }
 
-        .image-stage { width: 100%; position: relative; overflow: hidden; background: #050505; }
-        .image-stage img { width: 100%; display: block; filter: brightness(0.7); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .image-stage:hover img { filter: brightness(1); transform: scale(1.03); }
+        /* BIG NUMBERS */
+        .index { font-size: 15vw; font-weight: 900; opacity: 0.1; position: absolute; top: 5vh; right: 6%; z-index: 0; }
 
-        .text-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px; }
-        .poetry-side { font-size: 26px; font-weight: 500; line-height: 1.2; letter-spacing: -0.5px; border-left: 4px solid var(--accent); padding-left: 40px; }
-        .detail-side { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; line-height: 2; }
+        .content-grid {
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
+            position: relative; z-index: 1;
+        }
+
+        /* TYPOGRAPHIC BLOCKS */
+        .title-block { grid-column: 1 / span 8; margin-bottom: 10vh; }
+        .title-block h2 { font-size: clamp(40px, 8vw, 120px); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; margin-bottom: 20px; }
+        
+        .image-block { grid-column: 4 / span 9; position: relative; }
+        .image-block img { width: 100%; filter: contrast(1.1) brightness(0.9); }
+
+        .text-block { grid-column: 1 / span 5; margin-top: -20vh; padding: 40px; background: var(--black); }
+        .text-block p { font-size: 24px; font-weight: 500; margin-bottom: 30px; line-height: 1.2; letter-spacing: -0.5px; }
+        .text-block .meta { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); font-weight: 900; }
+
+        /* SPECIFIC TYPO FOR NOSTALGIA */
+        .nostalgia-section h2 { filter: blur(1.5px); } /* Ghostly effect */
+        .nostalgia-text { grid-column: 7 / span 5; margin-top: 10vh; }
 
         /* FOOTER */
-        .footer-cta { text-align: center; padding: 10vh 0; }
-        .footer-cta a { font-size: 8vw; font-weight: 900; color: var(--accent); text-decoration: none; letter-spacing: -4px; }
+        .footer { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .footer a { font-size: 10vw; font-weight: 900; color: var(--white); text-decoration: none; letter-spacing: -6px; transition: 0.4s; }
+        .footer a:hover { color: var(--accent); letter-spacing: 0px; }
 
-        @media (max-width: 900px) {
-            .text-stage { grid-template-columns: 1fr; gap: 40px; }
-            .poetry-side { font-size: 20px; padding-left: 20px; }
-            header h1 { letter-spacing: -3px; }
+        @media (max-width: 768px) {
+            header h1 { letter-spacing: -4px; }
+            .title-block, .image-block, .text-block { grid-column: 1 / span 12; }
+            .text-block { margin-top: 20px; padding: 20px 0; }
         }
     </style>
 </head>
@@ -61,53 +78,49 @@
 
     <nav>
         <a href="index.html" class="logo">NATIA</a>
-        <a href="index.html" class="back">← EXIT VOID</a>
+        <a href="index.html" class="back">← CLOSE EXHIBITION</a>
     </nav>
 
     <header>
-        <span>Exhibition Pieces 2024—2025</span>
-        <h1>STARS &<br>SHADOWS</h1>
+        <span>Exhibition Series / 24—25</span>
+        <h1>STARS<br>& GHOSTS</h1>
     </header>
 
-    <section class="work-section">
-        <div class="work-meta">
-            <h2>Circle of Life</h2>
-            <div class="tag">ILLUSTRATION / 2025</div>
-        </div>
-        <div class="image-stage">
-            <img src="circle.jpg" alt="Circle of Life">
-        </div>
-        <div class="text-stage">
-            <div class="poetry-side">
-                "Tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat. We don’t disappear; we fall back into the universe."
+    <section class="section">
+        <div class="index">01</div>
+        <div class="content-grid">
+            <div class="title-block">
+                <h2>CIRCLE<br>OF LIFE</h2>
             </div>
-            <div class="detail-side">
-                This piece is the whole circle in one glow: becoming, shining, dissolving, returning. Little stars walking on a planet made of older stars—finding our way back to the light that made us.
+            <div class="image-block">
+                <img src="circle.jpg" alt="Circle of Life">
+            </div>
+            <div class="text-block">
+                <p>"Tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat. We fall back into the universe."</p>
+                <div class="meta">Year: 2025 / Status: Released</div>
             </div>
         </div>
     </section>
 
-    <section class="work-section">
-        <div class="work-meta">
-            <h2>Nostalgia</h2>
-            <div class="tag">DIGITAL PRINT / 2024</div>
-        </div>
-        <div class="image-stage">
-            <img src="nostalgia.jpg" alt="Nostalgia">
-        </div>
-        <div class="text-stage">
-            <div class="poetry-side">
-                "That sharp ache of sadness. Being an outsider in your own past life; never fully here, never fully there."
+    <section class="section nostalgia-section">
+        <div class="index">02</div>
+        <div class="content-grid">
+            <div class="image-block" style="grid-column: 1 / span 8;">
+                <img src="nostalgia.jpg" alt="Nostalgia">
             </div>
-            <div class="detail-side">
-                An exploration of temporal displacement. A shadow of who you were, standing in a room that no longer exists. Memory is a ghost that refuses to leave the house.
+            <div class="title-block" style="grid-column: 6 / span 7; text-align: right; margin-top: -15vh;">
+                <h2>NOSTAL<br>GIA</h2>
+            </div>
+            <div class="text-block nostalgia-text">
+                <p>"Being an outsider in your own past life. A shadow standing in a room that no longer exists."</p>
+                <div class="meta">Year: 2024 / Status: Archive</div>
             </div>
         </div>
     </section>
 
-    <div class="footer-cta">
+    <footer class="footer">
         <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
-    </div>
+    </footer>
 
 </body>
 </html>

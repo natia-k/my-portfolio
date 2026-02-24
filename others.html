@@ -3,147 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE OTHERS | NATIA DESIGN</title>
+    <title>OTHERS | NATIA STUDIO</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --soft-grey: #1a1a1a; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+        :root {
+            --white: #ffffff;
+            --black: #000000;
+            --aura-color: rgba(255, 100, 250, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* Animated Pastel Background */
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
         }
 
-        /* Fixed Navigation */
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; font-size: 11px; letter-spacing: 3px; font-weight: 900; 
+        /* 1. THE AURA CURSOR */
+        #aura {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--aura-color) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            mix-blend-mode: screen;
         }
-        nav a { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
-        nav a:hover { opacity: 0.5; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
 
-        /* HERO SECTION - The Split */
-        .hero-split { 
-            display: flex; 
-            height: 100vh; 
-            width: 100%; 
+        /* 2. CINEMATIC REVEAL (BLUR TO SHARP) */
+        .reveal-item {
+            opacity: 0;
+            filter: blur(20px);
+            transform: translateY(30px) scale(0.98);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 150px;
+        }
+
+        .reveal-item.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0) scale(1);
+        }
+
+        /* 3. FLOATING HERO CONTAINER */
+        .hero-section {
+            height: 100vh;
+            display: flex;
             align-items: center;
-        }
-        
-        .hero-left { 
-            flex: 1.2; 
-            height: 100vh;
-            background: var(--soft-grey);
-            overflow: hidden;
-        }
-        
-        .hero-left img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .hero-split:hover .hero-left img { transform: scale(1.08); }
-
-        .hero-right { 
-            flex: 1; 
-            padding: 0 10%; 
-            display: flex; 
-            flex-direction: column; 
             justify-content: center;
-            height: 100vh;
+            perspective: 1000px;
         }
-        
-        h1 { 
-            font-size: clamp(50px, 9vw, 120px); 
-            font-weight: 900; 
-            line-height: 0.8; 
-            letter-spacing: -6px; 
-            margin-bottom: 40px; 
+
+        .tilt-card {
+            position: relative;
+            width: 80vw;
+            max-width: 1000px;
+            height: 60vh;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .tilt-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        }
+
+        /* SHEEN EFFECT */
+        .sheen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent 45%, rgba(255,255,255,0.1) 50%, transparent 55%);
+            background-size: 250% 250%;
+            pointer-events: none;
+            z-index: 11;
+        }
+
+        /* TYPOGRAPHY */
+        .gallery-label {
+            position: fixed;
+            bottom: 40px;
+            left: 6%;
+            font-size: 10px;
+            letter-spacing: 5px;
             text-transform: uppercase;
+            font-weight: 900;
         }
 
-        .desc { 
-            font-size: 18px; 
-            color: #888; 
-            margin-bottom: 10px; 
-            line-height: 1.5; 
-            max-width: 380px;
+        nav {
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            padding: 0 6%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 5px;
+        }
+
+        .project-meta {
+            margin-top: 20px;
+            font-size: 13px;
             font-weight: 300;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
-        .project-scope { 
-            font-size: 9px; 
-            letter-spacing: 2px; 
-            color: #444; 
-            text-transform: uppercase; 
-            margin-top: 60px; 
-            border-top: 1px solid #222;
-            padding-top: 20px;
-        }
-
-        /* Gallery Grid */
-        .gallery { 
-            padding: 100px 6%; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px;
-            background: #050505;
-        }
-        .gallery img { width: 100%; height: auto; }
-
-        .next-btn {
-            padding: 120px 6% 150px;
-            text-align: right;
-        }
-        .next-btn a { text-decoration: none; color: var(--white); }
-        .next-btn h2 { font-size: clamp(40px, 8vw, 100px); font-weight: 900; letter-spacing: -4px; transition: 0.3s; }
-        .next-btn a:hover h2 { color: var(--accent); transform: translateX(-10px); }
-
-        @media (max-width: 1100px) {
-            .hero-split { flex-direction: column; height: auto; }
-            .hero-left, .hero-right { width: 100%; height: auto; padding: 80px 10%; }
-            .hero-left { height: 70vh; }
+        /* GRID FOR OTHER WORKS */
+        .others-grid {
+            padding: 0 10% 200px;
         }
     </style>
 </head>
 <body>
 
+    <div id="aura"></div>
+
     <nav>
-        <a href="index.html">← BACK</a>
-        <div class="nav-center">NATIA DESIGN</div>
-        <a href="mailto:contact@natiadesign.com">EMAIL</a>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="oat-milk.html">BACK</a>
     </nav>
 
-    <div class="container">
-        <section class="hero-split">
-            <div class="hero-left">
-                <img src="others-hero.jpg" alt="The Others Design">
-            </div>
+    <div class="gallery-label">Others / Archive</div>
+
+    <section class="hero-section">
+        <div class="tilt-card reveal-item" id="heroCard">
+            <div class="sheen" id="sheen"></div>
+            <img src="others-main.jpg" alt="Experimental Work">
+            <div class="project-meta">Experimental Series / 2024—2025</div>
+        </div>
+    </section>
+
+    <main class="others-grid">
+        <div class="reveal-item">
+            <img src="other1.jpg" style="width: 100%; height: auto;">
+        </div>
+        <div class="reveal-item">
+            <img src="other2.jpg" style="width: 100%; height: auto;">
+        </div>
+    </main>
+
+    <script>
+        const aura = document.getElementById('aura');
+        const heroCard = document.getElementById('heroCard');
+        const sheen = document.getElementById('sheen');
+
+        // 1. CURSOR AURA & SHEEN MOVEMENT
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
             
-            <div class="hero-right">
-                <h1>THE<br>OTHERS</h1>
-                <p class="desc">A collection of diverse visual explorations and alternative branding concepts.</p>
-                <p class="project-scope">SCOPE: EXPERIMENTAL DESIGN • 2026</p>
-            </div>
-        </section>
+            aura.style.left = x + 'px';
+            aura.style.top = y + 'px';
 
-        <section class="gallery">
-            <img src="others-mockup1.jpg">
-            <img src="others-mockup2.jpg">
-        </section>
+            // Subtle 3D Tilt
+            const moveX = (window.innerWidth / 2 - x) / 50;
+            const moveY = (window.innerHeight / 2 - y) / 50;
+            heroCard.style.transform = `rotateX(${moveY}deg) rotateY(${-moveX}deg)`;
+            
+            // Sheen Movement
+            sheen.style.backgroundPosition = `${(x / window.innerWidth) * 100}% ${(y / window.innerHeight) * 100}%`;
+        });
 
-        <footer class="next-btn">
-            <a href="nurture.html">
-                <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
-                <h2>NURTURE →</h2>
-            </a>
-        </footer>
-    </div>
+        // 2. SCROLL REVEAL LOGIC
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
 
+        document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

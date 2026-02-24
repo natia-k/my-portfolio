@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OAT MILK | NATIA STUDIO</title>
+    <title>FERMENT | CINEMA RED</title>
     <style>
         :root { 
             --cinema-red: #ff0000; 
-            --charcoal: #2D2926; 
             --white: #ffffff;
-            --bg-current: #000000; /* Starts in a dark cinema state */
+            --bg-current: #000000;
+            --bloom-color: rgba(255, 0, 0, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
@@ -18,12 +18,20 @@
             background-color: var(--bg-current);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1s cubic-bezier(0.16, 1, 0.3, 1), color 1s ease;
+            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. CINEMA HERO: THE DEPTH LAYER */
+        /* 1. DISCIPLINED NAV */
+        nav { 
+            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
+            display: flex; justify-content: space-between; z-index: 1000;
+            mix-blend-mode: difference;
+        }
+        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
+
+        /* 2. CINEMA HERO: THE DEPTH LAYER */
         .hero {
             height: 100vh;
             display: flex;
@@ -31,32 +39,29 @@
             justify-content: center;
             position: relative;
             z-index: 10;
-            overflow: hidden;
         }
 
         h1 {
             position: absolute;
-            font-size: clamp(100px, 30vw, 500px);
+            font-size: clamp(80px, 25vw, 450px);
             font-weight: 950;
             letter-spacing: -0.07em;
-            color: var(--cinema-red); /* The initial red impact */
-            z-index: 5; /* Sit BEHIND the bottle */
+            color: var(--cinema-red);
+            z-index: 5; /* BEHIND THE BOTTLE */
             line-height: 0.8;
             text-transform: uppercase;
             pointer-events: none;
-            transition: transform 0.1s ease-out;
         }
 
         .hero-img {
             height: 80vh;
-            z-index: 10; /* Sit IN FRONT of the red OAT */
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.5));
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10; /* FRONT OF TEXT */
+            filter: drop-shadow(0 30px 60px rgba(255,0,0,0.2));
         }
 
-        /* 2. THE PHILOSOPHY HOOK */
-        .philosophy {
-            height: 60vh;
+        /* 3. PHILOSOPHY SECTION */
+        .philosophy-wrap {
+            height: 80vh;
             display: flex;
             align-items: center;
             padding: 0 10%;
@@ -64,117 +69,105 @@
         }
 
         .philosophy-text {
-            font-size: clamp(24px, 4vw, 42px);
+            font-size: clamp(24px, 4vw, 48px);
             line-height: 1.1;
             font-weight: 300;
-            max-width: 900px;
-            color: var(--white);
+            max-width: 1000px;
+            letter-spacing: -1px;
         }
 
-        /* 3. RETURN TO REALITY (The White Grid) */
-        .reality-content {
-            background: var(--white);
-            color: var(--charcoal);
-            padding: 0 8% 200px;
-            position: relative;
-            z-index: 20;
-        }
-
+        /* 4. CHROMA SECTIONS */
         .spread {
+            height: 120vh;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-            padding: 180px 0;
             align-items: center;
+            padding: 0 8%;
         }
 
-        .text-side { grid-column: 2 / span 4; }
-        .image-side { grid-column: 7 / span 6; }
+        .text-side { grid-column: 1 / span 5; }
+        .image-side { grid-column: 7 / span 6; position: relative; }
 
-        .label {
-            font-size: 10px; letter-spacing: 5px; font-weight: 900;
-            text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.4;
+        h2 { font-size: clamp(40px, 8vw, 120px); font-weight: 900; line-height: 0.85; letter-spacing: -5px; margin-bottom: 30px; text-transform: uppercase; }
+        p { font-size: 19px; line-height: 1.5; opacity: 0.7; font-weight: 300; max-width: 420px; }
+
+        .bloom {
+            position: absolute; top: 50%; left: 50%; width: 140%; height: 140%;
+            background: radial-gradient(circle, var(--bloom-color) 0%, transparent 70%);
+            transform: translate(-50%, -50%); z-index: -1; opacity: 0.5;
         }
-
-        h2 { font-size: clamp(32px, 5vw, 80px); font-weight: 900; line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; margin-bottom: 30px; }
-        p { font-size: 19px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
 
         /* FOOTER */
-        .next-wrap { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--white); }
-        .next-link { font-size: 15vw; font-weight: 900; color: transparent; -webkit-text-stroke: 1px var(--charcoal); text-decoration: none; letter-spacing: -8px; transition: 0.6s; }
-        .next-link:hover { color: var(--charcoal); letter-spacing: 0; }
-
-        @media (max-width: 900px) { .spread { display: flex; flex-direction: column; } h1 { font-size: 40vw; } }
+        .next-wrap { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        .next-link { font-size: 15vw; font-weight: 950; text-decoration: none; color: transparent; -webkit-text-stroke: 1px white; transition: 0.5s; letter-spacing: -8px; }
+        .next-link:hover { color: white; letter-spacing: 0; }
     </style>
 </head>
 <body>
 
-    <nav style="position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference;">
-        <a href="index.html" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px;">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px;">CONTACT</a>
+    <nav>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
-    <header class="hero" id="cinemaHero">
-        <h1 id="parallaxText">OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+    <header class="hero">
+        <h1 id="parallaxText">FERMENT</h1>
+        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Monolith">
     </header>
 
-    <section class="philosophy">
+    <section class="philosophy-wrap">
         <p class="philosophy-text">
-            An identity that speaks only in the product’s own colors and structure — distilled, restrained, and free of unnecessary visual noise.
+            “An identity that speaks only in the product’s own colors and structure — distilled, restrained, and free of unnecessary visual noise.”
         </p>
     </section>
 
-    <main class="reality-content" id="reality">
-        
-        <section class="spread">
+    <main>
+        <section class="spread" data-bg="#120e0a" data-bloom="rgba(255, 174, 66, 0.2)">
             <div class="text-side">
-                <span class="label">Identity Concept</span>
-                <h2>Structural<br>Silence.</h2>
-                <p>An identity that removes category noise and treats the carton as an object—solid, calm, architectural.</p>
+                <h2>Raw<br>Amber.</h2>
+                <p>One Flavor. One Color. We stripped away category clichés, leaving only what the drink truly is: a raw biological process.</p>
             </div>
             <div class="image-side">
-                <img src="oat-mockup1.jpg" style="width: 100%;">
+                <div class="bloom"></div>
+                <img src="kombucha2.jpg" style="width: 100%;">
             </div>
         </section>
 
-        <section class="spread">
-            <div class="image-side" style="grid-column: 1 / span 7;">
-                <img src="oat-mockup2.jpg" style="width: 100%;">
+        <section class="spread" data-bg="#140a0a" data-bloom="rgba(255, 40, 80, 0.2)">
+            <div class="text-side">
+                <h2>Hibiscus<br>Blush.</h2>
+                <p>Chromatics drawn directly from the liquid. No decorative noise—the beverage's inherent character is the primary visual source.</p>
             </div>
-            <div class="text-side" style="grid-column: 9 / span 4;">
-                <span class="label">Chromatics</span>
-                <h2>The Color<br>of Cream.</h2>
-                <p>A palette sampled from the liquid itself—warm off-white and deep charcoal for structural weight.</p>
+            <div class="image-side">
+                <div class="bloom"></div>
+                <img src="kombucha3.jpg" style="width: 100%;">
             </div>
         </section>
-
     </main>
 
     <footer class="next-wrap">
-        <span class="label">Next Movement</span>
-        <a href="the-others.html" class="next-link">THE OTHERS</a>
+        <a href="oat-milk.html" class="next-link">OAT MILK</a>
     </footer>
 
     <script>
         const parallaxText = document.getElementById('parallaxText');
-        const realitySection = document.getElementById('reality');
+        const sections = document.querySelectorAll('.spread');
 
         window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY;
-            
-            // 1. Parallax Effect for the Red OAT text
-            parallaxText.style.transform = `translateY(${scrollPos * 0.3}px)`;
-
-            // 2. Transition Body from Black to White "Reality"
-            if (scrollPos > 300) {
-                document.body.style.backgroundColor = '#ffffff';
-                document.body.style.color = '#2D2926';
-            } else {
-                document.body.style.backgroundColor = '#000000';
-                document.body.style.color = '#ffffff';
-            }
+            // Parallax Depth
+            parallaxText.style.transform = `translateY(${window.scrollY * 0.3}px)`;
         });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.body.style.setProperty('--bg-current', entry.target.getAttribute('data-bg'));
+                    document.body.style.setProperty('--bloom-color', entry.target.getAttribute('data-bloom'));
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(s => observer.observe(s));
     </script>
 </body>
 </html>

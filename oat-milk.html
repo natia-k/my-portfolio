@@ -6,24 +6,24 @@
     <title>OAT MILK | NATIA STUDIO</title>
     <style>
         :root { 
-            --cream: #F4EFE4; 
+            --cinema-red: #ff0000; 
             --charcoal: #2D2926; 
             --white: #ffffff;
-            --active-bg: #ffffff; /* Starts white */
+            --bg-current: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--active-bg);
-            color: var(--charcoal);
+            background-color: var(--bg-current);
+            color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 0.8s ease-out;
+            transition: background-color 1s ease, color 1s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. HERO LAYERING (Oat behind bottle) */
+        /* 1. INTERACTIVE HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -31,6 +31,8 @@
             justify-content: center;
             position: relative;
             z-index: 10;
+            overflow: hidden;
+            perspective: 1000px; /* Essential for the 'coming out' effect */
         }
 
         h1 {
@@ -38,23 +40,48 @@
             font-size: clamp(100px, 30vw, 500px);
             font-weight: 950;
             letter-spacing: -0.07em;
-            color: var(--charcoal);
+            color: var(--cinema-red);
             z-index: 5; /* Behind bottle */
             line-height: 0.8;
             text-transform: uppercase;
-            pointer-events: none;
+            pointer-events: none; /* Mouse goes through text to the bottle */
         }
 
         .hero-img {
             height: 80vh;
-            z-index: 10; /* In front of text */
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.1));
+            z-index: 10; /* Front of text */
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.5));
+            /* The 'Coming Out' Transition */
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+            will-change: transform;
         }
 
-        /* 2. REALITY SECTIONS */
+        /* THE HOVER TRIGGER */
+        .hero:hover .hero-img {
+            transform: scale(1.1) translateY(-20px) rotateY(-5deg);
+            filter: drop-shadow(0 50px 100px rgba(255,0,0,0.3));
+        }
+
+        /* 2. REALITY CONTENT */
+        .philosophy {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            background: #000;
+        }
+
+        .philosophy-text {
+            font-size: clamp(24px, 4vw, 42px);
+            line-height: 1.1;
+            font-weight: 300;
+            max-width: 900px;
+        }
+
         .reality-content {
+            background: var(--white);
+            color: var(--charcoal);
             padding: 0 8% 200px;
-            background: var(--white); /* Forces back to reality */
             position: relative;
             z-index: 20;
         }
@@ -70,20 +97,8 @@
         .text-side { grid-column: 2 / span 4; }
         .image-side { grid-column: 7 / span 6; }
 
-        .label {
-            font-size: 10px; letter-spacing: 5px; font-weight: 900;
-            text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.4;
-        }
-
         h2 { font-size: clamp(32px, 5vw, 80px); font-weight: 900; line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; margin-bottom: 30px; }
-        p { font-size: 18px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
-
-        .caption { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; opacity: 0.4; }
-
-        /* FOOTER */
-        .next-wrap { height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--white); }
-        .next-title { font-size: 12vw; font-weight: 900; color: transparent; -webkit-text-stroke: 1px var(--charcoal); text-decoration: none; letter-spacing: -8px; transition: 0.6s; }
-        .next-title:hover { color: var(--charcoal); letter-spacing: 0; }
+        p { font-size: 19px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
 
         @media (max-width: 900px) { .spread { display: flex; flex-direction: column; } h1 { font-size: 40vw; } }
     </style>
@@ -94,58 +109,45 @@
         <a href="index.html" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px;">NATIA STUDIO</a>
     </nav>
 
-    <header class="hero" id="chromaHero">
-        <h1>OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk">
+    <header class="hero">
+        <h1 id="parallaxText">OAT</h1>
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
     </header>
 
+    <section class="philosophy">
+        <p class="philosophy-text">
+            “An identity that speaks only in the product’s own colors and structure — distilled, restrained, and free of unnecessary visual noise.”
+        </p>
+    </section>
+
     <main class="reality-content">
-        
         <section class="spread">
             <div class="text-side">
-                <span class="label">Project Intent</span>
                 <h2>Structural<br>Silence.</h2>
                 <p>An identity that removes category noise and treats the carton as an object—solid, calm, architectural.</p>
             </div>
             <div class="image-side">
                 <img src="oat-mockup1.jpg" style="width: 100%;">
-                <div class="caption">Mockup 01 — Structural Proportion</div>
             </div>
         </section>
-
-        <section class="spread">
-            <div class="image-side" style="grid-column: 1 / span 7;">
-                <img src="oat-mockup2.jpg" style="width: 100%;">
-                <div class="caption">System View — Depth and Negative Space</div>
-            </div>
-            <div class="text-side" style="grid-column: 9 / span 4;">
-                <span class="label">Design Logic</span>
-                <h2>Chromatics<br>of Cream.</h2>
-                <p>A palette sampled from the liquid itself—warm off-white, oat beige, and deep charcoal for structural weight.</p>
-            </div>
-        </section>
-
     </main>
 
-    <footer class="next-wrap">
-        <span class="label">Up Next</span>
-        <a href="the-others.html" class="next-title">THE OTHERS</a>
-    </footer>
-
     <script>
+        const parallaxText = document.getElementById('parallaxText');
+
         window.addEventListener('scroll', () => {
             const scrollPos = window.scrollY;
-            const heroHeight = document.getElementById('chromaHero').offsetHeight;
             
-            // As you scroll down the hero, color changes to cream
-            if (scrollPos < heroHeight) {
-                const fraction = scrollPos / heroHeight;
-                // Interpolate between white (#ffffff) and cream (#F4EFE4)
-                document.body.style.backgroundColor = `rgba(244, 239, 228, ${fraction})`;
-            } 
-            // Once you hit the "reality" content, everything stays white and clean
-            else {
+            // 1. Subtle parallax for background text
+            parallaxText.style.transform = `translateY(${scrollPos * 0.2}px)`;
+
+            // 2. Transition from Black to White
+            if (scrollPos > 400) {
                 document.body.style.backgroundColor = '#ffffff';
+                document.body.style.color = '#2D2926';
+            } else {
+                document.body.style.backgroundColor = '#000000';
+                document.body.style.color = '#ffffff';
             }
         });
     </script>

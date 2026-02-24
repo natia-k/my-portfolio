@@ -11,10 +11,10 @@
         body { 
             background: var(--black); color: var(--white); 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow-x: hidden; height: 1200vh; /* Long scroll for the path */
+            overflow-x: hidden; height: 1400vh; /* Long scroll height for full path */
         }
 
-        /* HUD - NAVIGATION */
+        /* NAVIGATION */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 40px 6%; display: flex; justify-content: space-between;
@@ -33,7 +33,7 @@
         /* THE MAP GRID */
         #laby-map {
             position: absolute; top: 0; left: 0;
-            width: 300vw; height: 500vh;
+            width: 400vw; height: 600vh;
             will-change: transform;
         }
 
@@ -42,6 +42,7 @@
             width: 100vw; height: 100vh;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
+            cursor: pointer;
         }
 
         /* PROFESSIONAL TYPOGRAPHY */
@@ -62,42 +63,39 @@
         .img-container {
             position: absolute; width: 35vw; max-width: 550px;
             aspect-ratio: 4/5; z-index: -1; 
-            background: var(--black); /* No gray */
-            box-shadow: 0 0 100px rgba(0,0,0,1);
+            background: var(--black);
             transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
         }
         .img-container img { 
             width: 100%; height: 100%; object-fit: cover; 
-            filter: grayscale(1) brightness(0.5); 
+            filter: grayscale(1) brightness(0.4); 
             transition: 1s ease;
         }
         .node:hover .img-container img { filter: grayscale(0) brightness(1); }
         .node:hover .img-container { transform: scale(1.05); }
 
-        /* THE MAP COORDINATES */
-        #n-intro { left: 0; top: 0; }
+        /* THE SNAKE MAP COORDINATES */
+        /* Row 1: Right */
+        #n-intro { left: 0; top: 0; cursor: default; }
         #n-1     { left: 100vw; top: 0; }
         #n-2     { left: 200vw; top: 0; }
+        /* Down */
         #n-3     { left: 200vw; top: 100vh; }
         #n-4     { left: 200vw; top: 200vh; }
+        /* Left */
         #n-5     { left: 100vw; top: 200vh; }
         #n-6     { left: 0vw; top: 200vh; }
+        /* Down */
         #n-7     { left: 0vw; top: 300vh; }
         #n-8     { left: 0vw; top: 400vh; }
+        /* Finale */
         #n-end   { left: 100vw; top: 400vh; background: var(--accent); }
 
-        /* FINAL NODE */
-        #n-end h2 { color: var(--black); font-size: 12vw; }
-        #n-end a { 
-            color: var(--black); font-weight: 900; font-size: 22px; 
-            text-decoration: none; border-bottom: 5px solid var(--black); 
-            margin-top: 40px; 
-        }
+        #n-end h2 { color: var(--black); font-size: 10vw; letter-spacing: -6px; }
 
         @media (max-width: 768px) {
-            .node h2 { font-size: 65px; letter-spacing: -2px; }
-            .img-container { width: 85vw; opacity: 0.7; }
+            .node h2 { font-size: 65px; }
+            .img-container { width: 85vw; opacity: 0.8; }
         }
     </style>
 </head>
@@ -114,7 +112,7 @@
             <div class="node" id="n-intro">
                 <span>IDENTITY</span>
                 <h2>NATIA<br>KURTANIDZE</h2>
-                <p>Visual Artist & Brand Architect. Creating digital artifacts through organic chaos. Scroll to enter the void.</p>
+                <p>Visual Architect & Brand Rebel. Creating digital artifacts through organic chaos.</p>
             </div>
 
             <div class="node" id="n-1" onclick="location.href='kombucha.html'">
@@ -124,7 +122,7 @@
 
             <div class="node" id="n-2" onclick="location.href='oatmilk.html'">
                 <div class="img-container"><img src="oat-hero.jpg"></div>
-                <span>02 PACKAGING</span><h2>THE OAT<br>STANDARD</h2>
+                <span>02 PACKAGING</span><h2>THE OAT<br>IDENTITY</h2>
             </div>
 
             <div class="node" id="n-3" onclick="location.href='others.html'">
@@ -143,8 +141,8 @@
             </div>
 
             <div class="node" id="n-6" onclick="location.href='cd-covers.html'">
-                <div class="img-container"><img src="cd-hero.jpg"></div>
-                <span>06 AUDIO</span><h2>SOUND &<br>VISION</h2>
+                <div class="img-container"><img src="cd-covers-hero.jpg"></div>
+                <span>06 SERIES</span><h2>SOUND &<br>VISION</h2>
             </div>
 
             <div class="node" id="n-7" onclick="location.href='circle.html'">
@@ -157,9 +155,8 @@
                 <span>08 CONCEPT</span><h2>LUCID<br>DREAMS</h2>
             </div>
 
-            <div class="node" id="n-end">
-                <h2>READY?</h2>
-                <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
+            <div class="node" id="n-end" onclick="location.href='mailto:natia.kurtanidze55@gmail.com'">
+                <h2>START A RIOT</h2>
             </div>
 
         </div>
@@ -170,27 +167,25 @@
         let currentY = 0;
         let targetY = 0;
 
-        window.addEventListener('scroll', () => {
-            targetY = window.scrollY;
-        });
+        window.addEventListener('scroll', () => { targetY = window.scrollY; });
 
         function animate() {
-            currentY += (targetY - currentY) * 0.08; // Smooth inertia
+            currentY += (targetY - currentY) * 0.08;
             const h = window.innerHeight;
 
-            let x = 0; let y = 0;
+            let x = 0, y = 0;
 
-            // LABYRINTH PATH LOGIC
+            // THE SNAKE PATH MATH
             if (currentY < h * 2) { 
-                x = currentY; y = 0; // Right to N2
+                x = currentY; y = 0; // Move Right
             } else if (currentY < h * 4) {
-                x = h * 2; y = currentY - (h * 2); // Down to N4
+                x = h * 2; y = currentY - (h * 2); // Move Down
             } else if (currentY < h * 6) {
-                x = (h * 2) - (currentY - (h * 4)); y = h * 2; // Left to N6
+                x = (h * 2) - (currentY - (h * 4)); y = h * 2; // Move Left
             } else if (currentY < h * 8) {
-                x = 0; y = (h * 2) + (currentY - (h * 6)); // Down to N8
+                x = 0; y = (h * 2) + (currentY - (h * 6)); // Move Down
             } else {
-                x = currentY - (h * 8); y = h * 4; // Right to Finale
+                x = currentY - (h * 8); y = h * 4; // Move Right to End
             }
 
             map.style.transform = `translate3d(-${x}px, -${y}px, 0)`;

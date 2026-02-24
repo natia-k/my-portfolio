@@ -23,7 +23,6 @@
             background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
         }
 
-        /* 1. CURSOR AURA (SUBTLE SPOTLIGHT) */
         #aura {
             position: fixed;
             width: 600px;
@@ -33,10 +32,9 @@
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
-            transition: opacity 0.5s ease;
         }
 
-        /* 2. THE MONOLITH HERO (TEXT BEHIND IMAGE) */
+        /* 1. HERO: TEXT BEHIND IMAGE */
         .hero {
             height: 100vh;
             display: flex;
@@ -53,7 +51,7 @@
             font-weight: 950;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            z-index: 5; /* Starts BEHIND */
+            z-index: 5; 
             opacity: 0.1;
             filter: blur(10px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -61,29 +59,24 @@
 
         .hero-container {
             position: relative;
-            z-index: 10; /* Starts IN FRONT */
+            z-index: 10;
             width: 80%;
             max-width: 500px;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
         }
 
-        .hero-img {
-            width: 100%;
-            display: block;
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.05));
-        }
+        .hero-img { width: 100%; display: block; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.05)); }
 
-        /* INTERACTION: TEXT COMES FORWARD */
         .hero:hover h1 {
-            z-index: 15; /* Moves to FRONT */
+            z-index: 15;
             opacity: 1;
             filter: blur(0px);
             mix-blend-mode: exclusion;
             color: var(--white);
         }
 
-        /* 3. CINEMATIC REVEAL SYSTEM */
+        /* 2. CINEMATIC REVEAL */
         .reveal {
             opacity: 0;
             filter: blur(15px);
@@ -97,9 +90,9 @@
             transform: translateY(0);
         }
 
-        /* 4. ARCHITECTURAL LAYOUT */
+        /* 3. GALLERY LAYOUT */
         .section-header {
-            padding: 150px 10%;
+            padding: 150px 10% 50px;
             border-top: 1px solid var(--line);
             margin: 0 5%;
         }
@@ -110,14 +103,12 @@
             text-transform: uppercase;
             line-height: 0.85;
             letter-spacing: -0.04em;
-            margin-bottom: 30px;
         }
 
         .monolith-title span { display: block; }
 
-        /* 5. PARALLAX MICRO-DEPTH */
         .parallax-wrap {
-            padding: 100px 10%;
+            padding: 80px 10%;
             display: flex;
             justify-content: center;
             overflow: hidden;
@@ -156,7 +147,6 @@
         }
 
         .loop-link:hover { color: var(--black); -webkit-text-stroke: 1px transparent; }
-
     </style>
 </head>
 <body>
@@ -171,7 +161,7 @@
     <header class="hero">
         <h1 id="heroText">OAT</h1>
         <div class="hero-container" id="heroImg">
-            <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+            <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Bottle">
         </div>
     </header>
 
@@ -180,13 +170,28 @@
             <span>Structural</span>
             <span>Silence.</span>
         </h2>
-        <p style="max-width: 500px; font-weight: 300; font-size: 16px;">
+        <p style="max-width: 500px; font-weight: 300; margin-top: 30px;">
             A deliberate study in restraint. We treated the carton as a monolith, removing category noise so form and material could speak.
         </p>
     </section>
 
     <div class="parallax-wrap">
         <img src="oat-mockup1.jpg" class="parallax-img reveal" data-speed="0.05">
+    </div>
+
+    <section class="section-header reveal">
+        <h2 class="monolith-title">
+            <span>Visual</span>
+            <span>Clarity.</span>
+        </h2>
+    </section>
+
+    <div class="parallax-wrap">
+        <img src="oat-mockup2.jpg" class="parallax-img reveal" data-speed="0.08">
+    </div>
+
+    <div class="parallax-wrap">
+        <img src="oat-mockup3.jpg" class="parallax-img reveal" data-speed="0.03">
     </div>
 
     <footer class="loop-footer">
@@ -198,7 +203,6 @@
         const aura = document.getElementById('aura');
         const heroImg = document.getElementById('heroImg');
 
-        // Cursor Aura & 3D Tilt
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
@@ -209,7 +213,6 @@
             heroImg.style.transform = `rotateX(${moveY}deg) rotateY(${-moveX}deg)`;
         });
 
-        // Cinematic Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -218,7 +221,6 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Parallax
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             document.querySelectorAll('.parallax-img').forEach(img => {

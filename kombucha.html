@@ -16,7 +16,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Nav - Pure High Contrast */
+        /* Nav - Pure White, Bold */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; align-items: center; 
@@ -24,16 +24,16 @@
         }
         nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
 
-        /* THE MOTION HERO SECTION */
+        /* HERO SECTION */
         .hero-split { 
             display: flex; 
             height: 100vh; 
             width: 100%; 
             align-items: center;
             background: var(--black);
-            perspective: 1000px; /* Prepares the page for 3D movement */
         }
         
+        /* The Container */
         .hero-left { 
             flex: 1.4; 
             height: 100vh;
@@ -43,25 +43,25 @@
             overflow: hidden;
         }
         
-        /* The Image: Starts much smaller and "floats" */
+        /* THE IMAGE: 'contain' ensures it is never cut off */
         .hero-left img { 
-            width: 70%; 
-            height: 70%; 
-            object-fit: cover; 
+            width: 75%; 
+            height: 75%; 
+            object-fit: contain; 
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: brightness(0.8);
+            filter: brightness(0.9);
             will-change: transform, width, height;
         }
 
-        /* Trigger: Image grows and brightens */
+        /* Interaction: Image grows to fill more space but stays 'contain' to avoid cropping */
         .hero-split:hover .hero-left img { 
-            width: 100%; 
-            height: 100%; 
+            width: 95%; 
+            height: 95%; 
             filter: brightness(1);
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
-        /* Text Movement */
+        /* Text Side - Moves slightly on hover */
         .hero-right { 
             flex: 1; 
             padding: 0 7%; 
@@ -72,7 +72,7 @@
         }
         
         .hero-split:hover .hero-right {
-            transform: translateX(20px); /* Text moves away from the expanding pic */
+            transform: translateX(15px);
         }
         
         h1 { 
@@ -86,18 +86,21 @@
 
         .quote { font-size: 28px; line-height: 1.1; max-width: 480px; margin-bottom: 25px; }
 
-        /* GALLERY MOTION - Mockups move too */
+        .project-scope { 
+            font-size: 12px; letter-spacing: 3px; text-transform: uppercase; 
+            margin-top: 50px; border-top: 3px solid var(--white); padding-top: 30px; font-weight: 900; 
+        }
+
+        /* BOTTOM GALLERY - Moving Mockups */
         .gallery { 
-            padding: 40px 6%; 
+            padding: 80px 6%; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 40px; 
-            background: var(--black);
         }
 
         .gallery-item {
             overflow: hidden;
-            background: #080808;
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -107,14 +110,13 @@
             transition: transform 1.2s ease;
         }
 
-        /* Mockups lift and zoom slightly when hovered */
+        /* Interaction: Mockups lift up on hover */
         .gallery-item:hover {
-            transform: translateY(-20px) scale(1.02);
-            z-index: 10;
+            transform: translateY(-30px);
         }
         
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .next-btn { 
@@ -127,14 +129,14 @@
             font-size: clamp(60px, 11vw, 130px); 
             font-weight: 900; 
             letter-spacing: -6px; 
-            transition: color 0.4s;
         }
         .next-btn a:hover h2 { color: var(--accent); }
 
         @media (max-width: 1100px) {
             .hero-split { flex-direction: column; height: auto; }
             .hero-left { height: 60vh; }
-            .hero-left img { width: 100%; height: 100%; }
+            .hero-left img { width: 90%; height: 90%; }
+            .gallery { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -155,7 +157,8 @@
             <div class="hero-right">
                 <h1>KOMBU<br>CHA</h1>
                 <p class="quote">"It started as simple tea. Then time, patience. And a little magic happened."</p>
-                <div class="project-scope" style="border-top: 3px solid white; padding-top: 20px; margin-top: 40px; font-weight: 900; font-size: 12px; letter-spacing: 3px;">
+                
+                <div class="project-scope">
                     SCOPE: BOTANICAL ILLUSTRATION • COLOUR EXPLORATION
                 </div>
             </div>

@@ -3,61 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | THE EXHIBITION</title>
+    <title>NATIA KURTANIDZE | VISUAL ARCHITECT</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--black); color: var(--white); font-family: Arial, sans-serif; line-height: 1.5; }
-        nav { padding: 30px 6%; display: flex; justify-content: space-between; position: fixed; top: 0; width: 100%; z-index: 100; mix-blend-mode: difference; }
-        .logo { font-weight: 900; letter-spacing: 5px; text-decoration: none; color: var(--white); font-size: 12px; }
-        .section { padding: 15vh 10%; border-bottom: 1px solid #222; min-height: 100vh; display: flex; align-items: center; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: 100%; }
-        .img-box img { width: 100%; max-width: 500px; display: block; filter: grayscale(0.5); transition: 0.5s; }
-        .img-box img:hover { filter: grayscale(0); }
-        .text-box h2 { font-size: 80px; font-weight: 900; letter-spacing: -4px; line-height: 0.8; margin-bottom: 20px; text-transform: uppercase; }
-        .text-box p { font-size: 18px; color: #888; max-width: 400px; }
-        .index { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 3px; display: block; margin-bottom: 10px; }
-        @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .text-box h2 { font-size: 50px; } }
+        
+        body { 
+            background: var(--black); color: var(--white); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow: hidden; cursor: crosshair;
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 40px 6%; display: flex; justify-content: space-between;
+            z-index: 1000; mix-blend-mode: difference;
+        }
+        .logo { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; text-decoration: none; color: var(--white); font-size: 14px; }
+
+        .viewport { width: 100vw; height: 100vh; overflow: hidden; position: relative; }
+        
+        #laby-line { 
+            display: flex; 
+            position: absolute; top: 0; left: 0; height: 100vh;
+            will-change: transform; align-items: center;
+        }
+
+        .node {
+            width: 100vw; height: 100vh; flex-shrink: 0;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 10%; cursor: pointer; position: relative;
+        }
+
+        .node span { color: var(--accent); font-size: 11px; letter-spacing: 8px; margin-bottom: 20px; font-weight: 900; }
+        .node h2 { font-size: clamp(50px, 12vw, 160px); font-weight: 900; text-transform: uppercase; line-height: 0.8; letter-spacing: -6px; transition: 0.5s ease; }
+        .node:hover h2 { letter-spacing: -2px; color: var(--accent); }
+
+        .img-container {
+            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
+            width: 30vw; max-width: 500px; aspect-ratio: 3/4; 
+            z-index: -1; opacity: 0.15; filter: grayscale(1);
+            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+            background: #111;
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .node:hover .img-container { opacity: 0.8; filter: grayscale(0); }
+
+        .progress-wrap { position: fixed; bottom: 50px; left: 6%; width: 88%; height: 1px; background: rgba(255,255,255,0.1); z-index: 1000; }
+        .progress-bar { width: 0%; height: 100%; background: var(--accent); }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">NATIA KURTANIDZE</a><a href="index.html" style="color:var(--accent); text-decoration:none; font-weight:900;">CLOSE</a></nav>
 
-    <section class="section">
-        <div class="grid">
-            <div class="img-box"><img src="posters-hero.jpg"></div>
-            <div class="text-box">
-                <span class="index">05 DESIGN</span>
-                <h2>STREET<br>VOICE</h2>
-                <p>Visualizing urban noise through motion-heavy typographic posters.</p>
+    <nav><a href="index.html" class="logo">NATIA KURTANIDZE</a></nav>
+
+    <div class="viewport">
+        <div id="laby-line">
+            <div class="node"><span>IDENTITY</span><h2>NATIA<br>KURTANIDZE</h2></div>
+            
+            <div class="node" onclick="location.href='kombucha.html'">
+                <div class="img-container"><img src="kombucha-hero.jpg"></div>
+                <span>01 BRANDING</span><h2>LIQUID<br>REBEL</h2>
+            </div>
+
+            <div class="node" onclick="location.href='oatmilk.html'">
+                <div class="img-container"><img src="oat-hero.jpg"></div>
+                <span>02 PRODUCT</span><h2>OAT<br>IDENTITY</h2>
+            </div>
+
+            <div class="node" onclick="location.href='nurture.html'">
+                <div class="img-container"><img src="nurture-hero.jpg"></div>
+                <span>03 SERIES</span><h2>GENTLE<br>FORCE</h2>
+            </div>
+
+            <div class="node" onclick="location.href='others.html'">
+                <div class="img-container"><img src="others-hero.jpg"></div>
+                <span>04 CONCEPT</span><h2>RAW<br>EXTRACTS</h2>
+            </div>
+
+            <div class="node" onclick="location.href='exhibition.html'">
+                <div class="img-container"><img src="posters-hero.jpg"></div>
+                <span>05 DESIGN</span><h2>STREET<br>VOICE</h2>
+            </div>
+
+            <div class="node" onclick="location.href='cd-covers.html'">
+                <div class="img-container"><img src="cd-covers-hero.jpg"></div>
+                <span>06 ART</span><h2>SOUND &<br>VISION</h2>
+            </div>
+
+            <div class="node" onclick="location.href='exhibition.html'">
+                <div class="img-container"><img src="circle.jpg"></div>
+                <span>07 EXHIBITION</span><h2>CIRCLE<br>OF LIFE</h2>
+            </div>
+
+            <div class="node" onclick="location.href='exhibition.html'">
+                <div class="img-container"><img src="nostalgia.jpg"></div>
+                <span>08 EXHIBITION</span><h2>NOSTAL<br>GIA</h2>
+            </div>
+
+            <div class="node" onclick="location.href='mailto:natia.kurtanidze55@gmail.com'">
+                <span>CONTACT</span><h2 style="color:var(--accent)">START<br>A RIOT</h2>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="section">
-        <div class="grid">
-            <div class="text-box" style="text-align: right;">
-                <span class="index">07 EXHIBITION</span>
-                <h2>CIRCLE<br>OF LIFE</h2>
-                <p>Gathering pieces of ancient suns into a singular heartbeat.</p>
-            </div>
-            <div class="img-box"><img src="circle.jpg"></div>
-        </div>
-    </section>
+    <div class="progress-wrap"><div class="progress-bar" id="p-bar"></div></div>
 
-    <section class="section">
-        <div class="grid">
-            <div class="img-box"><img src="nostalgia.jpg"></div>
-            <div class="text-box">
-                <span class="index">08 ARCHIVE</span>
-                <h2>NOSTAL<br>GIA</h2>
-                <p>A shadow standing in a room that no longer exists.</p>
-            </div>
-        </div>
-    </section>
+    <script>
+        const scrollContainer = document.getElementById('laby-line');
+        const progressBar = document.getElementById('p-bar');
+        let scrollPos = 0;
+        let targetScrollPos = 0;
 
-    <footer style="padding: 100px; text-align:center;">
-        <a href="index.html" style="color:white; text-decoration:none; font-weight:900; letter-spacing:5px;">BACK TO PROJECTS</a>
-    </footer>
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            targetScrollPos += e.deltaY * 1.5;
+            const maxScroll = scrollContainer.scrollWidth - window.innerWidth;
+            targetScrollPos = Math.max(0, Math.min(targetScrollPos, maxScroll));
+        }, { passive: false });
+
+        function animate() {
+            scrollPos += (targetScrollPos - scrollPos) * 0.08;
+            scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
+            const maxScroll = scrollContainer.scrollWidth - window.innerWidth;
+            if(maxScroll > 0) {
+                progressBar.style.width = `${(scrollPos / maxScroll) * 100}%`;
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>

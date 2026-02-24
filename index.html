@@ -3,68 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE | PORTFOLIO</title>
+    <title>NATIA KURTANIDZE</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body { 
-            background: var(--black); color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow: hidden; cursor: crosshair; touch-action: none;
+        /* Stop the bounce and scroll */
+        html, body { 
+            background: var(--black); 
+            color: var(--white); 
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden; 
+            height: 100%;
+            width: 100%;
         }
 
-        /* NAVIGATION */
         nav {
-            position: fixed; top: 0; left: 0; width: 100%;
+            position: fixed; top: 0; width: 100%;
             padding: 40px 6%; display: flex; justify-content: space-between;
             z-index: 1000; mix-blend-mode: difference;
         }
         .logo { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; text-decoration: none; color: var(--white); font-size: 14px; }
 
-        /* HORIZONTAL VIEWPORT */
-        .viewport { width: 100vw; height: 100vh; overflow: hidden; position: relative; }
+        /* The horizontal container */
+        .viewport { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
         
         #laby-line { 
             display: flex; 
-            position: absolute; top: 0; left: 0; height: 100vh;
-            will-change: transform; align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            position: absolute; 
+            top: 0; left: 0; 
+            height: 100vh;
+            will-change: transform; 
         }
 
-        /* PROJECT SLIDE (The Node) */
+        /* Each project slide */
         .node {
-            width: 100vw; height: 100vh; flex-shrink: 0;
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 0 10%; cursor: pointer; position: relative;
+            width: 100vw; 
+            height: 100vh; 
+            flex-shrink: 0;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            padding: 0 10%; 
+            cursor: pointer;
+            position: relative;
         }
 
-        /* WORK NAMES & LABELS */
-        .node span { 
-            color: var(--accent); font-size: 11px; letter-spacing: 8px; 
-            margin-bottom: 20px; font-weight: 900; display: block;
-        }
+        .node span { color: var(--accent); font-size: 11px; letter-spacing: 8px; margin-bottom: 20px; font-weight: 900; }
         .node h2 { 
-            font-size: clamp(50px, 12vw, 150px); font-weight: 900; 
-            text-transform: uppercase; line-height: 0.8; letter-spacing: -6px; 
-            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-            position: relative; z-index: 5;
+            font-size: clamp(40px, 12vw, 150px); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            line-height: 0.8; 
+            letter-spacing: -6px; 
+            z-index: 10;
         }
-        .node:hover h2 { letter-spacing: -2px; color: var(--accent); }
 
-        /* THE PICTURES */
+        /* The Image Fix */
         .img-container {
-            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
-            width: 35vw; max-width: 500px; aspect-ratio: 3/4; 
-            z-index: 1; opacity: 0.2; filter: grayscale(1);
-            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
-            background: #111; /* Fallback if image fails */
+            position: absolute; 
+            right: 15%; 
+            top: 50%; 
+            transform: translateY(-50%);
+            width: 30vw; 
+            max-width: 450px; 
+            aspect-ratio: 3/4; 
+            z-index: -1; 
+            opacity: 0.2; 
+            filter: grayscale(1);
+            transition: 0.8s ease;
+            background: #111; /* Shows a dark box if image is missing */
         }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-        .node:hover .img-container { opacity: 0.9; filter: grayscale(0); transform: translateY(-52%) scale(1.02); }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .node:hover .img-container { opacity: 0.8; filter: grayscale(0); }
+        .node:hover h2 { color: var(--accent); letter-spacing: -2px; }
 
-        /* SCROLL PROGRESS BAR */
-        .progress-wrap { position: fixed; bottom: 50px; left: 6%; width: 88%; height: 1px; background: rgba(255,255,255,0.1); z-index: 1000; }
-        .progress-bar { width: 0%; height: 100%; background: var(--accent); transition: width 0.1s ease-out; }
+        /* Bottom Progress Bar */
+        .progress-wrap { position: fixed; bottom: 50px; left: 6%; width: 88%; height: 2px; background: rgba(255,255,255,0.1); }
+        .progress-bar { width: 0%; height: 100%; background: var(--accent); }
     </style>
 </head>
 <body>
@@ -73,38 +91,30 @@
 
     <div class="viewport">
         <div id="laby-line">
-            <div class="node">
-                <span>INDEX</span>
-                <h2>NATIA<br>KURTANIDZE</h2>
-            </div>
+            <div class="node"><span>INDEX</span><h2>NATIA<br>KURTANIDZE</h2></div>
             
             <div class="node" onclick="location.href='go-left.html'">
-                <div class="img-container"><img src="go-left-hero.jpg" alt="Go Left"></div>
+                <div class="img-container"><img src="go-left-hero.jpg"></div>
                 <span>01 CONCEPT</span><h2>GO<br>LEFT</h2>
             </div>
 
             <div class="node" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="posters-hero.jpg" alt="Posters"></div>
+                <div class="img-container"><img src="posters-hero.jpg"></div>
                 <span>02 DESIGN</span><h2>POSTERS</h2>
             </div>
 
             <div class="node" onclick="location.href='kombucha.html'">
-                <div class="img-container"><img src="kombucha-hero.jpg" alt="Kombucha"></div>
+                <div class="img-container"><img src="kombucha-hero.jpg"></div>
                 <span>03 BRANDING</span><h2>LIQUID<br>REBEL</h2>
             </div>
 
             <div class="node" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="flashbacks.jpg" alt="Nostalgia"></div>
+                <div class="img-container"><img src="flashbacks.jpg"></div>
                 <span>04 ARCHIVE</span><h2>NOSTAL<br>GIA</h2>
             </div>
 
-            <div class="node" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="circle.jpg" alt="Circle"></div>
-                <span>05 EXHIBITION</span><h2>CIRCLE<br>OF LIFE</h2>
-            </div>
-
             <div class="node" onclick="location.href='mailto:natia.kurtanidze55@gmail.com'">
-                <span>CONTACT</span><h2 style="color:var(--accent)">START<br>A RIOT</h2>
+                <span>GET IN TOUCH</span><h2 style="color:var(--accent)">START<br>A RIOT</h2>
             </div>
         </div>
     </div>
@@ -117,32 +127,25 @@
         let scrollPos = 0;
         let targetScrollPos = 0;
 
-        // Smooth Wheel Scroll
         window.addEventListener('wheel', (e) => {
             e.preventDefault();
-            targetScrollPos += e.deltaY * 1.2;
+            targetScrollPos += e.deltaY * 1.5;
+            // Clamp the scroll
             const maxScroll = scrollContainer.scrollWidth - window.innerWidth;
             targetScrollPos = Math.max(0, Math.min(targetScrollPos, maxScroll));
         }, { passive: false });
 
-        // Animation Loop
         function animate() {
             scrollPos += (targetScrollPos - scrollPos) * 0.08;
             scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
             
             const maxScroll = scrollContainer.scrollWidth - window.innerWidth;
             if(maxScroll > 0) {
-                const progress = (scrollPos / maxScroll) * 100;
-                progressBar.style.width = progress + "%";
+                progressBar.style.width = (scrollPos / maxScroll * 100) + "%";
             }
             requestAnimationFrame(animate);
         }
         animate();
-
-        // Fix for window resizing
-        window.addEventListener('resize', () => {
-            targetScrollPos = Math.min(targetScrollPos, scrollContainer.scrollWidth - window.innerWidth);
-        });
     </script>
 </body>
 </html>

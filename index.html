@@ -1,9 +1,80 @@
-<div class="project-list">
-    <a href="kombucha.html" class="project-item"><h2>KOMBUCHA</h2><span>01</span></a>
-    <a href="oat-milk.html" class="project-item"><h2>OAT MILK</h2><span>02</span></a>
-    <a href="others.html" class="project-item"><h2>THE OTHERS</h2><span>03</span></a>
-    <a href="nurture.html" class="project-item"><h2>NURTURE</h2><span>04</span></a>
-    <a href="cd-covers.html" class="project-item"><h2>CD COVERS</h2><span>05</span></a>
-    <a href="go-left.html" class="project-item"><h2>GO LEFT</h2><span>06</span></a>
-    <a href="posters.html" class="project-item"><h2>POSTERS</h2><span>07</span></a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATIA KURTANIDZE | PORTFOLIO</title>
+    <style>
+        /* This section creates the color and layout */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: #000000 !important; /* Forces background to Black */
+            color: #ffffff !important;           /* Forces text to White */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            padding: 10vh 8vw;
+        }
+
+        .logo { 
+            font-weight: 900; 
+            letter-spacing: 10px; 
+            text-transform: uppercase; 
+            font-size: 14px; 
+            color: #ff0000; /* Red Logo */
+            margin-bottom: 60px;
+            display: block;
+        }
+
+        .project-list { display: flex; flex-direction: column; }
+
+        .project-item {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 30px 0; 
+            border-bottom: 1px solid #222;
+            text-decoration: none; 
+            color: #ffffff; 
+            transition: 0.3s ease;
+        }
+
+        /* Red hover effect */
+        .project-item:hover { 
+            border-bottom: 1px solid #ff0000; 
+            padding-left: 15px; 
+        }
+
+        .project-item h2 { 
+            font-size: clamp(30px, 8vw, 90px); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: -3px; 
+            margin: 0; 
+        }
+
+        .project-item span { 
+            color: #ff0000; 
+            font-weight: 900; 
+            font-size: 11px; 
+            letter-spacing: 3px; 
+        }
+
+        .project-item:hover h2 { color: #ff0000; }
+    </style>
+</head>
+<body>
+
+    <div class="logo">NATIA KURTANIDZE</div>
+
+    <div class="project-list">
+        <a href="kombucha.html" class="project-item"><h2>KOMBUCHA</h2><span>01</span></a>
+        <a href="oat-milk.html" class="project-item"><h2>OAT MILK</h2><span>02</span></a>
+        <a href="others.html" class="project-item"><h2>THE OTHERS</h2><span>03</span></a>
+        <a href="nurture.html" class="project-item"><h2>NURTURE</h2><span>04</span></a>
+        <a href="cd-covers.html" class="project-item"><h2>CD COVERS</h2><span>05</span></a>
+        <a href="go-left.html" class="project-item"><h2>GO LEFT</h2><span>06</span></a>
+        <a href="posters.html" class="project-item"><h2>POSTERS</h2><span>07</span></a>
+    </div>
+
+</body>
+</html>

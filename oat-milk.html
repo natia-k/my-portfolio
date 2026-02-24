@@ -3,149 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OAT MILK | NATIA DESIGN</title>
+    <title>OAT MILK | MILK AS LIGHT</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --soft-grey: #1a1a1a; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        :root { 
+            --cream: #F4EFE4; 
+            --charcoal: #0F0F10; 
+            --gold: #C7A46A;
+            --glass: rgba(244, 239, 228, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Custom cursor required */
+
         body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            background-color: var(--charcoal); 
+            color: var(--cream); 
+            font-family: 'Inter', -apple-system, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed Navigation */
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; font-size: 11px; letter-spacing: 3px; font-weight: 900; 
-        }
-        nav a { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
-        nav a:hover { opacity: 0.5; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
-
-        /* HERO SECTION - The Split */
-        .hero-split { 
-            display: flex; 
-            height: 100vh; 
-            width: 100%; 
+        /* 1. CUSTOM CURSOR - THE "MILK LENS" */
+        #cursor {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(199, 164, 106, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            backdrop-filter: contrast(1.2) brightness(1.1);
+            transition: width 0.3s, height 0.3s;
+            display: flex;
             align-items: center;
+            justify-content: center;
         }
-        
-        .hero-left { 
-            flex: 1.2; 
+        #cursor::after {
+            content: 'VIEW DETAIL';
+            font-size: 8px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        /* 2. THE HERO - MILK AS LIGHT */
+        .hero {
             height: 100vh;
-            background: var(--soft-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
             overflow: hidden;
         }
-        
-        .hero-left img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .hero-split:hover .hero-left img { transform: scale(1.08); }
 
-        .hero-right { 
-            flex: 1; 
-            padding: 0 10%; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center;
-            height: 100vh;
+        .milk-light {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(244, 239, 228, 0.15) 0%, rgba(15, 15, 16, 0) 70%);
+            filter: blur(80px);
+            animation: drift 20s infinite alternate;
+            z-index: 1;
         }
-        
-        h1 { 
-            font-size: clamp(50px, 9vw, 120px); 
-            font-weight: 900; 
-            line-height: 0.8; 
-            letter-spacing: -6px; 
-            margin-bottom: 40px; 
+
+        @keyframes drift {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(10%, 10%); }
+        }
+
+        .hero-title {
+            font-size: clamp(100px, 20vw, 400px);
+            font-weight: 900;
+            letter-spacing: -0.07em;
+            line-height: 0.8;
+            z-index: 2;
+            text-align: center;
+            mix-blend-mode: overlay;
+        }
+
+        /* 3. NARRATIVE - THE STRIPPED ESSENCE */
+        .section {
+            padding: 200px 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            border-top: 1px solid var(--glass);
+        }
+
+        .big-statement {
+            font-size: clamp(40px, 5vw, 80px);
+            line-height: 1;
+            letter-spacing: -3px;
             text-transform: uppercase;
         }
 
-        .desc { 
-            font-size: 18px; 
-            color: #888; 
-            margin-bottom: 10px; 
-            line-height: 1.5; 
-            max-width: 380px;
-            font-weight: 300;
+        .meta-list {
+            list-style: none;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
         }
+        .meta-list li { margin-bottom: 20px; }
 
-        .project-scope { 
-            font-size: 9px; 
-            letter-spacing: 2px; 
-            color: #444; 
-            text-transform: uppercase; 
-            margin-top: 60px; 
-            border-top: 1px solid #222;
-            padding-top: 20px;
-        }
-
-        /* Secondary Gallery Below */
-        .gallery { 
-            padding: 100px 6%; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px;
+        /* 4. GALLERY - EXHIBITION MODE */
+        .gallery-full {
+            width: 100%;
             background: #050505;
+            padding: 100px 0;
+            text-align: center;
         }
-        .gallery img { width: 100%; height: auto; transition: 0.5s ease; }
-        .gallery img:hover { transform: translateY(-10px); }
 
-        .next-btn {
-            padding: 120px 6% 150px;
-            text-align: right;
+        .mockup-main {
+            width: 50%;
+            margin: 0 auto 50px;
+            transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 0 50px rgba(0,0,0,0.5));
         }
-        .next-btn a { text-decoration: none; color: var(--white); }
-        .next-btn h2 { font-size: clamp(40px, 8vw, 100px); font-weight: 900; letter-spacing: -4px; transition: 0.3s; }
-        .next-btn a:hover h2 { color: var(--accent); transform: translateX(-10px); }
 
-        /* Responsive */
-        @media (max-width: 1100px) {
-            .hero-split { flex-direction: column; height: auto; }
-            .hero-left, .hero-right { width: 100%; height: auto; padding: 80px 10%; }
-            .hero-left { height: 70vh; }
+        /* 5. THE MIC DROP FOOTER */
+        .footer {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
+
+        .manifesto {
+            font-size: clamp(30px, 6vw, 120px);
+            font-weight: 900;
+            letter-spacing: -5px;
+            text-transform: uppercase;
+            margin-bottom: 100px;
+        }
+
+        .next-project {
+            font-size: 12px;
+            letter-spacing: 10px;
+            text-decoration: none;
+            color: var(--gold);
+            transition: 0.3s;
+        }
+        .next-project:hover { letter-spacing: 15px; }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">← BACK</a>
-        <div class="nav-center">NATIA DESIGN</div>
-        <a href="mailto:contact@natiadesign.com">EMAIL</a>
+    <div id="cursor"></div>
+
+    <nav style="position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; font-size: 10px; letter-spacing: 4px; font-weight: 900;">
+        <a href="index.html" style="color: var(--cream); text-decoration: none;">NATIA STUDIO</a>
+        <a href="mailto:hello@natia.design" style="color: var(--cream); text-decoration: none;">CONTACT</a>
     </nav>
 
-    <div class="container">
-        <section class="hero-split">
-            <div class="hero-left">
-                <img src="oat-hero.jpg" alt="Oat Milk Label Design">
-            </div>
-            
-            <div class="hero-right">
-                <h1>OAT<br>MILK</h1>
-                <p class="desc">Sustainable dairy-free alternatives focusing on bold typography and minimalist textures.</p>
-                <p class="project-scope">SCOPE: PACKAGING DESIGN • BRAND IDENTITY • 2026</p>
-            </div>
-        </section>
+    <section class="hero">
+        <div class="milk-light"></div>
+        <h1 class="hero-title">OAT<br>MILK</h1>
+    </section>
 
-        <section class="gallery">
-            <img src="oat-mockup1.jpg">
-            <img src="oat-mockup2.jpg">
-        </section>
+    <section class="section">
+        <h2 class="big-statement">Milk as Light.</h2>
+        <div>
+            <ul class="meta-list">
+                <li><span>TYPE</span> Self-Initiated Concept</li>
+                <li><span>ROLE</span> Identity, Packaging, Visual Light System</li>
+                <li><span>PALETTE</span> Oat Cream / Deep Charcoal / Gold</li>
+            </ul>
+            <p style="font-size: 18px; line-height: 1.6; opacity: 0.6;">
+                A deliberate departure from rustic oat clichés. We stripped away the farm, the hand-drawn grains, and the kraft paper. What remains is the essence of the liquid—captured as a light source within a structural grid.
+            </p>
+        </div>
+    </section>
 
-        <footer class="next-btn">
-            <a href="others.html">
-                <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
-                <h2>THE OTHERS →</h2>
-            </a>
-        </footer>
-    </div>
+    <section class="gallery-full">
+        <img src="oat-mockup-1.jpg" class="mockup-main" alt="Oat Milk Packaging">
+        <div style="display: flex; justify-content: center; gap: 20px; padding: 0 10%;">
+            <img src="oat-mockup-2.jpg" style="width: 20%; opacity: 0.3;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.3">
+            <img src="oat-mockup-3.jpg" style="width: 20%; opacity: 0.3;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.3">
+        </div>
+    </section>
 
+    <footer class="footer">
+        <h2 class="manifesto">Oat milk,<br>stripped to its essence.</h2>
+        <a href="nurture.html" class="next-project">NEXT: NURTURE →</a>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Expand cursor on hoverable elements
+        document.querySelectorAll('img, a').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '200px';
+                cursor.style.height = '200px';
+                cursor.style.background = 'rgba(244, 239, 228, 0.05)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '150px';
+                cursor.style.height = '150px';
+                cursor.style.background = 'none';
+            });
+        });
+    </script>
 </body>
 </html>

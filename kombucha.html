@@ -6,32 +6,30 @@
     <title>FERMENT | CINEMA RED</title>
     <style>
         :root { 
-            --cinema-red: #ff0000; 
+            --brand-red: #ff0000; 
             --white: #ffffff;
-            --bg-current: #000000;
-            --bloom-color: rgba(255, 0, 0, 0.2);
+            --black: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--bg-current);
+            /* THE OPENING STATE: PURE RED */
+            background-color: var(--brand-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 1s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. DISCIPLINED NAV */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference;
         }
-        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
+        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
 
-        /* 2. CINEMA HERO: THE DEPTH LAYER */
+        /* 1. CINEMA HERO: TEXT BEHIND BOTTLE */
         .hero {
             height: 100vh;
             display: flex;
@@ -39,33 +37,41 @@
             justify-content: center;
             position: relative;
             z-index: 10;
+            perspective: 1000px;
         }
 
         h1 {
             position: absolute;
-            font-size: clamp(80px, 25vw, 450px);
+            font-size: clamp(80px, 22vw, 450px);
             font-weight: 950;
             letter-spacing: -0.07em;
-            color: var(--cinema-red);
-            z-index: 5; /* BEHIND THE BOTTLE */
+            /* Text is WHITE on the RED background for the 'Opening' */
+            color: var(--white); 
+            z-index: 5;
             line-height: 0.8;
             text-transform: uppercase;
             pointer-events: none;
+            transition: color 1s ease;
         }
 
         .hero-img {
             height: 80vh;
-            z-index: 10; /* FRONT OF TEXT */
-            filter: drop-shadow(0 30px 60px rgba(255,0,0,0.2));
+            z-index: 10;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* 3. PHILOSOPHY SECTION */
+        /* IMAGE POP EFFECT */
+        .hero:hover .hero-img {
+            transform: scale(1.05) translateZ(50px);
+        }
+
+        /* 2. PHILOSOPHY: THE TRANSITION BLOCK */
         .philosophy-wrap {
             height: 80vh;
             display: flex;
             align-items: center;
             padding: 0 10%;
-            background: #000;
         }
 
         .philosophy-text {
@@ -73,10 +79,9 @@
             line-height: 1.1;
             font-weight: 300;
             max-width: 1000px;
-            letter-spacing: -1px;
         }
 
-        /* 4. CHROMA SECTIONS */
+        /* 3. CHROMA REALITY (The shifts happen here) */
         .spread {
             height: 120vh;
             display: grid;
@@ -89,13 +94,7 @@
         .image-side { grid-column: 7 / span 6; position: relative; }
 
         h2 { font-size: clamp(40px, 8vw, 120px); font-weight: 900; line-height: 0.85; letter-spacing: -5px; margin-bottom: 30px; text-transform: uppercase; }
-        p { font-size: 19px; line-height: 1.5; opacity: 0.7; font-weight: 300; max-width: 420px; }
-
-        .bloom {
-            position: absolute; top: 50%; left: 50%; width: 140%; height: 140%;
-            background: radial-gradient(circle, var(--bloom-color) 0%, transparent 70%);
-            transform: translate(-50%, -50%); z-index: -1; opacity: 0.5;
-        }
+        p { font-size: 19px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
 
         /* FOOTER */
         .next-wrap { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.1); }
@@ -110,7 +109,7 @@
         <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="hero">
         <h1 id="parallaxText">FERMENT</h1>
         <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Monolith">
     </header>
@@ -122,24 +121,22 @@
     </section>
 
     <main>
-        <section class="spread" data-bg="#120e0a" data-bloom="rgba(255, 174, 66, 0.2)">
+        <section class="spread" data-bg="#120e0a" data-text="#ffffff">
             <div class="text-side">
                 <h2>Raw<br>Amber.</h2>
-                <p>One Flavor. One Color. We stripped away category clichés, leaving only what the drink truly is: a raw biological process.</p>
+                <p>One Flavor. One Color. The identity system is built with absolute restraint—color, form, and typographic clarity.</p>
             </div>
             <div class="image-side">
-                <div class="bloom"></div>
                 <img src="kombucha2.jpg" style="width: 100%;">
             </div>
         </section>
 
-        <section class="spread" data-bg="#140a0a" data-bloom="rgba(255, 40, 80, 0.2)">
+        <section class="spread" data-bg="#140a0a" data-text="#ffffff">
             <div class="text-side">
                 <h2>Hibiscus<br>Blush.</h2>
-                <p>Chromatics drawn directly from the liquid. No decorative noise—the beverage's inherent character is the primary visual source.</p>
+                <p>Chromatics drawn directly from the liquid. No decorative noise—the beverage's inherent character is the visual source.</p>
             </div>
             <div class="image-side">
-                <div class="bloom"></div>
                 <img src="kombucha3.jpg" style="width: 100%;">
             </div>
         </section>
@@ -154,15 +151,24 @@
         const sections = document.querySelectorAll('.spread');
 
         window.addEventListener('scroll', () => {
-            // Parallax Depth
-            parallaxText.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+            const scrollPos = window.scrollY;
+            parallaxText.style.transform = `translateY(${scrollPos * 0.3}px)`;
+
+            // DRAINING THE RED: As you scroll past hero, background turns black
+            if (scrollPos > 300) {
+                document.body.style.backgroundColor = "#000000";
+                parallaxText.style.color = "#ff0000"; // Text turns Red when background is Black
+            } else {
+                document.body.style.backgroundColor = "#ff0000";
+                parallaxText.style.color = "#ffffff"; // Text is White when background is Red
+            }
         });
 
+        // Intersection Observer for flavor sections
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.body.style.setProperty('--bg-current', entry.target.getAttribute('data-bg'));
-                    document.body.style.setProperty('--bloom-color', entry.target.getAttribute('data-bloom'));
+                if (entry.isIntersecting && window.scrollY > 800) {
+                    document.body.style.backgroundColor = entry.target.getAttribute('data-bg');
                 }
             });
         }, { threshold: 0.5 });

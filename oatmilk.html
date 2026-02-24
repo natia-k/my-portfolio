@@ -1,127 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oat Milk | NATIA DESIGN</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAT MILK | NATIA KURTANIDZE</title>
     <style>
-        .project-hero { 
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; 
-            padding: 0 10%; /* Percentage padding scales better on different screens */
-            gap: 80px;
-        }
-
-        /* --- IMAGE SIDE --- */
-        .main-visual {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .main-visual img { 
-            width: 100%;
-            max-width: 340px; 
-            height: auto;
-            /* Ultra-smooth transition for that "luxury" feel */
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
-            will-change: transform;
-        }
-
-        /* Precise Image Hover */
-        .main-visual img:hover {
-            transform: scale(1.15); /* Slightly more subtle zoom for elegance */
-        }
-
-        /* --- TEXT SIDE --- */
-        .content-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* The trigger box only surrounds the text itself */
-        .text-trigger {
-            display: inline-block;
-            cursor: default;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
-        }
-
-        .text-trigger h1 { 
-            font-size: clamp(80px, 11vw, 140px); 
-            line-height: 0.85;
-            margin-bottom: 24px;
-            letter-spacing: -0.04em;
-            transition: color 0.8s ease;
-            color: #FFFFFF;
-        }
-
-        /* Precise Text Hover */
-        .text-trigger:hover {
-            transform: translateX(15px) scale(1.05); /* Moves slightly right and grows */
-        }
-
-        .text-trigger:hover h1 {
-            color: var(--accent); /* Only turns red when touching the text */
-        }
-
-        .description {
-            max-width: 380px;
-            font-size: 20px;
-            line-height: 1.4;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 120px 40px; gap: 60px; text-align: center; }
-            .main-visual { justify-content: center; }
-            .text-trigger:hover { transform: scale(1.05); } /* No side-move on mobile */
-        }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
+        .container { padding: 180px 8% 100px 8%; max-width: 1200px; margin: 0 auto; }
+        h1 { font-size: clamp(40px, 12vw, 150px); font-weight: 900; text-transform: uppercase; letter-spacing: -6px; line-height: 0.8; margin-bottom: 40px; }
+        
+        /* Gallery for mockups */
+        .mockup-list { display: flex; flex-direction: column; gap: 40px; }
+        .mockup-list img { width: 100%; height: auto; border: 1px solid #111; display: block; }
+        
+        .desc { color: #666; font-size: 18px; max-width: 600px; margin-bottom: 60px; border-left: 2px solid var(--accent); padding-left: 20px; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">← back</a>
-        <div class="studio-name">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
-    </nav>
-
-    <main>
-        <section class="project-hero">
-            <div class="main-visual">
-                <img src="oat-hero.jpg" alt="Oat Milk Label">
+    <nav><span>NATIA KURTANIDZE</span><a href="index.html" class="back">← BACK</a></nav>
+    <div class="container">
+        <h1>OAT MILK</h1>
+        <p class="desc">Sustainable packaging design and branding for dairy-free alternatives. 2026 Archive.</p>
+        
+        <div class="mockup-list">
+            <img src="oat-milk.jpg" alt="Oat Milk Mockup">
             </div>
-
-            <div class="content-right">
-                <div class="text-trigger">
-                    <h1>Oat<br>Milk</h1>
-                    <p class="description">"Creamy, sustainable, and purely plant-based. <br>A modern take on a classic staple."</p>
-                    <div class="meta" style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; display: inline-block; font-size: 12px; letter-spacing: 2px;">
-                        PACKAGING DESIGN · 2026
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="mockup-section">
-            <img src="oat-mockup1.jpg" alt="Mockup 1">
-            <img src="oat-mockup2.jpg" alt="Mockup 2">
-        </section>
-
-        <footer class="next-btn-container">
-            <a href="nurture.html" class="next-project-link">
-                <span>Next Project</span>
-                <h3>Nurture</h3>
-            </a>
-        </footer>
-    </main>
+    </div>
 </body>
 </html>

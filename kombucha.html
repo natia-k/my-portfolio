@@ -9,182 +9,174 @@
             --brand-red: #ff0000; 
             --black: #000000;
             --white: #ffffff;
-            --off-white: #f5f5f5;
+            --dark-gray: #0a0a0a; /* Replaced standard gray with 'Onyx' */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background: var(--off-white); 
-            color: var(--black); 
+            background: var(--black); 
+            color: var(--white); 
             font-family: 'Inter', sans-serif; 
-            overflow-x: hidden;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            /* Subtle flow transition */
-            animation: flowToDark 2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-            animation-delay: 1s; 
         }
 
-        @keyframes flowToDark {
-            to { background: var(--black); color: var(--white); }
-        }
-
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference;
-        }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
-
+        /* 1. THE HOOK: MASSIVE HIERARCHY */
         .hero {
             height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            position: relative;
+            align-items: center;
+            text-align: center;
+            padding: 0 6%;
         }
 
-        .hero-title {
-            position: absolute;
-            font-size: 18vw; /* Slightly smaller for longer word */
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            z-index: 1;
-            text-transform: uppercase;
-        }
-
-        .hero-img {
-            height: 80vh;
-            z-index: 5;
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero:hover .hero-img { transform: scale(1.02) translateY(-10px); }
-
-        .content { padding: 0 8% 200px; }
-
-        .meaning-section {
-            padding: 150px 0;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 100px;
-        }
-
-        .label {
+        .hero-label {
             font-size: 10px;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             color: var(--brand-red);
             font-weight: 900;
-            text-transform: uppercase;
             margin-bottom: 20px;
-            display: block;
-        }
-
-        h2 {
-            font-size: clamp(35px, 7vw, 100px);
-            line-height: 0.85;
-            letter-spacing: -4px;
             text-transform: uppercase;
         }
 
-        .desc-text {
-            font-size: 19px;
-            line-height: 1.5;
-            opacity: 0.7;
-            margin-top: 40px;
+        h1 {
+            font-size: clamp(80px, 15vw, 220px);
+            font-weight: 950;
+            line-height: 0.8;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
         }
 
-        /* Fluid Gallery Staggering */
-        .gallery {
+        /* 2. THE RHYTHM: ASYMMETRIC FLOW */
+        .editorial-grid {
+            padding: 100px 8%;
+            display: flex;
+            flex-direction: column;
+            gap: 200px;
+        }
+
+        .spread {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
+            align-items: end;
         }
 
-        .img-wrap {
-            grid-column: span 12;
-            margin-bottom: 80px;
+        .spread-text {
+            grid-column: 1 / span 5;
+        }
+
+        .spread-img {
+            grid-column: 7 / span 6;
             overflow: hidden;
         }
 
-        .img-wrap.half { grid-column: span 6; }
+        /* Reverse hierarchy for the second spread */
+        .spread.reverse .spread-text { grid-column: 8 / span 5; text-align: right; }
+        .spread.reverse .spread-img { grid-column: 1 / span 6; }
 
-        .img-wrap img {
-            width: 100%;
-            display: block;
-            transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(1) contrast(1.1);
-        }
-
-        .img-wrap:hover img { filter: grayscale(0); transform: scale(1.03); }
-
-        /* Meaningful Footer */
-        .next-footer {
-            padding: 200px 8% 100px;
-            text-align: left;
-        }
-
-        .next-title {
-            font-size: clamp(60px, 12vw, 200px);
+        /* 3. TYPOGRAPHY HIERARCHY (The fix for "all text looks the same") */
+        h2 {
+            font-size: clamp(32px, 5vw, 60px);
             font-weight: 900;
-            text-decoration: none;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-            letter-spacing: -0.05em;
-            line-height: 0.8;
-            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            line-height: 0.9;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
         }
 
-        .next-title:hover {
-            color: var(--white);
-            -webkit-text-stroke: 1px var(--white);
-            letter-spacing: 0em;
+        .body-copy {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            max-width: 400px;
+            font-weight: 300;
         }
+
+        .spread.reverse .body-copy { margin-left: auto; }
+
+        /* 4. THE VISUAL POINT OF VIEW */
+        .full-bleed-moment {
+            width: 100%;
+            height: 80vh;
+            background: var(--dark-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 100px 0;
+        }
+
+        .full-bleed-moment img {
+            height: 120%; /* Parallax effect */
+            transition: 0.5s ease-out;
+        }
+
+        img { width: 100%; display: block; filter: contrast(1.1); }
+
+        /* 5. NEXT FOOTER */
+        .next-link {
+            padding: 200px 8%;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .next-link:hover h1 { color: var(--brand-red); -webkit-text-stroke: 1px var(--brand-red); color: transparent; }
 
         @media (max-width: 900px) {
-            .meaning-section { grid-template-columns: 1fr; gap: 40px; }
-            .img-wrap.half { grid-column: span 12; }
+            .spread { display: flex; flex-direction: column; gap: 40px; }
+            .spread-text, .spread-img { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">CONTACT</a>
+    <nav style="position: fixed; top: 40px; width: 100%; padding: 0 6%; z-index: 100; display: flex; justify-content: space-between;">
+        <a href="index.html" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 4px;">NATIA</a>
+        <a href="mailto:hello@natia.design" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 4px;">CONTACT</a>
     </nav>
 
-    <section class="hero">
-        <div class="hero-title">FERMENT</div>
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha">
-    </section>
+    <header class="hero">
+        <span class="hero-label">Project 01 — Culture</span>
+        <h1>FERMENT</h1>
+    </header>
 
-    <main class="content">
-        <div class="meaning-section">
-            <div>
-                <span class="label">Biological Brand</span>
-                <h2>Chromatics of<br>Fermentation.</h2>
+    <main class="editorial-grid">
+        
+        <section class="spread">
+            <div class="spread-text">
+                <span class="hero-label" style="opacity: 0.5;">The POV</span>
+                <h2>Chromatics<br>of Process.</h2>
+                <p class="body-copy">Everything is stripped so the fermented color becomes the brand language itself. A deliberate refusal of category clichés.</p>
             </div>
-            <div>
-                <p class="desc-text">
-                    By removing extraneous decoration, the label acts as a window to the biological process. The fermented liquid is no longer just a product—it is the visual identity.
-                </p>
+            <div class="spread-img">
+                <img src="kombucha-hero.jpg" alt="Ferment Detail">
             </div>
-        </div>
+        </section>
 
-        <div class="gallery">
-            <div class="img-wrap"><img src="kombucha2.jpg"></div>
-            <div class="img-wrap half"><img src="kombucha3.jpg"></div>
-            <div class="img-wrap half" style="margin-top: 150px;"><img src="kombucha4.jpg"></div>
-        </div>
+        <section class="full-bleed-moment">
+            <img src="kombucha2.jpg" style="width: 50%;" alt="Scale">
+        </section>
+
+        <section class="spread reverse">
+            <div class="spread-text">
+                <span class="hero-label" style="opacity: 0.5;">The System</span>
+                <h2>Structural<br>Silence.</h2>
+                <p class="body-copy">Colors extracted from fermentation—raw amber, hibiscus blush, blackcurrant near-black. The color doesn't describe the product; it is the product.</p>
+            </div>
+            <div class="spread-img">
+                <img src="kombucha3.jpg" alt="Bottle System">
+            </div>
+        </section>
+
     </main>
 
-    <footer class="next-footer">
-        <span class="label">NEXT PROJECT</span>
-        <a href="oat-milk.html" class="next-title">OAT MILK</a>
-    </footer>
+    <a href="oat-milk.html" class="next-link">
+        <span class="hero-label">UP NEXT</span>
+        <h1 style="font-size: 10vw;">OAT MILK</h1>
+    </a>
 
 </body>
 </html>

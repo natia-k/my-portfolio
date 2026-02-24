@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE | PORTFOLIO</title>
+    <title>NATIA KURTANIDZE</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; padding: 5vw 8vw; }
-        nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 80px; }
-        .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 14px; }
+        body { 
+            background: var(--black); 
+            color: var(--white); 
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            padding: 5vw 8vw;
+            min-height: 100vh;
+        }
+        nav { margin-bottom: 60px; }
+        .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 14px; color: var(--accent); }
+        
         .project-list { display: flex; flex-direction: column; }
         .project-item {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 35px 0; border-bottom: 1px solid #222;
+            padding: 30px 0; border-bottom: 1px solid #222;
             text-decoration: none; color: var(--white); transition: 0.3s ease;
         }
-        .project-item:hover { border-color: var(--accent); padding-left: 15px; }
-        .project-item h2 { font-size: clamp(30px, 8vw, 100px); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; margin: 0; }
+        .project-item:hover { border-color: var(--accent); padding-left: 20px; }
+        .project-item h2 { font-size: clamp(30px, 8vw, 90px); font-weight: 900; text-transform: uppercase; letter-spacing: -3px; margin: 0; }
         .project-item span { color: var(--accent); font-weight: 900; font-size: 11px; letter-spacing: 3px; }
         .project-item:hover h2 { color: var(--accent); }
     </style>

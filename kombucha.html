@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | CHROMA SCROLL</title>
+    <title>FERMENT | NATIA STUDIO</title>
     <style>
         :root { 
             --bg-current: #000000;
             --text-current: #ffffff;
-            --bloom-color: rgba(255, 0, 0, 0.2);
+            --brand-red: #ff0000;
+            --bloom-color: rgba(255, 0, 0, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
@@ -17,21 +18,20 @@
             background-color: var(--bg-current);
             color: var(--text-current);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. DISCIPLINED NAV */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; z-index: 1000;
             mix-blend-mode: difference;
         }
-        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
+        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
 
-        /* 2. THE INTRO (Minimalist Start) */
-        .intro-manifesto {
+        /* HERO: THE STATEMENT */
+        .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -39,48 +39,55 @@
             padding: 0 10%;
         }
 
-        h1 { font-size: 15vw; font-weight: 950; letter-spacing: -0.06em; line-height: 0.8; text-transform: uppercase; margin-bottom: 40px; }
-        .manifesto-text { font-size: 24px; max-width: 600px; font-weight: 300; opacity: 0.8; }
-
-        /* 3. CHROMA SECTIONS */
-        .chroma-section {
-            height: 120vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 0 8%;
+        .hero-label { font-size: 10px; letter-spacing: 8px; color: var(--brand-red); font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
+        h1 { font-size: clamp(80px, 18vw, 300px); font-weight: 950; letter-spacing: -0.07em; line-height: 0.8; text-transform: uppercase; }
+        
+        .hero-manifesto { 
+            margin-top: 40px;
+            font-size: clamp(18px, 2vw, 24px); 
+            max-width: 700px; 
+            font-weight: 300; 
+            line-height: 1.4;
+            opacity: 0.8;
         }
 
-        .content-grid {
+        /* EDITORIAL SECTIONS */
+        .content-container { padding: 0 8% 200px; }
+
+        .spread {
+            height: 100vh;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            width: 100%;
             align-items: center;
+            gap: 40px;
         }
 
-        .text-side { grid-column: 1 / span 5; z-index: 10; }
-        .image-side { grid-column: 7 / span 6; position: relative; }
+        .text-block { grid-column: 1 / span 5; }
+        .visual-block { grid-column: 7 / span 6; position: relative; }
 
-        h2 { font-size: clamp(50px, 8vw, 120px); font-weight: 900; line-height: 0.85; letter-spacing: -0.05em; margin-bottom: 20px; text-transform: uppercase; }
-        
-        /* 4. THE BLOOM EFFECT */
-        .image-side img { width: 100%; display: block; filter: drop-shadow(0 40px 80px rgba(0,0,0,0.5)); transition: transform 0.8s ease; }
+        .spread.reverse .text-block { grid-column: 8 / span 5; text-align: right; }
+        .spread.reverse .visual-block { grid-column: 1 / span 6; }
+
+        h2 { font-size: clamp(40px, 6vw, 100px); font-weight: 900; line-height: 0.9; letter-spacing: -4px; text-transform: uppercase; margin-bottom: 25px; }
+        p { font-size: 18px; line-height: 1.5; font-weight: 300; opacity: 0.7; max-width: 440px; }
+        .spread.reverse p { margin-left: auto; }
+
+        /* THE CHROMA BLOOM */
+        .visual-block img { width: 100%; display: block; filter: drop-shadow(0 40px 80px rgba(0,0,0,0.6)); transition: 1s ease; }
         .bloom {
-            position: absolute; top: 50%; left: 50%; width: 130%; height: 130%;
+            position: absolute; top: 50%; left: 50%; width: 140%; height: 140%;
             background: radial-gradient(circle, var(--bloom-color) 0%, transparent 70%);
-            transform: translate(-50%, -50%); z-index: -1; opacity: 0.6;
+            transform: translate(-50%, -50%); z-index: -1; opacity: 0.5;
         }
 
-        /* 5. NEXT LINK */
-        .next-wrap { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); }
-        .next-link { font-size: 12vw; font-weight: 950; text-decoration: none; color: transparent; -webkit-text-stroke: 1px white; transition: 0.5s; letter-spacing: -5px; }
+        /* FOOTER */
+        .next-footer { height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        .next-link { font-size: 12vw; font-weight: 950; text-decoration: none; color: transparent; -webkit-text-stroke: 1px white; transition: 0.6s; letter-spacing: -6px; }
         .next-link:hover { color: white; letter-spacing: 0; }
 
         @media (max-width: 900px) {
-            .content-grid { display: flex; flex-direction: column; text-align: center; }
-            h2 { font-size: 18vw; }
+            .spread, .spread.reverse { display: flex; flex-direction: column; height: auto; padding: 100px 0; }
+            h1 { font-size: 25vw; }
         }
     </style>
 </head>
@@ -91,67 +98,58 @@
         <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
-    <section class="intro-manifesto">
-        <h1>FERMENT</h1>
-        <p class="manifesto-text">Color is the product. Premium without performance. A deliberate refusal of category clichés.</p>
-    </section>
+    <header class="hero">
+        <span class="hero-label">Identity — Concept 01</span>
+        <h1>FERMENT.</h1>
+        <p class="hero-manifesto">
+            <strong>One Flavor. One Color.</strong><br>
+            We stripped away category clichés—no illustrations, no patterns—leaving only what the drink truly is: a raw biological process. The color of the fermented liquid itself becomes the brand language.
+        </p>
+    </header>
 
-    <section class="chroma-section" data-bg="#1a120b" data-bloom="rgba(255, 174, 66, 0.15)">
-        <div class="content-grid">
-            <div class="text-side">
-                <h2>RAW<br>AMBER.</h2>
-                <p>Extracted from the primary fermentation. A study in golden transparency.</p>
+    <main class="content-container">
+        
+        <section class="spread" data-bg="#120e0a" data-bloom="rgba(255, 174, 66, 0.15)">
+            <div class="text-block">
+                <span class="hero-label" style="opacity: 0.4;">Visual Logic</span>
+                <h2>Structural<br>Purity.</h2>
+                <p>The identity system is built with absolute restraint—color, form, and typographic clarity that reveal what the product actually is, not what it pretends to be.</p>
             </div>
-            <div class="image-side">
+            <div class="visual-block">
                 <div class="bloom"></div>
-                <img src="kombucha2.jpg" alt="Amber Flavor">
+                <img src="kombucha-hero.jpg" alt="Raw Amber Culture">
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="chroma-section" data-bg="#1a0b0b" data-bloom="rgba(255, 40, 80, 0.15)">
-        <div class="content-grid">
-            <div class="text-side">
-                <h2>HIBISCUS<br>BLUSH.</h2>
-                <p>Soft chromatics. The liquid behaves as a filter for light.</p>
-            </div>
-            <div class="image-side">
+        <section class="spread reverse" data-bg="#140a0a" data-bloom="rgba(255, 40, 80, 0.15)">
+            <div class="visual-block">
                 <div class="bloom"></div>
-                <img src="kombucha3.jpg" alt="Blush Flavor">
+                <img src="kombucha2.jpg" alt="Hibiscus System">
             </div>
-        </div>
-    </section>
+            <div class="text-block">
+                <span class="hero-label" style="opacity: 0.4;">Chromatics</span>
+                <h2>Extracted<br>Hues.</h2>
+                <p>Chromatics drawn directly from the liquid: Raw Amber, Hibiscus Blush, Blackcurrant Onyx. No decorative noise—the beverage's inherent character is the primary visual source.</p>
+            </div>
+        </section>
 
-    <section class="chroma-section" data-bg="#050505" data-bloom="rgba(80, 40, 255, 0.1)">
-        <div class="content-grid">
-            <div class="text-side">
-                <h2>BLACK<br>CURRANT.</h2>
-                <p>Near-black opacity. Structural weight through biological density.</p>
-            </div>
-            <div class="image-side">
-                <div class="bloom"></div>
-                <img src="kombucha4.jpg" alt="Onyx Flavor">
-            </div>
-        </div>
-    </section>
+    </main>
 
-    <footer class="next-wrap">
+    <footer class="next-footer">
+        <span class="hero-label">UP NEXT</span>
         <a href="oat-milk.html" class="next-link">OAT MILK</a>
     </footer>
 
     <script>
-        const sections = document.querySelectorAll('.chroma-section');
+        const sections = document.querySelectorAll('.spread');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const bg = entry.target.getAttribute('data-bg');
-                    const bloom = entry.target.getAttribute('data-bloom');
-                    document.body.style.setProperty('--bg-current', bg);
-                    document.body.style.setProperty('--bloom-color', bloom);
+                    document.body.style.setProperty('--bg-current', entry.target.getAttribute('data-bg'));
+                    document.body.style.setProperty('--bloom-color', entry.target.getAttribute('data-bloom'));
                 }
             });
         }, { threshold: 0.5 });
-
         sections.forEach(s => observer.observe(s));
     </script>
 </body>

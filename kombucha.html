@@ -16,7 +16,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Nav - Pure White, Bold */
+        /* Nav - Pure High Contrast */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; align-items: center; 
@@ -24,18 +24,19 @@
         }
         nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
 
-        /* HERO SECTION */
+        /* THE MOTION HERO SECTION */
         .hero-split { 
             display: flex; 
             height: 100vh; 
             width: 100%; 
             align-items: center;
             background: var(--black);
+            cursor: pointer;
         }
         
-        /* The Container */
+        /* Left Side: The Image */
         .hero-left { 
-            flex: 1.4; 
+            flex: 1.2; 
             height: 100vh;
             display: flex;
             align-items: center;
@@ -43,60 +44,89 @@
             overflow: hidden;
         }
         
-        /* THE IMAGE: 'contain' ensures it is never cut off */
         .hero-left img { 
-            width: 75%; 
-            height: 75%; 
-            object-fit: contain; 
+            width: 70%; 
+            height: 70%; 
+            object-fit: contain; /* Ensures no part of the bottle is cut */
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: brightness(0.9);
-            will-change: transform, width, height;
+            filter: brightness(0.7);
         }
 
-        /* Interaction: Image grows to fill more space but stays 'contain' to avoid cropping */
+        /* Hover: Image Grows and brightens */
         .hero-split:hover .hero-left img { 
-            width: 95%; 
-            height: 95%; 
+            width: 90%; 
+            height: 90%; 
             filter: brightness(1);
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
-        /* Text Side - Moves slightly on hover */
+        /* Right Side: The Text Layout */
         .hero-right { 
             flex: 1; 
-            padding: 0 7%; 
+            padding-right: 8%;
             display: flex; 
             flex-direction: column; 
             justify-content: center;
             transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
         
+        /* Text moves right on hover */
         .hero-split:hover .hero-right {
-            transform: translateX(15px);
+            transform: translateX(30px);
+        }
+
+        .project-num {
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            display: block;
+            letter-spacing: 2px;
         }
         
         h1 { 
-            font-size: clamp(80px, 14vw, 180px); 
+            font-size: clamp(80px, 12vw, 160px); 
             font-weight: 900; 
-            line-height: 0.75; 
+            line-height: 0.8; 
             letter-spacing: -10px; 
-            margin-bottom: 50px; 
+            margin-bottom: 40px; 
             text-transform: uppercase;
+            transition: color 0.8s ease; /* Smooth transition to red */
         }
 
-        .quote { font-size: 28px; line-height: 1.1; max-width: 480px; margin-bottom: 25px; }
+        /* Title turns Red on hover */
+        .hero-split:hover h1 {
+            color: var(--accent);
+        }
+
+        .quote { 
+            font-size: 26px; 
+            line-height: 1.1; 
+            max-width: 440px; 
+            margin-bottom: 40px;
+            transition: transform 1.2s ease;
+        }
+
+        .hero-split:hover .quote {
+            transform: translateX(10px);
+        }
 
         .project-scope { 
-            font-size: 12px; letter-spacing: 3px; text-transform: uppercase; 
-            margin-top: 50px; border-top: 3px solid var(--white); padding-top: 30px; font-weight: 900; 
+            font-size: 11px; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            border-top: 2px solid var(--white); 
+            padding-top: 30px; 
+            font-weight: 900;
+            max-width: 400px;
         }
 
-        /* BOTTOM GALLERY - Moving Mockups */
+        /* BOTTOM GALLERY - Mockups move too */
         .gallery { 
             padding: 80px 6%; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 40px; 
+            gap: 60px; 
         }
 
         .gallery-item {
@@ -107,16 +137,15 @@
         .gallery img { 
             width: 100%; 
             display: block; 
-            transition: transform 1.2s ease;
+            transition: transform 1.5s ease;
         }
 
-        /* Interaction: Mockups lift up on hover */
         .gallery-item:hover {
-            transform: translateY(-30px);
+            transform: translateY(-20px);
         }
         
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .next-btn { 
@@ -134,9 +163,9 @@
 
         @media (max-width: 1100px) {
             .hero-split { flex-direction: column; height: auto; }
-            .hero-left { height: 60vh; }
+            .hero-left { height: 60vh; width: 100%; }
+            .hero-right { padding: 60px 10%; width: 100%; }
             .hero-left img { width: 90%; height: 90%; }
-            .gallery { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -155,11 +184,12 @@
             </div>
             
             <div class="hero-right">
+                <span class="project-num">01 — PROJECT</span>
                 <h1>KOMBU<br>CHA</h1>
                 <p class="quote">"It started as simple tea. Then time, patience. And a little magic happened."</p>
                 
                 <div class="project-scope">
-                    SCOPE: BOTANICAL ILLUSTRATION • COLOUR EXPLORATION
+                    SCOPE: BOTANICAL ILLUSTRATION <br> COLOUR EXPLORATION • 2026
                 </div>
             </div>
         </section>

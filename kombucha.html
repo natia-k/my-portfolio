@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FERMENT | CINEMA RED</title>
+    <title>FERMENT | NATIA STUDIO</title>
     <style>
         :root { 
-            --brand-red: #ff0000; 
+            --target-red: #ff3b25; /* The specific red from your screenshot */
             --white: #ffffff;
             --black: #000000;
         }
@@ -14,22 +14,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            /* THE OPENING STATE: PURE RED */
-            background-color: var(--brand-red);
+            /* THE EXPERIENCE: 100% PURE COLOR ON LOAD */
+            background-color: var(--target-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 1s ease;
+            transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; z-index: 1000;
-        }
-        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
-
-        /* 1. CINEMA HERO: TEXT BEHIND BOTTLE */
+        /* 1. THE HIDDEN HERO (Emerges on Scroll) */
         .hero {
             height: 100vh;
             display: flex;
@@ -37,7 +31,14 @@
             justify-content: center;
             position: relative;
             z-index: 10;
-            perspective: 1000px;
+            opacity: 0; /* Hidden initially for the pure color effect */
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            transform: translateY(50px);
+        }
+
+        .hero.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h1 {
@@ -45,30 +46,22 @@
             font-size: clamp(80px, 22vw, 450px);
             font-weight: 950;
             letter-spacing: -0.07em;
-            /* Text is WHITE on the RED background for the 'Opening' */
-            color: var(--white); 
+            color: var(--white);
             z-index: 5;
             line-height: 0.8;
             text-transform: uppercase;
             pointer-events: none;
-            transition: color 1s ease;
         }
 
         .hero-img {
             height: 80vh;
             z-index: 10;
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* IMAGE POP EFFECT */
-        .hero:hover .hero-img {
-            transform: scale(1.05) translateZ(50px);
-        }
-
-        /* 2. PHILOSOPHY: THE TRANSITION BLOCK */
+        /* 2. PHILOSOPHY & SYSTEM */
         .philosophy-wrap {
-            height: 80vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             padding: 0 10%;
@@ -81,37 +74,26 @@
             max-width: 1000px;
         }
 
-        /* 3. CHROMA REALITY (The shifts happen here) */
-        .spread {
-            height: 120vh;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            align-items: center;
-            padding: 0 8%;
-        }
-
+        .reality-content { background: var(--black); padding: 0 8% 200px; }
+        .spread { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; padding: 150px 0; align-items: center; }
         .text-side { grid-column: 1 / span 5; }
-        .image-side { grid-column: 7 / span 6; position: relative; }
+        .visual-side { grid-column: 7 / span 6; }
+        h2 { font-size: clamp(40px, 6vw, 100px); font-weight: 900; letter-spacing: -4px; text-transform: uppercase; margin-bottom: 20px; }
+        p { font-size: 19px; line-height: 1.5; opacity: 0.6; font-weight: 300; }
 
-        h2 { font-size: clamp(40px, 8vw, 120px); font-weight: 900; line-height: 0.85; letter-spacing: -5px; margin-bottom: 30px; text-transform: uppercase; }
-        p { font-size: 19px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
-
-        /* FOOTER */
-        .next-wrap { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.1); }
-        .next-link { font-size: 15vw; font-weight: 950; text-decoration: none; color: transparent; -webkit-text-stroke: 1px white; transition: 0.5s; letter-spacing: -8px; }
-        .next-link:hover { color: white; letter-spacing: 0; }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
+        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">CONTACT</a>
+        <a href="index.html">NATIA KURTANIDZE</a>
     </nav>
 
     <header class="hero" id="hero">
-        <h1 id="parallaxText">FERMENT</h1>
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Monolith">
+        <h1>FERMENT</h1>
+        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Bottle">
     </header>
 
     <section class="philosophy-wrap">
@@ -120,60 +102,38 @@
         </p>
     </section>
 
-    <main>
-        <section class="spread" data-bg="#120e0a" data-text="#ffffff">
+    <main class="reality-content">
+        <section class="spread">
             <div class="text-side">
-                <h2>Raw<br>Amber.</h2>
-                <p>One Flavor. One Color. The identity system is built with absolute restraint—color, form, and typographic clarity.</p>
+                <h2>Structural<br>Purity.</h2>
+                <p>The identity system is built with absolute restraint—color, form, and typographic clarity that reveal what the product actually is.</p>
             </div>
-            <div class="image-side">
+            <div class="visual-side">
                 <img src="kombucha2.jpg" style="width: 100%;">
-            </div>
-        </section>
-
-        <section class="spread" data-bg="#140a0a" data-text="#ffffff">
-            <div class="text-side">
-                <h2>Hibiscus<br>Blush.</h2>
-                <p>Chromatics drawn directly from the liquid. No decorative noise—the beverage's inherent character is the visual source.</p>
-            </div>
-            <div class="image-side">
-                <img src="kombucha3.jpg" style="width: 100%;">
             </div>
         </section>
     </main>
 
-    <footer class="next-wrap">
-        <a href="oat-milk.html" class="next-link">OAT MILK</a>
-    </footer>
-
     <script>
-        const parallaxText = document.getElementById('parallaxText');
-        const sections = document.querySelectorAll('.spread');
+        const hero = document.getElementById('hero');
 
         window.addEventListener('scroll', () => {
             const scrollPos = window.scrollY;
-            parallaxText.style.transform = `translateY(${scrollPos * 0.3}px)`;
 
-            // DRAINING THE RED: As you scroll past hero, background turns black
-            if (scrollPos > 300) {
-                document.body.style.backgroundColor = "#000000";
-                parallaxText.style.color = "#ff0000"; // Text turns Red when background is Black
+            // REVEAL CONTENT: As you move, the bottle and text appear
+            if (scrollPos > 50) {
+                hero.classList.add('revealed');
             } else {
-                document.body.style.backgroundColor = "#ff0000";
-                parallaxText.style.color = "#ffffff"; // Text is White when background is Red
+                hero.classList.remove('revealed');
+            }
+
+            // DRAIN TO REALITY: Transition background to black
+            if (scrollPos > 600) {
+                document.body.style.backgroundColor = "#000000";
+            } else {
+                document.body.style.backgroundColor = "var(--target-red)";
             }
         });
-
-        // Intersection Observer for flavor sections
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && window.scrollY > 800) {
-                    document.body.style.backgroundColor = entry.target.getAttribute('data-bg');
-                }
-            });
-        }, { threshold: 0.5 });
-
-        sections.forEach(s => observer.observe(s));
     </script>
 </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATIA | EXHIBITION SERIES</title>
+    <style>
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background: var(--black); color: var(--white); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.5; padding-bottom: 20vh;
+        }
+
+        /* NAVIGATION */
+        nav {
+            padding: 40px 6%; display: flex; justify-content: space-between;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+            mix-blend-mode: difference;
+        }
+        .logo { font-weight: 900; letter-spacing: 12px; text-decoration: none; color: var(--white); font-size: 14px; }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 11px; letter-spacing: 2px; }
+
+        /* EXHIBITION HEADER */
+        header { padding: 25vh 6% 15vh; max-width: 1200px; }
+        header span { color: var(--accent); font-weight: 900; letter-spacing: 6px; font-size: 12px; text-transform: uppercase; }
+        header h1 { 
+            font-size: clamp(50px, 12vw, 180px); 
+            font-weight: 900; text-transform: uppercase; 
+            margin: 10px 0 30px -8px; letter-spacing: -8px; line-height: 0.8; 
+        }
+
+        /* THE WORKS */
+        .work-section { padding: 0 6%; margin-bottom: 30vh; }
+        .work-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 20px; }
+        .work-header h2 { font-size: 40px; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; }
+        .work-header .year { color: var(--accent); font-weight: 900; }
+
+        .img-container { width: 100%; max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
+        .img-container img { width: 100%; display: block; filter: brightness(0.8); transition: 1.2s ease; }
+        .img-container:hover img { filter: brightness(1); transform: scale(1.02); }
+
+        .text-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 50px; }
+        .text-content .poetry { font-size: 24px; font-weight: 500; line-height: 1.2; letter-spacing: -0.5px; border-left: 3px solid var(--accent); padding-left: 30px; }
+        .text-content .description { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; line-height: 1.8; }
+
+        /* FOOTER */
+        .footer-cta { text-align: center; padding: 10vh 0; }
+        .footer-cta a { font-size: 8vw; font-weight: 900; color: var(--accent); text-decoration: none; letter-spacing: -4px; }
+
+        @media (max-width: 900px) {
+            .text-content { grid-template-columns: 1fr; }
+            header h1 { letter-spacing: -3px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">NATIA</a>
+        <a href="index.html" class="back">← EXIT GALLERY</a>
+    </nav>
+
+    <header>
+        <span>Exhibition 2024-2025</span>
+        <h1>STARS &<br>SHADOWS</h1>
+    </header>
+
+    <section class="work-section">
+        <div class="work-header">
+            <h2>01. Circle of Life</h2>
+            <div class="year">2025</div>
+        </div>
+        <div class="img-container">
+            <img src="circle.jpg" alt="Circle of Life">
+        </div>
+        <div class="text-content">
+            <div class="poetry">
+                "Tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat. We don’t disappear; we fall back into the universe."
+            </div>
+            <div class="description">
+                A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Becoming, shining, dissolving, returning.
+            </div>
+        </div>
+    </section>
+
+    <section class="work-section">
+        <div class="work-header">
+            <h2>02. Nostalgia</h2>
+            <div class="year">2024</div>
+        </div>
+        <div class="img-container">
+            <img src="nostalgia.jpg" alt="Nostalgia">
+        </div>
+        <div class="text-content">
+            <div class="poetry">
+                "That sharp ache of sadness. Being an outsider in your own past life; never fully here, never fully there."
+            </div>
+            <div class="description">
+                An exploration of temporal displacement. Capturing the feeling of a shadow standing in a room that no longer exists.
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-cta">
+        <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
+    </div>
+
+</body>
+</html>

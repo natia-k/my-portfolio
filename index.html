@@ -11,10 +11,9 @@
         body { 
             background: var(--black); color: var(--white); 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow-x: hidden; height: 1400vh; /* Long scroll for the snake path */
+            overflow-x: hidden; height: 1000vh; /* Total scroll depth */
         }
 
-        /* NAVIGATION */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 40px 6%; display: flex; justify-content: space-between;
@@ -22,9 +21,8 @@
         }
         .logo { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; text-decoration: none; color: var(--white); font-size: 14px; }
 
-        /* VIEWPORT & MAP */
         .viewport { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; }
-        #laby-map { position: absolute; top: 0; left: 0; width: 400vw; height: 600vh; will-change: transform; transition: transform 0.1s linear; }
+        #laby-map { position: absolute; top: 0; left: 0; width: 400vw; height: 600vh; will-change: transform; }
 
         .node {
             position: absolute; width: 100vw; height: 100vh;
@@ -33,23 +31,24 @@
         }
 
         .node span { color: var(--accent); font-size: 11px; letter-spacing: 6px; margin-bottom: 20px; font-weight: 900; }
-        .node h2 { font-size: clamp(50px, 11vw, 140px); font-weight: 900; text-transform: uppercase; line-height: 0.8; text-align: center; letter-spacing: -4px; }
+        .node h2 { font-size: clamp(40px, 10vw, 140px); font-weight: 900; text-transform: uppercase; line-height: 0.8; text-align: center; letter-spacing: -4px; }
 
         .img-container {
-            position: absolute; width: 35vw; max-width: 550px; aspect-ratio: 4/5; z-index: -1; 
+            position: absolute; width: 35vw; max-width: 500px; aspect-ratio: 4/5; z-index: -1; 
             background: var(--black); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.2); transition: 1s ease; }
-        .node:hover img { filter: grayscale(0) brightness(0.7); }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.3); transition: 1s ease; }
+        .node:hover img { filter: grayscale(0) brightness(0.8); }
 
-        /* COORDINATES FOR THE SNAKE PATH */
+        /* COORDINATES FOR THE PATH */
         #n-intro { left: 0; top: 0; }
-        #n-7     { left: 100vw; top: 0; } /* Node 7: Circle */
-        #n-8     { left: 100vw; top: 100vh; } /* Node 8: Nostalgia */
+        #n-7     { left: 100vw; top: 0; } 
+        #n-8     { left: 100vw; top: 100vh; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">NATIA</a></nav>
+
     <div class="viewport">
         <div id="laby-map">
             <div class="node" id="n-intro">
@@ -58,12 +57,12 @@
             </div>
             
             <div class="node" id="n-7" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="circle.jpg"></div>
+                <div class="img-container"><img src="circle.jpg" alt="Circle of Life"></div>
                 <span>07 EXHIBITION</span><h2>CIRCLE OF<br>LIFE</h2>
             </div>
 
             <div class="node" id="n-8" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="nostalgia.jpg"></div>
+                <div class="img-container"><img src="nostalgia.jpg" alt="Nostalgia"></div>
                 <span>08 EXHIBITION</span><h2>NOSTALGIA</h2>
             </div>
         </div>
@@ -76,9 +75,12 @@
             const h = window.innerHeight;
             let x = 0, targetY = 0;
 
-            // Simple Snake Path logic
-            if (y < h) { x = y; targetY = 0; } 
-            else { x = h; targetY = y - h; }
+            // Snake Path Logic
+            if (y < h) { 
+                x = y; targetY = 0; 
+            } else { 
+                x = h; targetY = y - h; 
+            }
             
             map.style.transform = `translate3d(-${x}px, -${targetY}px, 0)`;
         });

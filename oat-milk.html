@@ -11,32 +11,28 @@
             --white: #ffffff;
         }
 
-        /* 1. RESET & PRECISION CURSOR */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
             background: var(--white); 
             color: var(--charcoal); 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            /* THE FLOW: Fades from white to creamy texture */
-            animation: flowToCream 1.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-            animation-delay: 0.8s;
+            animation: flowToCream 2s ease forwards;
+            animation-delay: 0.5s;
         }
 
         @keyframes flowToCream { to { background: var(--cream); } }
 
-        /* 2. NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: inherit; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
+        nav a { color: inherit; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
 
-        /* 3. HERO: ARCHITECTURAL MONOLITH */
         .hero {
-            height: 100vh;
+            height: 110vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -45,111 +41,96 @@
 
         .hero-title {
             position: absolute;
-            font-size: 16vw; /* Sized for 'ARCHITECTURE' */
+            font-size: 15vw;
             font-weight: 900;
-            letter-spacing: -0.06em;
+            letter-spacing: -0.05em;
             color: var(--white);
             z-index: 1;
-            mix-blend-mode: exclusion; /* Text reacts to the bottle passing through it */
+            mix-blend-mode: exclusion;
             text-transform: uppercase;
         }
 
         .hero-img {
-            height: 75vh;
+            height: 70vh;
             z-index: 5;
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.06));
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero:hover .hero-img { transform: scale(1.03) translateY(-15px); }
-
-        /* 4. CONTENT FLOW & MEANING */
-        .content { padding: 0 8% 200px; }
-
-        .meaning-block {
-            padding: 150px 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-        }
-
-        .label {
-            font-size: 10px;
-            letter-spacing: 5px;
-            color: var(--charcoal);
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            display: block;
-            opacity: 0.5;
-        }
-
-        h2 {
-            font-size: clamp(35px, 7vw, 110px);
-            line-height: 0.8;
-            letter-spacing: -5px;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-        }
-
-        .desc {
-            font-size: 20px;
-            line-height: 1.5;
-            max-width: 480px;
-            font-weight: 300;
-        }
-
-        /* 5. TACTILE GALLERY */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 30px;
-        }
-
-        .img-wrap {
-            grid-column: span 12;
-            margin-bottom: 120px;
-            overflow: hidden;
-            background: rgba(0,0,0,0.03); /* Slight depth recess */
-        }
-
-        .img-wrap.half { grid-column: span 6; }
-
-        .img-wrap img {
-            width: 100%;
-            display: block;
             transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .img-wrap:hover img { transform: scale(1.04); }
-
-        /* 6. THE NEXT PROJECT FOOTER */
-        .next-footer {
-            padding: 200px 8% 100px;
-            text-align: right;
+        .fluid-content {
+            padding: 0 8%;
+            display: flex;
+            flex-direction: column;
         }
 
-        .next-title {
-            font-size: clamp(60px, 12vw, 200px);
+        .section {
+            margin-bottom: 250px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            align-items: center;
+        }
+
+        .text-wrap { grid-column: 2 / span 4; }
+        .text-wrap.right { grid-column: 8 / span 4; text-align: right; }
+
+        .label {
+            font-size: 9px;
+            letter-spacing: 4px;
             font-weight: 900;
-            text-decoration: none;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.4;
+        }
+
+        h2 {
+            font-size: clamp(30px, 5vw, 70px);
+            line-height: 1;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+
+        p { font-size: 18px; line-height: 1.4; opacity: 0.7; font-weight: 300; }
+
+        .floating-img { grid-column: 7 / span 6; width: 100%; overflow: hidden; }
+        .floating-img.left { grid-column: 1 / span 6; }
+
+        .floating-img img {
+            width: 100%;
+            display: block;
+            transition: 1.5s ease;
+        }
+
+        /* NEXT PROJECT FOOTER */
+        .next-wrap {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .next-link {
+            font-size: 12vw;
+            font-weight: 900;
+            letter-spacing: -8px;
             color: transparent;
-            -webkit-text-stroke: 1px rgba(0,0,0,0.1);
-            letter-spacing: -0.05em;
-            line-height: 0.8;
-            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .next-title:hover {
-            color: var(--charcoal);
             -webkit-text-stroke: 1px var(--charcoal);
-            letter-spacing: 0em;
+            text-decoration: none;
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            line-height: 0.8;
         }
 
-        @media (max-width: 1000px) {
-            .meaning-block { grid-template-columns: 1fr; gap: 40px; }
-            .img-wrap.half { grid-column: span 12; }
-            h2 { letter-spacing: -2px; }
+        .next-link:hover {
+            color: var(--charcoal);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .section { display: block; margin-bottom: 150px; }
+            .next-link { font-size: 18vw; letter-spacing: -2px; }
         }
     </style>
 </head>
@@ -157,47 +138,41 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">EMAIL</a>
+        <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
     <section class="hero">
         <div class="hero-title">ARCHITECTURE</div>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk">
     </section>
 
-    <main class="content">
-        <section class="meaning-block">
-            <div>
-                <span class="label">Structural Design</span>
-                <h2>The Milk<br>Monolith.</h2>
+    <main class="fluid-content">
+        <div class="section">
+            <div class="text-wrap">
+                <span class="label">The Concept</span>
+                <h2>Structural<br>Silence.</h2>
+                <p>A rejection of the rustic for the monolith. Treating packaging as a geometric study.</p>
             </div>
-            <div>
-                <p class="desc">
-                    By removing the visual noise of traditional oat milk packaging—hand-drawn grains and kraft paper—we reveal the carton as a structural monolith. A study in how volume and negative space can communicate premium quality.
-                </p>
+            <div class="floating-img">
+                <img src="oat-2.jpg">
             </div>
-        </section>
-
-        <div class="gallery">
-            <div class="img-wrap"><img src="oat-2.jpg"></div>
-            <div class="img-wrap half"><img src="oat-3.jpg"></div>
-            <div class="img-wrap half" style="margin-top: 150px;"><img src="oat-4.jpg"></div>
         </div>
 
-        <section class="meaning-block" style="margin-top: 100px;">
-            <div style="grid-column: 1 / -1;">
-                <span class="label">Color Logic</span>
-                <h2>Chromatics of Cream.</h2>
-                <p class="desc" style="max-width: 600px;">
-                    The palette is restricted to the essence of the liquid itself. It is a refusal to perform; the color doesn't describe the product—it <em>is</em> the product.
-                </p>
+        <div class="section">
+            <div class="floating-img left">
+                <img src="oat-3.jpg">
             </div>
-        </section>
+            <div class="text-wrap right">
+                <span class="label">Color Logic</span>
+                <h2>Chromatics<br>of Cream.</h2>
+                <p>Essence over performance. The color becomes the identifier.</p>
+            </div>
+        </div>
     </main>
 
-    <footer class="next-footer">
+    <footer class="next-wrap">
         <span class="label">NEXT PROJECT</span>
-        <a href="kombucha.html" class="next-title">KOMBUCHA</a>
+        <a href="the-others.html" class="next-link">THE OTHERS</a>
     </footer>
 
 </body>

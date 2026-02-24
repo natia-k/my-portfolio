@@ -3,176 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | NATIA STUDIO</title>
+    <title>KOMBUCHA | THE LIVING SOUL</title>
     <style>
         :root { 
-            --brand-red: #ff0000; /* That aggressive Jury-style red */
-            --black: #000000;
-            --white: #ffffff;
+            --amber: #C58E41; 
+            --charcoal: #111214; 
+            --cream: #F7F5EE; 
+            --sage: #8A9A86;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
         body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Inter', -apple-system, sans-serif; 
+            background-color: var(--charcoal); 
+            color: var(--cream); 
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. INITIAL COLOR TAKEOVER (The Cinema Move) */
-        .color-wash {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--brand-red);
-            z-index: 2000;
-            animation: washOut 1.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
-            animation-delay: 0.8s;
+        /* 1. BUBBLE PARTICLES - THE BACKGROUND LIFE */
+        .bubble-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
+            z-index: 1;
         }
-        @keyframes washOut { to { transform: translateY(-100%); } }
 
-        /* 2. THE NAV */
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; z-index: 1000;
-            font-size: 10px; letter-spacing: 4px; font-weight: 900;
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(197, 142, 65, 0.2);
+            border-radius: 50%;
+            animation: rise var(--d) infinite linear;
+            opacity: 0;
         }
-        nav a { color: var(--white); text-decoration: none; }
 
-        /* 3. THE HERO */
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.3; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+        }
+
+        /* 2. HERO - BUOYANT STAGING */
         .hero {
-            height: 100vh;
+            height: 120vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            z-index: 10;
         }
-        .hero-img {
-            height: 80vh;
-            z-index: 5;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .hero:hover .hero-img { transform: scale(1.05) rotate(-2deg); }
-        
-        .hero-bg-text {
+
+        .hero-title {
             position: absolute;
-            font-size: 20vw;
+            font-size: 22vw;
             font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            letter-spacing: -10px;
+            letter-spacing: -0.08em;
+            color: var(--charcoal);
+            -webkit-text-stroke: 1px rgba(247, 245, 238, 0.05);
             z-index: 1;
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* 4. THE MANIFESTO (Your New Text) */
-        .manifesto {
-            padding: 100px 8% 200px;
-            max-width: 1400px;
+        .hero-bottle {
+            height: 85vh;
+            z-index: 5;
+            filter: drop-shadow(0 40px 100px rgba(0,0,0,0.8));
+            transition: transform 1s ease;
         }
-        .label {
-            font-size: 11px;
-            letter-spacing: 5px;
-            color: var(--brand-red);
-            margin-bottom: 30px;
+
+        .hero:hover .hero-bottle {
+            transform: translateY(-20px) scale(1.02) rotate(-1deg);
+        }
+
+        /* 3. NARRATIVE - THE REVEAL */
+        .reveal-section {
+            padding: 200px 10%;
+            position: relative;
+            z-index: 10;
+            background: var(--charcoal);
+        }
+
+        .big-statement {
+            font-size: clamp(32px, 6vw, 90px);
+            line-height: 0.9;
             font-weight: 900;
-        }
-        h2 {
-            font-size: clamp(40px, 8vw, 120px);
-            line-height: 0.85;
-            letter-spacing: -6px;
+            letter-spacing: -4px;
             text-transform: uppercase;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
-        .desc-grid {
+
+        .big-statement span { color: var(--amber); }
+
+        /* 4. FLOATING GALLERY */
+        .floating-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            margin-top: 100px;
-        }
-        .desc-grid p {
-            font-size: 18px;
-            line-height: 1.5;
-            font-weight: 300;
-            opacity: 0.8;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
 
-        /* 5. GALLERY */
-        .gallery img {
+        .floating-img {
             width: 100%;
-            display: block;
-            margin-bottom: 10px;
-            filter: grayscale(1);
-            transition: 1s ease;
+            background: #000;
+            padding: 40px;
+            transition: transform 0.5s ease-out;
         }
-        .gallery img:hover { filter: grayscale(0); }
 
-        /* 6. NEXT PROJECT FOOTER */
+        /* 5. FOOTER - THE FLAVOR NOTE */
         .footer {
-            height: 80vh;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-top: 1px solid #222;
+            text-align: center;
         }
-        .footer a {
-            font-size: 12vw;
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--white);
-            letter-spacing: -10px;
-            transition: 0.6s;
-        }
-        .footer a:hover { color: var(--brand-red); letter-spacing: 0; }
 
-        @media (max-width: 900px) {
-            .desc-grid { grid-template-columns: 1fr; gap: 40px; }
-            h2 { letter-spacing: -3px; }
+        .manifesto {
+            font-size: 14px;
+            letter-spacing: 10px;
+            color: var(--amber);
+            margin-bottom: 20px;
+            font-weight: 900;
         }
+
+        .next-link {
+            font-size: 15vw;
+            font-weight: 900;
+            letter-spacing: -10px;
+            text-decoration: none;
+            color: var(--cream);
+            line-height: 0.8;
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .next-link:hover {
+            letter-spacing: 0;
+            color: var(--amber);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="color-wash"></div>
+    <div class="bubble-container" id="bubble-box"></div>
 
-    <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">CONTACT</a>
+    <nav style="position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; font-size: 10px; letter-spacing: 4px;">
+        <a href="index.html" style="color: var(--cream); text-decoration: none; font-weight: 900;">NATIA STUDIO</a>
+        <a href="mailto:hello@natia.design" style="color: var(--cream); text-decoration: none; font-weight: 900;">EMAIL</a>
     </nav>
 
     <section class="hero">
-        <div class="hero-bg-text">FERMENT</div>
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha">
+        <div class="hero-title">SOUL</div>
+        <img src="kombucha-hero.jpg" class="hero-bottle" alt="Kombucha Bottle">
     </section>
 
-    <main>
-        <section class="manifesto">
-            <div class="label">COLOR IS THE BRAND</div>
-            <h2>ONE FLAVOR. ONE COLOR.<br>NO DECORATION.</h2>
-            
-            <div class="desc-grid">
-                <p>This project is a deliberate reverse of category expectations — no kraft, no hand-drawn botanicals, no “craft clichés.” Everything is stripped so the fermented color becomes the brand language itself.</p>
-                <p>The palette is drawn directly from fermentation — raw amber, hibiscus blush, blackcurrant near-black. Not colors about the flavors — colors from them.</p>
+    <section class="reveal-section">
+        <h2 class="big-statement">
+            Instead of explaining flavor,<br>it <span>becomes it.</span>
+        </h2>
+        
+        <div class="floating-grid">
+            <div class="floating-img" style="transform: translateY(40px);">
+                <img src="kombucha2.jpg" style="width: 100%;" alt="Packaging Detail">
             </div>
-        </section>
-
-        <section class="gallery">
-            <img src="kombucha2.jpg">
-            <img src="kombucha3.jpg">
-        </section>
-
-        <section class="manifesto">
-            <h2>PREMIUM WITHOUT PERFORMANCE.<br>INTENTIONAL WITHOUT ARTIFICE.</h2>
-            <div class="desc-grid">
-                <p>By removing all extraneous ornament and visual noise, the system creates a confident presence on shelf without trying too hard.</p>
-                <p style="font-size: 12px; opacity: 0.4; letter-spacing: 2px;">ROLE: CONCEPT, COLOR SYSTEM, LABEL DESIGN, TYPOGRAPHY, MOCKUPS</p>
+            <div>
+                <p style="font-size: 18px; line-height: 1.6; opacity: 0.6; margin-bottom: 40px;">
+                    This project is a deliberate reverse of category expectations. We let the product color become the personality—uncompromising, raw, and alive.
+                </p>
+                <div class="floating-img" style="transform: translateY(-40px);">
+                    <img src="kombucha3.jpg" style="width: 100%;" alt="Bottle Shot">
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer class="footer">
-            <a href="oat-milk.html">OAT MILK →</a>
-        </footer>
-    </main>
+    <footer class="footer">
+        <p class="manifesto">CRAFTED FOR CLARITY</p>
+        <a href="oat-milk.html" class="next-link">OAT MILK</a>
+    </footer>
+
+    <script>
+        // CREATE BUBBLES
+        const box = document.getElementById('bubble-box');
+        for (let i = 0; i < 20; i++) {
+            let b = document.createElement('div');
+            b.className = 'bubble';
+            let size = Math.random() * 8 + 2 + 'px';
+            b.style.width = size;
+            b.style.height = size;
+            b.style.left = Math.random() * 100 + '%';
+            b.style.setProperty('--d', Math.random() * 5 + 5 + 's');
+            b.style.animationDelay = Math.random() * 10 + 's';
+            box.appendChild(b);
+        }
+
+        // PARALLAX EFFECT FOR FLOATING IMAGES
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('.floating-img').forEach((img, index) => {
+                let speed = index === 0 ? 0.05 : -0.05;
+                img.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
 
 </body>
 </html>

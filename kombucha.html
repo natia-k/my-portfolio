@@ -6,31 +6,37 @@
     <title>KOMBUCHA | NATIA STUDIO</title>
     <style>
         :root { 
-            --brand-red: #ff0000; 
+            --accent: #ff0000; /* Use your specific red only for tiny details */
             --black: #000000;
             --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.08);
+            --off-white: #f5f5f5;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Inter', sans-serif; 
+            background: var(--off-white); 
+            color: var(--black); 
+            font-family: 'Inter', -apple-system, sans-serif; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* The Flow: Transitions from paper-white to deep-black as you stay */
+            animation: flowToDark 2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+            animation-delay: 1.5s; 
         }
 
-        /* 1. FLUID NAVIGATION */
+        @keyframes flowToDark {
+            to { background: var(--black); color: var(--white); }
+        }
+
+        /* 1. CLEAN NAV */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 11px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
+        nav a { color: inherit; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
 
-        /* 2. THE HERO: FLOATING DEPTH */
+        /* 2. THE HERO (Minimal & Floating) */
         .hero {
             height: 100vh;
             display: flex;
@@ -41,116 +47,98 @@
 
         .hero-title {
             position: absolute;
-            font-size: 30vw;
-            font-weight: 900;
+            font-size: 25vw;
+            font-weight: 950;
             letter-spacing: -0.06em;
-            color: var(--black);
-            -webkit-text-stroke: 1px var(--glass);
+            opacity: 0.05;
             z-index: 1;
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero:hover .hero-title {
-            -webkit-text-stroke: 1px var(--brand-red);
-            opacity: 0.5;
         }
 
         .hero-img {
             height: 80vh;
             z-index: 5;
-            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero:hover .hero-img { transform: scale(1.03) translateY(-20px); }
-
-        /* 3. FLUID NARRATIVE: ASYMMETRIC & CLEAN */
-        .fluid-section {
-            padding: 120px 8%;
-            display: flex;
-            flex-direction: column;
-            gap: 150px;
+        /* 3. THE NARRATIVE (No Gray Lines) */
+        .content {
+            padding: 0 8% 200px;
         }
 
-        .text-reveal {
+        .text-block {
+            padding: 150px 0;
             max-width: 900px;
-            margin-left: auto; /* Pushes text to the right for flow */
         }
 
         .label {
             font-size: 10px;
-            letter-spacing: 6px;
-            color: var(--brand-red);
+            letter-spacing: 5px;
+            color: var(--accent);
             font-weight: 900;
             margin-bottom: 20px;
             display: block;
         }
 
         h2 {
-            font-size: clamp(32px, 6vw, 85px);
-            font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -3px;
+            font-size: clamp(35px, 7vw, 100px);
+            line-height: 0.85;
+            letter-spacing: -4px;
             text-transform: uppercase;
+            margin-bottom: 40px;
         }
 
-        .desc-text {
+        p {
             font-size: 18px;
             line-height: 1.5;
-            margin-top: 40px;
-            max-width: 500px;
+            max-width: 480px;
             opacity: 0.7;
         }
 
-        /* 4. MASONRY GALLERY (No hard borders) */
-        .gallery-fluid {
-            padding: 40px 6%;
+        /* 4. MASONRY IMAGES (Asymmetric Flow) */
+        .gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 20px;
         }
 
-        .gallery-item {
-            grid-column: span 6;
+        .img-wrap {
+            grid-column: span 12;
             overflow: hidden;
-            background: #050505;
+            margin-bottom: 100px;
+            background: #080808; /* Black base for the image reveal */
         }
 
-        .gallery-item.large { grid-column: span 12; margin-bottom: 80px; }
+        .img-wrap.split { grid-column: span 6; }
 
-        .gallery-item img {
+        .img-wrap img {
             width: 100%;
             display: block;
-            filter: grayscale(1);
-            transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .gallery-item:hover img { filter: grayscale(0); transform: scale(1.05); }
+        .img-wrap:hover img { transform: scale(1.03); }
 
-        /* 5. NEXT CHAPTER: THE FLOW CONTINUES */
-        .footer-flow {
-            padding: 200px 6%;
-            text-align: left;
+        /* 5. THE FINALE */
+        .footer {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .footer-flow a {
-            font-size: clamp(60px, 15vw, 250px);
+        .footer a {
+            font-size: 12vw;
             font-weight: 900;
-            letter-spacing: -12px;
-            color: var(--white);
+            letter-spacing: -8px;
+            color: inherit;
             text-decoration: none;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-block;
+            transition: 0.5s;
         }
 
-        .footer-flow a:hover {
-            color: var(--brand-red);
-            letter-spacing: 0;
-            transform: skewX(-5deg);
-        }
+        .footer a:hover { color: var(--accent); letter-spacing: 0; }
 
-        @media (max-width: 1000px) {
-            .gallery-item { grid-column: span 12; }
-            .text-reveal { margin-left: 0; }
+        @media (max-width: 900px) {
+            .img-wrap.split { grid-column: span 12; }
         }
     </style>
 </head>
@@ -166,33 +154,28 @@
         <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha">
     </section>
 
-    <main class="fluid-section">
-        <div class="text-reveal">
-            <span class="label">CONCEPT</span>
-            <h2>ONE FLAVOR. ONE COLOR. NO DECORATION.</h2>
-            <p class="desc-text">
-                Everything is stripped so the fermented color becomes the brand language itself. This project is a deliberate reverse of category expectations — no kraft, no hand-drawn botanicals.
-            </p>
+    <main class="content">
+        <div class="text-block">
+            <span class="label">IDENTITY</span>
+            <h2>ONE FLAVOR.<br>ONE COLOR.</h2>
+            <p>Everything is stripped so the fermented color becomes the brand language itself. A deliberate reverse of category expectations — no craft clichés.</p>
         </div>
 
-        <section class="gallery-fluid">
-            <div class="gallery-item large"><img src="kombucha2.jpg"></div>
-            <div class="gallery-item"><img src="kombucha3.jpg"></div>
-            <div class="gallery-item" style="margin-top: 100px;"><img src="kombucha-detail.jpg"></div>
-        </section>
+        <div class="gallery">
+            <div class="img-wrap"><img src="kombucha2.jpg"></div>
+            <div class="img-wrap split"><img src="kombucha3.jpg"></div>
+            <div class="img-wrap split" style="margin-top: 150px;"><img src="kombucha4.jpg"></div>
+        </div>
 
-        <div class="text-reveal" style="margin-left: 0; margin-right: auto;">
-            <span class="label">THE SYSTEM</span>
-            <h2>PREMIUM WITHOUT PERFORMANCE.</h2>
-            <p class="desc-text">
-                The palette is drawn directly from fermentation — raw amber, hibiscus blush, blackcurrant near-black. Not colors about the flavors — colors from them.
-            </p>
+        <div class="text-block" style="margin-left: auto; text-align: right;">
+            <span class="label">SYSTEM</span>
+            <h2>PREMIUM WITHOUT<br>PERFORMANCE.</h2>
+            <p style="margin-left: auto;">Colors extracted from fermentation—raw amber, hibiscus blush, blackcurrant near-black. Not colors about the flavors—colors from them.</p>
         </div>
     </main>
 
-    <footer class="footer-flow">
-        <span class="label">UP NEXT</span><br>
-        <a href="oat-milk.html">OAT MILK</a>
+    <footer class="footer">
+        <a href="oat-milk.html">OAT MILK →</a>
     </footer>
 
 </body>

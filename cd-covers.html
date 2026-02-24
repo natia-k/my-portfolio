@@ -3,58 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | FEELINGS</title>
+    <title>NATIA | FEELINGS SERIES</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000; }
-        body { background: var(--black); color: var(--white); font-family: 'Helvetica Neue', Arial; padding: 6%; }
-        nav { display: flex; justify-content: space-between; margin-bottom: 10vh; }
-        .logo { font-weight: 900; letter-spacing: 10px; text-decoration: none; color: #fff; }
-        .back { color: var(--accent); text-decoration: none; font-weight: 900; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        header { margin-bottom: 15vh; max-width: 800px; }
-        h1 { font-size: clamp(50px, 10vw, 120px); letter-spacing: -5px; line-height: 0.8; margin: 20px 0; }
+        body { 
+            background: var(--black); color: var(--white); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.5; padding-bottom: 20vh;
+        }
+
+        /* NAVIGATION */
+        nav {
+            padding: 40px 6%; display: flex; justify-content: space-between;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+            mix-blend-mode: difference;
+        }
+        .logo { font-weight: 900; letter-spacing: 12px; text-decoration: none; color: var(--white); font-size: 14px; }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 11px; letter-spacing: 2px; }
+
+        /* HEADER SECTION */
+        header { padding: 25vh 6% 15vh; max-width: 1000px; }
+        header span { color: var(--accent); font-weight: 900; letter-spacing: 6px; font-size: 12px; text-transform: uppercase; }
+        header h1 { 
+            font-size: clamp(60px, 15vw, 180px); 
+            font-weight: 900; text-transform: uppercase; 
+            margin: 10px 0 30px -8px; letter-spacing: -6px; line-height: 0.8; 
+        }
+        header .intro-text { 
+            font-size: 18px; line-height: 1.4; opacity: 0.9; max-width: 600px; 
+            border-left: 3px solid var(--accent); padding-left: 30px;
+        }
+
+        /* PROJECT GRID */
+        .content { padding: 0 6%; }
         
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
-        .item { margin-bottom: 50px; }
-        .item img { width: 100%; filter: grayscale(1); transition: 0.5s; }
-        .item:hover img { filter: grayscale(0); }
-        h3 { color: var(--accent); margin: 20px 0 10px; letter-spacing: 3px; }
-        blockquote { font-style: italic; border-left: 2px solid var(--accent); padding-left: 15px; margin-bottom: 15px; opacity: 0.8; }
-        p { font-size: 13px; opacity: 0.6; line-height: 1.6; }
+        /* Each project block */
+        .emotion-block { 
+            display: grid; grid-template-columns: 1.2fr 0.8fr; 
+            gap: 60px; margin-bottom: 30vh; align-items: center;
+        }
+        .emotion-block:nth-child(even) { direction: rtl; } /* Alternates layout */
+        .emotion-block:nth-child(even) .text-side { direction: ltr; }
+
+        .img-side { position: relative; overflow: hidden; background: #111; }
+        .img-side img { width: 100%; display: block; filter: brightness(0.8); transition: 1s ease; }
+        .img-side:hover img { filter: brightness(1); transform: scale(1.03); }
+
+        .text-side h2 { 
+            font-size: 60px; font-weight: 900; letter-spacing: -2px; 
+            margin-bottom: 20px; color: var(--accent); text-transform: uppercase;
+        }
+        .text-side blockquote { 
+            font-size: 24px; font-weight: 500; line-height: 1.3; 
+            margin-bottom: 25px; color: var(--white); letter-spacing: -0.5px;
+        }
+        .text-side p { 
+            font-size: 13px; text-transform: uppercase; letter-spacing: 2px; 
+            opacity: 0.5; line-height: 1.8; 
+        }
+
+        /* FOOTER / CONTACT */
+        .footer-cta { text-align: center; padding: 10vh 0; }
+        .footer-cta a { 
+            font-size: 10vw; font-weight: 900; color: var(--accent); 
+            text-decoration: none; letter-spacing: -5px; 
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .emotion-block, .emotion-block:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
+            header h1 { font-size: 80px; letter-spacing: -3px; }
+            .text-side h2 { font-size: 40px; }
+        }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">NATIA</a><a href="index.html" class="back">CLOSE</a></nav>
+
+    <nav>
+        <a href="index.html" class="logo">NATIA</a>
+        <a href="index.html" class="back">← EXIT VOID</a>
+    </nav>
+
     <header>
-        <span>PROJECT 06 / 2022</span>
+        <span>Project Series 06</span>
         <h1>FEELINGS</h1>
-        <p>A visual study of the subjective human condition. Capturing emotions before they fade into the bottomless void.</p>
+        <div class="intro-text">
+            Everything is constant. You are already feeling something. Sometimes there is a reason—a memory, a smell, a person—but the feeling is always there. These are the artifacts of those moments.
+        </div>
     </header>
-    <div class="grid">
-        <div class="item">
-            <img src="heartbreak-2.jpg">
-            <h3>HEARTBREAK</h3>
-            <blockquote>"Fragments orbit me—tiny planets of pain that refuse to burn."</blockquote>
-            <p>Created by forming a heart shape and literally breaking it into echoing fragments.</p>
-        </div>
-        <div class="item">
-            <img src="insomnia-1.jpg">
-            <h3>INSOMNIA</h3>
-            <blockquote>"Since I was five, I have stood at the edge of sleep. Wanting to jump."</blockquote>
-            <p>A personal struggle transformed into a gift—extra time to watch the world unfold.</p>
-        </div>
-        <div class="item">
-            <img src="pleasure.jpg">
-            <h3>PLEASURE</h3>
-            <blockquote>"Warmth turns into gravity. You fall upward. Willingly."</blockquote>
-            <p>An infinite state of satisfaction, 1001 times alive.</p>
-        </div>
-        <div class="item">
-            <img src="emptiness.jpg">
-            <h3>EMPTINESS</h3>
-            <blockquote>"It feels empty, but it is heavy. It can hold everything."</blockquote>
-            <p>A bottomless void that arrives without sound and swallows every echo.</p>
-        </div>
+
+    <main class="content">
+        
+        <section class="emotion-block">
+            <div class="img-side">
+                <img src="heartbreak-2.jpg" alt="Heartbreak">
+            </div>
+            <div class="text-side">
+                <h2>HEARTBREAK</h2>
+                <blockquote>"Fragments orbit me—tiny planets of pain that refuse to burn."</blockquote>
+                <p>Digital Illustration. 2022. I created a heart and literally broke it. These fragments are the echoes that never leave once sadness touches you.</p>
+            </div>
+        </section>
+
+        <section class="emotion-block">
+            <div class="img-side">
+                <img src="insomnia-1.jpg" alt="Insomnia">
+            </div>
+            <div class="text-side">
+                <h2>INSOMNIA</h2>
+                <blockquote>"Since I was five, I have stood at the edge of sleep. Wanting to jump. Terrified of the splash."</blockquote>
+                <p>A lifelong struggle reframed as a gift. Extra hours to watch the world quietly unfold while the dark watches back.</p>
+            </div>
+        </section>
+
+        <section class="emotion-block">
+            <div class="img-side">
+                <img src="pleasure.jpg" alt="Pleasure">
+            </div>
+            <div class="text-side">
+                <h2>PLEASURE</h2>
+                <blockquote>"Warmth turns into gravity. You fall upward. Willingly. Again and again."</blockquote>
+                <p>An infinite, 1001-fold state of satisfaction. Alive and repetitive. A fall into the sun.</p>
+            </div>
+        </section>
+
+        <section class="emotion-block">
+            <div class="img-side">
+                <img src="emptiness.jpg" alt="Emptiness">
+            </div>
+            <div class="text-side">
+                <h2>EMPTINESS</h2>
+                <blockquote>"It feels empty, but it is heavy. It can hold everything. You carry space alone."</blockquote>
+                <p>The bottomless void. It arrives without sound and swallows every echo. A black hole rising inside.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="footer-cta">
+        <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
     </div>
+
 </body>
 </html>

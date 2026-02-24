@@ -1,49 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CD COVERS | NATIA KURTANIDZE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD COVERS | NATIA DESIGN</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
-        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
-        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
-        .container { padding: 180px 8% 50px 8%; max-width: 1200px; margin: 0 auto; }
-        h1 { font-size: clamp(40px, 12vw, 150px); font-weight: 900; text-transform: uppercase; letter-spacing: -6px; line-height: 0.8; margin-bottom: 40px; }
-        img { width: 100%; height: auto; border: 1px solid #111; margin-bottom: 40px; display: block; }
-        .desc { color: #666; font-size: 18px; max-width: 600px; margin-bottom: 40px; border-left: 2px solid var(--accent); padding-left: 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* Next Project Button */
-        .next-project { 
-            border-top: 1px solid #222; 
-            padding: 100px 0; 
-            text-align: right; 
-            margin-top: 50px;
-        }
-        .next-link { 
-            text-decoration: none; 
+        body { 
+            background: var(--black); 
             color: var(--white); 
-            display: inline-block;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            overflow-x: hidden;
         }
-        .next-link span { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 3px; display: block; margin-bottom: 10px; }
-        .next-link h2 { font-size: clamp(30px, 8vw, 80px); font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -3px; transition: 0.3s; }
-        .next-link:hover h2 { color: var(--accent); transform: translateX(-20px); }
+
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            padding: 40px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 1000; 
+            font-size: 11px; 
+            letter-spacing: 3px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+        }
+        nav a { color: var(--white); text-decoration: none; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 5px; }
+
+        .hero-split { 
+            display: flex; 
+            height: 100vh; 
+            width: 100%; 
+            align-items: stretch;
+        }
+        
+        .hero-left { 
+            flex: 1.1; 
+            overflow: hidden; 
+            background: #111;
+        }
+        .hero-left img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
+        }
+
+        .hero-right { 
+            flex: 1; 
+            padding: 0 8%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+        }
+        
+        h1 { 
+            font-size: clamp(60px, 10vw, 130px); 
+            font-weight: 900; 
+            line-height: 0.85; 
+            letter-spacing: -6px; 
+            margin-bottom: 30px; 
+            text-transform: uppercase;
+        }
+
+        .description { 
+            font-size: 18px; 
+            color: #999; 
+            margin-bottom: 10px; 
+            line-height: 1.4; 
+            max-width: 400px;
+        }
+
+        .project-scope { 
+            font-size: 9px; 
+            letter-spacing: 2px; 
+            color: #555; 
+            text-transform: uppercase; 
+            margin-top: 50px; 
+            font-weight: 700;
+        }
+
+        .next-btn {
+            padding: 100px 5% 150px;
+            text-align: right;
+            border-top: 1px solid #111;
+        }
+        .next-btn a {
+            text-decoration: none;
+            color: var(--white);
+        }
+        .next-btn h2 { font-size: 80px; font-weight: 900; letter-spacing: -3px; }
+
+        @media (max-width: 1024px) {
+            .hero-split { flex-direction: column; height: auto; }
+            .hero-left { height: 60vh; }
+            .hero-right { padding: 80px 8%; }
+        }
     </style>
 </head>
 <body>
-    <nav><span>NATIA KURTANIDZE</span><a href="index.html" class="back">← BACK</a></nav>
-    <div class="container">
-        <h1>CD COVERS</h1>
-        <p class="desc">Graphic exploration for music packaging and visual identity. 2026 Archive.</p>
-        
-        <img src="cd-covers-hero.jpg" alt="CD Covers">
 
-        <div class="next-project">
-            <a href="go-left.html" class="next-link">
-                <span>NEXT PROJECT</span>
+    <nav>
+        <a href="index.html">← BACK</a>
+        <div class="nav-center">NATIA DESIGN</div>
+        <a href="mailto:contact@natiadesign.com">EMAIL</a>
+    </nav>
+
+    <div class="container">
+        <section class="hero-split">
+            <div class="hero-left">
+                <img src="cd-hero.jpg" alt="CD Cover Design">
+            </div>
+            
+            <div class="hero-right">
+                <h1>CD<br>COVERS</h1>
+                <p class="description">Visual narratives through music packaging and digital cover art exploration.</p>
+                <p class="project-scope">PROJECT SCOPE:<br>ALBUM ART • LAYOUT DESIGN • MUSIC BRANDING</p>
+            </div>
+        </section>
+
+        <footer class="next-btn">
+            <a href="go-left.html">
+                <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
                 <h2>GO LEFT →</h2>
             </a>
-        </div>
+        </footer>
     </div>
+
 </body>
 </html>

@@ -19,7 +19,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
         }
         .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 14px; }
         .contact-link { color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 900; letter-spacing: 2px; }
@@ -41,22 +41,19 @@
 
         .project-info { display: flex; flex-direction: column; }
         .project-info span { color: var(--accent); font-size: 10px; letter-spacing: 4px; margin-bottom: 10px; font-weight: 900; }
-        .project-info h2 { font-size: clamp(30px, 8vw, 100px); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; line-height: 0.9; }
+        .project-info h2 { font-size: clamp(30px, 8vw, 90px); font-weight: 900; text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; }
 
-        .project-item:hover h2 { color: var(--accent); }
-
-        /* Small preview on the right */
         .preview-box {
-            width: 150px;
-            height: 200px;
+            width: 180px;
+            height: 240px;
             background: #111;
             overflow: hidden;
-            display: none; /* Hidden on mobile */
         }
-        @media (min-width: 768px) { .preview-box { display: block; } }
+        @media (max-width: 768px) { .preview-box { display: none; } }
 
-        .preview-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.5s; }
-        .project-item:hover img { opacity: 1; transform: scale(1.1); }
+        .preview-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+        .project-item:hover img { opacity: 1; transform: scale(1.05); }
+        .project-item:hover h2 { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -69,42 +66,42 @@
     <div class="project-list">
         <a href="kombucha.html" class="project-item">
             <div class="project-info"><span>01 BRANDING</span><h2>KOMBUCHA</h2></div>
-            <div class="preview-box"><img src="kombucha-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="kombucha-hero.jpg" alt="Kombucha"></div>
         </a>
 
         <a href="oatmilk.html" class="project-item">
             <div class="project-info"><span>02 PRODUCT</span><h2>OAT MILK</h2></div>
-            <div class="preview-box"><img src="oat-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="Oat Milk.jpg" alt="Oat Milk"></div>
         </a>
 
         <a href="others.html" class="project-item">
             <div class="project-info"><span>03 CONCEPT</span><h2>THE OTHERS</h2></div>
-            <div class="preview-box"><img src="others-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="others-hero.jpg" alt="Others"></div>
         </a>
 
         <a href="nurture.html" class="project-item">
             <div class="project-info"><span>04 SERIES</span><h2>NURTURE</h2></div>
-            <div class="preview-box"><img src="nurture-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="nurture-hero.jpg" alt="Nurture"></div>
         </a>
 
         <a href="cd-covers.html" class="project-item">
             <div class="project-info"><span>05 ART</span><h2>CD COVERS</h2></div>
-            <div class="preview-box"><img src="cd-covers-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="cd-covers-hero.jpg" alt="CD Covers"></div>
         </a>
 
         <a href="go-left.html" class="project-item">
             <div class="project-info"><span>06 CONCEPT</span><h2>GO LEFT</h2></div>
-            <div class="preview-box"><img src="go-left-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="go-left-hero.jpg" alt="Go Left"></div>
         </a>
 
         <a href="exhibition.html" class="project-item">
             <div class="project-info"><span>07 DESIGN</span><h2>POSTERS</h2></div>
-            <div class="preview-box"><img src="posters-hero.jpg" alt=""></div>
+            <div class="preview-box"><img src="posters-hero.jpg" alt="Posters"></div>
         </a>
 
         <a href="exhibition.html" class="project-item">
             <div class="project-info"><span>08 ARCHIVE</span><h2>EXHIBITION</h2></div>
-            <div class="preview-box"><img src="flashbacks.jpg" alt=""></div>
+            <div class="preview-box"><img src="flashbacks.jpg" alt="Exhibition"></div>
         </a>
     </div>
 

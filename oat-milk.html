@@ -9,30 +9,28 @@
             --cinema-red: #ff0000; 
             --charcoal: #2D2926; 
             --white: #ffffff;
-            --bg-current: #000000;
+            --bg-start: #ff0000; /* Starting with that Red Opener you liked */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--bg-current);
+            background-color: var(--bg-start);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1s ease, color 1s ease;
+            transition: background-color 1s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. INTERACTIVE HERO */
+        /* 1. THE STACKING HERO */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            z-index: 10;
             overflow: hidden;
-            perspective: 1000px; /* Essential for the 'coming out' effect */
         }
 
         h1 {
@@ -40,29 +38,36 @@
             font-size: clamp(100px, 30vw, 500px);
             font-weight: 950;
             letter-spacing: -0.07em;
-            color: var(--cinema-red);
-            z-index: 5; /* Behind bottle */
+            color: var(--white);
             line-height: 0.8;
             text-transform: uppercase;
-            pointer-events: none; /* Mouse goes through text to the bottle */
+            
+            /* STARTING STATE: Behind the picture */
+            z-index: 5; 
+            transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
+            pointer-events: none;
         }
 
         .hero-img {
-            height: 80vh;
-            z-index: 10; /* Front of text */
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.5));
-            /* The 'Coming Out' Transition */
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-            will-change: transform;
+            height: 85vh;
+            z-index: 10; /* Starting in front */
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
-        /* THE HOVER TRIGGER */
+        /* 2. THE HOVER FLIP: OAT COMES ON TOP */
+        .hero:hover h1 {
+            z-index: 15; /* Snaps to the very top */
+            transform: scale(1.05);
+            mix-blend-mode: exclusion; /* Adds a premium visual 'cut' through the image */
+        }
+
         .hero:hover .hero-img {
-            transform: scale(1.1) translateY(-20px) rotateY(-5deg);
-            filter: drop-shadow(0 50px 100px rgba(255,0,0,0.3));
+            transform: scale(0.95); /* Bottle recedes slightly as text takes over */
         }
 
-        /* 2. REALITY CONTENT */
+        /* 3. PHILOSOPHY & REALITY */
         .philosophy {
             height: 60vh;
             display: flex;
@@ -82,8 +87,6 @@
             background: var(--white);
             color: var(--charcoal);
             padding: 0 8% 200px;
-            position: relative;
-            z-index: 20;
         }
 
         .spread {
@@ -110,7 +113,7 @@
     </nav>
 
     <header class="hero">
-        <h1 id="parallaxText">OAT</h1>
+        <h1>OAT</h1>
         <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
     </header>
 
@@ -123,6 +126,7 @@
     <main class="reality-content">
         <section class="spread">
             <div class="text-side">
+                <span class="label">Project Intent</span>
                 <h2>Structural<br>Silence.</h2>
                 <p>An identity that removes category noise and treats the carton as an object—solid, calm, architectural.</p>
             </div>
@@ -133,20 +137,15 @@
     </main>
 
     <script>
-        const parallaxText = document.getElementById('parallaxText');
-
         window.addEventListener('scroll', () => {
             const scrollPos = window.scrollY;
             
-            // 1. Subtle parallax for background text
-            parallaxText.style.transform = `translateY(${scrollPos * 0.2}px)`;
-
-            // 2. Transition from Black to White
+            // Transition from Red Opener to White Reality
             if (scrollPos > 400) {
                 document.body.style.backgroundColor = '#ffffff';
                 document.body.style.color = '#2D2926';
             } else {
-                document.body.style.backgroundColor = '#000000';
+                document.body.style.backgroundColor = '#ff0000';
                 document.body.style.color = '#ffffff';
             }
         });

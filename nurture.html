@@ -3,126 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nurture | NATIA DESIGN</title>
-    <link rel="stylesheet" href="style.css">
+    <title>NURTURE | NATIA DESIGN</title>
     <style>
-        .project-hero { 
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --soft-grey: #1a1a1a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background: var(--black); 
+            color: var(--white); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav { 
+            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; font-size: 11px; letter-spacing: 3px; font-weight: 900; 
+        }
+        nav a { color: var(--white); text-decoration: none; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
+
+        .hero-split { 
+            display: flex; 
+            height: 100vh; 
+            width: 100%; 
             align-items: center;
-            min-height: 100vh; 
-            padding: 0 5%; 
-            gap: 60px;
         }
-
-        /* --- THE BIG IMAGE --- */
-        .main-visual {
-            flex: 1.5; 
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+        
+        .hero-left { 
+            flex: 1.2; 
+            height: 100vh;
+            background: var(--soft-grey);
+            overflow: hidden;
         }
-
-        .main-visual img { 
-            width: 100%;
-            max-width: 580px; /* Even bigger to show the glow and grain */
-            height: auto;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
-            will-change: transform;
+        
+        .hero-left img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .hero-split:hover .hero-left img { transform: scale(1.08); }
 
-        /* MASSIVE ZOOM */
-        .main-visual img:hover {
-            transform: scale(1.6); 
-            z-index: 100;
-        }
-
-        /* --- THE TEXT --- */
-        .content-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        .hero-right { 
+            flex: 1; 
+            padding: 0 10%; 
+            display: flex; 
+            flex-direction: column; 
             justify-content: center;
+            height: 100vh;
         }
-
-        .text-trigger {
-            display: inline-block;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .text-trigger h1 { 
-            font-size: clamp(60px, 11vw, 140px); 
-            line-height: 0.75;
-            margin-bottom: 24px;
-            letter-spacing: -0.07em;
-            transition: color 0.8s ease;
+        
+        h1 { 
+            font-size: clamp(50px, 9vw, 120px); 
+            font-weight: 900; 
+            line-height: 0.8; 
+            letter-spacing: -6px; 
+            margin-bottom: 40px; 
             text-transform: uppercase;
         }
 
-        .text-trigger:hover {
-            transform: scale(1.1) translateX(15px);
-        }
-
-        .text-trigger:hover h1 {
-            color: var(--accent); /* Turns Red on hover */
-        }
-
-        .description {
+        .desc { 
+            font-size: 18px; 
+            color: #888; 
+            margin-bottom: 10px; 
+            line-height: 1.5; 
             max-width: 380px;
-            font-size: 19px;
-            line-height: 1.4;
-            opacity: 0.8;
-            border-left: 2px solid var(--accent);
-            padding-left: 20px;
         }
 
-        @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
-            .main-visual { justify-content: center; order: 2; }
-            .content-right { order: 1; margin-bottom: 60px; }
-            .description { margin: 0 auto; border-left: none; padding-left: 0; }
+        .project-scope { 
+            font-size: 9px; 
+            letter-spacing: 2px; 
+            color: #444; 
+            text-transform: uppercase; 
+            margin-top: 60px; 
+            border-top: 1px solid #222;
+            padding-top: 20px;
+        }
+
+        .gallery { 
+            padding: 100px 6%; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px;
+            background: #050505;
+        }
+        .gallery img { width: 100%; height: auto; }
+
+        .next-btn {
+            padding: 120px 6% 150px;
+            text-align: right;
+        }
+        .next-btn a { text-decoration: none; color: var(--white); }
+        .next-btn h2 { font-size: clamp(40px, 8vw, 100px); font-weight: 900; letter-spacing: -4px; transition: 0.3s; }
+        .next-btn a:hover h2 { color: var(--accent); transform: translateX(-10px); }
+
+        @media (max-width: 1100px) {
+            .hero-split { flex-direction: column; height: auto; }
+            .hero-left, .hero-right { width: 100%; height: auto; padding: 80px 10%; }
+            .hero-left { height: 70vh; }
         }
     </style>
 </head>
 <body>
+
     <nav>
-        <a href="index.html">← back</a>
-        <div class="studio-name">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
+        <a href="index.html">← BACK</a>
+        <div class="nav-center">NATIA DESIGN</div>
+        <a href="mailto:contact@natiadesign.com">EMAIL</a>
     </nav>
 
-    <main>
-        <section class="project-hero">
-            <div class="main-visual">
-                <img src="Nurture.jpg" alt="Nurture Main Visual">
+    <div class="container">
+        <section class="hero-split">
+            <div class="hero-left">
+                <img src="nurture1.jpg" alt="Nurture Hero">
             </div>
-
-            <div class="content-right">
-                <div class="text-trigger">
-                    <h1>Nur<br>ture</h1>
-                    <p class="description">
-                        "Some of the learnings of nurture, started in the Bronx in the fall of 2022, ended in Neukölln in the spring 2023."
-                    </p>
-                    <div class="meta" style="margin-top: 30px; font-size: 11px; letter-spacing: 4px; opacity: 0.5; font-weight: 800;">
-                        EXPERIMENTAL · MUSIC · 2023
-                    </div>
-                </div>
+            
+            <div class="hero-right">
+                <h1>NURTURE</h1>
+                <p class="desc">A holistic approach to skincare branding, emphasizing organic growth and purity.</p>
+                <p class="project-scope">SCOPE: BRANDING • PACKAGING • 2026</p>
             </div>
         </section>
 
-        <section class="mockup-section">
-            <img src="nurture–mockup1.jpg" alt="Learnings Poster">
-            <img src="nurture–mockup2.jpg" alt="Cassette Tape Design">
+        <section class="gallery">
+            <img src="nurture2.jpg">
+            <img src="nurture3.jpg">
         </section>
 
-        <footer class="next-btn-container">
-            <a href="others.html" class="next-project-link">
-                <span>Next Project</span>
-                <h3>The Others</h3>
+        <footer class="next-btn">
+            <a href="cd-covers.html">
+                <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
+                <h2>CD COVERS →</h2>
             </a>
         </footer>
-    </main>
+    </div>
+
 </body>
 </html>

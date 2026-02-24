@@ -3,196 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OAT MILK | CHROMA SCROLL</title>
+    <title>OAT MILK | NATIA STUDIO</title>
     <style>
         :root { 
+            --cream: #F4EFE4; 
+            --charcoal: #2D2926; 
+            --white: #ffffff;
             --bg-current: #ffffff;
-            --text-current: #2D2926;
-            --transition-speed: 1.2s;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
             background-color: var(--bg-current);
-            color: var(--text-current);
+            color: var(--charcoal);
             font-family: 'Inter', sans-serif; 
-            transition: background-color var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1),
-                        color var(--transition-speed) ease;
+            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. DISCIPLINED NAV */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference; /* Ensures visibility over any color */
+            mix-blend-mode: difference;
         }
         nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
 
-        /* 2. CHROMA SECTIONS */
-        section {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 0 8%;
-        }
-
-        .content-wrap {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            width: 100%;
-            align-items: center;
-        }
-
-        /* 3. TYPOGRAPHY: DISCIPLINED & MASSIVE */
-        .text-side {
-            grid-column: 1 / span 5;
-            z-index: 10;
-        }
-
-        h2 {
-            font-size: clamp(60px, 12vw, 180px);
-            font-weight: 950;
-            line-height: 0.8;
-            letter-spacing: -0.07em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 18px;
-            max-width: 380px;
-            line-height: 1.4;
-            font-weight: 300;
-            opacity: 0.8;
-        }
-
-        /* 4. THE VISUAL BLOOM */
-        .image-side {
-            grid-column: 6 / span 7;
-            position: relative;
-        }
-
-        .image-side img {
-            width: 100%;
-            display: block;
-            filter: drop-shadow(0 50px 100px rgba(0,0,0,0.1));
-            transition: transform 1s ease;
-        }
-
-        .bloom {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 120%; height: 120%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        /* 5. FOOTER TRANSITION */
-        .next-footer {
+        /* HERO SECTION */
+        .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            position: relative;
         }
 
-        .next-link {
-            font-size: 15vw;
+        h1 {
+            position: absolute;
+            font-size: clamp(80px, 20vw, 350px);
             font-weight: 950;
-            text-decoration: none;
-            color: inherit;
-            letter-spacing: -0.05em;
-            -webkit-text-stroke: 1px var(--text-current);
-            color: transparent;
-            transition: 0.5s;
+            letter-spacing: -0.07em;
+            color: var(--white);
+            z-index: 1;
+            mix-blend-mode: exclusion;
+            line-height: 0.8;
+            text-transform: uppercase;
         }
 
-        .next-link:hover { color: var(--text-current); }
+        .hero-img { height: 75vh; z-index: 5; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.1)); }
 
-        @media (max-width: 900px) {
-            .content-wrap { display: flex; flex-direction: column; }
-            h2 { font-size: 20vw; }
+        .hero-subtitle {
+            position: absolute; bottom: 10%;
+            font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5;
         }
+
+        /* EDITORIAL CONTENT */
+        .editorial { padding: 0 8% 200px; }
+
+        .spread {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 40px;
+            margin-bottom: 250px;
+            align-items: center;
+        }
+
+        .text-side { grid-column: 2 / span 4; }
+        .image-side { grid-column: 7 / span 6; }
+
+        .label {
+            font-size: 10px; letter-spacing: 5px; font-weight: 900;
+            text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.4;
+        }
+
+        h2 { font-size: clamp(32px, 5vw, 80px); font-weight: 900; line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; margin-bottom: 30px; }
+        
+        p { font-size: 18px; line-height: 1.5; opacity: 0.8; font-weight: 300; margin-bottom: 20px; }
+
+        .specs { list-style: none; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px; }
+        .specs li { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; opacity: 0.6; }
+
+        .caption { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; opacity: 0.4; }
+
+        /* FOOTER */
+        .next-wrap { height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top: 1px solid rgba(0,0,0,0.05); }
+        .next-title { font-size: 12vw; font-weight: 900; color: transparent; -webkit-text-stroke: 1px var(--charcoal); text-decoration: none; letter-spacing: -8px; transition: 0.6s; }
+        .next-title:hover { color: var(--charcoal); letter-spacing: 0; }
+
+        @media (max-width: 900px) { .spread { display: flex; flex-direction: column; } h1 { font-size: 30vw; } }
     </style>
 </head>
-<body data-bg="#F4EFE4" data-text="#2D2926">
+<body data-bg="#ffffff">
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">EMAIL</a>
+        <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
-    <section class="chroma-step" data-bg="#ffffff" data-text="#000000">
-        <div class="content-wrap">
+    <header class="hero">
+        <h1>OAT</h1>
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+        <div class="hero-subtitle">Architectural Identity — 2024</div>
+    </header>
+
+    <main class="editorial">
+        
+        <section class="spread">
             <div class="text-side">
-                <h2>OAT<br>ONE.</h2>
-                <p>The architecture of the original. Stripped of noise, focused on the monolith carton design.</p>
+                <span class="label">Project Intent</span>
+                <h2>Structural<br>Silence.</h2>
+                <p>An identity that removes category noise and treats the carton as an object—solid, calm, architectural.</p>
+                <ul class="specs">
+                    <li>Type: Scale as Brand</li>
+                    <li>Surface: Matte Texture</li>
+                    <li>Grid: Strict Architectural</li>
+                </ul>
             </div>
             <div class="image-side">
-                <div class="bloom"></div>
-                <img src="oat-hero.jpg" alt="Oat Milk Original">
+                <img src="oat-mockup1.jpg" style="width: 100%;">
+                <div class="caption">Mockup 01 — Structural Proportion</div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="chroma-step" data-bg="#2D2926" data-text="#F4EFE4">
-        <div class="content-wrap">
-            <div class="text-side">
-                <h2>DARK<br>EXTRACT.</h2>
-                <p>When the palette shifts to charcoal, the hierarchy flips. Structural purity in deep contrast.</p>
-            </div>
-            <div class="image-side">
-                <div class="bloom" style="background: radial-gradient(circle, rgba(244,239,228,0.1) 0%, transparent 70%);"></div>
-                <img src="oat-2.jpg" alt="Oat Milk Dark">
-            </div>
-        </div>
-    </section>
+        <section style="margin-bottom: 250px; text-align: center;">
+            <img src="oat-mockup2.jpg" style="width: 70%; display: inline-block;">
+            <div class="caption">System View — Depth and Negative Space</div>
+        </section>
 
-    <section class="chroma-step" data-bg="#E8DCC4" data-text="#2D2926">
-        <div class="content-wrap">
-            <div class="text-side">
-                <h2>VELVET<br>FINISH.</h2>
-                <p>The chromatics of cream. A literal translation of the liquid density into digital space.</p>
+        <section class="spread">
+            <div class="image-side" style="grid-column: 1 / span 7;">
+                <img src="oat-hero.jpg" style="width: 100%;">
+                <div class="caption">Flat Plan — Typographic Framework</div>
             </div>
-            <div class="image-side">
-                <div class="bloom"></div>
-                <img src="oat-3.jpg" alt="Oat Milk Cream">
+            <div class="text-side" style="grid-column: 9 / span 4;">
+                <span class="label">Design Logic</span>
+                <h2>Chromatics<br>of Cream.</h2>
+                <p>A palette sampled from the liquid itself—warm off-white, oat beige, and deep charcoal for structural weight.</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="next-footer">
-        <span style="font-size: 10px; letter-spacing: 5px; font-weight: 900;">NEXT PROJECT</span>
-        <a href="the-others.html" class="next-link">THE OTHERS</a>
+    </main>
+
+    <footer class="next-wrap">
+        <span class="label">Up Next</span>
+        <a href="the-others.html" class="next-title">THE OTHERS</a>
     </footer>
 
     <script>
-        const sections = document.querySelectorAll('.chroma-step');
-        
-        const observerOptions = {
-            threshold: 0.6
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const bg = entry.target.getAttribute('data-bg');
-                    const text = entry.target.getAttribute('data-text');
-                    document.body.style.setProperty('--bg-current', bg);
-                    document.body.style.setProperty('--text-current', text);
+                    document.body.style.backgroundColor = entry.target.getAttribute('data-bg') || '#F4EFE4';
                 }
             });
-        }, observerOptions);
-
-        sections.forEach(section => observer.observe(section));
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
     </script>
 </body>
 </html>

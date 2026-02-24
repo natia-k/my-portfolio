@@ -1,84 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOMBUCHA | NATIA KURTANIDZE</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --grey: #111; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
+        .container { padding: 180px 8% 100px 8%; max-width: 1200px; margin: 0 auto; }
+        h1 { font-size: clamp(40px, 12vw, 150px); font-weight: 900; text-transform: uppercase; letter-spacing: -6px; line-height: 0.8; margin-bottom: 40px; }
         
-        body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            line-height: 1.5;
-        }
-
-        nav {
-            position: fixed; top: 0; width: 100%;
-            padding: 30px 6%; display: flex; justify-content: space-between;
-            z-index: 1000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-        }
-        .logo { font-weight: 900; letter-spacing: 5px; text-transform: uppercase; text-decoration: none; color: var(--white); font-size: 12px; }
-        .back-btn { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 11px; letter-spacing: 2px; }
-
-        header { padding: 180px 8% 60px 8%; }
-        header h1 { font-size: clamp(40px, 12vw, 150px); font-weight: 900; letter-spacing: -6px; text-transform: uppercase; line-height: 0.8; margin-bottom: 20px; }
-        .project-meta { display: flex; gap: 40px; border-top: 1px solid var(--grey); padding-top: 30px; }
-        .meta-box h4 { font-size: 10px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
-        .meta-box p { font-size: 14px; text-transform: uppercase; font-weight: 500; }
-
-        .content { padding: 0 8% 100px 8%; display: flex; flex-direction: column; gap: 50px; }
+        /* The Gallery Grid */
+        .mockup-grid { display: flex; flex-direction: column; gap: 40px; }
+        .mockup-grid img { width: 100%; height: auto; border: 1px solid #111; display: block; }
         
-        /* Hero Image */
-        .hero-img { width: 100%; height: auto; border: 1px solid var(--grey); }
-        
-        /* Story Section */
-        .story { max-width: 800px; font-size: 20px; margin: 50px 0; letter-spacing: -0.5px; }
-
-        /* Gallery Grid */
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .gallery img { width: 100%; height: auto; }
-
-        @media (max-width: 768px) {
-            .gallery { grid-template-columns: 1fr; }
-            .project-meta { flex-direction: column; gap: 20px; }
-        }
-
-        footer { padding: 100px 8%; text-align: center; border-top: 1px solid var(--grey); }
+        .desc { color: #666; font-size: 18px; max-width: 600px; margin-bottom: 60px; border-left: 2px solid var(--accent); padding-left: 20px; }
     </style>
 </head>
 <body>
-
-    <nav>
-        <a href="index.html" class="logo">NATIA KURTANIDZE</a>
-        <a href="index.html" class="back-btn">← BACK TO ARCHIVE</a>
-    </nav>
-
-    <header>
-        <h1>KOMBUCHA<br>BRANDING</h1>
-        <div class="project-meta">
-            <div class="meta-box"><h4>Role</h4><p>Visual Identity</p></div>
-            <div class="meta-box"><h4>Year</h4><p>2026</p></div>
-            <div class="meta-box"><h4>Concept</h4><p>Liquid Rebellion</p></div>
+    <nav><span>NATIA KURTANIDZE</span><a href="index.html" class="back">← BACK</a></nav>
+    <div class="container">
+        <h1>KOMBUCHA</h1>
+        <p class="desc">Visual identity and packaging mockup for organic fermented tea. 2026 Archive.</p>
+        
+        <div class="mockup-grid">
+            <img src="kombucha-hero.jpg" alt="Main Mockup">
+            <img src="kombucha-mockup-2.jpg" alt="Mockup 2">
+            <img src="kombucha-mockup-3.jpg" alt="Mockup 3">
         </div>
-    </header>
-
-    <div class="content">
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Hero">
-
-        <div class="story">
-            A branding project focused on the organic, rebellious nature of Kombucha. The visual language uses high-contrast typography and raw textures to represent the fermentation process.
-        </div>
-
-        <div class="gallery">
-             </div>
     </div>
-
-    <footer>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="back-btn">LET'S TALK — CONTACT</a>
-    </footer>
-
 </body>
 </html>

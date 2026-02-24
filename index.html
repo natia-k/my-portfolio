@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | THE EXHIBITION</title>
+    <title>NATIA | LIQUID REBEL</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,44 +23,50 @@
         .logo { font-weight: 900; letter-spacing: 8px; text-decoration: none; color: var(--white); font-size: 12px; }
         .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 10px; letter-spacing: 2px; }
 
-        /* THE MAIN HEADER */
+        /* FULLSCREEN HERO */
         header { 
-            height: 80vh; display: flex; flex-direction: column; 
-            justify-content: center; padding: 0 10%; 
-            border-bottom: 1px solid #111;
+            height: 100vh; display: flex; align-items: flex-end; 
+            padding: 6%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8)), url('kombucha-hero.jpg');
+            background-size: cover; background-position: center;
         }
-        header span { font-size: 11px; font-weight: 900; letter-spacing: 5px; color: var(--accent); margin-bottom: 15px; text-transform: uppercase; }
-        header h1 { font-size: clamp(50px, 12vw, 150px); font-weight: 900; text-transform: uppercase; letter-spacing: -8px; line-height: 0.8; }
-
-        /* GALLERY SECTIONS */
-        .section { padding: 20vh 10%; border-bottom: 1px solid #111; }
-        
-        .content-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        .header-content h1 { 
+            font-size: clamp(60px, 15vw, 200px); font-weight: 900; 
+            text-transform: uppercase; letter-spacing: -10px; line-height: 0.8; 
         }
 
-        .image-block { width: 100%; }
-        .image-block img { 
-            width: 100%; max-width: 500px; display: block; 
-            filter: grayscale(0.4) contrast(1.1); transition: 0.8s ease; 
+        /* THE EDITORIAL GRID */
+        .project-details { 
+            display: grid; grid-template-columns: 1fr 1.2fr; 
+            padding: 15vh 6%; gap: 100px; 
         }
-        .image-block img:hover { filter: grayscale(0); }
 
-        .text-block { position: relative; }
-        .text-block .index { font-size: 11px; font-weight: 900; color: var(--accent); margin-bottom: 15px; display: block; letter-spacing: 4px; }
-        .text-block h2 { font-size: clamp(40px, 6vw, 80px); font-weight: 900; text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; margin-bottom: 30px; }
-        .text-block p { font-size: 18px; color: #888; max-width: 400px; margin-bottom: 20px; }
+        .sticky-info { position: sticky; top: 120px; height: fit-content; }
+        .sticky-info span { font-size: 11px; font-weight: 900; color: var(--accent); letter-spacing: 4px; display: block; margin-bottom: 20px; }
+        .sticky-info h2 { font-size: 40px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 30px; }
+        .sticky-info p { font-size: 20px; color: #888; margin-bottom: 40px; }
 
-        /* FOOTER / CONTACT */
-        .footer { padding: 20vh 10%; text-align: center; }
-        .footer a { font-size: 8vw; font-weight: 900; color: var(--white); text-decoration: none; letter-spacing: -4px; transition: 0.4s; }
-        .footer a:hover { color: var(--accent); letter-spacing: 0px; }
+        .meta-box { border-top: 1px solid #222; padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .meta-box h3 { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
 
-        /* MOBILE FIX */
-        @media (max-width: 850px) {
-            .content-grid { grid-template-columns: 1fr; gap: 40px; }
-            .text-block { order: 2; }
-            .image-block { order: 1; }
+        /* IMAGE STACK */
+        .image-stack { display: flex; flex-direction: column; gap: 40px; }
+        .image-stack img { width: 100%; filter: grayscale(0.2); transition: 0.5s; }
+        .image-stack img:hover { filter: grayscale(0); }
+
+        /* FOOTER NEXT LINK */
+        .next-project { 
+            height: 60vh; display: flex; align-items: center; justify-content: center; 
+            border-top: 1px solid #111; margin-top: 10vh;
+        }
+        .next-project a { 
+            font-size: 8vw; font-weight: 900; text-decoration: none; 
+            color: var(--white); letter-spacing: -5px; transition: 0.4s;
+        }
+        .next-project a:hover { color: var(--accent); letter-spacing: 0; }
+
+        @media (max-width: 900px) {
+            .project-details { grid-template-columns: 1fr; }
+            .sticky-info { position: relative; top: 0; }
         }
     </style>
 </head>
@@ -68,56 +74,37 @@
 
     <nav>
         <a href="index.html" class="logo">NATIA</a>
-        <a href="index.html" class="back">← BACK TO LINE</a>
+        <a href="index.html" class="back">← EXIT PROJECT</a>
     </nav>
 
     <header>
-        <span>COLLECTED WORKS / 24—25</span>
-        <h1>GALLERY<br>ARCHIVE</h1>
+        <div class="header-content">
+            <h1>LIQUID<br>REBEL</h1>
+        </div>
     </header>
 
-    <section class="section">
-        <div class="content-grid">
-            <div class="image-block">
-                <img src="posters-hero.jpg" alt="Posters">
-            </div>
-            <div class="text-block">
-                <span class="index">05 / DESIGN</span>
-                <h2>STREET<br>VOICE</h2>
-                <p>Capturing urban noise through high-impact typographic motion posters.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="content-grid">
-            <div class="text-block" style="text-align: right;">
-                <span class="index">07 / EXHIBITION</span>
-                <h2>CIRCLE<br>OF LIFE</h2>
-                <p>A visual meditation on the gathering of ancient suns into a singular human heartbeat.</p>
-            </div>
-            <div class="image-block">
-                <img src="circle.jpg" alt="Circle" style="margin-left: auto;">
+    <main class="project-details">
+        <div class="sticky-info">
+            <span>01 / BRANDING</span>
+            <h2>THE REBELLION<br>OF TASTE</h2>
+            <p>A visual identity built for a kombucha brand that rejects the "soft" health-food aesthetic in favor of raw, industrial energy.</p>
+            
+            <div class="meta-box">
+                <div><h3>Deliverables</h3><p>Packaging, Web, Identity</p></div>
+                <div><h3>Year</h3><p>2025</p></div>
             </div>
         </div>
-    </section>
 
-    <section class="section">
-        <div class="content-grid">
-            <div class="image-block">
-                <img src="nostalgia.jpg" alt="Nostalgia">
-            </div>
-            <div class="text-block">
-                <span class="index">08 / ARCHIVE</span>
-                <h2>NOSTAL<br>GIA</h2>
-                <p>An exploration of being an outsider in one's own past life.</p>
-            </div>
+        <div class="image-stack">
+            <img src="kombucha-1.jpg" alt="Packaging Detail">
+            <img src="kombucha-2.jpg" alt="Logo Construction">
+            <img src="kombucha-3.jpg" alt="Digital Brand Presence">
         </div>
-    </section>
+    </main>
 
-    <footer class="footer">
-        <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
-    </footer>
+    <div class="next-project">
+        <a href="oatmilk.html">NEXT PROJECT →</a>
+    </div>
 
 </body>
 </html>

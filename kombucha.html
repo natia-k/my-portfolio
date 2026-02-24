@@ -3,215 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | NATIA STUDIO</title>
+    <title>KOMBUCHA | CHROMATIC SOUL</title>
     <style>
-        :root { --red: #ff0000; --white: #ffffff; --black: #000000; }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
-        
+        :root { 
+            --soul: #d46c31; /* The "Amber" Soul color */
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Inter', sans-serif; 
+            background: var(--soul); 
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* Phase 1: The Color Takeover */
+            animation: bodyToBlack 2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+            animation-delay: 2.5s; 
         }
 
-        /* Nav - Ultra Minimal */
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 50px 6%; 
-            display: flex; justify-content: space-between; z-index: 1000;
+        /* Nav & Text start invisible */
+        nav, .content-wrap, .hero-img {
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 3.5s; /* The Delay */
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 8px; font-weight: 900; text-transform: uppercase; }
 
-        /* THE WOW HERO - DEPTH & SCALE */
-        .hero { 
-            position: relative;
+        /* ANIMATIONS */
+        @keyframes bodyToBlack {
+            to { background: var(--black); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* UI ELEMENTS */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 40px 6%;
+            display: flex; justify-content: space-between; z-index: 100;
+            font-size: 10px; letter-spacing: 5px; font-weight: 900;
+        }
+        nav a { color: var(--white); text-decoration: none; }
+
+        /* THE CINEMATIC HERO */
+        .hero {
             height: 100vh;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            perspective: 1500px;
+            position: relative;
         }
 
-        /* Giant Text that bleeds off the screen */
-        .giant-title {
+        .hero-title {
             position: absolute;
-            font-size: 35vw;
-            font-weight: 950;
-            line-height: 0.7;
-            letter-spacing: -0.07em;
-            color: var(--black);
-            -webkit-text-stroke: 1px rgba(255,255,255,0.15);
-            z-index: 1;
-            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-            text-transform: uppercase;
-        }
-
-        .hero:hover .giant-title {
-            -webkit-text-stroke: 1px var(--red);
-            transform: scale(1.1) translateZ(100px);
-            opacity: 0.6;
-        }
-
-        /* The Bottle - Center Stage with 3D Physics */
-        .bottle-container {
-            position: relative;
-            z-index: 10;
-            height: 85vh;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            transform-style: preserve-3d;
-        }
-
-        .bottle-container img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 50px rgba(0,0,0,1));
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero:hover .bottle-container img {
-            transform: rotateY(-15deg) rotateX(10deg) scale(1.1);
-            filter: drop-shadow(0 0 80px rgba(255,0,0,0.3));
-        }
-
-        /* STATEMENT SECTION - ASYMMETRIC & BOLD */
-        .statement {
-            padding: 200px 6%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .big-callout {
-            font-size: clamp(50px, 8vw, 120px);
+            font-size: 30vw;
             font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: -6px;
-            max-width: 900px;
-            text-align: right;
-            text-transform: uppercase;
-            margin-bottom: 60px;
+            letter-spacing: -0.05em;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            z-index: 1;
         }
 
-        .big-callout span { color: var(--red); }
+        .hero-img {
+            height: 80vh;
+            z-index: 2;
+            filter: drop-shadow(0 0 50px rgba(0,0,0,0.5));
+            transition: transform 1s ease;
+        }
 
-        .brief-grid {
+        .hero:hover .hero-img {
+            transform: scale(1.05) rotateY(-10deg);
+        }
+
+        /* THE BRIEF - ASYMMETRIC */
+        .intro {
+            padding: 150px 10%;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            width: 100%;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            background: var(--black);
+            color: var(--white);
         }
 
-        .brief-item h4 { font-size: 10px; letter-spacing: 4px; color: var(--red); margin-bottom: 20px; text-transform: uppercase; }
-        .brief-item p { font-size: 18px; line-height: 1.4; font-weight: 300; opacity: 0.8; }
-
-        /* GALLERY - CINEMATIC FULL WIDTH */
-        .gallery-split {
-            display: flex;
-            height: 100vh;
-            gap: 10px;
-            padding: 10px;
+        .intro h2 {
+            font-size: clamp(40px, 6vw, 100px);
+            line-height: 0.85;
+            letter-spacing: -5px;
+            text-transform: uppercase;
         }
 
-        .gallery-box {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
+        .intro p {
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.7;
+            max-width: 400px;
+            align-self: end;
         }
 
-        .gallery-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(1) brightness(0.5);
-            transition: 2s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .gallery-box:hover img {
-            filter: grayscale(0) brightness(1);
-            transform: scale(1.1);
-        }
-
-        /* FOOTER - THE ENDLESS LOOP */
+        /* THE FINALE */
         .footer-cta {
-            height: 100vh;
+            height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(to top, #110000, #000);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .footer-cta a {
-            text-decoration: none;
-            font-size: 20vw;
-            font-weight: 950;
+            font-size: 15vw;
+            font-weight: 900;
             color: var(--white);
-            letter-spacing: -2vw;
-            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            text-decoration: none;
+            letter-spacing: -10px;
+            transition: 0.5s;
         }
 
         .footer-cta a:hover {
-            color: var(--red);
+            color: var(--soul);
             letter-spacing: 0;
-            font-style: italic;
         }
 
-        @media (max-width: 1000px) {
-            .brief-grid { grid-template-columns: 1fr; }
-            .gallery-split { flex-direction: column; height: auto; }
-            .gallery-box { height: 60vh; }
-        }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">EMAIL</a>
+        <a href="index.html">INDEX</a>
+        <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
     <section class="hero">
-        <div class="giant-title">SOUL</div>
-        <div class="bottle-container">
-            <img src="kombucha-hero.jpg" alt="Chromatic Soul Kombucha">
-        </div>
+        <div class="hero-title">SOUL</div>
+        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Bottle">
     </section>
 
-    <section class="statement">
-        <h2 class="big-callout">
-            One Flavor. <span>One Color.</span><br>Full Commitment.
-        </h2>
-        
-        <div class="brief-grid">
-            <div class="brief-item">
-                <h4>The Brief</h4>
-                <p>No kraft paper. No hand-drawn botanicals. The opposite of every brand on the shelf.</p>
-            </div>
-            <div class="brief-item">
-                <h4>The Decision</h4>
-                <p>Strip everything back. Let the product color become the personality.</p>
-            </div>
-            <div class="brief-item">
-                <h4>The Soul</h4>
-                <p>Colors extracted from fermentation. Raw amber, hibiscus blush, blackcurrant near-black.</p>
-            </div>
-        </div>
-    </section>
+    <div class="content-wrap">
+        <section class="intro">
+            <h2>The Color is the<br><span style="color:var(--soul)">Personality.</span></h2>
+            <p>I stripped everything back. No kraft paper, no botanicals—the opposite of every other brand on the shelf. One flavor, one color, full commitment.</p>
+        </section>
 
-    <section class="gallery-split">
-        <div class="gallery-box"><img src="kombucha2.jpg"></div>
-        <div class="gallery-box"><img src="kombucha3.jpg"></div>
-    </section>
+        <section style="padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="overflow:hidden; height: 80vh;">
+                <img src="kombucha2.jpg" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div style="overflow:hidden; height: 80vh;">
+                <img src="kombucha3.jpg" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+        </section>
 
-    <footer class="footer-cta">
-        <a href="oat-milk.html">OAT MILK</a>
-    </footer>
+        <footer class="footer-cta">
+            <a href="oat-milk.html">OAT MILK →</a>
+        </footer>
+    </div>
 
 </body>
 </html>

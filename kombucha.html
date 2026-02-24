@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOMBUCHA | NATIA DESIGN</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --soft-grey: #1a1a1a; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -13,115 +13,119 @@
             color: var(--white); 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Nav matching your screenshot */
+        /* Fixed Navigation */
         nav { 
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            padding: 40px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            z-index: 1000; 
-            font-size: 11px; 
-            letter-spacing: 3px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
+            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; font-size: 11px; letter-spacing: 3px; font-weight: 900; 
         }
-        nav a { color: var(--white); text-decoration: none; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 5px; }
+        nav a { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
+        nav a:hover { opacity: 0.5; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
 
-        /* The Hero Split */
+        /* HERO SECTION - The Split */
         .hero-split { 
             display: flex; 
             height: 100vh; 
             width: 100%; 
-            align-items: stretch;
+            align-items: center;
         }
         
-        /* kombucha-hero.jpg on the Left */
         .hero-left { 
-            flex: 1.1; 
-            overflow: hidden; 
+            flex: 1.2; 
+            height: 100vh;
+            background: var(--soft-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        
         .hero-left img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; 
-            display: block;
+            object-fit: cover; /* This prevents the image from looking "terrible" or stretched */
         }
 
-        /* Text on the Right */
         .hero-right { 
             flex: 1; 
-            padding: 0 8%; 
+            padding: 0 10%; 
             display: flex; 
             flex-direction: column; 
-            justify-content: center; 
+            justify-content: center;
+            height: 100vh;
         }
         
         h1 { 
-            font-size: clamp(60px, 10vw, 130px); 
+            font-size: clamp(50px, 9vw, 120px); 
             font-weight: 900; 
-            line-height: 0.85; 
+            line-height: 0.8; 
             letter-spacing: -6px; 
-            margin-bottom: 30px; 
+            margin-bottom: 40px; 
             text-transform: uppercase;
         }
 
         .quote { 
             font-size: 18px; 
-            color: #999; 
+            color: #888; 
             margin-bottom: 10px; 
-            line-height: 1.4; 
-            max-width: 400px;
+            line-height: 1.5; 
+            max-width: 380px;
+            font-weight: 300;
         }
 
         .project-scope { 
             font-size: 9px; 
             letter-spacing: 2px; 
-            color: #555; 
+            color: #444; 
             text-transform: uppercase; 
-            margin-top: 50px; 
-            margin-bottom: 25px;
-            font-weight: 700;
+            margin-top: 60px; 
+            margin-bottom: 20px;
+            border-top: 1px solid #222;
+            padding-top: 20px;
         }
 
-        /* The 4 pics line */
+        /* 4-Image Grid */
         .color-grid { 
-            display: flex; 
-            gap: 10px; 
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
         }
         .color-grid img { 
-            width: 55px; 
+            width: 100%; 
             height: auto; 
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #111;
         }
-        .color-grid img:hover { transform: scale(1.1); border-bottom: 1px solid var(--accent); }
+        .color-grid img:hover { transform: scale(1.1); border-color: var(--accent); }
 
-        /* Bottom Section */
+        /* Secondary Gallery Below */
         .gallery { 
-            padding: 80px 5%; 
+            padding: 100px 6%; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 20px;
+            gap: 40px;
+            background: #050505;
         }
         .gallery img { width: 100%; height: auto; }
 
-        .next-footer {
-            padding: 100px 5%;
+        .next-btn {
+            padding: 120px 6% 150px;
             text-align: right;
-            border-top: 1px solid #111;
         }
-        .next-footer a { text-decoration: none; color: var(--white); }
-        .next-footer h2 { font-size: 80px; font-weight: 900; letter-spacing: -3px; }
+        .next-btn a { text-decoration: none; color: var(--white); }
+        .next-btn h2 { font-size: clamp(40px, 8vw, 100px); font-weight: 900; letter-spacing: -4px; transition: 0.3s; }
+        .next-btn a:hover h2 { color: var(--accent); transform: translateX(-10px); }
 
-        @media (max-width: 1024px) {
+        /* Responsive */
+        @media (max-width: 1100px) {
             .hero-split { flex-direction: column; height: auto; }
-            .hero-left { height: 60vh; }
-            .hero-right { padding: 80px 8%; }
+            .hero-left, .hero-right { width: 100%; height: auto; padding: 80px 10%; }
+            .hero-left { height: 70vh; }
         }
     </style>
 </head>
@@ -142,7 +146,8 @@
             <div class="hero-right">
                 <h1>KOMBUCHA</h1>
                 <p class="quote">"It started as simple tea.<br>Then time, patience.<br>And a little magic happened."</p>
-                <p class="project-scope">PROJECT SCOPE:<br>BOTANICAL ILLUSTRATION • LABEL DESIGN • COLOUR EXPLORATION</p>
+                
+                <p class="project-scope">SCOPE: BOTANICAL ILLUSTRATION • COLOUR EXPLORATION</p>
                 
                 <div class="color-grid">
                     <img src="k4-1.jpg">
@@ -158,7 +163,7 @@
             <img src="kombucha3.jpg">
         </section>
 
-        <footer class="next-footer">
+        <footer class="next-btn">
             <a href="oat-milk.html">
                 <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
                 <h2>OAT MILK →</h2>

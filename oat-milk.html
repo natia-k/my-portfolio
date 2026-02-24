@@ -6,153 +6,188 @@
     <title>OAT MILK | NATIA STUDIO</title>
     <style>
         :root { 
-            --brand-red: #ff3b25; /* Your specific red from screenshot */
-            --charcoal: #2D2926; 
+            --brand-red: #ff3b25; 
             --white: #ffffff;
-            --muted: #888888;
+            --black: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--brand-red); /* Opening Red experience */
+            background-color: var(--brand-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            font-size: clamp(13px, 1.2vw, 16px); /* Scaled down for portfolio look */
-            line-height: 1.45;
-            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 1s ease;
+            font-size: 15px;
+            line-height: 1.5;
+            transition: background-color 1.2s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        nav { 
-            position: fixed; top: 40px; width: 100%; padding: 0 6%; 
-            display: flex; justify-content: space-between; z-index: 1000; 
-            mix-blend-mode: difference;
-        }
-        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
-
-        /* 1. HERO: STACKING INTERACTION */
+        /* 1. HERO REVEAL (MOBILE SCALED) */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
+            z-index: 10;
+            padding: 20px;
         }
+
+        h1, .hero-img, nav {
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .revealed { opacity: 1 !important; transform: translateY(0) !important; }
 
         h1 {
             position: absolute;
-            font-size: clamp(100px, 30vw, 500px);
+            font-size: clamp(80px, 28vw, 500px);
             font-weight: 950;
             letter-spacing: -0.07em;
             color: var(--white);
-            z-index: 5; /* Starts behind */
+            z-index: 5;
             line-height: 0.8;
             text-transform: uppercase;
-            transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
+            text-align: center;
         }
 
-        .hero-img {
-            height: 85vh;
-            z-index: 10;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        .hero-img { 
+            height: 70vh; 
+            max-width: 90%;
+            object-fit: contain;
+            z-index: 10; 
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3)); 
         }
 
-        /* THE FLIP: OAT COMES ON TOP */
-        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; transform: scale(1.05); }
-        .hero:hover .hero-img { transform: scale(0.95); }
-
-        /* 2. THE CAPTION BLOCK (DESIGN THINKING) */
+        /* 2. CAPTION BLOCK (HIGH CONTRAST) */
         .caption-block {
-            padding: 150px 10%;
-            background: #000;
+            padding: 100px 10%;
+            background: var(--black);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
         }
 
-        .micro-label {
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 600;
+        .micro-label { 
+            font-size: 10px; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            color: var(--white); 
+            font-weight: 700; 
         }
+        
+        .main-text { max-width: 550px; font-weight: 300; color: var(--white); }
 
-        .main-text {
-            max-width: 550px;
-            font-weight: 300;
+        .role-line { 
+            margin-top: 20px; 
+            font-size: 11px; 
             color: var(--white);
+            border-top: 1px solid rgba(255,255,255,0.2); 
+            padding-top: 20px; 
+            display: inline-block; 
+            opacity: 0.8;
         }
 
-        .role-line {
-            margin-top: 20px;
-            font-size: 11px;
-            color: var(--muted);
-            border-top: 1px solid #333;
-            padding-top: 20px;
-            display: inline-block;
+        /* 3. GALLERY (NO GRAY BORDERS) */
+        .reality-content { background: var(--white); padding: 0 5%; color: var(--black); }
+        .spread { display: flex; justify-content: center; padding: 60px 0; }
+        .mockup-img { width: 100%; max-width: 1100px; height: auto; display: block; }
+
+        /* 4. LOOP FOOTER */
+        .next-wrap { 
+            height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            background: var(--black); border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
         }
 
-        /* 3. THE REALITY GALLERY (RESIZED & CLEAN) */
-        .reality-content {
-            background: var(--white);
-            color: var(--charcoal);
-            padding: 0 8% 150px;
+        .next-link { 
+            font-size: clamp(40px, 12vw, 180px); font-weight: 950; text-decoration: none; 
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.5); 
+            transition: all 0.6s ease; letter-spacing: -2px; text-transform: uppercase;
+            text-align: center;
         }
 
-        .spread {
-            display: flex;
-            justify-content: center;
-            padding: 100px 0;
+        .next-link:hover { color: var(--white); -webkit-text-stroke: 1px var(--white); letter-spacing: 0px; }
+
+        /* NAV STYLING */
+        nav { position: fixed; top: 30px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 3px; }
+
+        /* MOBILE ADJUSTS */
+        @media (max-width: 768px) {
+            .hero-img { height: 50vh; }
+            .caption-block { padding: 80px 8%; }
+            .spread { padding: 30px 0; }
+            .reality-content { padding-bottom: 50px; }
         }
-
-        .mockup-img { width: 100%; max-width: 1100px; display: block; }
-
-        @media (max-width: 900px) { h1 { font-size: 40vw; } }
     </style>
 </head>
 <body>
 
-    <nav><a href="index.html">NATIA KURTANIDZE</a></nav>
+    <nav id="nav"><a href="index.html">NATIA KURTANIDZE</a></nav>
 
     <header class="hero">
-        <h1>OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+        <h1 id="title">OAT</h1>
+        <img src="oat-hero.jpg" id="bottle" class="hero-img" alt="Oat Milk Hero">
     </header>
 
     <section class="caption-block">
         <span class="micro-label">Self-initiated packaging concept | 2025</span>
         <div class="main-text">
-            A study in structural restraint. We treated the carton as a monolith — removing category noise so form and material could speak. The visual system is built around clarity, simplicity, and scale, prioritizing information hierarchy without decoration. The palette comes directly from the essence of the liquid itself — warm cream tones that feel natural yet distinct. Minimal expression and intentional structure create a presence that feels calm and confident on shelf.
+            A deliberate study in structural restraint. We treated the carton as a monolith — removing category noise so form and material could speak. The visual system is built around clarity, simplicity, and scale, prioritizing information hierarchy without decoration.
+            <br><br>
+            The palette comes directly from the essence of the liquid itself — warm cream tones that feel natural yet distinct. Intentional structure creates a presence that feels calm and confident on shelf.
         </div>
         <div class="role-line">
-            Concept | Visual identity | Color system | Label exploration | Mockups
+            Concept · Visual identity · Color system · Label exploration · Mockups
         </div>
     </section>
 
     <main class="reality-content">
-        <div class="spread">
-            <img src="oat-mockup1.jpg" class="mockup-img">
-        </div>
-        <div class="spread">
-            <img src="oat-mockup2.jpg" class="mockup-img">
-        </div>
+        <div class="spread"><img src="oat-mockup1.jpg" class="mockup-img"></div>
+        <div class="spread"><img src="oat-mockup2.jpg" class="mockup-img"></div>
     </main>
 
+    <footer class="next-wrap">
+        <span class="micro-label" style="margin-bottom: 20px; color: white;">Next Project</span>
+        <a href="kombucha.html" class="next-link">KOMBUCHA</a>
+    </footer>
+
     <script>
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
+        const title = document.getElementById('title');
+        const bottle = document.getElementById('bottle');
+        const nav = document.getElementById('nav');
+
+        function handleScroll() {
+            const scrollPos = window.scrollY;
+
+            if (scrollPos > 50) {
+                title.classList.add('revealed');
+                bottle.classList.add('revealed');
+                nav.classList.add('revealed');
+            } else {
+                title.classList.remove('revealed');
+                bottle.classList.remove('revealed');
+                nav.classList.remove('revealed');
+            }
+
+            // Transition from Red to Black for Caption, then to White for Gallery
+            if (scrollPos > 1200) {
                 document.body.style.backgroundColor = '#ffffff';
-                document.body.style.color = '#2D2926';
+            } else if (scrollPos > 400) {
+                document.body.style.backgroundColor = '#000000';
             } else {
                 document.body.style.backgroundColor = 'var(--brand-red)';
-                document.body.style.color = '#ffffff';
             }
-        });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
     </script>
 </body>
 </html>

@@ -6,42 +6,41 @@
     <title>THE OTHERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --line: rgba(0,0,0,0.1);
-            --aura: rgba(0,0,0,0.02);
+            --bg: #000000;
+            --white: #ffffff;
+            --accent-pink: #ffb8e0;
+            --line: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
-            color: var(--text);
+            color: var(--white);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); /* Subtle texture */
         }
 
-        /* 1. GALLERY LIGHTING (AURA) */
+        /* 1. CINEMATIC AURA CURSOR */
         #aura {
             position: fixed;
-            width: 80vw;
-            height: 80vw;
-            background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,184,224,0.08) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 999;
             transform: translate(-50%, -50%);
-            mix-blend-mode: multiply;
+            mix-blend-mode: screen;
         }
 
-        /* 2. CINEMATIC REVEAL SYSTEM */
+        /* 2. REVEAL ANIMATIONS */
         .reveal {
             opacity: 0;
-            filter: blur(15px);
-            transform: translateY(30px);
-            transition: all 1.8s cubic-bezier(0.15, 0, 0.15, 1);
+            filter: blur(20px);
+            transform: translateY(40px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
@@ -50,25 +49,41 @@
             transform: translateY(0);
         }
 
-        /* 3. MONUMENTAL HERO */
+        /* 3. HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-title {
-            font-size: clamp(60px, 15vw, 280px);
+            position: absolute;
+            font-size: clamp(60px, 15vw, 250px);
             font-weight: 950;
-            letter-spacing: -0.06em;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            line-height: 0.8;
-            text-align: center;
+            z-index: 5;
+            color: var(--white);
+            pointer-events: none;
         }
 
-        /* 4. ARCHITECTURAL GRID & ITEMS */
+        .hero-container {
+            width: 80%;
+            max-width: 600px;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .hero-container img {
+            width: 100%;
+            filter: drop-shadow(0 20px 50px rgba(255,184,224,0.15));
+        }
+
+        /* 4. GALLERY GRID */
         .gallery-grid {
             padding: 0 8% 200px;
             display: flex;
@@ -76,44 +91,40 @@
             gap: 150px;
         }
 
-        .item {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            perspective: 1200px;
-        }
+        .item { width: 100%; perspective: 1200px; }
 
-        .img-container {
+        .img-wrap {
             position: relative;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
         }
 
-        .img-container img {
+        .img-wrap img {
             width: 100%;
             display: block;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.03);
+            filter: grayscale(20%);
+            transition: filter 0.8s ease;
         }
 
-        /* REFLECTIVE SHEEN */
+        .item:hover img { filter: grayscale(0%); }
+
         .sheen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%);
+            background: linear-gradient(120deg, transparent 40%, rgba(255,184,224,0.2) 50%, transparent 60%);
             background-size: 200% 200%;
             pointer-events: none;
             z-index: 2;
-            mix-blend-mode: screen;
             opacity: 0;
             transition: opacity 0.5s;
         }
 
         .item:hover .sheen { opacity: 1; }
 
-        /* 5. TYPOGRAPHY & LINES */
+        /* 5. METADATA & LINES */
         .meta-line {
             width: 100%;
             height: 1px;
@@ -121,7 +132,7 @@
             margin: 40px 0 20px;
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 1.5s cubic-bezier(0.15, 0, 0.15, 1);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .active .meta-line { transform: scaleX(1); }
 
@@ -132,18 +143,17 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 800;
+            color: var(--accent-pink);
         }
 
         /* NAVIGATION */
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
-            display: flex; justify-content: space-between;
-            z-index: 1000;
+            display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
 
-        /* FOOTER LOOP */
         .loop-footer {
             height: 60vh;
             display: flex;
@@ -157,17 +167,13 @@
             font-size: clamp(40px, 10vw, 150px);
             font-weight: 900;
             text-decoration: none;
-            color: var(--text);
-            letter-spacing: -3px;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--white);
             transition: 0.6s;
         }
 
-        .loop-link:hover { letter-spacing: 0px; opacity: 0.5; }
+        .loop-link:hover { color: var(--accent-pink); -webkit-text-stroke: 1px transparent; }
 
-        @media (max-width: 768px) {
-            .hero-title { font-size: 20vw; }
-            .gallery-grid { gap: 80px; }
-        }
     </style>
 </head>
 <body>
@@ -176,74 +182,63 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="kombucha.html">FERMENT</a>
+        <a href="oat-milk.html">BACK</a>
     </nav>
 
     <header class="hero">
-        <h1 class="hero-title reveal" id="heroTitle">THE OTHERS</h1>
+        <h1 class="hero-title reveal">THE OTHERS</h1>
+        <div class="hero-container reveal">
+            <img src="others-hero.jpg" alt="The Others Hero">
+        </div>
     </header>
 
     <main class="gallery-grid">
         <section class="item reveal">
-            <div class="img-container" data-parallax="0.04">
+            <div class="img-wrap">
                 <div class="sheen"></div>
-                <img src="other1.jpg" alt="Visual Exploration">
+                <img src="others-mockup1.jpg" alt="The Others Poster Layout">
             </div>
             <div class="meta-line"></div>
-            <div class="meta-text">
-                <span>Visual Exploration / 01</span>
-                <span>2025</span>
-            </div>
+            <div class="meta-text"><span>Issue I / Exploration</span><span>2025</span></div>
         </section>
 
         <section class="item reveal">
-            <div class="img-container" data-parallax="0.06">
+            <div class="img-wrap">
                 <div class="sheen"></div>
-                <img src="other2.jpg" alt="Visual Exploration">
+                <img src="others-mockup2.jpg" alt="The Others Concrete Mockup">
             </div>
             <div class="meta-line"></div>
-            <div class="meta-text">
-                <span>Alternative Branding / 02</span>
-                <span>2025</span>
-            </div>
+            <div class="meta-text"><span>Boundaries / Study</span><span>2025</span></div>
         </section>
     </main>
 
     <footer class="loop-footer">
-        <span style="font-size: 10px; letter-spacing: 5px; margin-bottom: 20px;">Return to</span>
         <a href="index.html" class="loop-link">HOME</a>
     </footer>
 
     <script>
         const aura = document.getElementById('aura');
-        const heroTitle = document.getElementById('heroTitle');
 
-        // 1. Initial State
-        window.onload = () => heroTitle.classList.add('active');
-
-        // 2. Lighting & Tilt
+        // 1. Cursor Aura & 3D Tilt
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            document.querySelectorAll('.img-container').forEach(container => {
+            document.querySelectorAll('.img-wrap, .hero-container').forEach(container => {
                 const rect = container.getBoundingClientRect();
-                const xc = rect.width / 2;
-                const yc = rect.height / 2;
-                const dx = x - rect.left - xc;
-                const dy = y - rect.top - yc;
-
-                // Only tilt if near the element for "Quiet Luxury" feel
-                if (Math.abs(dx) < 600 && Math.abs(dy) < 600) {
+                const dx = x - (rect.left + rect.width / 2);
+                const dy = y - (rect.top + rect.height / 2);
+                
+                if (Math.abs(dx) < 700 && Math.abs(dy) < 700) {
                     container.style.transform = `rotateY(${dx / 100}deg) rotateX(${-dy / 100}deg)`;
                     const sheen = container.querySelector('.sheen');
-                    sheen.style.backgroundPosition = `${(x - rect.left) / rect.width * 100}%`;
+                    if(sheen) sheen.style.backgroundPosition = `${(x - rect.left) / rect.width * 100}%`;
                 }
             });
         });
 
-        // 3. Scroll Reveal & Parallax
+        // 2. Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -251,14 +246,6 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            document.querySelectorAll('[data-parallax]').forEach(el => {
-                const speed = el.getAttribute('data-parallax');
-                el.style.transform += ` translateY(${scrolled * speed}px)`;
-            });
-        });
     </script>
 </body>
 </html>

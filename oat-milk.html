@@ -11,6 +11,7 @@
             --white: #ffffff;
         }
 
+        /* 1. PRECISION RESET */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
@@ -19,118 +20,137 @@
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            animation: flowToCream 2s ease forwards;
-            animation-delay: 0.5s;
+            /* THE FLOW: Fades from white to cream */
+            animation: flowToCream 1.5s ease forwards;
+            animation-delay: 0.2s;
         }
 
         @keyframes flowToCream { to { background: var(--cream); } }
 
+        /* 2. NAVIGATION */
         nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
+            position: fixed; top: 0; width: 100%; padding: 40px 8%; 
             display: flex; justify-content: space-between; z-index: 1000;
         }
         nav a { color: inherit; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
 
+        /* 3. THE ANCHOR (Extreme Hierarchy) */
         .hero {
-            height: 110vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        .hero-title {
+        h1 {
             position: absolute;
-            font-size: 15vw;
-            font-weight: 900;
-            letter-spacing: -0.05em;
+            font-size: clamp(100px, 25vw, 400px); 
+            font-weight: 950;
+            letter-spacing: -0.08em;
             color: var(--white);
             z-index: 1;
             mix-blend-mode: exclusion;
+            line-height: 0.8;
             text-transform: uppercase;
         }
 
         .hero-img {
-            height: 70vh;
+            height: 75vh;
             z-index: 5;
-            transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.1));
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .fluid-content {
-            padding: 0 8%;
-            display: flex;
-            flex-direction: column;
+        /* 4. EDITORIAL STRUCTURE (The Fix for 'Unordered Draft') */
+        .editorial-container {
+            padding: 0 8% 200px;
         }
 
-        .section {
-            margin-bottom: 250px;
+        .spread {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
+            gap: 40px;
+            margin-bottom: 300px; /* Massive breathing room */
             align-items: center;
         }
 
-        .text-wrap { grid-column: 2 / span 4; }
-        .text-wrap.right { grid-column: 8 / span 4; text-align: right; }
+        .spread-text {
+            grid-column: 2 / span 4;
+        }
+
+        .spread-img {
+            grid-column: 7 / span 6;
+            background: rgba(0,0,0,0.02);
+        }
 
         .label {
-            font-size: 9px;
-            letter-spacing: 4px;
+            font-size: 10px;
+            letter-spacing: 5px;
             font-weight: 900;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: block;
             opacity: 0.4;
         }
 
         h2 {
-            font-size: clamp(30px, 5vw, 70px);
-            line-height: 1;
-            letter-spacing: -2px;
+            font-size: clamp(32px, 5vw, 80px);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -3px;
             text-transform: uppercase;
             margin-bottom: 30px;
-            font-weight: 900;
         }
 
-        p { font-size: 18px; line-height: 1.4; opacity: 0.7; font-weight: 300; }
+        p {
+            font-size: 19px;
+            line-height: 1.5;
+            opacity: 0.7;
+            font-weight: 300;
+            max-width: 400px;
+        }
 
-        .floating-img { grid-column: 7 / span 6; width: 100%; overflow: hidden; }
-        .floating-img.left { grid-column: 1 / span 6; }
+        /* 5. FULL BLEED VISUALS */
+        .full-bleed {
+            width: 100%;
+            margin-bottom: 300px;
+        }
 
-        .floating-img img {
+        .full-bleed img {
             width: 100%;
             display: block;
-            transition: 1.5s ease;
         }
 
-        /* NEXT PROJECT FOOTER */
+        /* 6. NEXT PROJECT FOOTER */
         .next-wrap {
-            height: 90vh;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
-        .next-link {
+        .next-title {
             font-size: 12vw;
             font-weight: 900;
-            letter-spacing: -8px;
             color: transparent;
             -webkit-text-stroke: 1px var(--charcoal);
             text-decoration: none;
+            letter-spacing: -8px;
             transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            line-height: 0.8;
         }
 
-        .next-link:hover {
+        .next-title:hover {
             color: var(--charcoal);
-            letter-spacing: 2px;
+            letter-spacing: 0;
         }
 
         @media (max-width: 900px) {
-            .section { display: block; margin-bottom: 150px; }
-            .next-link { font-size: 18vw; letter-spacing: -2px; }
+            .spread { display: flex; flex-direction: column; gap: 40px; }
+            h1 { font-size: 30vw; }
+            .next-title { font-size: 18vw; letter-spacing: -2px; }
         }
     </style>
 </head>
@@ -141,38 +161,44 @@
         <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
-    <section class="hero">
-        <div class="hero-title">ARCHITECTURE</div>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk">
-    </section>
+    <header class="hero">
+        <h1>OAT</h1>
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Architecture">
+    </header>
 
-    <main class="fluid-content">
-        <div class="section">
-            <div class="text-wrap">
-                <span class="label">The Concept</span>
+    <main class="editorial-container">
+        
+        <section class="spread">
+            <div class="spread-text">
+                <span class="label">Identity Concept</span>
                 <h2>Structural<br>Silence.</h2>
-                <p>A rejection of the rustic for the monolith. Treating packaging as a geometric study.</p>
+                <p>We treated the carton as a monolith. By removing the visual noise of the category, we let the material speak.</p>
             </div>
-            <div class="floating-img">
-                <img src="oat-2.jpg">
+            <div class="spread-img">
+                <img src="oat-2.jpg" style="width: 100%;" alt="Packaging Detail">
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <div class="floating-img left">
-                <img src="oat-3.jpg">
+        <section class="full-bleed">
+            <img src="oat-3.jpg" alt="System View">
+        </section>
+
+        <section class="spread" style="align-items: start;">
+            <div class="spread-img" style="grid-column: 1 / span 7;">
+                <img src="oat-4.jpg" style="width: 100%;" alt="Typography Detail">
             </div>
-            <div class="text-wrap right">
-                <span class="label">Color Logic</span>
+            <div class="spread-text" style="grid-column: 9 / span 4;">
+                <span class="label">Visual Logic</span>
                 <h2>Chromatics<br>of Cream.</h2>
-                <p>Essence over performance. The color becomes the identifier.</p>
+                <p>The palette is drawn from the essence of the liquid—unfiltered and raw.</p>
             </div>
-        </div>
+        </section>
+
     </main>
 
     <footer class="next-wrap">
-        <span class="label">NEXT PROJECT</span>
-        <a href="the-others.html" class="next-link">THE OTHERS</a>
+        <span class="label">UP NEXT</span>
+        <a href="the-others.html" class="next-title">THE OTHERS</a>
     </footer>
 
 </body>

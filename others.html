@@ -8,11 +8,11 @@
         :root {
             --bg: #ffffff;
             --text: #000000;
-            --rule: rgba(0,0,0,0.1);
-            --aura: rgba(0,0,0,0.03);
+            --line: rgba(0,0,0,0.1);
+            --aura: rgba(0,0,0,0.02);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
         body {
             background-color: var(--bg);
@@ -20,133 +20,153 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); /* Subtle texture */
         }
 
-        /* 1. THE GALLERY LIGHTING (AURA) */
+        /* 1. GALLERY LIGHTING (AURA) */
         #aura {
             position: fixed;
-            width: 800px;
-            height: 800px;
+            width: 80vw;
+            height: 80vw;
             background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 1;
             transform: translate(-50%, -50%);
-            transition: width 0.5s ease;
+            mix-blend-mode: multiply;
         }
 
-        /* 2. MONUMENTAL HERO TITLE */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .monumental-title {
-            font-size: clamp(80px, 18vw, 300px);
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            line-height: 0.8;
+        /* 2. CINEMATIC REVEAL SYSTEM */
+        .reveal {
             opacity: 0;
-            filter: blur(20px);
-            transform: scale(1.1);
-            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(15px);
+            transform: translateY(30px);
+            transition: all 1.8s cubic-bezier(0.15, 0, 0.15, 1);
         }
 
-        .monumental-title.active {
-            opacity: 1;
-            filter: blur(0px);
-            transform: scale(1);
-        }
-
-        /* 3. CINEMATIC GRID & RULES */
-        .grid-rule {
-            width: 0%;
-            height: 1px;
-            background: var(--rule);
-            margin: 0 auto;
-            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .grid-rule.active { width: 88%; }
-
-        /* 4. GALLERY ITEMS (DRIFT-IN) */
-        .gallery-container {
-            padding: 150px 6%;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-        }
-
-        .item {
-            grid-column: span 6;
-            margin-bottom: 100px;
-            opacity: 0;
-            filter: blur(10px);
-            transform: translateY(60px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-            perspective: 1000px;
-        }
-
-        .item.active {
+        .reveal.active {
             opacity: 1;
             filter: blur(0px);
             transform: translateY(0);
         }
 
-        /* 5. TACTILE IMAGE HOVER */
-        .img-wrap {
+        /* 3. MONUMENTAL HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10%;
+        }
+
+        .hero-title {
+            font-size: clamp(60px, 15vw, 280px);
+            font-weight: 950;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+            line-height: 0.8;
+            text-align: center;
+        }
+
+        /* 4. ARCHITECTURAL GRID & ITEMS */
+        .gallery-grid {
+            padding: 0 8% 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 150px;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            perspective: 1200px;
+        }
+
+        .img-container {
             position: relative;
             width: 100%;
-            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
         }
 
-        .img-wrap img {
+        .img-container img {
             width: 100%;
             display: block;
-            transition: transform 0.8s ease;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.03);
         }
 
+        /* REFLECTIVE SHEEN */
         .sheen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+            background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%);
             background-size: 200% 200%;
             pointer-events: none;
             z-index: 2;
+            mix-blend-mode: screen;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.5s;
         }
 
         .item:hover .sheen { opacity: 1; }
 
-        /* TYPOGRAPHY RHYTHM */
-        .item-meta {
-            margin-top: 25px;
+        /* 5. TYPOGRAPHY & LINES */
+        .meta-line {
+            width: 100%;
+            height: 1px;
+            background: var(--line);
+            margin: 40px 0 20px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.5s cubic-bezier(0.15, 0, 0.15, 1);
+        }
+        .active .meta-line { transform: scaleX(1); }
+
+        .meta-text {
             display: flex;
             justify-content: space-between;
-            font-size: 11px;
+            font-size: 10px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
+            font-weight: 800;
         }
 
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between;
-            z-index: 1000; mix-blend-mode: difference;
+            z-index: 1000;
         }
         nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
 
+        /* FOOTER LOOP */
+        .loop-footer {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .loop-link {
+            font-size: clamp(40px, 10vw, 150px);
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--text);
+            letter-spacing: -3px;
+            transition: 0.6s;
+        }
+
+        .loop-link:hover { letter-spacing: 0px; opacity: 0.5; }
+
         @media (max-width: 768px) {
-            .item { grid-column: span 12; }
+            .hero-title { font-size: 20vw; }
+            .gallery-grid { gap: 80px; }
         }
     </style>
 </head>
@@ -156,83 +176,89 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="oat-milk.html">OAT MILK</a>
+        <a href="kombucha.html">FERMENT</a>
     </nav>
 
     <header class="hero">
-        <h1 class="monumental-title" id="mainTitle">THE OTHERS</h1>
+        <h1 class="hero-title reveal" id="heroTitle">THE OTHERS</h1>
     </header>
 
-    <div class="grid-rule" id="rule1"></div>
-
-    <main class="gallery-container">
-        <section class="item">
-            <div class="img-wrap" data-tilt>
+    <main class="gallery-grid">
+        <section class="item reveal">
+            <div class="img-container" data-parallax="0.04">
                 <div class="sheen"></div>
-                <img src="other1.jpg" alt="Visual Exploration 1">
+                <img src="other1.jpg" alt="Visual Exploration">
             </div>
-            <div class="item-meta">
-                <span>01 / Alternative Branding</span>
+            <div class="meta-line"></div>
+            <div class="meta-text">
+                <span>Visual Exploration / 01</span>
                 <span>2025</span>
             </div>
         </section>
 
-        <section class="item" style="margin-top: 15vh;">
-            <div class="img-wrap" data-tilt>
+        <section class="item reveal">
+            <div class="img-container" data-parallax="0.06">
                 <div class="sheen"></div>
-                <img src="other2.jpg" alt="Visual Exploration 2">
+                <img src="other2.jpg" alt="Visual Exploration">
             </div>
-            <div class="item-meta">
-                <span>02 / Narrative Study</span>
+            <div class="meta-line"></div>
+            <div class="meta-text">
+                <span>Alternative Branding / 02</span>
                 <span>2025</span>
             </div>
         </section>
     </main>
 
+    <footer class="loop-footer">
+        <span style="font-size: 10px; letter-spacing: 5px; margin-bottom: 20px;">Return to</span>
+        <a href="index.html" class="loop-link">HOME</a>
+    </footer>
+
     <script>
         const aura = document.getElementById('aura');
-        const mainTitle = document.getElementById('mainTitle');
+        const heroTitle = document.getElementById('heroTitle');
 
-        // 1. Initial Load Reveal
-        window.addEventListener('load', () => {
-            mainTitle.classList.add('active');
-            document.getElementById('rule1').classList.add('active');
-        });
+        // 1. Initial State
+        window.onload = () => heroTitle.classList.add('active');
 
-        // 2. Aura & 3D Hover Light
+        // 2. Lighting & Tilt
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            // Tilt & Sheen Logic for each item
-            document.querySelectorAll('[data-tilt]').forEach(item => {
-                const rect = item.getBoundingClientRect();
-                if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
-                    const xc = rect.width / 2;
-                    const yc = rect.height / 2;
-                    const dx = x - rect.left - xc;
-                    const dy = y - rect.top - yc;
-                    item.style.transform = `rotateY(${dx / 20}deg) rotateX(${-dy / 20}deg)`;
-                    
-                    const sheen = item.querySelector('.sheen');
+            document.querySelectorAll('.img-container').forEach(container => {
+                const rect = container.getBoundingClientRect();
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - rect.left - xc;
+                const dy = y - rect.top - yc;
+
+                // Only tilt if near the element for "Quiet Luxury" feel
+                if (Math.abs(dx) < 600 && Math.abs(dy) < 600) {
+                    container.style.transform = `rotateY(${dx / 100}deg) rotateX(${-dy / 100}deg)`;
+                    const sheen = container.querySelector('.sheen');
                     sheen.style.backgroundPosition = `${(x - rect.left) / rect.width * 100}%`;
-                } else {
-                    item.style.transform = `rotateY(0deg) rotateX(0deg)`;
                 }
             });
         });
 
-        // 3. Cinematic Scroll Observer
+        // 3. Scroll Reveal & Parallax
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.item').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('[data-parallax]').forEach(el => {
+                const speed = el.getAttribute('data-parallax');
+                el.style.transform += ` translateY(${scrolled * speed}px)`;
+            });
+        });
     </script>
 </body>
 </html>

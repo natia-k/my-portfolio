@@ -16,7 +16,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Nav - Pure High Contrast */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; align-items: center; 
@@ -24,7 +23,6 @@
         }
         nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
 
-        /* THE SPLIT HERO */
         .hero-split { 
             display: flex; 
             height: 100vh; 
@@ -33,31 +31,33 @@
             background: var(--black);
         }
         
-        /* The Container: Stays still */
+        /* The Container - This provides the "frame" */
         .hero-left { 
             flex: 1.4; 
             height: 100vh;
-            overflow: hidden; /* Important: crops the image as it grows */
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden; 
             background: #000; 
+            position: relative;
         }
         
-        /* The Image: Starts smaller (framed) */
+        /* THE IMAGE - Now using scale for perfect smoothness */
         .hero-left img { 
-            width: 80%; /* Smaller "framed" look */
-            height: 80%; 
+            width: 100%; 
+            height: 100%; 
             object-fit: cover; 
-            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); /* Premium smooth transition */
-            transform: scale(1);
+            /* Start shrunk down (the "framed" look) */
+            transform: scale(0.8); 
+            /* Use 'will-change' to tell the computer to use the GPU */
+            will-change: transform;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
         }
 
-        /* THE TRIGGER: When mouse enters the hero area */
+        /* The Trigger - Zero stutter, pure GPU animation */
         .hero-split:hover .hero-left img { 
-            width: 100%; /* Grows to full width of container */
-            height: 100%; /* Grows to full height of container */
-            transform: scale(1.1); /* Adds extra depth/zoom */
+            transform: scale(1.05); /* Grows slightly past 100% for depth */
         }
 
         .hero-right { 
@@ -78,48 +78,28 @@
             text-transform: uppercase;
         }
 
-        .quote { 
-            font-size: 28px; 
-            color: var(--white); 
-            margin-bottom: 25px; 
-            line-height: 1.1; 
-            max-width: 480px;
-        }
+        .quote { font-size: 28px; line-height: 1.1; max-width: 480px; margin-bottom: 25px; }
 
         .project-scope { 
-            font-size: 12px; 
-            letter-spacing: 3px; 
-            color: var(--white); 
-            text-transform: uppercase; 
-            margin-top: 50px; 
-            border-top: 3px solid var(--white);
-            padding-top: 30px;
-            font-weight: 900;
+            font-size: 12px; letter-spacing: 3px; text-transform: uppercase; 
+            margin-top: 50px; border-top: 3px solid var(--white); padding-top: 30px; font-weight: 900; 
         }
 
-        /* 4-Image Grid */
-        .color-grid { 
-            display: flex; gap: 15px; margin-top: 40px;
-        }
+        .color-grid { display: flex; gap: 15px; margin-top: 40px; }
         .color-grid img { width: 70px; border: 1px solid #444; transition: 0.3s; }
         .color-grid img:hover { transform: scale(1.2); border-color: var(--white); }
 
-        /* Secondary Gallery */
-        .gallery { 
-            padding: 20px 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-        }
+        .gallery { padding: 20px 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .gallery img { width: 100%; display: block; }
 
-        .next-btn {
-            padding: 160px 6% 200px; text-align: right; border-top: 4px solid var(--white);
-        }
+        .next-btn { padding: 160px 6% 200px; text-align: right; border-top: 4px solid var(--white); }
         .next-btn a { text-decoration: none; color: var(--white); }
         .next-btn h2 { font-size: clamp(60px, 11vw, 130px); font-weight: 900; letter-spacing: -6px; }
 
         @media (max-width: 1100px) {
             .hero-split { flex-direction: column; height: auto; }
             .hero-left { height: 65vh; }
-            .hero-left img { width: 100%; height: 100%; }
+            .hero-left img { transform: scale(1); } /* Disable on mobile for usability */
         }
     </style>
 </head>

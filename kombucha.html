@@ -6,7 +6,7 @@
     <title>FERMENT | NATIA STUDIO</title>
     <style>
         :root { 
-            --brand-red: #ff3b25; /* Your specific red */
+            --brand-red: #ff3b25; /* The specific red from your reference */
             --white: #ffffff;
             --black: #000000;
             --muted: #888888;
@@ -15,17 +15,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--brand-red);
+            background-color: var(--brand-red); /* Initial state: Pure Red */
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            font-size: clamp(13px, 1.2vw, 16px); /* Caption scale */
-            line-height: 1.45; /* Tighter line height */
+            font-size: clamp(13px, 1.2vw, 16px);
+            line-height: 1.45;
             transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. CINEMA RED OPENER: TOTAL SATURATION */
+        /* 1. CINEMA HERO: TEXT UNDER PICTURE -> ON TOP ON HOVER */
         .hero {
             height: 100vh;
             display: flex;
@@ -54,10 +54,10 @@
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
         }
 
-        /* HOVER INTERACTION */
+        /* THE SWITCH */
         .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
 
-        /* 2. DESIGN THINKING BLOCK: QUIET CONFIDENCE */
+        /* 2. THE CAPTION BLOCK (QUIET CONFIDENCE) */
         .caption-block {
             padding: 150px 10%;
             background: #000;
@@ -89,7 +89,7 @@
             display: inline-block;
         }
 
-        /* 3. GALLERY: NO TITLES */
+        /* 3. GALLERY */
         .reality-content { background: var(--black); padding: 0 8% 200px; }
         .spread { display: flex; justify-content: center; padding: 100px 0; }
         .mockup-img { width: 100%; max-width: 1100px; display: block; }
@@ -110,12 +110,12 @@
     </header>
 
     <section class="caption-block">
-        <span class="micro-label">Self-initiated packaging concept</span>
+        <span class="micro-label">Self-initiated packaging concept | 2025</span>
         <div class="main-text">
-            Color is the flavor. One tone. One identity. A packaging concept built on simplicity, presence, and clarity. I stripped everything back and let color become the identity. The palette is drawn from the liquid itself — raw amber, hibiscus blush, blackcurrant near-black — colors not about flavor, but from flavor.
+            Color is the flavor. A packaging concept built on simplicity, presence, and clarity. I stripped everything back and let color become the identity. The palette is drawn from fermentation: raw amber, hibiscus blush, blackcurrant near-black — not colors about flavor, but colors from flavor. The system prioritizes clarity, hierarchy, and shelf legibility while remaining open to expansion.
         </div>
         <div class="role-line">
-            Concept | Color system | Label design | Hierarchy
+            Concept · Color system · Label design · Packaging hierarchy · Mockups
         </div>
     </section>
 

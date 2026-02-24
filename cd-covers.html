@@ -1,150 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | FEELINGS SERIES</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD COVERS | NATIA KURTANIDZE</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
+        .container { padding: 180px 8% 50px 8%; max-width: 1200px; margin: 0 auto; }
+        h1 { font-size: clamp(40px, 12vw, 150px); font-weight: 900; text-transform: uppercase; letter-spacing: -6px; line-height: 0.8; margin-bottom: 40px; }
+        img { width: 100%; height: auto; border: 1px solid #111; margin-bottom: 40px; display: block; }
+        .desc { color: #666; font-size: 18px; max-width: 600px; margin-bottom: 40px; border-left: 2px solid var(--accent); padding-left: 20px; }
         
-        body { 
-            background: var(--black); color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            line-height: 1.5; padding-bottom: 20vh;
+        /* Next Project Button */
+        .next-project { 
+            border-top: 1px solid #222; 
+            padding: 100px 0; 
+            text-align: right; 
+            margin-top: 50px;
         }
-
-        /* NAVIGATION */
-        nav {
-            padding: 40px 6%; display: flex; justify-content: space-between;
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-            mix-blend-mode: difference;
+        .next-link { 
+            text-decoration: none; 
+            color: var(--white); 
+            display: inline-block;
         }
-        .logo { font-weight: 900; letter-spacing: 12px; text-decoration: none; color: var(--white); font-size: 14px; }
-        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 11px; letter-spacing: 2px; }
-
-        /* HEADER SECTION */
-        header { padding: 25vh 6% 15vh; max-width: 1000px; }
-        header span { color: var(--accent); font-weight: 900; letter-spacing: 6px; font-size: 12px; text-transform: uppercase; }
-        header h1 { 
-            font-size: clamp(60px, 15vw, 180px); 
-            font-weight: 900; text-transform: uppercase; 
-            margin: 10px 0 30px -8px; letter-spacing: -6px; line-height: 0.8; 
-        }
-        header .intro-text { 
-            font-size: 18px; line-height: 1.4; opacity: 0.9; max-width: 600px; 
-            border-left: 3px solid var(--accent); padding-left: 30px;
-        }
-
-        /* PROJECT GRID */
-        .content { padding: 0 6%; }
-        
-        /* Each project block */
-        .emotion-block { 
-            display: grid; grid-template-columns: 1.2fr 0.8fr; 
-            gap: 60px; margin-bottom: 30vh; align-items: center;
-        }
-        .emotion-block:nth-child(even) { direction: rtl; } /* Alternates layout */
-        .emotion-block:nth-child(even) .text-side { direction: ltr; }
-
-        .img-side { position: relative; overflow: hidden; background: #111; }
-        .img-side img { width: 100%; display: block; filter: brightness(0.8); transition: 1s ease; }
-        .img-side:hover img { filter: brightness(1); transform: scale(1.03); }
-
-        .text-side h2 { 
-            font-size: 60px; font-weight: 900; letter-spacing: -2px; 
-            margin-bottom: 20px; color: var(--accent); text-transform: uppercase;
-        }
-        .text-side blockquote { 
-            font-size: 24px; font-weight: 500; line-height: 1.3; 
-            margin-bottom: 25px; color: var(--white); letter-spacing: -0.5px;
-        }
-        .text-side p { 
-            font-size: 13px; text-transform: uppercase; letter-spacing: 2px; 
-            opacity: 0.5; line-height: 1.8; 
-        }
-
-        /* FOOTER / CONTACT */
-        .footer-cta { text-align: center; padding: 10vh 0; }
-        .footer-cta a { 
-            font-size: 10vw; font-weight: 900; color: var(--accent); 
-            text-decoration: none; letter-spacing: -5px; 
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .emotion-block, .emotion-block:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
-            header h1 { font-size: 80px; letter-spacing: -3px; }
-            .text-side h2 { font-size: 40px; }
-        }
+        .next-link span { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 3px; display: block; margin-bottom: 10px; }
+        .next-link h2 { font-size: clamp(30px, 8vw, 80px); font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -3px; transition: 0.3s; }
+        .next-link:hover h2 { color: var(--accent); transform: translateX(-20px); }
     </style>
 </head>
 <body>
-
-    <nav>
-        <a href="index.html" class="logo">NATIA</a>
-        <a href="index.html" class="back">← EXIT VOID</a>
-    </nav>
-
-    <header>
-        <span>Project Series 06</span>
-        <h1>FEELINGS</h1>
-        <div class="intro-text">
-            Everything is constant. You are already feeling something. Sometimes there is a reason—a memory, a smell, a person—but the feeling is always there. These are the artifacts of those moments.
-        </div>
-    </header>
-
-    <main class="content">
+    <nav><span>NATIA KURTANIDZE</span><a href="index.html" class="back">← BACK</a></nav>
+    <div class="container">
+        <h1>CD COVERS</h1>
+        <p class="desc">Graphic exploration for music packaging and visual identity. 2026 Archive.</p>
         
-        <section class="emotion-block">
-            <div class="img-side">
-                <img src="heartbreak-2.jpg" alt="Heartbreak">
-            </div>
-            <div class="text-side">
-                <h2>HEARTBREAK</h2>
-                <blockquote>"Fragments orbit me—tiny planets of pain that refuse to burn."</blockquote>
-                <p>Digital Illustration. 2022. I created a heart and literally broke it. These fragments are the echoes that never leave once sadness touches you.</p>
-            </div>
-        </section>
+        <img src="cd-covers-hero.jpg" alt="CD Covers">
 
-        <section class="emotion-block">
-            <div class="img-side">
-                <img src="insomnia-1.jpg" alt="Insomnia">
-            </div>
-            <div class="text-side">
-                <h2>INSOMNIA</h2>
-                <blockquote>"Since I was five, I have stood at the edge of sleep. Wanting to jump. Terrified of the splash."</blockquote>
-                <p>A lifelong struggle reframed as a gift. Extra hours to watch the world quietly unfold while the dark watches back.</p>
-            </div>
-        </section>
-
-        <section class="emotion-block">
-            <div class="img-side">
-                <img src="pleasure.jpg" alt="Pleasure">
-            </div>
-            <div class="text-side">
-                <h2>PLEASURE</h2>
-                <blockquote>"Warmth turns into gravity. You fall upward. Willingly. Again and again."</blockquote>
-                <p>An infinite, 1001-fold state of satisfaction. Alive and repetitive. A fall into the sun.</p>
-            </div>
-        </section>
-
-        <section class="emotion-block">
-            <div class="img-side">
-                <img src="emptiness.jpg" alt="Emptiness">
-            </div>
-            <div class="text-side">
-                <h2>EMPTINESS</h2>
-                <blockquote>"It feels empty, but it is heavy. It can hold everything. You carry space alone."</blockquote>
-                <p>The bottomless void. It arrives without sound and swallows every echo. A black hole rising inside.</p>
-            </div>
-        </section>
-
-    </main>
-
-    <div class="footer-cta">
-        <a href="mailto:natia.kurtanidze55@gmail.com">START A RIOT</a>
+        <div class="next-project">
+            <a href="go-left.html" class="next-link">
+                <span>NEXT PROJECT</span>
+                <h2>GO LEFT →</h2>
+            </a>
+        </div>
     </div>
-
 </body>
 </html>

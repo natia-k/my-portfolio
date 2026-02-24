@@ -6,31 +6,27 @@
     <title>OAT MILK | NATIA STUDIO</title>
     <style>
         :root { 
-            --cinema-red: #ff0000; 
+            --target-red: #ff3b25; 
             --charcoal: #2D2926; 
             --white: #ffffff;
-            --bg-start: #ff0000; 
+            --muted: #888888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--bg-start);
+            background-color: var(--target-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1s ease, color 1s ease;
+            /* Smaller, tighter text for the 'Caption' feel */
+            font-size: clamp(13px, 1.2vw, 16px);
+            line-height: 1.45;
+            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 1s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        nav { 
-            position: fixed; top: 40px; width: 100%; padding: 0 6%; 
-            display: flex; justify-content: space-between; z-index: 1000; 
-            mix-blend-mode: difference;
-        }
-        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
-
-        /* 1. HERO: THE OAT STACK */
+        /* 1. HERO: RED OPENER & TEXT FLIP */
         .hero {
             height: 100vh;
             display: flex;
@@ -46,9 +42,7 @@
             font-weight: 950;
             letter-spacing: -0.07em;
             color: var(--white);
-            line-height: 0.8;
-            text-transform: uppercase;
-            z-index: 5; /* Behind by default */
+            z-index: 5;
             transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
         }
@@ -56,123 +50,92 @@
         .hero-img {
             height: 85vh;
             z-index: 10;
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* THE FLIP */
-        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; transform: scale(1.05); }
-        .hero:hover .hero-img { transform: scale(0.95); }
+        /* TEXT COMES ON TOP ON HOVER */
+        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
 
-        /* 2. PHILOSOPHY: CLEARANCE */
-        .philosophy {
-            height: 100vh;
+        /* 2. THE COMPACT CAPTION SECTION */
+        .description-block {
+            padding: 120px 10%;
+            background: #000;
             display: flex;
-            align-items: center;
-            padding: 0 10%;
-            background: #000; /* Solid transition zone */
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .philosophy-text {
-            font-size: clamp(24px, 4vw, 42px);
-            line-height: 1.1;
+        .micro-label {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .caption-paragraph {
+            max-width: 500px;
             font-weight: 300;
-            max-width: 900px;
+            color: var(--white);
+            opacity: 0.9;
         }
 
-        /* 3. THE RESTORED GRID (REALITY) */
+        /* 3. REALITY GALLERY (No section titles) */
         .reality-content {
             background: var(--white);
-            color: var(--charcoal);
-            padding: 0 8% 200px;
+            padding: 0 8% 150px;
         }
 
         .spread {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 60px;
-            padding: 200px 0;
-            align-items: center;
+            display: flex;
+            justify-content: center;
+            padding: 100px 0;
         }
 
-        .text-side { grid-column: 1 / span 5; }
-        .image-side { grid-column: 7 / span 6; }
-
-        /* Fix weird text overlapping */
-        h2 { 
-            font-size: clamp(40px, 6vw, 90px); 
-            font-weight: 900; 
-            line-height: 0.9; 
-            letter-spacing: -3px; 
-            text-transform: uppercase; 
-            margin-bottom: 30px; 
+        .mockup-img { 
+            width: 100%; 
+            max-width: 1100px; 
+            display: block; 
         }
 
-        p { 
-            font-size: 20px; 
-            line-height: 1.6; 
-            opacity: 0.8; 
-            font-weight: 300; 
-            max-width: 480px;
-        }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
+        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
 
-        .mockup-img { width: 100%; display: block; }
-
-        @media (max-width: 900px) { 
-            .spread { display: flex; flex-direction: column; padding: 100px 0; } 
-            h1 { font-size: 40vw; }
-        }
+        @media (max-width: 900px) { h1 { font-size: 40vw; } .description-block { padding: 80px 8%; } }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">NATIA STUDIO</a>
-    </nav>
+    <nav><a href="index.html">NATIA KURTANIDZE</a></nav>
 
     <header class="hero">
         <h1>OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Hero">
     </header>
 
-    <section class="philosophy">
-        <p class="philosophy-text">
-            “An identity that speaks only in the product’s own colors and structure — distilled, restrained, and free of unnecessary visual noise.”
+    <section class="description-block">
+        <span class="micro-label">Conceptual packaging study</span>
+        <p class="caption-paragraph">
+            We treated the carton as a monolith, removing category noise so the material and form could speak. The palette is drawn from the natural cream tones of the liquid itself. The system prioritizes clarity and restraint, resulting in a quiet but distinctive shelf presence.
         </p>
     </section>
 
     <main class="reality-content">
-        <section class="spread">
-            <div class="text-side">
-                <h2>Structural<br>Silence.</h2>
-                <p>By removing decorative motifs, we allow the typography and the raw material color to define the object's presence in space.</p>
-            </div>
-            <div class="image-side">
-                <img src="oat-mockup1.jpg" class="mockup-img" alt="Mockup 01">
-            </div>
-        </section>
-
-        <section class="spread" style="direction: rtl;">
-            <div class="text-side" style="direction: ltr;">
-                <h2>The Visual<br>System.</h2>
-                <p>A rigorous grid ensures that despite the scale of the type, the information remains architectural and functional.</p>
-            </div>
-            <div class="image-side">
-                <img src="oat-mockup2.jpg" class="mockup-img" alt="Mockup 02">
-            </div>
-        </section>
+        <div class="spread">
+            <img src="oat-mockup1.jpg" class="mockup-img" alt="Oat Milk Detail 1">
+        </div>
+        <div class="spread">
+            <img src="oat-mockup2.jpg" class="mockup-img" alt="Oat Milk Detail 2">
+        </div>
     </main>
 
     <script>
         window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY;
-            
-            // DRAIN THE RED
-            if (scrollPos > 400) {
+            if (window.scrollY > 400) {
                 document.body.style.backgroundColor = '#ffffff';
                 document.body.style.color = '#2D2926';
             } else {
-                document.body.style.backgroundColor = '#ff0000';
+                document.body.style.backgroundColor = 'var(--target-red)';
                 document.body.style.color = '#ffffff';
             }
         });

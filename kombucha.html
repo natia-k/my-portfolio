@@ -5,34 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOMBUCHA | NATIA KURTANIDZE</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --grey: #111; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--black); color: var(--white); font-family: Helvetica, sans-serif; }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; overflow-x: hidden; }
         
-        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.9); }
-        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; }
+        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
 
         .container { padding: 180px 8% 100px 8%; max-width: 1400px; margin: 0 auto; }
-        
-        /* HEADER - Restore the studio look */
-        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 80px; border-bottom: 1px solid var(--grey); padding-bottom: 40px; }
-        h1 { font-size: clamp(40px, 10vw, 120px); font-weight: 900; letter-spacing: -5px; line-height: 0.8; }
-        .details { text-align: right; font-size: 12px; letter-spacing: 2px; color: var(--accent); font-weight: 900; }
 
-        /* MOCKUP GRID - This puts your layouts back in order */
-        .layout-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
-        
-        .hero-box { grid-column: span 12; margin-bottom: 40px; } 
-        .mockup-left { grid-column: span 6; } 
-        .mockup-right { grid-column: span 6; } 
+        /* HERO SECTION: TEXT NEXT TO IMAGE */
+        .project-hero { 
+            display: flex; 
+            align-items: center; 
+            gap: 5vw; 
+            margin-bottom: 120px;
+            transition: all 0.6s ease;
+        }
 
-        img { width: 100%; height: auto; display: block; filter: grayscale(10%); transition: 0.5s; }
-        img:hover { filter: grayscale(0%); border: 1px solid var(--accent); }
+        .text-side { flex: 1; }
+        .image-side { flex: 1.2; overflow: hidden; }
 
-        .next-project { margin-top: 100px; border-top: 1px solid var(--grey); padding: 60px 0; text-align: right; }
+        h1 { 
+            font-size: clamp(50px, 8vw, 120px); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: -5px; 
+            line-height: 0.8; 
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* IMAGE LINE: 4 PICS IN A ROW */
+        .image-line { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px; 
+            margin-top: 50px;
+        }
+
+        .image-line img { 
+            width: 100%; 
+            height: auto; 
+            filter: grayscale(100%); 
+            transition: 0.6s all ease;
+            transform: scale(0.95);
+        }
+
+        /* GROWING HOVER EFFECTS */
+        .project-hero:hover h1 { transform: scale(1.05); color: var(--accent); }
+        .image-side img { width: 100%; transition: 0.8s ease; transform: scale(0.9); }
+        .project-hero:hover .image-side img { transform: scale(1); }
+
+        .image-line img:hover { 
+            filter: grayscale(0%); 
+            transform: scale(1.05); 
+            z-index: 10;
+            border: 1px solid var(--accent);
+        }
+
+        .next-project { border-top: 1px solid #222; padding: 80px 0; text-align: right; margin-top: 100px; }
         .next-link { text-decoration: none; color: var(--white); }
-        .next-link span { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 3px; display: block; margin-bottom: 10px; }
-        .next-link h2 { font-size: 60px; font-weight: 900; text-transform: uppercase; }
+        .next-link h2 { font-size: 50px; font-weight: 900; }
     </style>
 </head>
 <body>
@@ -40,22 +73,21 @@
     <nav><span>NATIA KURTANIDZE</span><a href="index.html" class="back">← BACK</a></nav>
 
     <div class="container">
-        <header>
-            <h1>KOMBUCHA<br>BRAND</h1>
-            <div class="details">VISUAL IDENTITY / 2026<br>MOCKUP LAYOUT</div>
-        </header>
+        <div class="project-hero">
+            <div class="text-side">
+                <h1>KOMBUCHA<br>BRAND</h1>
+                <p style="color:#666; margin-top:20px;">Premium fermented tea packaging. 2026.</p>
+            </div>
+            <div class="image-side">
+                <img src="kombucha-hero.jpg" alt="Kombucha Main">
+            </div>
+        </div>
 
-        <div class="layout-grid">
-            <div class="hero-box">
-                <img src="kombucha-hero.jpg" alt="Kombucha Brand Identity">
-            </div>
-
-            <div class="mockup-left">
-                <img src="kombucha-mockup1.jpg" alt="Kombucha Bottle Mockup 1">
-            </div>
-            <div class="mockup-right">
-                <img src="kombucha-mockup2.jpg" alt="Kombucha Bottle Mockup 2">
-            </div>
+        <div class="image-line">
+            <img src="kombucha-mockup1.jpg" alt="Detail 1">
+            <img src="kombucha-mockup2.jpg" alt="Detail 2">
+            <img src="kombucha-mockup3.jpg" alt="Detail 3">
+            <img src="kombucha-mockup4.jpg" alt="Detail 4">
         </div>
 
         <div class="next-project">
@@ -65,5 +97,6 @@
             </a>
         </div>
     </div>
+
 </body>
 </html>

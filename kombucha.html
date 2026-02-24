@@ -9,7 +9,6 @@
             --brand-red: #ff3b25; 
             --white: #ffffff;
             --black: #000000;
-            --muted: #888888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
@@ -18,14 +17,14 @@
             background-color: var(--brand-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            font-size: clamp(13px, 1.2vw, 16px);
-            line-height: 1.45;
+            font-size: 15px; /* Fixed size for mobile readability */
+            line-height: 1.5;
             transition: background-color 1.2s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. INITIAL STATE: PURE COLOR, ELEMENTS HIDDEN */
+        /* 1. HERO REVEAL */
         .hero {
             height: 100vh;
             display: flex;
@@ -33,23 +32,20 @@
             justify-content: center;
             position: relative;
             z-index: 10;
+            padding: 20px;
         }
 
         h1, .hero-img, nav {
-            opacity: 0; /* Hidden at start */
+            opacity: 0; 
             transform: translateY(20px);
             transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* REVEAL CLASS */
-        .revealed {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
+        .revealed { opacity: 1 !important; transform: translateY(0) !important; }
 
         h1 {
             position: absolute;
-            font-size: clamp(80px, 22vw, 450px);
+            font-size: clamp(60px, 20vw, 450px);
             font-weight: 950;
             letter-spacing: -0.07em;
             color: var(--white);
@@ -57,37 +53,83 @@
             line-height: 0.8;
             text-transform: uppercase;
             pointer-events: none;
+            text-align: center;
+            width: 100%;
         }
 
-        .hero-img {
-            height: 80vh;
-            z-index: 10;
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
+        .hero-img { 
+            height: 70vh; /* Scaled for mobile */
+            max-width: 90%;
+            object-fit: contain;
+            z-index: 10; 
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3)); 
         }
 
-        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
+        /* DESKTOP HOVER */
+        @media (hover: hover) {
+            .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
+        }
 
-        /* 2. THE CAPTION BLOCK */
+        /* 2. CAPTION BLOCK (No Gray) */
         .caption-block {
-            padding: 150px 10%;
-            background: #000;
+            padding: 100px 10%;
+            background: var(--black);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
         }
 
-        .micro-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+        .micro-label { 
+            font-size: 10px; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            color: var(--white); /* Removed Gray */
+            font-weight: 700; 
+        }
+        
         .main-text { max-width: 550px; font-weight: 300; color: var(--white); }
-        .role-line { margin-top: 20px; font-size: 11px; color: var(--muted); border-top: 1px solid #333; padding-top: 20px; display: inline-block; }
+
+        .role-line { 
+            margin-top: 20px; 
+            font-size: 11px; 
+            color: var(--white); /* Removed Gray */
+            border-top: 1px solid rgba(255,255,255,0.2); 
+            padding-top: 20px; 
+            display: inline-block; 
+            opacity: 0.8;
+        }
 
         /* 3. GALLERY */
-        .reality-content { background: var(--black); padding: 0 8% 200px; }
-        .spread { display: flex; justify-content: center; padding: 100px 0; }
-        .mockup-img { width: 100%; max-width: 1100px; display: block; }
+        .reality-content { background: var(--black); padding: 0 5%; }
+        .spread { display: flex; justify-content: center; padding: 50px 0; }
+        .mockup-img { width: 100%; max-width: 1100px; height: auto; display: block; }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
-        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
+        /* 4. FOOTER */
+        .next-wrap { 
+            height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            background: var(--black); border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+        }
 
+        .next-link { 
+            font-size: clamp(40px, 12vw, 180px); font-weight: 950; text-decoration: none; 
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.5); 
+            transition: all 0.6s ease; letter-spacing: -2px; text-transform: uppercase;
+            text-align: center;
+        }
+
+        .next-link:hover { color: var(--white); -webkit-text-stroke: 1px var(--white); letter-spacing: 0px; }
+
+        /* NAVIGATION */
+        nav { position: fixed; top: 30px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 3px; }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .hero-img { height: 50vh; }
+            .caption-block { padding: 80px 8%; }
+            .spread { padding: 30px 0; }
+        }
     </style>
 </head>
 <body>
@@ -102,10 +144,12 @@
     <section class="caption-block">
         <span class="micro-label">Self-initiated packaging concept | 2025</span>
         <div class="main-text">
-            Color is the flavor. A packaging concept built on simplicity, presence, and clarity. I stripped everything back and let color become the identity. The palette is drawn from fermentation: raw amber, hibiscus blush, blackcurrant near-black — not colors about flavor, but colors from flavor.
+            Color is the flavor. A study in presence and restraint. This concept removes category noise — no kraft paper, no botanical clichés. Instead, the identity arises from the liquid itself. One flavor. One color. Uncompromising simplicity.
+            <br><br>
+            The palette is taken from fermentation: raw amber, hibiscus blush, and blackcurrant near-black. The system prioritizes clarity, hierarchy, and shelf legibility. It feels bold because it leaves nothing unnecessary behind.
         </div>
         <div class="role-line">
-            Concept · Color system · Label design · Packaging hierarchy · Mockups
+            Concept · Color system · Label design · Hierarchy · Mockups
         </div>
     </section>
 
@@ -114,16 +158,20 @@
         <div class="spread"><img src="kombucha3.jpg" class="mockup-img"></div>
     </main>
 
+    <footer class="next-wrap">
+        <span class="micro-label" style="margin-bottom: 20px;">Next Project</span>
+        <a href="oat-milk.html" class="next-link">OAT MILK</a>
+    </footer>
+
     <script>
         const title = document.getElementById('title');
         const bottle = document.getElementById('bottle');
         const nav = document.getElementById('nav');
 
-        window.addEventListener('scroll', () => {
+        function handleScroll() {
             const scrollPos = window.scrollY;
 
-            // 1. REVEAL ELEMENTS AS YOU START MOVING
-            if (scrollPos > 100) {
+            if (scrollPos > 50) {
                 title.classList.add('revealed');
                 bottle.classList.add('revealed');
                 nav.classList.add('revealed');
@@ -133,13 +181,16 @@
                 nav.classList.remove('revealed');
             }
 
-            // 2. DRAIN RED TO BLACK
-            if (scrollPos > 500) {
+            if (scrollPos > 400) {
                 document.body.style.backgroundColor = '#000000';
             } else {
                 document.body.style.backgroundColor = 'var(--brand-red)';
             }
-        });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        // Trigger once on load in case user is already scrolled
+        handleScroll();
     </script>
 </body>
 </html>

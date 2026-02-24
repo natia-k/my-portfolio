@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | NATIA STUDIO</title>
+    <title>KOMBUCHA | UNCOMPROMISING</title>
     <style>
         :root { 
-            --soul: #d46c31; /* The Amber Soul - Change to your exact bottle color */
+            --soul: #d46c31; /* Amber Soul */
             --black: #000000;
             --white: #ffffff;
         }
@@ -15,133 +15,169 @@
 
         body { 
             background: var(--soul); 
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            /* Phase 1: Color Takeover stays for 2.5s, then transitions to Black */
-            animation: bodyToBlack 1.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+            /* Phase 1: The Color Takeover */
+            animation: bodyToBlack 2.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
             animation-delay: 2s; 
         }
 
-        /* Elements start invisible */
-        nav, .hero-content, .gallery, .footer {
+        /* Elements emerge from the color */
+        .reveal {
             opacity: 0;
-            animation: fadeIn 2s ease forwards;
-            animation-delay: 3s; 
+            animation: fadeIn 3s ease forwards;
+            animation-delay: 3.5s;
         }
 
         @keyframes bodyToBlack { to { background: var(--black); } }
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* NAV */
+        /* NAV: Quiet Typography */
         nav {
             position: fixed; top: 0; width: 100%; padding: 40px 6%;
             display: flex; justify-content: space-between; z-index: 100;
-            font-size: 10px; letter-spacing: 6px; font-weight: 900;
+            font-size: 9px; letter-spacing: 6px; font-weight: 900;
+            mix-blend-mode: difference;
         }
         nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
 
-        /* HERO - ONE SENTENCE */
+        /* THE BOTTLE: The only truth */
         .hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
             padding: 0 10%;
         }
 
-        .hero-img {
-            height: 70vh;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .bottle {
+            height: 85vh;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+            transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero:hover .hero-img { transform: scale(1.05); }
+        .hero:hover .bottle { transform: scale(1.05); }
 
-        .one-sentence {
-            font-size: clamp(24px, 4vw, 48px);
+        /* THE STATEMENT: Bold without explanation */
+        .statement-box {
+            padding: 150px 10%;
+            text-align: center;
+            background: var(--black);
+        }
+
+        .statement-box h2 {
+            font-size: clamp(32px, 5vw, 70px);
             font-weight: 300;
-            letter-spacing: -1px;
+            line-height: 1;
+            letter-spacing: -3px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-transform: uppercase;
+        }
+
+        .statement-box span { color: var(--soul); font-weight: 900; }
+
+        /* THE GALLERY: No symbols, no noise */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--black);
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            display: block;
+            filter: saturate(0.9);
+            transition: filter 1s ease;
+        }
+
+        .gallery-grid img:hover { filter: saturate(1.2); }
+
+        /* FINAL MANIFESTO */
+        .manifesto {
+            padding: 200px 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .manifesto p {
+            font-size: 14px;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.5);
+            max-width: 350px;
+        }
+
+        .manifesto h3 {
+            font-size: 24px;
+            font-weight: 900;
             line-height: 1.1;
-            max-width: 800px;
             text-transform: uppercase;
+        }
+
+        /* NEXT */
+        .footer-next {
+            padding: 100px 6% 150px;
+            text-align: center;
+        }
+
+        .footer-next a {
+            font-size: 15vw;
             font-weight: 900;
-        }
-
-        /* GALLERY - THE FOCUS */
-        .gallery { padding: 5px; }
-        .gallery img { 
-            width: 100%; 
-            height: auto; 
-            margin-bottom: 5px; 
-            display: block; 
-            filter: saturate(0.8);
-            transition: filter 0.8s ease;
-        }
-        .gallery img:hover { filter: saturate(1.2); }
-
-        /* FOOTER - THE ROLE */
-        .footer {
-            padding: 150px 6% 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .role-line {
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.5;
-        }
-
-        .next-project {
-            font-size: 8vw;
-            font-weight: 900;
-            letter-spacing: -6px;
+            letter-spacing: -1vw;
             text-decoration: none;
             color: var(--white);
-            line-height: 0.8;
-            transition: 0.5s;
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .next-project:hover { color: var(--soul); letter-spacing: 0; }
+        .footer-next a:hover { color: var(--soul); letter-spacing: 0; }
 
-        @media (max-width: 768px) {
-            .one-sentence { font-size: 24px; }
-            .hero-img { height: 50vh; }
-        }
     </style>
 </head>
 <body>
 
-    <nav>
+    <nav class="reveal">
         <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">CONTACT</a>
+        <a href="mailto:hello@natia.design">EMAIL</a>
     </nav>
 
-    <div class="hero">
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha">
-        <h1 class="one-sentence">
-            I stripped everything back and let the product color become the personality.
-        </h1>
+    <div class="hero reveal">
+        <img src="kombucha-hero.jpg" class="bottle" alt="The Product">
     </div>
 
-    <div class="gallery">
-        <img src="kombucha2.jpg" alt="Detail 1">
-        <img src="kombucha3.jpg" alt="Detail 2">
-    </div>
+    <main class="reveal">
+        <section class="statement-box">
+            <h2>Instead of explaining flavor, it <span>becomes it.</span></h2>
+        </section>
 
-    <footer class="footer">
-        <div class="role-line">
-            CONCEPT, COLOR SYSTEM, LABEL DESIGN<br>©2026 SELF-INITIATED
-        </div>
-        <a href="oat-milk.html" class="next-project">OAT MILK →</a>
-    </footer>
+        <section class="gallery-grid">
+            <img src="kombucha2.jpg">
+            <img src="kombucha3.jpg">
+        </section>
+
+        <section class="manifesto">
+            <h3>Color is not decoration.<br>Color is the product.</h3>
+            <p>
+                The system refuses excess. No symbols, no storytelling shortcuts, no visual noise. Typography stays quiet. Structure stays strict. Everything steps back so color can speak with confidence.
+            </p>
+        </section>
+
+        <section class="manifesto" style="padding-top: 0;">
+            <p>
+                Each bottle commits to a single hue, drawn directly from fermentation itself. Raw amber, hibiscus blush, blackcurrant near-black.
+            </p>
+            <h3>Premium without performance.<br>Bold without explanation.</h3>
+        </section>
+
+        <footer class="footer-next">
+            <a href="oat-milk.html">OAT MILK</a>
+        </footer>
+    </main>
 
 </body>
 </html>

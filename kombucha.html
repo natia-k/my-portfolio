@@ -3,216 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | CHROMATIC SOUL</title>
+    <title>KOMBUCHA | NATIA DESIGN</title>
     <style>
-        :root { 
-            --bg: #000000; 
-            --accent: #ff0000; /* Amber/Hibiscus/Blackcurrant will be set per section */
-            --white: #ffffff; 
-        }
-        
+        :root { --red: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
         
         body { 
-            background: var(--bg); 
+            background: var(--black); 
             color: var(--white); 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Minimalist Fixed Header */
+        /* Nav - Clean & Floating */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference;
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; mix-blend-mode: difference;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 900; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
 
-        /* HERO - FULL COMMITMENT */
+        /* THE CINEMATIC HERO */
         .hero { 
             position: relative;
-            height: 100vh;
+            height: 120vh; /* Extra height for parallax */
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--black);
             overflow: hidden;
-            transition: background 1s ease;
         }
 
-        /* The Liquid Personality - Giant Title behind Bottle */
-        .flavor-title {
+        /* Giant Background Text */
+        .bg-title {
             position: absolute;
-            font-size: 25vw;
+            font-size: clamp(150px, 30vw, 500px);
             font-weight: 900;
-            line-height: 1;
-            letter-spacing: -0.05em;
-            color: rgba(255, 255, 255, 0.05);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
             z-index: 1;
-            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: -15px;
+            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero:hover .flavor-title {
-            color: rgba(255, 0, 0, 0.15);
-            transform: scale(1.05) rotate(-2deg);
+        .hero:hover .bg-title {
+            -webkit-text-stroke: 1px var(--red);
+            transform: scale(1.1) translateY(-20px);
+            opacity: 0.4;
         }
 
-        /* The Bottle - Hardware Accelerated Tilt */
-        .bottle {
+        /* THE BOTTLE - Center Stage */
+        .bottle-wrap {
             position: relative;
             z-index: 5;
-            height: 80vh;
-            filter: drop-shadow(0 20px 80px rgba(0,0,0,0.8));
-            transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
+            height: 85vh;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            perspective: 1200px;
         }
 
-        .hero:hover .bottle {
-            transform: scale(1.1) rotateY(-15deg);
+        .bottle-wrap img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 80px rgba(0,0,0,0.9));
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* TEXT CONTENT - RAW HONESTY */
-        .content {
-            padding: 150px 10%;
+        /* Interactive Growth and Tilt */
+        .hero:hover .bottle-wrap {
+            transform: rotateY(-10deg) rotateX(5deg) scale(1.05);
+        }
+
+        /* CONTENT SECTION - Raw Honesty */
+        .narrative {
+            padding: 100px 10%;
+            background: var(--black);
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: flex-start;
+            gap: 80px;
+            border-bottom: 1px solid #111;
         }
 
-        .brief-box h2 {
+        .narrative-block h2 {
             font-size: 11px;
-            letter-spacing: 5px;
-            color: var(--accent);
+            letter-spacing: 4px;
+            color: var(--red);
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 900;
         }
 
-        .brief-box p {
-            font-size: 32px;
-            font-weight: 400;
+        .narrative-block p {
+            font-size: 28px;
             line-height: 1.1;
-            letter-spacing: -1px;
-            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
         }
 
-        /* THE COLOR GRID - Full Commitment */
-        .color-soul {
-            display: flex;
-            flex-direction: column;
-            gap: 100px;
-            padding-bottom: 150px;
+        /* FULL COMMITMENT GALLERY */
+        .gallery {
+            padding: 100px 6%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
 
-        .soul-row {
+        .gallery-item {
+            overflow: hidden;
+            background: #080808;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery img {
+            width: 100%;
+            display: block;
+            filter: grayscale(1);
+            transition: 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item:hover { transform: translateY(-30px); }
+        .gallery-item:hover img { filter: grayscale(0); transform: scale(1.1); }
+
+        /* GIANT NEXT BUTTON */
+        .footer-next {
+            height: 80vh;
             display: flex;
             align-items: center;
-            gap: 40px;
-            padding: 0 10%;
+            justify-content: center;
+            background: #050505;
         }
 
-        .soul-row:nth-child(even) { flex-direction: row-reverse; }
-
-        .image-frame {
-            flex: 1.5;
-            overflow: hidden;
-            background: #0a0a0a;
-            aspect-ratio: 4/5;
+        .footer-next a {
+            text-decoration: none;
+            font-size: clamp(60px, 15vw, 200px);
+            font-weight: 900;
+            letter-spacing: -12px;
+            color: #111;
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .image-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(1);
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .image-frame:hover img {
-            filter: grayscale(0);
+        .footer-next a:hover {
+            color: var(--red);
+            letter-spacing: 2px;
             transform: scale(1.05);
         }
 
-        .label-text {
-            flex: 1;
-            font-size: 14px;
-            line-height: 1.6;
-            opacity: 0.5;
-            max-width: 300px;
-        }
-
-        /* FOOTER - THE NEXT MOVE */
-        .next-move {
-            padding: 200px 6%;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: right;
-        }
-
-        .next-move a {
-            text-decoration: none;
-            color: #111;
-            font-size: clamp(60px, 12vw, 160px);
-            font-weight: 900;
-            letter-spacing: -8px;
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .next-move a:hover {
-            color: var(--accent);
-            letter-spacing: 0px;
-        }
-
-        @media (max-width: 1000px) {
-            .content, .soul-row { grid-template-columns: 1fr; flex-direction: column; }
-            .brief-box p { font-size: 24px; }
+        @media (max-width: 1100px) {
+            .narrative { grid-template-columns: 1fr; gap: 40px; }
+            .gallery { grid-template-columns: 1fr; }
+            .hero { height: 80vh; }
+            .bottle-wrap { height: 60vh; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">CONTACT</a>
+        <a href="index.html">Index</a>
+        <a href="mailto:contact@natiadesign.com">Contact</a>
     </nav>
 
     <section class="hero">
-        <div class="flavor-title">SOUL</div>
-        <img src="kombucha-hero.jpg" class="bottle" alt="Kombucha Bottle">
+        <div class="bg-title">CHROMATIC</div>
+        <div class="bottle-wrap">
+            <img src="kombucha-hero.jpg" alt="Kombucha Bottle Design">
+        </div>
     </section>
 
     <main>
-        <section class="content">
-            <div class="brief-box">
-                <h2>The Decision</h2>
-                <p>Strip everything back. Let the product color become the personality. One flavor, one color, full commitment.</p>
-            </div>
-            <div class="brief-box">
+        <section class="narrative">
+            <div class="narrative-block">
                 <h2>The Brief</h2>
                 <p>A small-batch kombucha brand. No kraft paper, no hand-drawn botanicals — the opposite of what dominates the shelf.</p>
             </div>
-        </section>
-
-        <section class="color-soul">
-            <div class="soul-row">
-                <div class="image-frame">
-                    <img src="kombucha2.jpg" alt="Chromatic Detail">
-                </div>
-                <div class="label-text">
-                    CHROMATIC SOUL: The palette comes directly from fermentation — raw amber, hibiscus blush, blackcurrant near-black.
-                </div>
-            </div>
-
-            <div class="soul-row">
-                <div class="image-frame">
-                    <img src="kombucha3.jpg" alt="Intentional Design">
-                </div>
-                <div class="label-text">
-                    THE RESULT: Gets picked up because it looks different. Gets bought again because it feels intentional.
-                </div>
+            <div class="narrative-block">
+                <h2>The Decision</h2>
+                <p>I stripped everything back and let the product color become the personality. One flavor, one color, full commitment.</p>
             </div>
         </section>
 
-        <footer class="next-move">
+        <section class="gallery">
+            <div class="gallery-item"><img src="kombucha2.jpg" alt="Chromatic Soul Detail"></div>
+            <div class="gallery-item"><img src="kombucha3.jpg" alt="Intentional Result"></div>
+        </section>
+
+        <footer class="footer-next">
             <a href="oat-milk.html">OAT MILK →</a>
         </footer>
     </main>

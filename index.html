@@ -11,7 +11,7 @@
         body { 
             background: var(--black); color: var(--white); 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow-x: hidden; height: 1000vh; /* Total scroll depth */
+            overflow-x: hidden; height: 1000vh; /* This controls how much you can scroll */
         }
 
         nav {
@@ -27,23 +27,29 @@
         .node {
             position: absolute; width: 100vw; height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            cursor: pointer;
+            cursor: pointer; text-align: center;
         }
 
         .node span { color: var(--accent); font-size: 11px; letter-spacing: 6px; margin-bottom: 20px; font-weight: 900; }
-        .node h2 { font-size: clamp(40px, 10vw, 140px); font-weight: 900; text-transform: uppercase; line-height: 0.8; text-align: center; letter-spacing: -4px; }
+        .node h2 { font-size: clamp(40px, 10vw, 120px); font-weight: 900; text-transform: uppercase; line-height: 0.8; letter-spacing: -4px; }
 
         .img-container {
             position: absolute; width: 35vw; max-width: 500px; aspect-ratio: 4/5; z-index: -1; 
-            background: var(--black); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #111; transition: 0.8s ease;
         }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.3); transition: 1s ease; }
-        .node:hover img { filter: grayscale(0) brightness(0.8); }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.2); }
+        .node:hover img { filter: grayscale(0) brightness(0.6); }
 
-        /* COORDINATES FOR THE PATH */
+        /* COORDINATES: Mapping the Snake Path */
         #n-intro { left: 0; top: 0; }
-        #n-7     { left: 100vw; top: 0; } 
-        #n-8     { left: 100vw; top: 100vh; }
+        #n-1     { left: 100vw; top: 0; }
+        #n-2     { left: 200vw; top: 0; }
+        #n-3     { left: 200vw; top: 100vh; }
+        #n-4     { left: 100vw; top: 100vh; }
+        #n-5     { left: 0vw; top: 100vh; }
+        #n-6     { left: 0vw; top: 200vh; }
+        #n-7     { left: 100vw; top: 200vh; }
+        #n-8     { left: 200vw; top: 200vh; }
     </style>
 </head>
 <body>
@@ -56,13 +62,43 @@
                 <h2>NATIA<br>KURTANIDZE</h2>
             </div>
             
+            <div class="node" id="n-1" onclick="location.href='kombucha.html'">
+                <div class="img-container"><img src="kombucha-hero.jpg"></div>
+                <span>01 BRANDING</span><h2>LIQUID<br>REBELLION</h2>
+            </div>
+
+            <div class="node" id="n-2" onclick="location.href='oatmilk.html'">
+                <div class="img-container"><img src="oat-hero.jpg"></div>
+                <span>02 PRODUCT</span><h2>THE OAT<br>IDENTITY</h2>
+            </div>
+
+            <div class="node" id="n-3" onclick="location.href='nurture.html'">
+                <div class="img-container"><img src="nurture-hero.jpg"></div>
+                <span>03 SERIES</span><h2>GENTLE<br>FORCE</h2>
+            </div>
+
+            <div class="node" id="n-4" onclick="location.href='others.html'">
+                <div class="img-container"><img src="others-hero.jpg"></div>
+                <span>04 CONCEPT</span><h2>RAW<br>EXTRACTS</h2>
+            </div>
+
+            <div class="node" id="n-5" onclick="location.href='posters.html'">
+                <div class="img-container"><img src="posters-hero.jpg"></div>
+                <span>05 DESIGN</span><h2>STREET<br>VOICE</h2>
+            </div>
+
+            <div class="node" id="n-6" onclick="location.href='cd-covers.html'">
+                <div class="img-container"><img src="heartbreak-2.jpg"></div>
+                <span>06 ART</span><h2>SOUND &<br>VISION</h2>
+            </div>
+
             <div class="node" id="n-7" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="circle.jpg" alt="Circle of Life"></div>
+                <div class="img-container"><img src="circle.jpg"></div>
                 <span>07 EXHIBITION</span><h2>CIRCLE OF<br>LIFE</h2>
             </div>
 
             <div class="node" id="n-8" onclick="location.href='exhibition.html'">
-                <div class="img-container"><img src="nostalgia.jpg" alt="Nostalgia"></div>
+                <div class="img-container"><img src="nostalgia.jpg"></div>
                 <span>08 EXHIBITION</span><h2>NOSTALGIA</h2>
             </div>
         </div>
@@ -73,16 +109,16 @@
         window.addEventListener('scroll', () => {
             const y = window.scrollY;
             const h = window.innerHeight;
-            let x = 0, targetY = 0;
+            let x = 0, ty = 0;
 
-            // Snake Path Logic
-            if (y < h) { 
-                x = y; targetY = 0; 
-            } else { 
-                x = h; targetY = y - h; 
-            }
-            
-            map.style.transform = `translate3d(-${x}px, -${targetY}px, 0)`;
+            // THE SNAKE PATH LOGIC
+            if (y < h * 2) { x = y; ty = 0; }               // Move Right (Intro to P2)
+            else if (y < h * 3) { x = h * 2; ty = y - h*2; } // Move Down (P2 to P3)
+            else if (y < h * 5) { x = h*2 - (y - h*3); ty = h; } // Move Left (P3 to P5)
+            else if (y < h * 6) { x = 0; ty = h + (y - h*5); }   // Move Down (P5 to P6)
+            else { x = y - h*6; ty = h*2; }                  // Move Right (P6 to P8)
+
+            map.style.transform = `translate3d(-${x}px, -${ty}px, 0)`;
         });
     </script>
 </body>

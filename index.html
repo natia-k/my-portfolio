@@ -3,194 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | VISUAL ARCHITECT</title>
+    <title>NATIA KURTANIDZE | VISUAL ARCHITECT</title>
     <style>
-        :root { --accent: #ff0000; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        
-        body, html { 
-            margin: 0; padding: 0; 
-            background: #000; color: #fff; 
-            font-family: 'Helvetica Neue', Helvetica, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal spill */
+        body { 
+            background: var(--black); color: var(--white); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow: hidden; cursor: crosshair;
         }
 
-        /* The container that actually moves sideways */
-        .labyrinth-track {
-            position: fixed;
-            top: 0; left: 0;
-            height: 100vh;
-            display: flex;
-            will-change: transform;
-            align-items: center;
-        }
-
-        /* Creates the vertical height to scroll through */
-        .scroll-proxy { height: 1000vh; } 
-
-        /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 40px 6%; display: flex; justify-content: space-between;
             z-index: 1000; mix-blend-mode: difference;
         }
-        .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 13px; }
-        .contact { color: var(--accent); text-decoration: none; font-weight: 900; letter-spacing: 2px; font-size: 11px; }
+        .logo { font-weight: 900; letter-spacing: 12px; text-transform: uppercase; text-decoration: none; color: var(--white); font-size: 14px; }
 
-        /* --- THE NODES --- */
-        .section {
+        .viewport { width: 100vw; height: 100vh; overflow: hidden; position: relative; }
+        
+        #laby-line { 
+            display: flex; position: absolute; top: 0; left: 0; height: 100vh;
+            will-change: transform; align-items: center;
+        }
+
+        .node {
             width: 100vw; height: 100vh; flex-shrink: 0;
-            display: flex; justify-content: center; align-items: center;
-            position: relative; padding: 0 10%;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 10%; cursor: pointer; position: relative;
         }
 
-        /* REFINED HUMAN TYPOGRAPHY */
-        .section-header { text-align: center; z-index: 5; }
-        .section-header span { 
-            display: block; font-size: 11px; letter-spacing: 6px; 
-            color: var(--accent); margin-bottom: 20px; font-weight: 900;
+        .node span { color: var(--accent); font-size: 11px; letter-spacing: 8px; margin-bottom: 20px; font-weight: 900; }
+        .node h2 { 
+            font-size: clamp(50px, 12vw, 160px); font-weight: 900; 
+            text-transform: uppercase; line-height: 0.8; letter-spacing: -6px; 
+            transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 10;
         }
-        .section h2 {
-            font-size: clamp(45px, 10vw, 130px);
-            font-weight: 900; text-transform: uppercase;
-            line-height: 0.85; margin: 0; letter-spacing: -4px;
-            color: #fff;
-        }
+        .node:hover h2 { letter-spacing: -2px; color: var(--accent); }
 
-        /* IMAGE: SCALE & DEPTH */
-        .img-box {
-            position: absolute; width: 35vw; max-width: 550px;
-            z-index: 1; opacity: 0.35;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(1);
+        /* THE IMAGE COMPONENT */
+        .img-container {
+            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
+            width: 35vw; max-width: 550px; aspect-ratio: 3/4; 
+            z-index: -1; opacity: 0.15; filter: grayscale(1);
+            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+            background: #0a0a0a; /* Placeholder color if image fails */
         }
-        .img-box img { width: 100%; height: auto; display: block; box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .node:hover .img-container { opacity: 0.8; filter: grayscale(0); transform: translateY(-53%) scale(1.02); }
 
-        .section:hover .img-box { opacity: 1; transform: scale(1.05); filter: grayscale(0); }
-
-        /* THE RIOT FINALE */
-        .riot-node { 
-            width: 100vw; height: 100vh; background: var(--accent); flex-shrink: 0; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-        }
-        .riot-node h2 { color: #000; font-size: 10vw; letter-spacing: -6px; }
-        .riot-node a { color: #000; font-weight: 900; margin-top: 30px; text-decoration: none; border-bottom: 4px solid #000; font-size: 18px; }
-
-        /* MOBILE OPTIMIZATION */
-        @media (max-width: 768px) {
-            .section h2 { font-size: 55px; letter-spacing: -2px; }
-            .img-box { width: 80vw; opacity: 0.65; filter: grayscale(0); }
-            .scroll-proxy { height: 1200vh; }
-        }
+        .progress-wrap { position: fixed; bottom: 50px; left: 6%; width: 88%; height: 1px; background: rgba(255,255,255,0.1); z-index: 1000; }
+        .progress-bar { width: 0%; height: 100%; background: var(--accent); }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo">NATIA</a>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact">START A RIOT</a>
-    </nav>
+    <nav><a href="index.html" class="logo">NATIA KURTANIDZE</a></nav>
 
-    <div class="labyrinth-track" id="track">
-        
-        <section class="section">
-            <div class="section-header">
-                <span>EST. 2026</span>
-                <h2>CREATIVE<br>DIRECTOR</h2>
-                <p style="letter-spacing: 2px; font-size: 9px; margin-top: 25px; opacity: 0.5;">SCROLL TO NAVIGATE THE VOID</p>
+    <div class="viewport">
+        <div id="laby-line">
+            <div class="node"><span>IDENTITY</span><h2>NATIA<br>KURTANIDZE</h2></div>
+            
+            <div class="node" onclick="location.href='kombucha.html'">
+                <div class="img-container"><img src="kombucha-hero.jpg"></div>
+                <span>01 BRANDING</span><h2>LIQUID<br>REBEL</h2>
             </div>
-        </section>
 
-        <div class="section" onclick="location.href='kombucha.html'">
-            <div class="img-box"><img src="kombucha1.jpg"></div>
-            <div class="section-header">
-                <span>01 / BRANDING</span>
-                <h2>FERMENTED<br>CHAOS</h2>
+            <div class="node" onclick="location.href='oatmilk.html'">
+                <div class="img-container"><img src="oat-hero.jpg"></div>
+                <span>02 PRODUCT</span><h2>THE OAT<br>IDENTITY</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='oatmilk.html'">
-            <div class="img-box"><img src="oat-hero.jpg"></div>
-            <div class="section-header">
-                <span>02 / PACKAGING</span>
-                <h2>THE OAT<br>STANDARD</h2>
+            <div class="node" onclick="location.href='nurture.html'">
+                <div class="img-container"><img src="nurture-hero.jpg"></div>
+                <span>03 SERIES</span><h2>GENTLE<br>FORCE</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='others.html'">
-            <div class="img-box"><img src="others-hero.jpg"></div>
-            <div class="section-header">
-                <span>03 / EXPERIMENTAL</span>
-                <h2>RAW<br>SAMPLES</h2>
+            <div class="node" onclick="location.href='others.html'">
+                <div class="img-container"><img src="others-hero.jpg"></div>
+                <span>04 CONCEPT</span><h2>RAW<br>EXTRACTS</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='nurture.html'">
-            <div class="img-box"><img src="Nurture.jpg"></div>
-            <div class="section-header">
-                <span>04 / VISUALS</span>
-                <h2>GENTLE<br>FORCE</h2>
+            <div class="node" onclick="location.href='posters.html'">
+                <div class="img-container"><img src="posters-hero.jpg"></div>
+                <span>05 DESIGN</span><h2>STREET<br>VOICE</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='go-left.html'">
-            <div class="img-box"><img src="goleft-hero.jpg"></div>
-            <div class="section-header">
-                <span>05 / DIRECTION</span>
-                <h2>WRONG<br>TURN</h2>
+            <div class="node" onclick="location.href='cd-covers.html'">
+                <div class="img-container"><img src="heartbreak-2.jpg"></div>
+                <span>06 ART</span><h2>SOUND &<br>VISION</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='cd-covers.html'">
-            <div class="img-box"><img src="cd-hero.jpg"></div>
-            <div class="section-header">
-                <span>06 / AUDIO-VISUAL</span>
-                <h2>SOUND &<br>SHELTER</h2>
+            <div class="node" onclick="location.href='exhibition.html'">
+                <div class="img-container"><img src="circle.jpg"></div>
+                <span>07 EXHIBITION</span><h2>CIRCLE<br>OF LIFE</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='circle.html'">
-            <div class="img-box"><img src="circle-hero.jpg"></div>
-            <div class="section-header">
-                <span>07 / GEOMETRY</span>
-                <h2>INFINITE<br>LOOPS</h2>
+            <div class="node" onclick="location.href='exhibition.html'">
+                <div class="img-container"><img src="nostalgia.jpg"></div>
+                <span>08 EXHIBITION</span><h2>NOSTAL<br>GIA</h2>
             </div>
-        </div>
 
-        <div class="section" onclick="location.href='dreamer.html'">
-            <div class="img-box"><img src="dreamer-hero.jpg"></div>
-            <div class="section-header">
-                <span>08 / CONCEPT</span>
-                <h2>LUCID<br>DREAMS</h2>
+            <div class="node" onclick="location.href='mailto:natia.kurtanidze55@gmail.com'">
+                <span>CONTACT</span><h2 style="color:var(--accent)">START<br>A RIOT</h2>
             </div>
-        </div>
-
-        <div class="riot-node">
-            <h2>START A RIOT</h2>
-            <a href="mailto:natia.kurtanidze55@gmail.com">CONNECT@NATIA.COM</a>
         </div>
     </div>
 
-    <div class="scroll-proxy"></div>
+    <div class="progress-wrap"><div class="progress-bar" id="p-bar"></div></div>
 
     <script>
-        const track = document.getElementById('track');
-        let current = 0;
-        let target = 0;
-        const ease = 0.075; // Adjust for smoothness
+        const scrollContainer = document.getElementById('laby-line');
+        const progressBar = document.getElementById('p-bar');
+        let scrollPos = 0;
+        let targetScrollPos = 0;
 
-        window.addEventListener('scroll', () => {
-            target = window.scrollY;
-        });
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            targetScrollPos += e.deltaY * 1.2;
+            const maxScroll = scrollContainer.scrollWidth - window.innerWidth;
+            targetScrollPos = Math.max(0, Math.min(targetScrollPos, maxScroll));
+        }, { passive: false });
 
         function animate() {
-            // Smooth interpolation (Lerp)
-            current += (target - current) * ease;
-            
-            // Move the track sideways based on vertical scroll
-            track.style.transform = `translateX(-${current}px)`;
-            
+            scrollPos += (targetScrollPos - scrollPos) * 0.08;
+            scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
+            const maxScroll = scrollContainer.scrollWidth - window.innerWidth;
+            if(maxScroll > 0) {
+                progressBar.style.width = `${(scrollPos / maxScroll) * 100}%`;
+            }
             requestAnimationFrame(animate);
         }
         animate();

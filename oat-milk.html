@@ -9,7 +9,7 @@
             --cinema-red: #ff0000; 
             --charcoal: #2D2926; 
             --white: #ffffff;
-            --bg-start: #ff0000; /* Starting with that Red Opener you liked */
+            --bg-start: #ff0000; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
@@ -18,12 +18,19 @@
             background-color: var(--bg-start);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1s ease;
+            transition: background-color 1s ease, color 1s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. THE STACKING HERO */
+        nav { 
+            position: fixed; top: 40px; width: 100%; padding: 0 6%; 
+            display: flex; justify-content: space-between; z-index: 1000; 
+            mix-blend-mode: difference;
+        }
+        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
+
+        /* 1. HERO: THE OAT STACK */
         .hero {
             height: 100vh;
             display: flex;
@@ -41,39 +48,29 @@
             color: var(--white);
             line-height: 0.8;
             text-transform: uppercase;
-            
-            /* STARTING STATE: Behind the picture */
-            z-index: 5; 
-            transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
+            z-index: 5; /* Behind by default */
+            transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
         }
 
         .hero-img {
             height: 85vh;
-            z-index: 10; /* Starting in front */
+            z-index: 10;
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
         }
 
-        /* 2. THE HOVER FLIP: OAT COMES ON TOP */
-        .hero:hover h1 {
-            z-index: 15; /* Snaps to the very top */
-            transform: scale(1.05);
-            mix-blend-mode: exclusion; /* Adds a premium visual 'cut' through the image */
-        }
+        /* THE FLIP */
+        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; transform: scale(1.05); }
+        .hero:hover .hero-img { transform: scale(0.95); }
 
-        .hero:hover .hero-img {
-            transform: scale(0.95); /* Bottle recedes slightly as text takes over */
-        }
-
-        /* 3. PHILOSOPHY & REALITY */
+        /* 2. PHILOSOPHY: CLEARANCE */
         .philosophy {
-            height: 60vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             padding: 0 10%;
-            background: #000;
+            background: #000; /* Solid transition zone */
         }
 
         .philosophy-text {
@@ -83,6 +80,7 @@
             max-width: 900px;
         }
 
+        /* 3. THE RESTORED GRID (REALITY) */
         .reality-content {
             background: var(--white);
             color: var(--charcoal);
@@ -92,24 +90,44 @@
         .spread {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-            padding: 150px 0;
+            gap: 60px;
+            padding: 200px 0;
             align-items: center;
         }
 
-        .text-side { grid-column: 2 / span 4; }
+        .text-side { grid-column: 1 / span 5; }
         .image-side { grid-column: 7 / span 6; }
 
-        h2 { font-size: clamp(32px, 5vw, 80px); font-weight: 900; line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; margin-bottom: 30px; }
-        p { font-size: 19px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
+        /* Fix weird text overlapping */
+        h2 { 
+            font-size: clamp(40px, 6vw, 90px); 
+            font-weight: 900; 
+            line-height: 0.9; 
+            letter-spacing: -3px; 
+            text-transform: uppercase; 
+            margin-bottom: 30px; 
+        }
 
-        @media (max-width: 900px) { .spread { display: flex; flex-direction: column; } h1 { font-size: 40vw; } }
+        p { 
+            font-size: 20px; 
+            line-height: 1.6; 
+            opacity: 0.8; 
+            font-weight: 300; 
+            max-width: 480px;
+        }
+
+        .mockup-img { width: 100%; display: block; }
+
+        @media (max-width: 900px) { 
+            .spread { display: flex; flex-direction: column; padding: 100px 0; } 
+            h1 { font-size: 40vw; }
+        }
     </style>
 </head>
 <body>
 
-    <nav style="position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference;">
-        <a href="index.html" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px;">NATIA STUDIO</a>
+    <nav>
+        <a href="index.html">NATIA STUDIO</a>
     </nav>
 
     <header class="hero">
@@ -126,12 +144,21 @@
     <main class="reality-content">
         <section class="spread">
             <div class="text-side">
-                <span class="label">Project Intent</span>
                 <h2>Structural<br>Silence.</h2>
-                <p>An identity that removes category noise and treats the carton as an object—solid, calm, architectural.</p>
+                <p>By removing decorative motifs, we allow the typography and the raw material color to define the object's presence in space.</p>
             </div>
             <div class="image-side">
-                <img src="oat-mockup1.jpg" style="width: 100%;">
+                <img src="oat-mockup1.jpg" class="mockup-img" alt="Mockup 01">
+            </div>
+        </section>
+
+        <section class="spread" style="direction: rtl;">
+            <div class="text-side" style="direction: ltr;">
+                <h2>The Visual<br>System.</h2>
+                <p>A rigorous grid ensures that despite the scale of the type, the information remains architectural and functional.</p>
+            </div>
+            <div class="image-side">
+                <img src="oat-mockup2.jpg" class="mockup-img" alt="Mockup 02">
             </div>
         </section>
     </main>
@@ -140,7 +167,7 @@
         window.addEventListener('scroll', () => {
             const scrollPos = window.scrollY;
             
-            // Transition from Red Opener to White Reality
+            // DRAIN THE RED
             if (scrollPos > 400) {
                 document.body.style.backgroundColor = '#ffffff';
                 document.body.style.color = '#2D2926';

@@ -6,7 +6,7 @@
     <title>FERMENT | NATIA STUDIO</title>
     <style>
         :root { 
-            --brand-red: #ff3b25; /* The specific red from your reference */
+            --brand-red: #ff3b25; 
             --white: #ffffff;
             --black: #000000;
             --muted: #888888;
@@ -15,17 +15,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--brand-red); /* Initial state: Pure Red */
+            background-color: var(--brand-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
             font-size: clamp(13px, 1.2vw, 16px);
             line-height: 1.45;
-            transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color 1.2s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. CINEMA HERO: TEXT UNDER PICTURE -> ON TOP ON HOVER */
+        /* 1. INITIAL STATE: PURE COLOR, ELEMENTS HIDDEN */
         .hero {
             height: 100vh;
             display: flex;
@@ -35,29 +35,39 @@
             z-index: 10;
         }
 
+        h1, .hero-img, nav {
+            opacity: 0; /* Hidden at start */
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* REVEAL CLASS */
+        .revealed {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
         h1 {
             position: absolute;
             font-size: clamp(80px, 22vw, 450px);
             font-weight: 950;
             letter-spacing: -0.07em;
             color: var(--white);
-            z-index: 5; /* Behind bottle */
+            z-index: 5;
             line-height: 0.8;
             text-transform: uppercase;
             pointer-events: none;
-            transition: z-index 0s;
         }
 
         .hero-img {
             height: 80vh;
-            z-index: 10; /* Front of text */
+            z-index: 10;
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
         }
 
-        /* THE SWITCH */
         .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
 
-        /* 2. THE CAPTION BLOCK (QUIET CONFIDENCE) */
+        /* 2. THE CAPTION BLOCK */
         .caption-block {
             padding: 150px 10%;
             background: #000;
@@ -66,28 +76,9 @@
             gap: 12px;
         }
 
-        .micro-label {
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 600;
-        }
-
-        .main-text {
-            max-width: 550px;
-            font-weight: 300;
-            color: var(--white);
-        }
-
-        .role-line {
-            margin-top: 20px;
-            font-size: 11px;
-            color: var(--muted);
-            border-top: 1px solid #333;
-            padding-top: 20px;
-            display: inline-block;
-        }
+        .micro-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+        .main-text { max-width: 550px; font-weight: 300; color: var(--white); }
+        .role-line { margin-top: 20px; font-size: 11px; color: var(--muted); border-top: 1px solid #333; padding-top: 20px; display: inline-block; }
 
         /* 3. GALLERY */
         .reality-content { background: var(--black); padding: 0 8% 200px; }
@@ -97,22 +88,21 @@
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
         nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
 
-        @media (max-width: 900px) { h1 { font-size: 40vw; } }
     </style>
 </head>
 <body>
 
-    <nav><a href="index.html">NATIA KURTANIDZE</a></nav>
+    <nav id="nav"><a href="index.html">NATIA KURTANIDZE</a></nav>
 
     <header class="hero">
-        <h1>FERMENT</h1>
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Hero">
+        <h1 id="title">FERMENT</h1>
+        <img src="kombucha-hero.jpg" id="bottle" class="hero-img" alt="Kombucha Hero">
     </header>
 
     <section class="caption-block">
         <span class="micro-label">Self-initiated packaging concept | 2025</span>
         <div class="main-text">
-            Color is the flavor. A packaging concept built on simplicity, presence, and clarity. I stripped everything back and let color become the identity. The palette is drawn from fermentation: raw amber, hibiscus blush, blackcurrant near-black — not colors about flavor, but colors from flavor. The system prioritizes clarity, hierarchy, and shelf legibility while remaining open to expansion.
+            Color is the flavor. A packaging concept built on simplicity, presence, and clarity. I stripped everything back and let color become the identity. The palette is drawn from fermentation: raw amber, hibiscus blush, blackcurrant near-black — not colors about flavor, but colors from flavor.
         </div>
         <div class="role-line">
             Concept · Color system · Label design · Packaging hierarchy · Mockups
@@ -120,18 +110,31 @@
     </section>
 
     <main class="reality-content">
-        <div class="spread">
-            <img src="kombucha2.jpg" class="mockup-img">
-        </div>
-        <div class="spread">
-            <img src="kombucha3.jpg" class="mockup-img">
-        </div>
+        <div class="spread"><img src="kombucha2.jpg" class="mockup-img"></div>
+        <div class="spread"><img src="kombucha3.jpg" class="mockup-img"></div>
     </main>
 
     <script>
+        const title = document.getElementById('title');
+        const bottle = document.getElementById('bottle');
+        const nav = document.getElementById('nav');
+
         window.addEventListener('scroll', () => {
-            // Once you move away from the "Pure Experience", background turns black
-            if (window.scrollY > 400) {
+            const scrollPos = window.scrollY;
+
+            // 1. REVEAL ELEMENTS AS YOU START MOVING
+            if (scrollPos > 100) {
+                title.classList.add('revealed');
+                bottle.classList.add('revealed');
+                nav.classList.add('revealed');
+            } else {
+                title.classList.remove('revealed');
+                bottle.classList.remove('revealed');
+                nav.classList.remove('revealed');
+            }
+
+            // 2. DRAIN RED TO BLACK
+            if (scrollPos > 500) {
                 document.body.style.backgroundColor = '#000000';
             } else {
                 document.body.style.backgroundColor = 'var(--brand-red)';

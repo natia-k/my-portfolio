@@ -3,162 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | CHROMATIC SOUL</title>
+    <title>KOMBUCHA | NATIA STUDIO</title>
     <style>
         :root { 
-            --soul: #d46c31; /* The "Amber" Soul color */
+            --soul: #d46c31; /* The Amber Soul - Change to your exact bottle color */
             --black: #000000;
             --white: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
         body { 
             background: var(--soul); 
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            /* Phase 1: The Color Takeover */
-            animation: bodyToBlack 2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-            animation-delay: 2.5s; 
+            /* Phase 1: Color Takeover stays for 2.5s, then transitions to Black */
+            animation: bodyToBlack 1.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+            animation-delay: 2s; 
         }
 
-        /* Nav & Text start invisible */
-        nav, .content-wrap, .hero-img {
+        /* Elements start invisible */
+        nav, .hero-content, .gallery, .footer {
             opacity: 0;
             animation: fadeIn 2s ease forwards;
-            animation-delay: 3.5s; /* The Delay */
+            animation-delay: 3s; 
         }
 
-        /* ANIMATIONS */
-        @keyframes bodyToBlack {
-            to { background: var(--black); }
-        }
+        @keyframes bodyToBlack { to { background: var(--black); } }
+        @keyframes fadeIn { to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* UI ELEMENTS */
+        /* NAV */
         nav {
             position: fixed; top: 0; width: 100%; padding: 40px 6%;
             display: flex; justify-content: space-between; z-index: 100;
-            font-size: 10px; letter-spacing: 5px; font-weight: 900;
+            font-size: 10px; letter-spacing: 6px; font-weight: 900;
         }
-        nav a { color: var(--white); text-decoration: none; }
+        nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
 
-        /* THE CINEMATIC HERO */
+        /* HERO - ONE SENTENCE */
         .hero {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        .hero-title {
-            position: absolute;
-            font-size: 30vw;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            z-index: 1;
+            text-align: center;
+            padding: 0 10%;
         }
 
         .hero-img {
-            height: 80vh;
-            z-index: 2;
-            filter: drop-shadow(0 0 50px rgba(0,0,0,0.5));
-            transition: transform 1s ease;
+            height: 70vh;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero:hover .hero-img {
-            transform: scale(1.05) rotateY(-10deg);
-        }
+        .hero:hover .hero-img { transform: scale(1.05); }
 
-        /* THE BRIEF - ASYMMETRIC */
-        .intro {
-            padding: 150px 10%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            background: var(--black);
-            color: var(--white);
-        }
-
-        .intro h2 {
-            font-size: clamp(40px, 6vw, 100px);
-            line-height: 0.85;
-            letter-spacing: -5px;
+        .one-sentence {
+            font-size: clamp(24px, 4vw, 48px);
+            font-weight: 300;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            max-width: 800px;
             text-transform: uppercase;
+            font-weight: 900;
         }
 
-        .intro p {
-            font-size: 20px;
-            line-height: 1.4;
-            opacity: 0.7;
-            max-width: 400px;
-            align-self: end;
+        /* GALLERY - THE FOCUS */
+        .gallery { padding: 5px; }
+        .gallery img { 
+            width: 100%; 
+            height: auto; 
+            margin-bottom: 5px; 
+            display: block; 
+            filter: saturate(0.8);
+            transition: filter 0.8s ease;
         }
+        .gallery img:hover { filter: saturate(1.2); }
 
-        /* THE FINALE */
-        .footer-cta {
-            height: 60vh;
+        /* FOOTER - THE ROLE */
+        .footer {
+            padding: 150px 6% 80px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: flex-end;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .footer-cta a {
-            font-size: 15vw;
+        .role-line {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .next-project {
+            font-size: 8vw;
             font-weight: 900;
-            color: var(--white);
+            letter-spacing: -6px;
             text-decoration: none;
-            letter-spacing: -10px;
+            color: var(--white);
+            line-height: 0.8;
             transition: 0.5s;
         }
 
-        .footer-cta a:hover {
-            color: var(--soul);
-            letter-spacing: 0;
-        }
+        .next-project:hover { color: var(--soul); letter-spacing: 0; }
 
+        @media (max-width: 768px) {
+            .one-sentence { font-size: 24px; }
+            .hero-img { height: 50vh; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">INDEX</a>
+        <a href="index.html">NATIA STUDIO</a>
         <a href="mailto:hello@natia.design">CONTACT</a>
     </nav>
 
-    <section class="hero">
-        <div class="hero-title">SOUL</div>
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Bottle">
-    </section>
-
-    <div class="content-wrap">
-        <section class="intro">
-            <h2>The Color is the<br><span style="color:var(--soul)">Personality.</span></h2>
-            <p>I stripped everything back. No kraft paper, no botanicals—the opposite of every other brand on the shelf. One flavor, one color, full commitment.</p>
-        </section>
-
-        <section style="padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div style="overflow:hidden; height: 80vh;">
-                <img src="kombucha2.jpg" style="width:100%; height:100%; object-fit:cover;">
-            </div>
-            <div style="overflow:hidden; height: 80vh;">
-                <img src="kombucha3.jpg" style="width:100%; height:100%; object-fit:cover;">
-            </div>
-        </section>
-
-        <footer class="footer-cta">
-            <a href="oat-milk.html">OAT MILK →</a>
-        </footer>
+    <div class="hero">
+        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha">
+        <h1 class="one-sentence">
+            I stripped everything back and let the product color become the personality.
+        </h1>
     </div>
+
+    <div class="gallery">
+        <img src="kombucha2.jpg" alt="Detail 1">
+        <img src="kombucha3.jpg" alt="Detail 2">
+    </div>
+
+    <footer class="footer">
+        <div class="role-line">
+            CONCEPT, COLOR SYSTEM, LABEL DESIGN<br>©2026 SELF-INITIATED
+        </div>
+        <a href="oat-milk.html" class="next-project">OAT MILK →</a>
+    </footer>
 
 </body>
 </html>

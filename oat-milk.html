@@ -3,161 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OAT MILK | NATIA STUDIO</title>
+    <title>OAT MILK | ARCHITECTURAL SILENCE</title>
     <style>
-        :root { 
-            --white: #ffffff;
-            --black: #000000;
+        :root {
+            --bg-base: #f7f7f7;
+            --text-main: #1a1a1a;
+            --accent-light: rgba(255, 255, 255, 0.8);
+            --line-color: rgba(0, 0, 0, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
-        
-        body { 
-            background-color: var(--white);
-            color: var(--black);
-            font-family: 'Inter', sans-serif; 
-            font-size: clamp(13px, 1.2vw, 16px);
-            line-height: 1.45;
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* Faint Grain Overlay */
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
         }
 
-        /* 1. HERO: ORIGINAL LAYOUT */
+        /* 1. STUDIO ATMOSPHERE & AURA */
+        #aura {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: soft-light;
+        }
+
+        /* 2. CINEMATIC SCROLL REVEAL (BLUR TO SHARP) */
+        .reveal {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(30px);
+            transition: all 1.4s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
+        }
+
+        /* 3. HERO: THE MONOLITH */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            perspective: 1200px;
+            padding: 5%;
         }
 
-        h1 {
-            position: absolute;
-            font-size: clamp(100px, 30vw, 500px);
-            font-weight: 950;
-            letter-spacing: -0.07em;
-            color: var(--black);
-            z-index: 5;
-            line-height: 0.8;
-            text-transform: uppercase;
-            pointer-events: none;
-            transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        .hero-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
         }
 
         .hero-img {
-            height: 85vh;
-            z-index: 10;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.05);
         }
 
-        /* THE FLIP */
-        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; color: var(--white); }
-        .hero:hover .hero-img { transform: scale(0.95); }
-
-        /* 2. CAPTION BLOCK (NO GRAY) */
-        .caption-block {
-            padding: 120px 10%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: var(--white);
+        .sheen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            background-size: 200% 200%;
+            pointer-events: none;
+            z-index: 2;
         }
 
-        .micro-label {
-            font-size: 10px;
-            letter-spacing: 0.2em;
+        /* 4. TYPOGRAPHY AS ARCHITECTURE */
+        .section-header {
+            padding: 150px 10%;
+            border-top: 1px solid var(--line-color);
+            margin-top: 100px;
+        }
+
+        .monolith-type {
+            font-size: clamp(40px, 8vw, 120px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
             text-transform: uppercase;
-            color: var(--black); /* Removed Gray */
-            font-weight: 700;
+            line-height: 0.9;
         }
 
-        .main-text {
-            max-width: 550px;
+        .monolith-type span {
+            display: block;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.8s ease;
+        }
+
+        .active .monolith-type span:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+        .active .monolith-type span:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+
+        .caption {
+            max-width: 450px;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-top: 40px;
             font-weight: 300;
         }
 
-        .role-line {
-            margin-top: 20px;
-            font-size: 11px;
-            color: var(--black); /* Removed Gray */
-            border-top: 1px solid var(--black); 
-            padding-top: 20px;
-            display: inline-block;
+        /* 5. PARALLAX MICRO-DEPTH IMAGES */
+        .parallax-wrap {
+            padding: 100px 10%;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        /* 3. GALLERY */
-        .reality-content { padding: 0 8% 100px; }
-        .spread { display: flex; justify-content: center; padding: 80px 0; }
-        .mockup-img { width: 100%; max-width: 1100px; display: block; }
-
-        /* 4. NEXT PAGE FOOTER */
-        .next-wrap { 
-            height: 60vh; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            border-top: 1px solid var(--black);
+        .parallax-img {
+            width: 100%;
+            max-width: 1100px;
+            will-change: transform;
         }
 
-        .next-link { 
-            font-size: clamp(50px, 12vw, 180px); 
-            font-weight: 950; 
-            text-decoration: none; 
-            color: transparent; 
-            -webkit-text-stroke: 1px var(--black); 
-            transition: 0.6s; 
-            letter-spacing: -5px; 
-            text-transform: uppercase;
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 40px; width: 100%; padding: 0 6%;
+            display: flex; justify-content: space-between;
+            z-index: 1000;
         }
 
-        .next-link:hover { color: var(--black); letter-spacing: 0; }
-
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
-
-        @media (max-width: 768px) {
-            .hero-img { height: 60vh; }
-            h1 { font-size: 40vw; }
-            .caption-block { padding: 80px 8%; }
+        nav a {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 900;
+            position: relative;
         }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0; height: 1px;
+            background: var(--text-main);
+            transition: width 0.4s ease;
+        }
+
+        nav a:hover::after { width: 100%; }
+
     </style>
 </head>
 <body>
 
-    <nav><a href="index.html">NATIA KURTANIDZE</a></nav>
+    <div id="aura"></div>
+
+    <nav>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="others.html">OTHERS</a>
+    </nav>
 
     <header class="hero">
-        <h1>OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Hero">
+        <div class="hero-container reveal" id="heroTarget">
+            <div class="sheen" id="heroSheen"></div>
+            <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
+        </div>
     </header>
 
-    <section class="caption-block">
-        <span class="micro-label">Self-initiated packaging concept | 2025</span>
-        <div class="main-text">
-            A deliberate study in structural restraint. We treated the carton as a monolith — removing category noise so form and material could speak. The visual system is built around clarity, simplicity, and scale, prioritizing information hierarchy without decoration.
-            <br><br>
-            The palette comes directly from the essence of the liquid itself — warm cream tones that feel natural yet distinct. Intentional structure creates a presence that feels calm and confident on shelf.
-        </div>
-        <div class="role-line">
-            Concept · Visual identity · Color system · Label exploration · Mockups
-        </div>
+    <section class="section-header reveal">
+        <h2 class="monolith-type">
+            <span>Structural</span>
+            <span>Silence.</span>
+        </h2>
+        <p class="caption">
+            A study in restraint. We treated the carton as a monolith, removing category noise so the form and material define the object's presence.
+        </p>
     </section>
 
-    <main class="reality-content">
-        <div class="spread">
-            <img src="oat-mockup1.jpg" class="mockup-img">
-        </div>
-        <div class="spread">
-            <img src="oat-mockup2.jpg" class="mockup-img">
-        </div>
-    </main>
+    <div class="parallax-wrap">
+        <img src="oat-mockup1.jpg" class="parallax-img reveal" data-speed="0.05">
+    </div>
 
-    <footer class="next-wrap">
-        <span class="micro-label" style="margin-bottom: 20px;">Next Project</span>
-        <a href="others.html" class="next-link">OTHERS</a>
-    </footer>
+    <section class="section-header reveal">
+        <h2 class="monolith-type">
+            <span>The Visual</span>
+            <span>System.</span>
+        </h2>
+        <p class="caption">
+            Drawing from the liquid's natural cream tones, the system prioritizes clarity and architectural scale.
+        </p>
+    </section>
 
+    <div class="parallax-wrap">
+        <img src="oat-mockup2.jpg" class="parallax-img reveal" data-speed="0.08">
+    </div>
+
+    <script>
+        const aura = document.getElementById('aura');
+        const hero = document.getElementById('heroTarget');
+        const sheen = document.getElementById('heroSheen');
+
+        // 1. Aura & 3D Tilt
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`;
+            aura.style.top = `${y}px`;
+
+            // Hero Tilt
+            const moveX = (window.innerWidth / 2 - x) / 70;
+            const moveY = (window.innerHeight / 2 - y) / 70;
+            hero.style.transform = `rotateX(${moveY}deg) rotateY(${-moveX}deg)`;
+            
+            // Sheen move
+            sheen.style.backgroundPosition = `${(x / window.innerWidth) * 100}%`;
+        });
+
+        // 2. Scroll Reveals & Parallax
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('.parallax-img').forEach(img => {
+                const speed = img.getAttribute('data-speed');
+                img.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
 </body>
 </html>

@@ -6,24 +6,26 @@
     <title>FERMENT | NATIA STUDIO</title>
     <style>
         :root { 
-            --target-red: #ff3b25; /* The specific red from your screenshot */
+            --brand-red: #ff3b25; /* Your specific red */
             --white: #ffffff;
             --black: #000000;
+            --muted: #888888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            /* THE EXPERIENCE: 100% PURE COLOR ON LOAD */
-            background-color: var(--target-red);
+            background-color: var(--brand-red);
             color: var(--white);
             font-family: 'Inter', sans-serif; 
+            font-size: clamp(13px, 1.2vw, 16px); /* Caption scale */
+            line-height: 1.45; /* Tighter line height */
             transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. THE HIDDEN HERO (Emerges on Scroll) */
+        /* 1. CINEMA RED OPENER: TOTAL SATURATION */
         .hero {
             height: 100vh;
             display: flex;
@@ -31,14 +33,6 @@
             justify-content: center;
             position: relative;
             z-index: 10;
-            opacity: 0; /* Hidden initially for the pure color effect */
-            transition: opacity 1s ease-out, transform 1s ease-out;
-            transform: translateY(50px);
-        }
-
-        .hero.revealed {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         h1 {
@@ -47,91 +41,100 @@
             font-weight: 950;
             letter-spacing: -0.07em;
             color: var(--white);
-            z-index: 5;
+            z-index: 5; /* Behind bottle */
             line-height: 0.8;
             text-transform: uppercase;
             pointer-events: none;
+            transition: z-index 0s;
         }
 
         .hero-img {
             height: 80vh;
-            z-index: 10;
+            z-index: 10; /* Front of text */
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
         }
 
-        /* 2. PHILOSOPHY & SYSTEM */
-        .philosophy-wrap {
-            height: 100vh;
+        /* HOVER INTERACTION */
+        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
+
+        /* 2. DESIGN THINKING BLOCK: QUIET CONFIDENCE */
+        .caption-block {
+            padding: 150px 10%;
+            background: #000;
             display: flex;
-            align-items: center;
-            padding: 0 10%;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .philosophy-text {
-            font-size: clamp(24px, 4vw, 48px);
-            line-height: 1.1;
+        .micro-label {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .main-text {
+            max-width: 550px;
             font-weight: 300;
-            max-width: 1000px;
+            color: var(--white);
         }
 
+        .role-line {
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--muted);
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            display: inline-block;
+        }
+
+        /* 3. GALLERY: NO TITLES */
         .reality-content { background: var(--black); padding: 0 8% 200px; }
-        .spread { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; padding: 150px 0; align-items: center; }
-        .text-side { grid-column: 1 / span 5; }
-        .visual-side { grid-column: 7 / span 6; }
-        h2 { font-size: clamp(40px, 6vw, 100px); font-weight: 900; letter-spacing: -4px; text-transform: uppercase; margin-bottom: 20px; }
-        p { font-size: 19px; line-height: 1.5; opacity: 0.6; font-weight: 300; }
+        .spread { display: flex; justify-content: center; padding: 100px 0; }
+        .mockup-img { width: 100%; max-width: 1100px; display: block; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
-        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
+        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
+
+        @media (max-width: 900px) { h1 { font-size: 40vw; } }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">NATIA KURTANIDZE</a>
-    </nav>
+    <nav><a href="index.html">NATIA KURTANIDZE</a></nav>
 
-    <header class="hero" id="hero">
+    <header class="hero">
         <h1>FERMENT</h1>
-        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Bottle">
+        <img src="kombucha-hero.jpg" class="hero-img" alt="Kombucha Hero">
     </header>
 
-    <section class="philosophy-wrap">
-        <p class="philosophy-text">
-            “An identity that speaks only in the product’s own colors and structure — distilled, restrained, and free of unnecessary visual noise.”
-        </p>
+    <section class="caption-block">
+        <span class="micro-label">Self-initiated packaging concept</span>
+        <div class="main-text">
+            Color is the flavor. One tone. One identity. A packaging concept built on simplicity, presence, and clarity. I stripped everything back and let color become the identity. The palette is drawn from the liquid itself — raw amber, hibiscus blush, blackcurrant near-black — colors not about flavor, but from flavor.
+        </div>
+        <div class="role-line">
+            Concept | Color system | Label design | Hierarchy
+        </div>
     </section>
 
     <main class="reality-content">
-        <section class="spread">
-            <div class="text-side">
-                <h2>Structural<br>Purity.</h2>
-                <p>The identity system is built with absolute restraint—color, form, and typographic clarity that reveal what the product actually is.</p>
-            </div>
-            <div class="visual-side">
-                <img src="kombucha2.jpg" style="width: 100%;">
-            </div>
-        </section>
+        <div class="spread">
+            <img src="kombucha2.jpg" class="mockup-img">
+        </div>
+        <div class="spread">
+            <img src="kombucha3.jpg" class="mockup-img">
+        </div>
     </main>
 
     <script>
-        const hero = document.getElementById('hero');
-
         window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY;
-
-            // REVEAL CONTENT: As you move, the bottle and text appear
-            if (scrollPos > 50) {
-                hero.classList.add('revealed');
+            // Once you move away from the "Pure Experience", background turns black
+            if (window.scrollY > 400) {
+                document.body.style.backgroundColor = '#000000';
             } else {
-                hero.classList.remove('revealed');
-            }
-
-            // DRAIN TO REALITY: Transition background to black
-            if (scrollPos > 600) {
-                document.body.style.backgroundColor = "#000000";
-            } else {
-                document.body.style.backgroundColor = "var(--target-red)";
+                document.body.style.backgroundColor = 'var(--brand-red)';
             }
         });
     </script>

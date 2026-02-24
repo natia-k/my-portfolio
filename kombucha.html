@@ -5,162 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOMBUCHA | NATIA STUDIO</title>
     <style>
-        :root { 
-            --red: #ff0000; 
-            --white: #ffffff; 
-            --black: #000000; 
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+        :root { --red: #ff0000; --white: #ffffff; --black: #000000; }
         
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
         
         body { 
             background: var(--black); 
             color: var(--white); 
-            font-family: 'Inter', -apple-system, sans-serif; 
+            font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. THE UNIFIED NAVIGATION */
+        /* Nav - Ultra Minimal */
         nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
+            position: fixed; top: 0; width: 100%; padding: 50px 6%; 
             display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 11px; letter-spacing: 6px; font-weight: 900; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 8px; font-weight: 900; text-transform: uppercase; }
 
-        /* 2. THE SOUL CENTER (HERO) */
+        /* THE WOW HERO - DEPTH & SCALE */
         .hero { 
             position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            perspective: 1500px;
+        }
+
+        /* Giant Text that bleeds off the screen */
+        .giant-title {
+            position: absolute;
+            font-size: 35vw;
+            font-weight: 950;
+            line-height: 0.7;
+            letter-spacing: -0.07em;
+            color: var(--black);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+            z-index: 1;
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            text-transform: uppercase;
+        }
+
+        .hero:hover .giant-title {
+            -webkit-text-stroke: 1px var(--red);
+            transform: scale(1.1) translateZ(100px);
+            opacity: 0.6;
+        }
+
+        /* The Bottle - Center Stage with 3D Physics */
+        .bottle-container {
+            position: relative;
+            z-index: 10;
+            height: 85vh;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        .bottle-container img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 50px rgba(0,0,0,1));
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero:hover .bottle-container img {
+            transform: rotateY(-15deg) rotateX(10deg) scale(1.1);
+            filter: drop-shadow(0 0 80px rgba(255,0,0,0.3));
+        }
+
+        /* STATEMENT SECTION - ASYMMETRIC & BOLD */
+        .statement {
+            padding: 200px 6%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .big-callout {
+            font-size: clamp(50px, 8vw, 120px);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -6px;
+            max-width: 900px;
+            text-align: right;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+        }
+
+        .big-callout span { color: var(--red); }
+
+        .brief-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 100%;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 40px;
+        }
+
+        .brief-item h4 { font-size: 10px; letter-spacing: 4px; color: var(--red); margin-bottom: 20px; text-transform: uppercase; }
+        .brief-item p { font-size: 18px; line-height: 1.4; font-weight: 300; opacity: 0.8; }
+
+        /* GALLERY - CINEMATIC FULL WIDTH */
+        .gallery-split {
+            display: flex;
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .gallery-box {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) brightness(0.5);
+            transition: 2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .gallery-box:hover img {
+            filter: grayscale(0) brightness(1);
+            transform: scale(1.1);
+        }
+
+        /* FOOTER - THE ENDLESS LOOP */
+        .footer-cta {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #110000 0%, #000 70%); /* Subtle red glow from the soul */
+            background: linear-gradient(to top, #110000, #000);
         }
 
-        .hero-bg-text {
-            position: absolute;
-            font-size: clamp(100px, 25vw, 500px);
-            font-weight: 900;
-            color: var(--black);
-            -webkit-text-stroke: 1px var(--glass);
-            letter-spacing: -0.05em;
-            z-index: 1;
-            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero:hover .hero-bg-text {
-            -webkit-text-stroke: 1px var(--red);
-            transform: scale(1.1);
-            filter: blur(2px); /* Makes it feel like liquid light */
-            opacity: 0.4;
-        }
-
-        .bottle-hero {
-            position: relative;
-            z-index: 5;
-            height: 80vh;
-            filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.2)); /* Red glow bleed */
-            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero:hover .bottle-hero {
-            transform: scale(1.05) rotateY(-10deg);
-        }
-
-        /* 3. UNIFIED NARRATIVE LAYOUT */
-        .section {
-            padding: 140px 8%;
-            border-top: 1px solid var(--glass);
-        }
-
-        .soul-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
-        }
-
-        .big-statement {
-            font-size: clamp(40px, 6vw, 90px);
-            line-height: 0.85;
-            font-weight: 900;
-            letter-spacing: -4px;
-            text-transform: uppercase;
-        }
-
-        .big-statement span {
-            color: var(--red);
-            display: block;
-        }
-
-        .detail-text {
-            font-size: 18px;
-            line-height: 1.4;
-            max-width: 420px;
-            font-weight: 400;
-        }
-
-        /* 4. THE SOUL GALLERY (Unified Colors) */
-        .full-gallery {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .gallery-wrap {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4/5;
-            background: #050505;
-        }
-
-        .gallery-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(1) brightness(0.7);
-            transition: 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* The Soul Reveal: Images and Text react together */
-        .gallery-wrap:hover img {
-            filter: grayscale(0) brightness(1);
-            transform: scale(1.05);
-        }
-
-        /* 5. THE FINALE - FLOWING INTO NEXT */
-        .next-soul {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(to bottom, #000, #110000);
-        }
-
-        .next-soul a {
+        .footer-cta a {
             text-decoration: none;
+            font-size: 20vw;
+            font-weight: 950;
             color: var(--white);
-            font-size: clamp(60px, 15vw, 250px);
-            font-weight: 900;
-            letter-spacing: -12px;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: -2vw;
+            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .next-soul a:hover {
+        .footer-cta a:hover {
             color: var(--red);
-            letter-spacing: 0px;
+            letter-spacing: 0;
             font-style: italic;
         }
 
         @media (max-width: 1000px) {
-            .soul-grid { grid-template-columns: 1fr; gap: 40px; }
-            .full-gallery { grid-template-columns: 1fr; }
+            .brief-grid { grid-template-columns: 1fr; }
+            .gallery-split { flex-direction: column; height: auto; }
+            .gallery-box { height: 60vh; }
         }
     </style>
 </head>
@@ -172,43 +177,39 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-bg-text">CHROMATIC</div>
-        <img src="kombucha-hero.jpg" class="bottle-hero" alt="Kombucha Soul">
-    </section>
-
-    <section class="section">
-        <div class="soul-grid">
-            <h2 class="big-statement">
-                One Flavor. <span>One Color.</span> Full Commitment.
-            </h2>
-            <p class="detail-text">
-                I stripped everything back and let the product color become the personality. No kraft paper, no botanicals—just raw amber and hibiscus blush extracted from fermentation itself.
-            </p>
+        <div class="giant-title">SOUL</div>
+        <div class="bottle-container">
+            <img src="kombucha-hero.jpg" alt="Chromatic Soul Kombucha">
         </div>
     </section>
 
-    <section class="full-gallery">
-        <div class="gallery-wrap">
-            <img src="kombucha2.jpg" alt="Amber detail">
-        </div>
-        <div class="gallery-wrap">
-            <img src="kombucha3.jpg" alt="Bottle lineup">
+    <section class="statement">
+        <h2 class="big-callout">
+            One Flavor. <span>One Color.</span><br>Full Commitment.
+        </h2>
+        
+        <div class="brief-grid">
+            <div class="brief-item">
+                <h4>The Brief</h4>
+                <p>No kraft paper. No hand-drawn botanicals. The opposite of every brand on the shelf.</p>
+            </div>
+            <div class="brief-item">
+                <h4>The Decision</h4>
+                <p>Strip everything back. Let the product color become the personality.</p>
+            </div>
+            <div class="brief-item">
+                <h4>The Soul</h4>
+                <p>Colors extracted from fermentation. Raw amber, hibiscus blush, blackcurrant near-black.</p>
+            </div>
         </div>
     </section>
 
-    <section class="section" style="border-bottom: 1px solid var(--glass);">
-        <div class="soul-grid" style="direction: rtl;">
-            <h2 class="big-statement" style="direction: ltr;">
-                Intentional <span>Honesty.</span>
-            </h2>
-            <p class="detail-text" style="direction: ltr;">
-                A visual identity that feels premium without trying to look expensive. Designed for shelf impact, rooted in the chromatic truth of the ingredients.
-            </p>
-        </div>
+    <section class="gallery-split">
+        <div class="gallery-box"><img src="kombucha2.jpg"></div>
+        <div class="gallery-box"><img src="kombucha3.jpg"></div>
     </section>
 
-    <footer class="next-soul">
-        <p style="letter-spacing: 10px; font-weight: 900; font-size: 10px; color: var(--red); margin-bottom: 20px;">O1 — NEXT PROJECT</p>
+    <footer class="footer-cta">
         <a href="oat-milk.html">OAT MILK</a>
     </footer>
 

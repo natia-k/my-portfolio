@@ -6,7 +6,7 @@
     <title>OAT MILK | NATIA STUDIO</title>
     <style>
         :root { 
-            --target-red: #ff3b25; 
+            --brand-red: #ff3b25; /* Your specific red from screenshot */
             --charcoal: #2D2926; 
             --white: #ffffff;
             --muted: #888888;
@@ -15,18 +15,24 @@
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--target-red);
+            background-color: var(--brand-red); /* Opening Red experience */
             color: var(--white);
             font-family: 'Inter', sans-serif; 
-            /* Smaller, tighter text for the 'Caption' feel */
-            font-size: clamp(13px, 1.2vw, 16px);
+            font-size: clamp(13px, 1.2vw, 16px); /* Scaled down for portfolio look */
             line-height: 1.45;
             transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 1s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. HERO: RED OPENER & TEXT FLIP */
+        nav { 
+            position: fixed; top: 40px; width: 100%; padding: 0 6%; 
+            display: flex; justify-content: space-between; z-index: 1000; 
+            mix-blend-mode: difference;
+        }
+        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
+
+        /* 1. HERO: STACKING INTERACTION */
         .hero {
             height: 100vh;
             display: flex;
@@ -42,7 +48,9 @@
             font-weight: 950;
             letter-spacing: -0.07em;
             color: var(--white);
-            z-index: 5;
+            z-index: 5; /* Starts behind */
+            line-height: 0.8;
+            text-transform: uppercase;
             transition: z-index 0s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
         }
@@ -53,12 +61,13 @@
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* TEXT COMES ON TOP ON HOVER */
-        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; }
+        /* THE FLIP: OAT COMES ON TOP */
+        .hero:hover h1 { z-index: 15; mix-blend-mode: exclusion; transform: scale(1.05); }
+        .hero:hover .hero-img { transform: scale(0.95); }
 
-        /* 2. THE COMPACT CAPTION SECTION */
-        .description-block {
-            padding: 120px 10%;
+        /* 2. THE CAPTION BLOCK (DESIGN THINKING) */
+        .caption-block {
+            padding: 150px 10%;
             background: #000;
             display: flex;
             flex-direction: column;
@@ -70,19 +79,28 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--muted);
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .caption-paragraph {
-            max-width: 500px;
+        .main-text {
+            max-width: 550px;
             font-weight: 300;
             color: var(--white);
-            opacity: 0.9;
         }
 
-        /* 3. REALITY GALLERY (No section titles) */
+        .role-line {
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--muted);
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            display: inline-block;
+        }
+
+        /* 3. THE REALITY GALLERY (RESIZED & CLEAN) */
         .reality-content {
             background: var(--white);
+            color: var(--charcoal);
             padding: 0 8% 150px;
         }
 
@@ -92,16 +110,9 @@
             padding: 100px 0;
         }
 
-        .mockup-img { 
-            width: 100%; 
-            max-width: 1100px; 
-            display: block; 
-        }
+        .mockup-img { width: 100%; max-width: 1100px; display: block; }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference; }
-        nav a { color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
-
-        @media (max-width: 900px) { h1 { font-size: 40vw; } .description-block { padding: 80px 8%; } }
+        @media (max-width: 900px) { h1 { font-size: 40vw; } }
     </style>
 </head>
 <body>
@@ -110,22 +121,25 @@
 
     <header class="hero">
         <h1>OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Hero">
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
     </header>
 
-    <section class="description-block">
-        <span class="micro-label">Conceptual packaging study</span>
-        <p class="caption-paragraph">
-            We treated the carton as a monolith, removing category noise so the material and form could speak. The palette is drawn from the natural cream tones of the liquid itself. The system prioritizes clarity and restraint, resulting in a quiet but distinctive shelf presence.
-        </p>
+    <section class="caption-block">
+        <span class="micro-label">Self-initiated packaging concept | 2025</span>
+        <div class="main-text">
+            A study in structural restraint. We treated the carton as a monolith — removing category noise so form and material could speak. The visual system is built around clarity, simplicity, and scale, prioritizing information hierarchy without decoration. The palette comes directly from the essence of the liquid itself — warm cream tones that feel natural yet distinct. Minimal expression and intentional structure create a presence that feels calm and confident on shelf.
+        </div>
+        <div class="role-line">
+            Concept | Visual identity | Color system | Label exploration | Mockups
+        </div>
     </section>
 
     <main class="reality-content">
         <div class="spread">
-            <img src="oat-mockup1.jpg" class="mockup-img" alt="Oat Milk Detail 1">
+            <img src="oat-mockup1.jpg" class="mockup-img">
         </div>
         <div class="spread">
-            <img src="oat-mockup2.jpg" class="mockup-img" alt="Oat Milk Detail 2">
+            <img src="oat-mockup2.jpg" class="mockup-img">
         </div>
     </main>
 
@@ -135,7 +149,7 @@
                 document.body.style.backgroundColor = '#ffffff';
                 document.body.style.color = '#2D2926';
             } else {
-                document.body.style.backgroundColor = 'var(--target-red)';
+                document.body.style.backgroundColor = 'var(--brand-red)';
                 document.body.style.color = '#ffffff';
             }
         });

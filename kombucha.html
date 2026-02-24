@@ -3,193 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOMBUCHA | NATIA DESIGN</title>
+    <title>KOMBUCHA | NATIA STUDIO</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        :root { --red: #ff0000; --white: #ffffff; --black: #050505; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
             background: var(--black); 
             color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Nav - Pure High Contrast */
+        /* Modern Navigation */
         nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
+            position: fixed; top: 0; width: 100%; padding: 30px 5%; 
             display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; font-size: 13px; letter-spacing: 5px; font-weight: 900; 
+            z-index: 1000; mix-blend-mode: difference;
         }
-        nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
+        nav a { 
+            color: var(--white); text-decoration: none; text-transform: uppercase; 
+            font-size: 11px; letter-spacing: 3px; font-weight: 700;
+        }
 
-        /* THE MOTION HERO SECTION */
-        .hero-split { 
-            display: flex; 
+        /* HERO LAYOUT */
+        .hero { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1fr; 
             height: 100vh; 
             width: 100%; 
             align-items: center;
-            background: var(--black);
-            cursor: pointer;
+            overflow: hidden;
         }
-        
-        /* Left Side: The Image */
-        .hero-left { 
-            flex: 1.2; 
+
+        /* LEFT IMAGE AREA */
+        .hero-visual { 
+            position: relative;
             height: 100vh;
+            overflow: hidden;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
         
-        .hero-left img { 
-            width: 70%; 
-            height: 70%; 
-            object-fit: contain; /* Ensures no part of the bottle is cut */
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: brightness(0.7);
+        .hero-visual img { 
+            width: 80%; 
+            height: 80%; 
+            object-fit: contain; 
+            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1), filter 1.2s ease;
+            filter: grayscale(100%) brightness(0.7);
+            will-change: transform;
         }
 
-        /* Hover: Image Grows and brightens */
-        .hero-split:hover .hero-left img { 
-            width: 90%; 
-            height: 90%; 
-            filter: brightness(1);
-            transform: scale(1.05);
+        /* Hover Effect for Image */
+        .hero:hover .hero-visual img { 
+            transform: scale(1.1) rotate(-1deg);
+            filter: grayscale(0%) brightness(1);
         }
 
-        /* Right Side: The Text Layout */
-        .hero-right { 
-            flex: 1; 
-            padding-right: 8%;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-        }
-        
-        /* Text moves right on hover */
-        .hero-split:hover .hero-right {
-            transform: translateX(30px);
+        /* RIGHT TEXT AREA */
+        .hero-content { 
+            padding: 0 10% 0 5%;
+            z-index: 2;
         }
 
-        .project-num {
-            font-size: 14px;
-            font-weight: 900;
-            margin-bottom: 20px;
-            display: block;
-            letter-spacing: 2px;
-        }
-        
-        h1 { 
-            font-size: clamp(80px, 12vw, 160px); 
-            font-weight: 900; 
-            line-height: 0.8; 
-            letter-spacing: -10px; 
-            margin-bottom: 40px; 
+        .meta-data {
+            font-size: 10px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            transition: color 0.8s ease; /* Smooth transition to red */
-        }
-
-        /* Title turns Red on hover */
-        .hero-split:hover h1 {
-            color: var(--accent);
-        }
-
-        .quote { 
-            font-size: 26px; 
-            line-height: 1.1; 
-            max-width: 440px; 
-            margin-bottom: 40px;
-            transition: transform 1.2s ease;
-        }
-
-        .hero-split:hover .quote {
-            transform: translateX(10px);
-        }
-
-        .project-scope { 
-            font-size: 11px; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            border-top: 2px solid var(--white); 
-            padding-top: 30px; 
+            color: var(--red);
+            margin-bottom: 20px;
             font-weight: 900;
-            max-width: 400px;
         }
 
-        /* BOTTOM GALLERY - Mockups move too */
+        h1 { 
+            font-size: clamp(60px, 10vw, 140px); 
+            font-weight: 900; 
+            line-height: 0.85; 
+            letter-spacing: -6px; 
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Text Interaction */
+        .hero:hover h1 {
+            color: var(--red);
+            transform: skewX(-5deg);
+        }
+
+        .description { 
+            font-size: 22px; 
+            line-height: 1.3; 
+            max-width: 400px; 
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* DETAILS GRID */
+        .details {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+        }
+
+        .detail-box span {
+            display: block;
+            font-size: 9px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .detail-box p {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* GALLERY SECTION */
         .gallery { 
-            padding: 80px 6%; 
+            padding: 100px 5%; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 60px; 
+            gap: 40px; 
         }
 
         .gallery-item {
+            position: relative;
             overflow: hidden;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            aspect-ratio: 4/5;
+            background: #111;
         }
 
-        .gallery img { 
+        .gallery-item img { 
             width: 100%; 
-            display: block; 
-            transition: transform 1.5s ease;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .gallery-item:hover {
-            transform: translateY(-20px);
-        }
-        
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
-        .next-btn { 
-            padding: 160px 6% 200px; 
-            text-align: right; 
-            border-top: 4px solid var(--white); 
+        /* FOOTER / NEXT */
+        .next-project {
+            padding: 150px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
-        .next-btn a { text-decoration: none; color: var(--white); }
-        .next-btn h2 { 
-            font-size: clamp(60px, 11vw, 130px); 
-            font-weight: 900; 
-            letter-spacing: -6px; 
-        }
-        .next-btn a:hover h2 { color: var(--accent); }
 
-        @media (max-width: 1100px) {
-            .hero-split { flex-direction: column; height: auto; }
-            .hero-left { height: 60vh; width: 100%; }
-            .hero-right { padding: 60px 10%; width: 100%; }
-            .hero-left img { width: 90%; height: 90%; }
+        .next-project a {
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .next-project h2 {
+            font-size: clamp(40px, 8vw, 100px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            transition: 0.4s;
+        }
+
+        .next-project a:hover h2 {
+            color: var(--red);
+            font-style: italic;
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; height: auto; padding-top: 120px; }
+            .hero-visual { height: 50vh; }
+            .hero-content { padding: 40px 5% 80px; }
+            .gallery { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">← BACK</a>
-        <span style="letter-spacing:8px; font-weight:900;">NATIA DESIGN</span>
-        <a href="mailto:contact@natiadesign.com">EMAIL</a>
+        <a href="index.html">Index</a>
+        <a href="mailto:hello@natiastudio.com">Contact</a>
     </nav>
 
-    <div class="container">
-        <section class="hero-split">
-            <div class="hero-left">
-                <img src="kombucha-hero.jpg" alt="Kombucha Hero">
+    <main>
+        <section class="hero">
+            <div class="hero-visual">
+                <img src="kombucha-hero.jpg" alt="Kombucha Project">
             </div>
             
-            <div class="hero-right">
-                <span class="project-num">01 — PROJECT</span>
+            <div class="hero-content">
+                <div class="meta-data">Project 01 — Branding</div>
                 <h1>KOMBU<br>CHA</h1>
-                <p class="quote">"It started as simple tea. Then time, patience. And a little magic happened."</p>
+                <p class="description">Creating a visual language for organic fermentation. A blend of ancient tradition and modern botanical art.</p>
                 
-                <div class="project-scope">
-                    SCOPE: BOTANICAL ILLUSTRATION <br> COLOUR EXPLORATION • 2026
+                <div class="details">
+                    <div class="detail-box">
+                        <span>Scope</span>
+                        <p>Packaging & Illustration</p>
+                    </div>
+                    <div class="detail-box">
+                        <span>Year</span>
+                        <p>2025</p>
+                    </div>
+                    <div class="detail-box">
+                        <span>Client</span>
+                        <p>The Tea Lab</p>
+                    </div>
+                    <div class="detail-box">
+                        <span>Role</span>
+                        <p>Lead Designer</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -199,13 +230,13 @@
             <div class="gallery-item"><img src="kombucha3.jpg"></div>
         </section>
 
-        <footer class="next-btn">
+        <footer class="next-project">
             <a href="oat-milk.html">
-                <span style="color:var(--accent); font-weight:900; font-size:16px; letter-spacing:5px;">NEXT PROJECT</span>
-                <h2>OAT MILK →</h2>
+                <span style="font-size: 11px; letter-spacing: 4px; color: var(--red); font-weight: 900;">NEXT CASE STUDY</span>
+                <h2>OAT MILK BRANDING →</h2>
             </a>
         </footer>
-    </div>
+    </main>
 
 </body>
 </html>

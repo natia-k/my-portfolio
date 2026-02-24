@@ -3,107 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE | ARCHIVE</title>
+    <title>NATIA KURTANIDZE | PORTFOLIO</title>
     <style>
         :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            padding: 5vw 8vw;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 80px;
-        }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; padding: 5vw 8vw; }
+        nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 80px; }
         .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 14px; }
-        .contact-link { color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 900; letter-spacing: 2px; }
-
         .project-list { display: flex; flex-direction: column; }
-
         .project-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 0;
-            border-bottom: 1px solid #222;
-            text-decoration: none;
-            color: var(--white);
-            transition: 0.4s ease;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 35px 0; border-bottom: 1px solid #222;
+            text-decoration: none; color: var(--white); transition: 0.3s ease;
         }
-
-        .project-item:hover { border-color: var(--accent); padding-left: 20px; }
-
-        .project-info { display: flex; flex-direction: column; }
-        .project-info span { color: var(--accent); font-size: 10px; letter-spacing: 4px; margin-bottom: 10px; font-weight: 900; }
-        .project-info h2 { font-size: clamp(30px, 8vw, 90px); font-weight: 900; text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; }
-
-        .preview-box {
-            width: 180px;
-            height: 240px;
-            background: #111;
-            overflow: hidden;
-        }
-        @media (max-width: 768px) { .preview-box { display: none; } }
-
-        .preview-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
-        .project-item:hover img { opacity: 1; transform: scale(1.05); }
+        .project-item:hover { border-color: var(--accent); padding-left: 15px; }
+        .project-item h2 { font-size: clamp(30px, 8vw, 100px); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; margin: 0; }
+        .project-item span { color: var(--accent); font-weight: 900; font-size: 11px; letter-spacing: 3px; }
         .project-item:hover h2 { color: var(--accent); }
     </style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo">NATIA KURTANIDZE</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com" class="contact-link">GET IN TOUCH</a>
-    </nav>
-
+    <nav><div class="logo">NATIA KURTANIDZE</div></nav>
     <div class="project-list">
-        <a href="kombucha.html" class="project-item">
-            <div class="project-info"><span>01 BRANDING</span><h2>KOMBUCHA</h2></div>
-            <div class="preview-box"><img src="kombucha-hero.jpg" alt="Kombucha"></div>
-        </a>
-
-        <a href="oatmilk.html" class="project-item">
-            <div class="project-info"><span>02 PRODUCT</span><h2>OAT MILK</h2></div>
-            <div class="preview-box"><img src="Oat Milk.jpg" alt="Oat Milk"></div>
-        </a>
-
-        <a href="others.html" class="project-item">
-            <div class="project-info"><span>03 CONCEPT</span><h2>THE OTHERS</h2></div>
-            <div class="preview-box"><img src="others-hero.jpg" alt="Others"></div>
-        </a>
-
-        <a href="nurture.html" class="project-item">
-            <div class="project-info"><span>04 SERIES</span><h2>NURTURE</h2></div>
-            <div class="preview-box"><img src="nurture-hero.jpg" alt="Nurture"></div>
-        </a>
-
-        <a href="cd-covers.html" class="project-item">
-            <div class="project-info"><span>05 ART</span><h2>CD COVERS</h2></div>
-            <div class="preview-box"><img src="cd-covers-hero.jpg" alt="CD Covers"></div>
-        </a>
-
-        <a href="go-left.html" class="project-item">
-            <div class="project-info"><span>06 CONCEPT</span><h2>GO LEFT</h2></div>
-            <div class="preview-box"><img src="go-left-hero.jpg" alt="Go Left"></div>
-        </a>
-
-        <a href="exhibition.html" class="project-item">
-            <div class="project-info"><span>07 DESIGN</span><h2>POSTERS</h2></div>
-            <div class="preview-box"><img src="posters-hero.jpg" alt="Posters"></div>
-        </a>
-
-        <a href="exhibition.html" class="project-item">
-            <div class="project-info"><span>08 ARCHIVE</span><h2>EXHIBITION</h2></div>
-            <div class="preview-box"><img src="flashbacks.jpg" alt="Exhibition"></div>
-        </a>
+        <a href="kombucha.html" class="project-item"><h2>KOMBUCHA</h2><span>01</span></a>
+        <a href="oat-milk.html" class="project-item"><h2>OAT MILK</h2><span>02</span></a>
+        <a href="others.html" class="project-item"><h2>THE OTHERS</h2><span>03</span></a>
+        <a href="nurture.html" class="project-item"><h2>NURTURE</h2><span>04</span></a>
+        <a href="cd-covers.html" class="project-item"><h2>CD COVERS</h2><span>05</span></a>
+        <a href="go-left.html" class="project-item"><h2>GO LEFT</h2><span>06</span></a>
+        <a href="posters.html" class="project-item"><h2>POSTERS</h2><span>07</span></a>
+        <a href="posters.html" class="project-item"><h2>EXHIBITION</h2><span>08</span></a>
     </div>
-
 </body>
 </html>

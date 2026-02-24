@@ -15,7 +15,7 @@
             overflow-x: hidden;
         }
 
-        /* Navigation - Matching "NATIA DESIGN" style */
+        /* Navigation Bar */
         nav { 
             position: fixed; 
             top: 0; 
@@ -33,7 +33,7 @@
         nav a { color: var(--white); text-decoration: none; }
         .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 5px; }
 
-        /* The Hero Split Section */
+        /* Split Screen Hero */
         .hero-split { 
             display: flex; 
             height: 100vh; 
@@ -41,11 +41,9 @@
             align-items: stretch;
         }
         
-        /* Left Side: Large Label Image */
         .hero-left { 
             flex: 1.1; 
             overflow: hidden; 
-            background: #111;
         }
         .hero-left img { 
             width: 100%; 
@@ -54,14 +52,12 @@
             display: block;
         }
 
-        /* Right Side: Text and Color Line */
         .hero-right { 
             flex: 1; 
             padding: 0 8%; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
-            background: var(--black);
         }
         
         h1 { 
@@ -79,7 +75,6 @@
             margin-bottom: 10px; 
             line-height: 1.4; 
             max-width: 400px;
-            font-weight: 300;
         }
 
         .project-scope { 
@@ -92,46 +87,35 @@
             font-weight: 700;
         }
 
-        /* THE 4 PICS LINE - Matching the screenshot grid */
-        .color-exploration { 
+        /* The 4 Small Color Pics */
+        .color-grid { 
             display: flex; 
             gap: 10px; 
         }
-        .color-exploration img { 
+        .color-grid img { 
             width: 55px; 
             height: auto; 
             transition: transform 0.3s ease;
-            cursor: pointer;
         }
-        .color-exploration img:hover { 
-            transform: scale(1.1);
-        }
+        .color-grid img:hover { transform: scale(1.15); }
 
-        /* Bottom Mockup Gallery */
+        /* Secondary Gallery Section */
         .gallery { 
             padding: 80px 5%; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 20px;
         }
-        .gallery img { 
-            width: 100%; 
-            height: auto; 
-            display: block;
-        }
+        .gallery img { width: 100%; height: auto; }
 
-        .next-btn {
-            padding: 100px 5% 150px;
+        .next-footer {
+            padding: 100px 5%;
             text-align: right;
             border-top: 1px solid #111;
         }
-        .next-btn a {
-            text-decoration: none;
-            color: var(--white);
-        }
-        .next-btn h2 { font-size: 80px; font-weight: 900; letter-spacing: -3px; }
+        .next-footer a { text-decoration: none; color: var(--white); }
+        .next-footer h2 { font-size: 80px; font-weight: 900; letter-spacing: -3px; }
 
-        /* Responsive for Mobile */
         @media (max-width: 1024px) {
             .hero-split { flex-direction: column; height: auto; }
             .hero-left { height: 60vh; }
@@ -150,31 +134,29 @@
     <div class="container">
         <section class="hero-split">
             <div class="hero-left">
-                <img src="kombucha1.jpg" alt="Kombucha Label">
+                <img src="kombucha1.jpg" alt="Kombucha Label Design">
             </div>
             
             <div class="hero-right">
                 <h1>KOMBUCHA</h1>
-                
                 <p class="quote">"It started as simple tea.<br>Then time, patience.<br>And a little magic happened."</p>
-                
                 <p class="project-scope">PROJECT SCOPE:<br>BOTANICAL ILLUSTRATION • LABEL DESIGN • COLOUR EXPLORATION</p>
                 
-                <div class="color-exploration">
-                    <img src="k4-1.jpg" alt="Color 1">
-                    <img src="k4-2.jpg" alt="Color 2">
-                    <img src="k4-3.jpg" alt="Color 3">
-                    <img src="k4-4.jpg" alt="Color 4">
+                <div class="color-grid">
+                    <img src="k4-1.jpg">
+                    <img src="k4-2.jpg">
+                    <img src="k4-3.jpg">
+                    <img src="k4-4.jpg">
                 </div>
             </div>
         </section>
 
         <section class="gallery">
-            <img src="kombucha2.jpg" alt="Bottle Mockup 1">
-            <img src="kombucha3.jpg" alt="Bottle Mockup 2">
+            <img src="kombucha2.jpg">
+            <img src="kombucha3.jpg">
         </section>
 
-        <footer class="next-btn">
+        <footer class="next-footer">
             <a href="oat-milk.html">
                 <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
                 <h2>OAT MILK →</h2>

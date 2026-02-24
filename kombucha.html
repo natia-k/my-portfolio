@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOMBUCHA | NATIA DESIGN</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --soft-grey: #1a1a1a; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -16,116 +16,113 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed Navigation */
+        /* Nav - Pure White, No Gray */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 40px 6%; 
             display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; font-size: 11px; letter-spacing: 3px; font-weight: 900; 
+            z-index: 1000; font-size: 12px; letter-spacing: 4px; font-weight: 900; 
         }
-        nav a { color: var(--white); text-decoration: none; transition: opacity 0.3s; }
-        nav a:hover { opacity: 0.5; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
+        nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 6px; }
 
-        /* HERO SECTION - The Split */
+        /* HERO SECTION */
         .hero-split { 
             display: flex; 
             height: 100vh; 
             width: 100%; 
-            align-items: center;
+            align-items: stretch; /* Makes image fill full height */
         }
         
         .hero-left { 
-            flex: 1.2; 
+            flex: 1.3; /* Image is bigger */
             height: 100vh;
-            background: var(--soft-grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
         }
         
         .hero-left img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* This prevents the image from looking "terrible" or stretched */
+            object-fit: cover; /* Perfect size, no stretching */
+            display: block;
         }
 
         .hero-right { 
             flex: 1; 
-            padding: 0 10%; 
+            padding: 0 8%; 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
             height: 100vh;
         }
         
+        /* Typography - Huge and Pure White */
         h1 { 
-            font-size: clamp(50px, 9vw, 120px); 
+            font-size: clamp(60px, 12vw, 150px); 
             font-weight: 900; 
             line-height: 0.8; 
-            letter-spacing: -6px; 
+            letter-spacing: -8px; 
             margin-bottom: 40px; 
             text-transform: uppercase;
+            color: var(--white);
         }
 
         .quote { 
-            font-size: 18px; 
-            color: #888; 
-            margin-bottom: 10px; 
-            line-height: 1.5; 
-            max-width: 380px;
-            font-weight: 300;
+            font-size: 24px; /* Bigger font */
+            color: var(--white); /* No gray */
+            margin-bottom: 20px; 
+            line-height: 1.2; 
+            max-width: 450px;
+            font-weight: 400;
         }
 
         .project-scope { 
-            font-size: 9px; 
+            font-size: 11px; 
             letter-spacing: 2px; 
-            color: #444; 
+            color: var(--white); /* No gray */
             text-transform: uppercase; 
             margin-top: 60px; 
-            margin-bottom: 20px;
-            border-top: 1px solid #222;
-            padding-top: 20px;
+            border-top: 2px solid var(--white);
+            padding-top: 25px;
+            font-weight: 900;
         }
 
         /* 4-Image Grid */
         .color-grid { 
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            width: 100%;
-            max-width: 300px;
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
         }
         .color-grid img { 
-            width: 100%; 
+            width: 60px; 
             height: auto; 
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid #111;
+            transition: 0.3s;
+            border: 1px solid #333;
         }
-        .color-grid img:hover { transform: scale(1.1); border-color: var(--accent); }
+        .color-grid img:hover { transform: scale(1.2); border-color: var(--accent); }
 
         /* Secondary Gallery Below */
         .gallery { 
-            padding: 100px 6%; 
+            padding: 40px 6%; 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 40px;
-            background: #050505;
+            gap: 20px;
+            background: var(--black);
         }
-        .gallery img { width: 100%; height: auto; }
+        .gallery img { width: 100%; height: auto; display: block; }
 
         .next-btn {
-            padding: 120px 6% 150px;
+            padding: 150px 6%;
             text-align: right;
+            border-top: 2px solid #222;
         }
         .next-btn a { text-decoration: none; color: var(--white); }
-        .next-btn h2 { font-size: clamp(40px, 8vw, 100px); font-weight: 900; letter-spacing: -4px; transition: 0.3s; }
-        .next-btn a:hover h2 { color: var(--accent); transform: translateX(-10px); }
+        .next-btn h2 { font-size: clamp(50px, 10vw, 120px); font-weight: 900; letter-spacing: -5px; }
+        .next-btn a:hover h2 { color: var(--accent); }
 
-        /* Responsive */
         @media (max-width: 1100px) {
             .hero-split { flex-direction: column; height: auto; }
-            .hero-left, .hero-right { width: 100%; height: auto; padding: 80px 10%; }
             .hero-left { height: 70vh; }
+            .hero-right { padding: 80px 10%; height: auto; }
         }
     </style>
 </head>
@@ -144,8 +141,8 @@
             </div>
             
             <div class="hero-right">
-                <h1>KOMBUCHA</h1>
-                <p class="quote">"It started as simple tea.<br>Then time, patience.<br>And a little magic happened."</p>
+                <h1>KOMBU<br>CHA</h1>
+                <p class="quote">"It started as simple tea. Then time, patience. And a little magic happened."</p>
                 
                 <p class="project-scope">SCOPE: BOTANICAL ILLUSTRATION • COLOUR EXPLORATION</p>
                 
@@ -165,7 +162,7 @@
 
         <footer class="next-btn">
             <a href="oat-milk.html">
-                <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
+                <span style="color:var(--accent); font-weight:900; font-size:14px; letter-spacing:4px;">NEXT PROJECT</span>
                 <h2>OAT MILK →</h2>
             </a>
         </footer>

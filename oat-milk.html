@@ -9,64 +9,61 @@
             --cream: #F4EFE4; 
             --charcoal: #2D2926; 
             --white: #ffffff;
-            --bg-current: #ffffff;
+            --active-bg: #ffffff; /* Starts white */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--bg-current);
+            background-color: var(--active-bg);
             color: var(--charcoal);
             font-family: 'Inter', sans-serif; 
-            transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color 0.8s ease-out;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; z-index: 1000;
-            mix-blend-mode: difference;
-        }
-        nav a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 900; }
-
-        /* HERO SECTION */
+        /* 1. HERO LAYERING (Oat behind bottle) */
         .hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             position: relative;
+            z-index: 10;
         }
 
         h1 {
             position: absolute;
-            font-size: clamp(80px, 20vw, 350px);
+            font-size: clamp(100px, 30vw, 500px);
             font-weight: 950;
             letter-spacing: -0.07em;
-            color: var(--white);
-            z-index: 1;
-            mix-blend-mode: exclusion;
+            color: var(--charcoal);
+            z-index: 5; /* Behind bottle */
             line-height: 0.8;
             text-transform: uppercase;
+            pointer-events: none;
         }
 
-        .hero-img { height: 75vh; z-index: 5; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.1)); }
-
-        .hero-subtitle {
-            position: absolute; bottom: 10%;
-            font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5;
+        .hero-img {
+            height: 80vh;
+            z-index: 10; /* In front of text */
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.1));
         }
 
-        /* EDITORIAL CONTENT */
-        .editorial { padding: 0 8% 200px; }
+        /* 2. REALITY SECTIONS */
+        .reality-content {
+            padding: 0 8% 200px;
+            background: var(--white); /* Forces back to reality */
+            position: relative;
+            z-index: 20;
+        }
 
         .spread {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 40px;
-            margin-bottom: 250px;
+            padding: 150px 0;
             align-items: center;
         }
 
@@ -79,47 +76,36 @@
         }
 
         h2 { font-size: clamp(32px, 5vw, 80px); font-weight: 900; line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; margin-bottom: 30px; }
-        
-        p { font-size: 18px; line-height: 1.5; opacity: 0.8; font-weight: 300; margin-bottom: 20px; }
-
-        .specs { list-style: none; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px; }
-        .specs li { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; opacity: 0.6; }
+        p { font-size: 18px; line-height: 1.5; opacity: 0.8; font-weight: 300; }
 
         .caption { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; opacity: 0.4; }
 
         /* FOOTER */
-        .next-wrap { height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top: 1px solid rgba(0,0,0,0.05); }
+        .next-wrap { height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--white); }
         .next-title { font-size: 12vw; font-weight: 900; color: transparent; -webkit-text-stroke: 1px var(--charcoal); text-decoration: none; letter-spacing: -8px; transition: 0.6s; }
         .next-title:hover { color: var(--charcoal); letter-spacing: 0; }
 
-        @media (max-width: 900px) { .spread { display: flex; flex-direction: column; } h1 { font-size: 30vw; } }
+        @media (max-width: 900px) { .spread { display: flex; flex-direction: column; } h1 { font-size: 40vw; } }
     </style>
 </head>
-<body data-bg="#ffffff">
+<body>
 
-    <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:hello@natia.design">CONTACT</a>
+    <nav style="position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference;">
+        <a href="index.html" style="color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px;">NATIA STUDIO</a>
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="chromaHero">
         <h1>OAT</h1>
-        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk Monolith">
-        <div class="hero-subtitle">Architectural Identity — 2024</div>
+        <img src="oat-hero.jpg" class="hero-img" alt="Oat Milk">
     </header>
 
-    <main class="editorial">
+    <main class="reality-content">
         
         <section class="spread">
             <div class="text-side">
                 <span class="label">Project Intent</span>
                 <h2>Structural<br>Silence.</h2>
                 <p>An identity that removes category noise and treats the carton as an object—solid, calm, architectural.</p>
-                <ul class="specs">
-                    <li>Type: Scale as Brand</li>
-                    <li>Surface: Matte Texture</li>
-                    <li>Grid: Strict Architectural</li>
-                </ul>
             </div>
             <div class="image-side">
                 <img src="oat-mockup1.jpg" style="width: 100%;">
@@ -127,15 +113,10 @@
             </div>
         </section>
 
-        <section style="margin-bottom: 250px; text-align: center;">
-            <img src="oat-mockup2.jpg" style="width: 70%; display: inline-block;">
-            <div class="caption">System View — Depth and Negative Space</div>
-        </section>
-
         <section class="spread">
             <div class="image-side" style="grid-column: 1 / span 7;">
-                <img src="oat-hero.jpg" style="width: 100%;">
-                <div class="caption">Flat Plan — Typographic Framework</div>
+                <img src="oat-mockup2.jpg" style="width: 100%;">
+                <div class="caption">System View — Depth and Negative Space</div>
             </div>
             <div class="text-side" style="grid-column: 9 / span 4;">
                 <span class="label">Design Logic</span>
@@ -152,14 +133,21 @@
     </footer>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.body.style.backgroundColor = entry.target.getAttribute('data-bg') || '#F4EFE4';
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('section').forEach(s => observer.observe(s));
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const heroHeight = document.getElementById('chromaHero').offsetHeight;
+            
+            // As you scroll down the hero, color changes to cream
+            if (scrollPos < heroHeight) {
+                const fraction = scrollPos / heroHeight;
+                // Interpolate between white (#ffffff) and cream (#F4EFE4)
+                document.body.style.backgroundColor = `rgba(244, 239, 228, ${fraction})`;
+            } 
+            // Once you hit the "reality" content, everything stays white and clean
+            else {
+                document.body.style.backgroundColor = '#ffffff';
+            }
+        });
     </script>
 </body>
 </html>

@@ -5,26 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OAT MILK | NATIA KURTANIDZE</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
-        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; --grey: #111; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, sans-serif; }
         
-        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
-        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 2px; }
+        nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; display: flex; justify-content: space-between; z-index: 100; background: rgba(0,0,0,0.9); }
+        .back { color: var(--accent); text-decoration: none; font-weight: 900; font-size: 12px; }
+
+        .container { padding: 180px 8% 100px 8%; max-width: 1400px; margin: 0 auto; }
         
-        .container { padding: 180px 8% 50px 8%; max-width: 1200px; margin: 0 auto; }
-        h1 { font-size: clamp(40px, 12vw, 150px); font-weight: 900; text-transform: uppercase; letter-spacing: -6px; line-height: 0.8; margin-bottom: 40px; }
-        .desc { color: #666; font-size: 18px; max-width: 600px; margin-bottom: 60px; border-left: 2px solid var(--accent); padding-left: 20px; }
+        /* THE HEADER LAYOUT */
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 80px; border-bottom: 1px solid var(--grey); padding-bottom: 40px; }
+        h1 { font-size: clamp(40px, 10vw, 120px); font-weight: 900; letter-spacing: -5px; line-height: 0.8; }
+        .details { text-align: right; font-size: 12px; letter-spacing: 2px; color: var(--accent); font-weight: 900; }
+
+        /* THE MOCKUP GRID - This organizes your layout */
+        .layout-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
         
-        /* Gallery Style */
-        .gallery { display: flex; flex-direction: column; gap: 40px; }
-        .gallery img { width: 100%; height: auto; border: 1px solid #111; display: block; }
-        
-        /* Next Project Button */
-        .next-project { border-top: 1px solid #222; padding: 100px 0; text-align: right; margin-top: 50px; }
-        .next-link { text-decoration: none; color: var(--white); display: inline-block; }
-        .next-link span { color: var(--accent); font-weight: 900; font-size: 12px; letter-spacing: 3px; display: block; margin-bottom: 10px; }
-        .next-link h2 { font-size: clamp(30px, 8vw, 80px); font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -3px; transition: 0.3s; }
-        .next-link:hover h2 { color: var(--accent); transform: translateX(-20px); }
+        .hero-box { grid-column: span 12; margin-bottom: 40px; } /* Main Label */
+        .mockup-left { grid-column: span 6; } /* Carton 1 */
+        .mockup-right { grid-column: span 6; } /* Carton 2 */
+
+        img { width: 100%; height: auto; display: block; filter: grayscale(20%); transition: 0.5s; }
+        img:hover { filter: grayscale(0%); }
+
+        .next-project { margin-top: 100px; border-top: 1px solid var(--grey); padding: 60px 0; text-align: right; }
+        .next-link { text-decoration: none; color: var(--white); }
+        .next-link h2 { font-size: 60px; font-weight: 900; }
     </style>
 </head>
 <body>
@@ -32,13 +39,22 @@
     <nav><span>NATIA KURTANIDZE</span><a href="index.html" class="back">← BACK</a></nav>
 
     <div class="container">
-        <h1>OAT MILK</h1>
-        <p class="desc">Sustainable packaging design and visual identity for plant-based dairy alternatives. 2026 Archive.</p>
-        
-        <div class="gallery">
-            <img src="oat-hero.jpg" alt="Oat Milk Label Design">
-            <img src="oat-mockup1.jpg" alt="Oat Milk Carton Mockup 1">
-            <img src="oat-mockup2.jpg" alt="Oat Milk Carton Mockup 2">
+        <header>
+            <h1>OAT<br>MILK</h1>
+            <div class="details">PACKAGING / 2026<br>BRAND IDENTITY</div>
+        </header>
+
+        <div class="layout-grid">
+            <div class="hero-box">
+                <img src="oat-hero.jpg" alt="Label Layout">
+            </div>
+
+            <div class="mockup-left">
+                <img src="oat-mockup1.jpg" alt="Carton Front">
+            </div>
+            <div class="mockup-right">
+                <img src="oat-mockup2.jpg" alt="Carton Side">
+            </div>
         </div>
 
         <div class="next-project">
@@ -48,6 +64,5 @@
             </a>
         </div>
     </div>
-
 </body>
 </html>

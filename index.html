@@ -3,32 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE</title>
+    <title>NATIA KURTANIDZE | ARCHIVE</title>
     <style>
-        body { background: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; padding: 10vw 5vw; margin: 0; }
-        .logo { font-weight: 900; letter-spacing: 10px; color: #ff0000; margin-bottom: 50px; display: block; }
-        .list { display: flex; flex-direction: column; }
-        .item { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 30px 0; border-bottom: 1px solid #222; 
-            text-decoration: none; color: #fff; transition: 0.3s;
+        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--black); color: var(--white); font-family: Helvetica, Arial, sans-serif; padding: 10vw 8vw; }
+        
+        .logo { font-weight: 900; letter-spacing: 10px; text-transform: uppercase; font-size: 14px; margin-bottom: 60px; display: block; }
+        
+        .project-list { display: flex; flex-direction: column; }
+        .project-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 35px 0; border-bottom: 1px solid #222;
+            text-decoration: none; color: var(--white); transition: 0.3s ease;
         }
-        .item:hover { color: #ff0000; padding-left: 20px; border-color: #ff0000; }
-        h2 { font-size: 8vw; margin: 0; text-transform: uppercase; letter-spacing: -3px; }
-        span { color: #ff0000; font-weight: 900; font-size: 12px; }
+        .project-item:hover { border-color: var(--accent); padding-left: 15px; }
+        .project-item h2 { font-size: clamp(30px, 8vw, 100px); font-weight: 900; text-transform: uppercase; letter-spacing: -4px; margin: 0; }
+        .project-item span { color: var(--accent); font-weight: 900; font-size: 11px; letter-spacing: 3px; }
+        .project-item:hover h2 { color: var(--accent); }
     </style>
 </head>
 <body>
     <div class="logo">NATIA KURTANIDZE</div>
-    <div class="list">
-        <a href="kombucha.html" class="item"><h2>Kombucha</h2><span>01</span></a>
-        <a href="oat-milk.html" class="item"><h2>Oat Milk</h2><span>02</span></a>
-        <a href="others.html" class="item"><h2>The Others</h2><span>03</span></a>
-        <a href="nurture.html" class="item"><h2>Nurture</h2><span>04</span></a>
-        <a href="cd-covers.html" class="item"><h2>CD Covers</h2><span>05</span></a>
-        <a href="go-left.html" class="item"><h2>Go Left</h2><span>06</span></a>
-        <a href="posters.html" class="item"><h2>Posters</h2><span>07</span></a>
-        <a href="posters.html" class="item"><h2>Exhibition</h2><span>08</span></a>
+    <div class="project-list">
+        <a href="kombucha.html" class="project-item"><h2>KOMBUCHA</h2><span>01</span></a>
+        <a href="oat-milk.html" class="project-item"><h2>OAT MILK</h2><span>02</span></a>
+        <a href="others.html" class="project-item"><h2>THE OTHERS</h2><span>03</span></a>
+        <a href="nurture.html" class="project-item"><h2>NURTURE</h2><span>04</span></a>
+        <a href="cd-covers.html" class="project-item"><h2>CD COVERS</h2><span>05</span></a>
+        <a href="go-left.html" class="project-item"><h2>GO LEFT</h2><span>06</span></a>
+        <a href="posters.html" class="project-item"><h2>POSTERS</h2><span>07</span></a>
+        <a href="posters.html" class="project-item"><h2>EXHIBITION</h2><span>08</span></a>
     </div>
 </body>
 </html>

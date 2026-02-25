@@ -8,7 +8,6 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --accent: #ffb8e0;
             --line: rgba(255, 255, 255, 0.1);
         }
 
@@ -32,7 +31,6 @@
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: OATS-STYLE BLUR */
         .hero {
             height: 100vh;
             display: flex;
@@ -79,28 +77,15 @@
             mix-blend-mode: difference;
         }
 
-        /* INTRO SECTION */
         .intro-section {
             padding: 100px 10% 160px;
             text-align: center;
             border-top: 1px solid var(--line);
         }
 
-        .intro-section h2 { 
-            font-size: 18px; 
-            font-weight: 400; 
-            margin-bottom: 15px; 
-            opacity: 0.9;
-        }
+        .intro-section h2 { font-size: 18px; font-weight: 400; margin-bottom: 15px; opacity: 0.9; }
+        .scope-line { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; }
 
-        .scope-line {
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.4;
-        }
-
-        /* EXHIBITION FLOW (Aligned with OTHERS) */
         .exhibition {
             display: flex;
             flex-direction: column;
@@ -109,42 +94,15 @@
             padding-bottom: 200px;
         }
 
-        .poster { 
-            width: 85%; 
-            max-width: 650px; 
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: all 1.5s ease; 
-        }
-        
+        .poster { width: 85%; max-width: 650px; opacity: 0; transform: translateY(30px); transition: all 1.5s ease; }
         .poster.anchor { max-width: 800px; width: 95%; } 
-
         .poster.reveal { opacity: 1; transform: translateY(0); }
         .poster img { width: 100%; display: block; }
 
-        .caption {
-            margin-top: 25px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.3;
-        }
+        .caption { margin-top: 25px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.3; }
 
-        /* NAVIGATION */
-        .next-project {
-            padding: 100px 0;
-            text-align: center;
-            border-top: 1px solid var(--line);
-        }
-        .next-project a {
-            font-size: 11px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--white);
-            opacity: 0.4;
-            transition: 0.3s;
-        }
+        .next-project { padding: 100px 0; text-align: center; border-top: 1px solid var(--line); }
+        .next-project a { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; text-decoration: none; color: var(--white); opacity: 0.4; transition: 0.3s; }
         .next-project a:hover { opacity: 1; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }

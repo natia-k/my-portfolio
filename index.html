@@ -8,16 +8,17 @@
         :root {
             --bg: #0a0a0a;
             --text: #ffffff;
-            --baby-pink: #fce4ec;
+            --baby-pink: #fce4ec; /* The exact milky pink from Feelings */
+            --pink-glow: rgba(252, 228, 236, 0.5);
             --red: #d42020;
         }
 
-        /* GRAIN OVERLAY for the "Cloudy" texture */
+        /* Texture */
         body::before {
             content: "";
             position: fixed; inset: 0;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -30,7 +31,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. RED PRELOADER */
+        /* RED PRELOADER */
         #loader {
             position: fixed; inset: 0;
             background: var(--red);
@@ -40,15 +41,13 @@
         }
         #loader-count { font-size: 15vw; font-weight: 900; color: #fff; }
 
-        /* 2. CUSTOM CURSOR */
+        /* CURSOR */
         #aura {
-            position: fixed; width: 15px; height: 15px;
+            position: fixed; width: 10px; height: 10px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10001;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.3s, height 0.3s;
         }
 
-        /* 3. HERO SECTION (BLURRED) */
         .hero {
             height: 100vh;
             display: flex; flex-direction: column;
@@ -60,48 +59,51 @@
             font-size: clamp(40px, 10vw, 150px);
             font-weight: 900; text-transform: uppercase;
             letter-spacing: -0.05em; line-height: 0.85;
-            filter: blur(20px); /* Heavy blur */
-            transition: filter 0.8s ease, transform 0.8s ease, color 0.4s;
+            transition: color 0.4s;
         }
+        .hero h1:hover { color: var(--baby-pink); }
 
-        /* 4. WORK LIST (SELECTIVE BLUR) */
         .work-section {
             padding: 10vh 10% 20vh;
             display: flex; flex-direction: column;
-            gap: 20px;
+            gap: 10px;
         }
 
         .project-link {
-            font-size: clamp(35px, 7vw, 100px);
+            font-size: clamp(35px, 8vw, 110px);
             font-weight: 900; text-decoration: none; color: var(--text);
             text-transform: uppercase; letter-spacing: -0.04em;
-            filter: blur(15px); /* Cloudy blur */
-            opacity: 0.3;
-            transition: filter 0.6s ease, opacity 0.6s ease, transform 0.6s ease, color 0.3s;
+            opacity: 0.2;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             display: block;
             width: fit-content;
         }
 
-        /* FOCUS REVEAL */
-        .hero h1:hover, 
         .project-link:hover {
-            filter: blur(0px);
             opacity: 1;
-            transform: scale(1.05);
             color: var(--baby-pink);
+            transform: translateX(30px);
+            text-shadow: 0 0 20px var(--pink-glow);
         }
 
-        /* FLOATING PREVIEW */
+        /* FLOATING PREVIEW BOX */
         #preview {
-            position: fixed; width: 400px; height: 500px;
+            position: fixed; width: 450px; height: 300px;
             pointer-events: none; z-index: 5; opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.5s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translate(-50%, -50%) scale(0.9);
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--baby-pink); /* FALLBACK COLOR: If image fails, you see pink box */
+            box-shadow: 0 0 50px var(--pink-glow);
+        }
+        #preview.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
         #preview img { width: 100%; height: 100%; object-fit: cover; }
 
-        footer { padding: 60px 10%; font-size: 10px; opacity: 0.3; letter-spacing: 5px; }
-
+        footer { padding: 60px 10%; font-size: 10px; opacity: 0.3; letter-spacing: 5px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -137,55 +139,43 @@
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
 
-        // 1. COUNTDOWN
         let counter = 0;
         const interval = setInterval(() => {
-            counter += Math.floor(Math.random() * 15) + 1;
+            counter += Math.floor(Math.random() * 20) + 1;
             if (counter >= 100) {
                 counter = 100;
                 clearInterval(interval);
-                setTimeout(() => {
-                    loader.style.transform = "translateY(-100%)";
-                }, 400);
+                setTimeout(() => { loader.style.transform = "translateY(-100%)"; }, 400);
             }
             count.innerText = counter;
-        }, 40);
+        }, 50);
 
-        // 2. MOUSE LOGIC (LERP)
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            mouseX = e.clientX; mouseY = e.clientY;
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
         });
 
         function animate() {
-            ballX += (mouseX - ballX) * 0.08;
-            ballY += (mouseY - ballY) * 0.08;
+            ballX += (mouseX - ballX) * 0.1;
+            ballY += (mouseY - ballY) * 0.1;
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
-        // 3. HOVER ACTIONS
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
-                // IMPORTANT: Check that your images aren't in a subfolder like /img/
-                previewImg.src = link.dataset.img; 
-                preview.style.opacity = "1";
-                preview.style.transform = "translate(-50%, -50%) scale(1)";
-                aura.style.width = "60px";
-                aura.style.height = "60px";
+                const source = link.getAttribute('data-img');
+                previewImg.src = source;
+                preview.classList.add('active');
             });
             link.addEventListener('mouseleave', () => {
-                preview.style.opacity = "0";
-                preview.style.transform = "translate(-50%, -50%) scale(0.8)";
-                aura.style.width = "15px";
-                aura.style.height = "15px";
+                preview.classList.remove('active');
             });
         });
     </script>

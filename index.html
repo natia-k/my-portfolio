@@ -6,13 +6,13 @@
     <title>NATIA KURTANIDZE | STUDIO</title>
     <style>
         :root {
-            --bg: #0a0a0a;
+            --bg: #080808;
             --text: #ffffff;
             --accent: #ffb6c1; /* Baby Pink */
-            --subtle: rgba(255, 255, 255, 0.3);
+            --subtle: rgba(255, 255, 255, 0.2);
         }
 
-        /* 1. THE EXPENSIVE GRAIN */
+        /* FILM GRAIN OVERLAY */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -30,78 +30,81 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 2. MAGNETIC AURA (CURSOR) */
+        /* CUSTOM MAGNETIC CURSOR */
         #aura {
-            position: fixed; width: 12px; height: 12px;
+            position: fixed; width: 15px; height: 15px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: width 0.5s cubic-bezier(0.19, 1, 0.22, 1), height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* 3. SEDUCTIVE HOVER PREVIEW */
-        #cursor-preview {
+        /* THE FLOATING REVEAL (Lerp movement) */
+        #reveal-container {
             position: fixed; top: 0; left: 0;
-            width: 420px; height: 540px;
+            width: 450px; height: 580px;
             pointer-events: none; z-index: 5;
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.7);
-            filter: blur(20px) brightness(0.5);
-            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+            transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            filter: blur(20px);
             overflow: hidden;
         }
-        #cursor-preview.active {
+
+        #reveal-container.active {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            filter: blur(0px) brightness(1);
+            transform: translate(-50%, -50%) scale(1) rotate(2deg);
+            filter: blur(0px);
         }
-        #cursor-preview img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 4. EDITORIAL UI */
+        #reveal-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* HEADER & MANIFESTO */
         header {
-            position: fixed; top: 60px; left: 60px; z-index: 100;
+            position: fixed; top: 50px; left: 60px; z-index: 100;
         }
-        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
-        .location { font-size: 10px; letter-spacing: 5px; color: var(--subtle); margin-top: 5px; text-transform: uppercase; }
-        .tagline { font-size: 10px; letter-spacing: 3px; color: var(--subtle); margin-top: 15px; text-transform: lowercase; font-style: italic; }
+        .name { font-weight: 900; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
+        .intro-line { font-size: 11px; letter-spacing: 4px; color: var(--subtle); margin-top: 10px; text-transform: uppercase; }
 
+        /* PROJECT LIST - VIBE: EXHIBITION ROSTER */
         main {
             height: 100vh; display: flex; align-items: center; padding-left: 10%;
             position: relative; z-index: 10;
         }
 
-        nav { display: flex; flex-direction: column; }
+        nav { display: flex; flex-direction: column; gap: 0px; }
 
         .nav-item {
-            font-size: clamp(40px, 7vw, 110px);
+            font-size: clamp(45px, 8vw, 130px);
             font-weight: 900; text-decoration: none; color: var(--text);
-            text-transform: uppercase; letter-spacing: -0.05em;
-            line-height: 0.9; padding: 5px 0;
-            transition: color 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            text-transform: uppercase; letter-spacing: -0.06em;
+            line-height: 0.85; position: relative;
+            padding: 5px 0;
+            transition: color 0.4s ease, transform 0.4s ease;
         }
 
         .nav-item span {
-            font-size: 14px; font-weight: 300; vertical-align: top;
-            margin-right: 30px; opacity: 0.2; letter-spacing: 2px;
+            font-size: 18px; font-weight: 200; vertical-align: top;
+            margin-right: 25px; opacity: 0.15; letter-spacing: 0;
         }
 
-        /* THE WOW HOVER STING */
         .nav-item:hover {
             color: var(--accent);
             transform: translateX(40px);
         }
+
+        /* PINK GLOW LINE */
         .nav-item::after {
             content: ""; position: absolute; bottom: 10px; left: 0;
-            width: 0; height: 2px; background: var(--accent);
-            box-shadow: 0 0 20px var(--accent);
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 0; height: 3px; background: var(--accent);
+            box-shadow: 0 0 25px var(--accent);
+            transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
         .nav-item:hover::after { width: 100%; }
 
         footer {
-            position: fixed; bottom: 60px; left: 60px; right: 60px;
+            position: fixed; bottom: 50px; left: 60px; right: 60px;
             display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; color: var(--subtle);
+            font-size: 10px; letter-spacing: 4px; color: var(--subtle);
             z-index: 100; text-transform: uppercase;
         }
     </style>
@@ -109,24 +112,23 @@
 <body>
 
     <div id="aura"></div>
-    <div id="cursor-preview"><img id="preview-img" src="" alt=""></div>
+    <div id="reveal-container"><img id="reveal-img" src="" alt=""></div>
 
     <header>
         <div class="name">NATIA KURTANIDZE</div>
-        <div class="location">BERLIN</div>
-        <div class="tagline">visual storyteller</div>
+        <div class="intro-line">BASED IN BERLIN — CREATING EMOTIONAL FORMS</div>
     </header>
 
     <main>
         <nav>
-            <a href="go-left.html" class="nav-item" data-img="goleft.jpg"><span>01</span>GO LEFT</a>
-            <a href="the-others.html" class="nav-item" data-img="others.jpg"><span>02</span>THE OTHERS</a>
-            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>03</span>NURTURE</a>
-            <a href="cd-covers.html" class="nav-item" data-img="cdcovers.jpg"><span>04</span>CD COVERS</a>
-            <a href="oat-milk.html" class="nav-item" data-img="oatmilk.jpg"><span>05</span>OAT MILK</a>
-            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>06</span>KOMBUCHA</a>
-            <a href="posters.html" class="nav-item" data-img="posters.jpg"><span>07</span>POSTERS</a>
-            <a href="feelings.html" class="nav-item" data-img="feelings.jpg"><span>08</span>FEELINGS</a>
+            <a href="go-left.html" class="nav-item" data-img="go-left.jpg"><span>01</span>GO LEFT</a>
+            <a href="posters.html" class="nav-item" data-img="posters.jpg"><span>02</span>ARCHIVE</a>
+            <a href="feelings.html" class="nav-item" data-img="feelings.jpg"><span>03</span>FEELINGS</a>
+            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>04</span>KOMBUCHA</a>
+            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>05</span>NURTURE</a>
+            <a href="the-others.html" class="nav-item" data-img="others.jpg"><span>06</span>THE OTHERS</a>
+            <a href="oat-milk.html" class="nav-item" data-img="oat-milk.jpg"><span>07</span>OAT MILK</a>
+            <a href="cd-covers.html" class="nav-item" data-img="cd-covers.jpg"><span>08</span>CD COVERS</a>
         </nav>
     </main>
 
@@ -137,51 +139,44 @@
 
     <script>
         const aura = document.getElementById('aura');
-        const preview = document.getElementById('cursor-preview');
-        const previewImg = document.getElementById('preview-img');
-        const navItems = document.querySelectorAll('.nav-item');
+        const reveal = document.getElementById('reveal-container');
+        const revealImg = document.getElementById('reveal-img');
+        const items = document.querySelectorAll('.nav-item');
 
-        // THE LERP (Magnetic Lag)
+        // LERP (Linear Interpolation) for that "Heavy / Seductive" lag
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
-        let speed = 0.075; // The "heavy" feel
+        let speed = 0.06; // Lower = heavier/sexier movement
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            // Cursor Aura follows exactly
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
         });
 
         function animate() {
-            // Preview follows with lag
             ballX += (mouseX - ballX) * speed;
             ballY += (mouseY - ballY) * speed;
-
-            preview.style.left = ballX + 'px';
-            preview.style.top = ballY + 'px';
-
+            reveal.style.left = ballX + 'px';
+            reveal.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
-        // HOVER INTERACTIONS
-        navItems.forEach(item => {
+        // Interaction logic
+        items.forEach(item => {
             item.addEventListener('mouseenter', () => {
-                const imgPath = item.getAttribute('data-img');
-                previewImg.src = imgPath;
-                preview.classList.add('active');
-                
-                aura.style.width = "80px";
-                aura.style.height = "80px";
+                revealImg.src = item.dataset.img;
+                reveal.classList.add('active');
+                aura.style.width = "100px";
+                aura.style.height = "100px";
                 aura.style.background = "var(--accent)";
             });
-
             item.addEventListener('mouseleave', () => {
-                preview.classList.remove('active');
-                aura.style.width = "12px";
-                aura.style.height = "12px";
+                reveal.classList.remove('active');
+                aura.style.width = "15px";
+                aura.style.height = "15px";
                 aura.style.background = "white";
             });
         });

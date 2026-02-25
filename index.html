@@ -9,16 +9,14 @@
             --bg: #050505;
             --text: #ffffff;
             --baby-pink: #fce4ec; 
-            --accent: #ff003c; /* A sharper punchy red for the glitch */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* 1. TEXTURE & ATMOSPHERE */
         body::before {
             content: "";
             position: fixed; inset: 0;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.2; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.18; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -26,110 +24,80 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+            font-family: "Inter", "Helvetica Neue", sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 2. CINEMATIC LOADER */
+        /* 1. CURSOR MEMORY (Traces) */
+        .trace {
+            position: fixed; width: 4px; height: 4px;
+            background: var(--baby-pink); border-radius: 50%;
+            pointer-events: none; z-index: 10000;
+            opacity: 0.3; transform: translate(-50%, -50%);
+            animation: fadeOut 2s ease-out forwards;
+        }
+        @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -50%) scale(0.1); } }
+
+        /* 2. THE DILATED AURA */
+        #aura {
+            position: fixed; width: 150px; height: 150px;
+            background: #fff; border-radius: 50%; 
+            pointer-events: none; z-index: 10001;
+            transform: translate(-50%, -50%); 
+            mix-blend-mode: difference;
+            transition: width 0.8s var(--ease-out-expo), height 0.8s var(--ease-out-expo), filter 0.8s ease;
+        }
+
+        /* 3. HIDDEN SUBTEXT (Appears only on Slow Hover) */
+        .hidden-concept {
+            position: absolute; font-size: 10px; letter-spacing: 0.3em;
+            text-transform: uppercase; color: var(--baby-pink);
+            opacity: 0; filter: blur(10px);
+            transition: opacity 2s ease, filter 2s ease;
+            pointer-events: none;
+            margin-top: -20px;
+        }
+
+        /* 4. LAYOUT & TYPOGRAPHY */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 8%; }
+        
+        .statement {
+            font-size: clamp(30px, 7vw, 90px); font-weight: 900; 
+            text-transform: uppercase; letter-spacing: -0.04em;
+            filter: blur(25px); opacity: 0.1;
+            transition: filter 1.5s var(--ease-out-expo), opacity 1.5s var(--ease-out-expo);
+        }
+
+        .work-section { padding: 10vh 8% 40vh; display: flex; flex-direction: column; }
+
+        .project-link {
+            font-size: clamp(40px, 12vw, 180px); font-weight: 900; 
+            text-decoration: none; color: var(--text);
+            text-transform: uppercase; letter-spacing: -0.07em;
+            opacity: 0.1; filter: blur(20px); padding: 30px 0;
+            transition: all 1s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .project-link:hover { opacity: 1; filter: blur(0px); transform: translateX(30px); }
+
+        /* 5. DYNAMIC IMAGE PROJECTION */
+        #preview {
+            position: fixed; width: 45vw; max-width: 800px;
+            pointer-events: none; z-index: 5; opacity: 0;
+            transform: translate(-50%, -50%) scale(0.9);
+            transition: opacity 0.8s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+        }
+        #preview.active { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+        #preview img { width: 100%; height: auto; object-fit: contain; }
+
         #loader {
-            position: fixed; inset: 0;
-            background: #ff0000;
-            z-index: 10000;
+            position: fixed; inset: 0; background: #ff0000; z-index: 10002;
             display: flex; align-items: center; justify-content: center;
             transition: transform 1.2s var(--ease-out-expo);
         }
-        #loader-count { font-size: 20vw; font-weight: 900; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
-
-        /* 3. FLUID AURA (The "Lens") */
-        #aura {
-            position: fixed; 
-            width: 180px; height: 180px;
-            background: #fff; 
-            border-radius: 50%; 
-            pointer-events: none; 
-            z-index: 10001;
-            transform: translate(-50%, -50%); 
-            mix-blend-mode: difference;
-            transition: width 0.6s var(--ease-out-expo), height 0.6s var(--ease-out-expo);
-        }
-
-        /* 4. STATEMENT (Extreme Scale) */
-        .hero {
-            height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center;
-            padding: 0 8%;
-        }
-
-        .statement {
-            font-size: clamp(30px, 7vw, 90px);
-            font-weight: 900; text-transform: uppercase;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-            filter: blur(25px); /* Heavier Oat Milk blur */
-            opacity: 0.1;
-            transition: all 1s var(--ease-out-expo);
-        }
-
-        /* The Reveal Interaction */
-        .hero:hover .statement {
-            filter: blur(0px);
-            opacity: 1;
-            transform: skewX(-2deg);
-        }
-
-        /* 5. WORK ARCHIVE */
-        .work-section {
-            padding: 10vh 8% 40vh;
-            display: flex; flex-direction: column;
-        }
-
-        .project-link {
-            font-size: clamp(40px, 12vw, 180px);
-            font-weight: 900; text-decoration: none; color: var(--text);
-            text-transform: uppercase; letter-spacing: -0.07em;
-            line-height: 0.8;
-            opacity: 0.1;
-            filter: blur(20px);
-            padding: 20px 0;
-            transition: all 0.8s var(--ease-out-expo);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .project-link:hover {
-            opacity: 1;
-            filter: blur(0px);
-            color: var(--baby-pink);
-            transform: translateX(50px) scale(1.02);
-        }
-
-        /* 6. PICTURE PREVIEW (Art Gallery Projection) */
-        #preview {
-            position: fixed; 
-            width: 50vw; 
-            max-width: 900px;
-            height: auto;
-            pointer-events: none; 
-            z-index: 5; 
-            opacity: 0;
-            transform: translate(-50%, -50%) rotate(-2deg);
-            transition: opacity 0.6s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-        }
-        #preview.active { opacity: 0.9; transform: translate(-50%, -50%) rotate(0deg) scale(1.1); }
-        
-        #preview img { 
-            width: 100%; height: auto; 
-            object-fit: contain;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-        }
-
-        footer { 
-            padding: 100px 8%; 
-            font-size: 11px; font-weight: 300;
-            opacity: 0.3; letter-spacing: 0.6em; 
-            text-transform: uppercase;
-        }
+        #loader-count { font-size: 20vw; font-weight: 900; color: #fff; }
 
     </style>
 </head>
@@ -147,16 +115,28 @@
     </section>
 
     <main class="work-section">
-        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">GO LEFT</a>
-        <a href="the-others.html" class="project-link" data-img="others.jpg">THE OTHERS</a>
-        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">NURTURE</a>
-        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">OAT MILK</a>
-        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">KOMBUCHA</a>
-        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">POSTERS</a>
-        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">FEELINGS</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg" data-soul="sharp">
+            GO LEFT <span class="hidden-concept">Breaking Symmetry</span>
+        </a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg" data-soul="soft">
+            THE OTHERS <span class="hidden-concept">A Silent Dialogue</span>
+        </a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg" data-soul="organic">
+            NURTURE <span class="hidden-concept">Soft Growth</span>
+        </a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg" data-soul="milky">
+            OAT MILK <span class="hidden-concept">Liquid Calm</span>
+        </a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg" data-soul="electric">
+            KOMBUCHA <span class="hidden-concept">Fermented Energy</span>
+        </a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg" data-soul="archive">
+            POSTERS <span class="hidden-concept">Tactile Memory</span>
+        </a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg" data-soul="warm">
+            FEELINGS <span class="hidden-concept">Human Error</span>
+        </a>
     </main>
-
-    <footer>NATIA KURTANIDZE — STUDIO ARCHIVE 2026</footer>
 
     <script>
         const loader = document.getElementById('loader');
@@ -165,56 +145,88 @@
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
 
-        // Cinematic Loading Sequence
+        // Loading Progress
         let progress = 0;
         const loadInterval = setInterval(() => {
-            progress += Math.floor(Math.random() * 15) + 1;
+            progress += Math.floor(Math.random() * 10) + 1;
             if (progress >= 100) {
                 progress = 100;
                 clearInterval(loadInterval);
-                setTimeout(() => {
-                    loader.style.transform = "translateX(100%)"; // Dramatic slide exit
-                }, 500);
+                setTimeout(() => { loader.style.transform = "translateY(-100%)"; }, 600);
             }
             count.innerText = progress.toString().padStart(2, '0');
-        }, 60);
+        }, 80);
 
-        // Advanced Mouse Interpolation (Heavy Lag)
         let mouseX = 0, mouseY = 0;
-        let ballX = 0, ballY = 0;
+        let lastX = 0, lastY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX; 
+            mouseX = e.clientX;
             mouseY = e.clientY;
+            
+            // Interaction Trigger: Leave a "Trace" of the cursor
+            if (Math.abs(mouseX - lastX) > 50 || Math.abs(mouseY - lastY) > 50) {
+                createTrace(mouseX, mouseY);
+                lastX = mouseX; lastY = mouseY;
+            }
+
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
         });
 
+        function createTrace(x, y) {
+            const t = document.createElement('div');
+            t.className = 'trace';
+            t.style.left = x + 'px';
+            t.style.top = y + 'px';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2000);
+        }
+
+        // Project Specific Souls (Behaviors)
+        document.querySelectorAll('.project-link').forEach(link => {
+            const hidden = link.querySelector('.hidden-concept');
+            let hoverTimer;
+
+            link.addEventListener('mouseenter', () => {
+                const img = link.getAttribute('data-img');
+                const soul = link.getAttribute('data-soul');
+                previewImg.src = img;
+                preview.classList.add('active');
+
+                // Soul-based aura changes
+                if (soul === 'electric') aura.style.filter = "invert(1) contrast(200%)";
+                if (soul === 'milky') aura.style.width = "350px";
+                if (soul === 'sharp') aura.style.borderRadius = "0%";
+
+                // Time-based reveal: concept appears only after 1s of stillness
+                hoverTimer = setTimeout(() => {
+                    hidden.style.opacity = "0.6";
+                    hidden.style.filter = "blur(0px)";
+                }, 1000);
+            });
+
+            link.addEventListener('mouseleave', () => {
+                preview.classList.remove('active');
+                clearTimeout(hoverTimer);
+                hidden.style.opacity = "0";
+                hidden.style.filter = "blur(10px)";
+                aura.style.filter = "none";
+                aura.style.width = "150px";
+                aura.style.borderRadius = "50%";
+            });
+        });
+
+        // Parallax for image
+        let ballX = 0, ballY = 0;
         function animate() {
-            // Slower Lerp (0.05) makes the image feel "heavy" and expensive
-            ballX += (mouseX - ballX) * 0.05;
-            ballY += (mouseY - ballY) * 0.05;
+            ballX += (mouseX - ballX) * 0.04;
+            ballY += (mouseY - ballY) * 0.04;
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
-
-        // Reveal Logic
-        document.querySelectorAll('.project-link').forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                const img = link.getAttribute('data-img');
-                previewImg.src = img;
-                preview.classList.add('active');
-                aura.style.width = "300px"; // Massive lens on hover
-                aura.style.height = "300px";
-            });
-            link.addEventListener('mouseleave', () => {
-                preview.classList.remove('active');
-                aura.style.width = "180px";
-                aura.style.height = "180px";
-            });
-        });
     </script>
 </body>
 </html>

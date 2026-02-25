@@ -8,8 +8,8 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --label: rgba(255, 255, 255, 0.4);
             --line: rgba(255, 255, 255, 0.1);
+            --label: rgba(255, 255, 255, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -22,35 +22,19 @@
             overflow-x: hidden;
         }
 
-        /* 1. THE DEEP BLUR ENTRANCE */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+        /* BRIGHTER FLASH-LIGHT AURA */
+        #aura {
+            position: fixed;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.18) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
         }
 
-        .hero-title {
-            font-size: clamp(60px, 15vw, 220px);
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            
-            /* Initial State: Far away and invisible */
-            opacity: 0;
-            filter: blur(80px);
-            transform: scale(1.5); 
-            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero.active .hero-title {
-            opacity: 0.15;
-            filter: blur(0px);
-            transform: scale(1);
-        }
-
-        /* 2. THE CAMERA FLASH EFFECT */
+        /* CAMERA FLASH OVERLAY */
         .flash-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -62,45 +46,67 @@
 
         @keyframes camera-flash {
             0% { opacity: 0; }
-            10% { opacity: 1; } /* The burst */
-            100% { opacity: 0; } /* The fade out */
+            10% { opacity: 0.9; }
+            100% { opacity: 0; }
+        }
+        .do-flash { animation: camera-flash 0.5s ease-out forwards; }
+
+        /* HERO: MASSIVE & BLURRY */
+        .hero {
+            height: 150vh; /* Extra height to allow for the 'melt' scroll */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
         }
 
-        .do-flash {
-            animation: camera-flash 0.6s ease-out forwards;
-        }
-
-        /* LAYOUT & SCROLLING */
-        .meta-section {
-            padding: 100px 10%;
-            text-align: center;
-            border-top: 1px solid var(--line);
-        }
-
-        .scope-line {
-            font-size: 10px;
-            letter-spacing: 5px;
+        .hero-title {
+            position: fixed; /* Keeps it visible as you start scrolling */
+            top: 40%;
+            font-size: clamp(100px, 25vw, 400px); /* Massive text */
+            font-weight: 900;
+            letter-spacing: -0.07em;
             text-transform: uppercase;
-            color: var(--label);
+            text-align: center;
+            
+            /* DREAM STATE: Maximum Blur */
+            opacity: 0.1;
+            filter: blur(100px); 
+            transform: scale(1.2) translateY(0);
+            transition: filter 1.5s ease, opacity 1.5s ease, transform 0.5s linear;
+            pointer-events: none;
         }
 
+        /* AWAKE STATE: When cursor touches */
+        .hero.active .hero-title {
+            opacity: 0.8;
+            filter: blur(0px);
+            mix-blend-mode: difference;
+            transform: scale(1);
+        }
+
+        /* MOCKUP SECTION */
         .gallery {
+            padding: 200px 0 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 400px;
-            padding-bottom: 400px;
+            gap: 500px; /* Big silence */
+            position: relative;
+            z-index: 10;
+            background: var(--bg);
         }
 
         .poster {
-            width: 85%;
+            width: 80%;
             max-width: 800px;
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* When the poster enters view */
         .poster.reveal {
             opacity: 1;
             transform: translateY(0);
@@ -109,16 +115,16 @@
         .poster img {
             width: 100%;
             display: block;
-            /* Lifts it off the black */
-            box-shadow: 0 0 100px rgba(255,255,255,0.05);
+            box-shadow: 0 0 80px rgba(255,255,255,0.03);
         }
 
         .caption {
-            margin-top: 30px;
+            margin-top: 40px;
             font-size: 10px;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--label);
+            text-align: center;
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
@@ -128,19 +134,16 @@
 <body>
 
     <div class="flash-overlay" id="flash"></div>
+    <div id="aura"></div>
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
         <a href="others.html">THE OTHERS</a>
     </nav>
 
-    <header class="hero" id="hero">
-        <h1 class="hero-title">NURTURE</h1>
+    <header class="hero" id="heroArea">
+        <h1 class="hero-title" id="meltTitle">NURTURE</h1>
     </header>
-
-    <section class="meta-section">
-        <p class="scope-line">SCOPE — Visual Study · 2026</p>
-    </section>
 
     <main class="gallery">
         <div class="poster">
@@ -160,255 +163,58 @@
     </main>
 
     <script>
-        const hero = document.getElementById('hero');
+        const aura = document.getElementById('aura');
+        const heroArea = document.getElementById('heroArea');
+        const meltTitle = document.getElementById('meltTitle');
         const flash = document.getElementById('flash');
 
-        // 1. Text coming from far away on load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                hero.classList.add('active');
-            }, 500);
-        });
-
-        // 2. Camera Flash Logic
-        const triggerFlash = () => {
-            flash.classList.remove('do-flash');
-            void flash.offsetWidth; // Reset animation
-            flash.classList.add('do-flash');
-        };
-
-        // 3. Observer for Flash + Reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                    triggerFlash(); // Trigger flash when image hits view
-                }
-            });
-        }, { threshold: 0.3 });
-
-        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NURTURE | NATIA STUDIO</title>
-    <style>
-        :root {
-            --bg: #000000;
-            --white: #ffffff;
-            --line: rgba(255, 255, 255, 0.1);
-            --accent: #ffb8e0;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        #aura {
-            position: fixed;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
-            transform: translate(-50%, -50%);
-        }
-
-        /* HERO: THE EMOTIONAL ENTRY */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-title-group {
-            position: relative;
-            margin-bottom: 40px;
-        }
-
-        .hero-title {
-            font-size: clamp(60px, 12vw, 180px);
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            opacity: 0.1;
-            filter: blur(15px);
-            transition: all 1.5s ease;
-        }
-
-        .hero.active .hero-title {
-            opacity: 0.8;
-            filter: blur(0px);
-        }
-
-        .hero-sentiment {
-            font-size: 18px;
-            font-weight: 300;
-            letter-spacing: 0.02em;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 1s ease 0.5s;
-        }
-
-        .hero.active .hero-sentiment {
-            opacity: 0.7;
-            transform: translateY(0);
-        }
-
-        /* METADATA: CLEAN & ELEGANT */
-        .meta-section {
-            padding: 80px 10%;
-            text-align: center;
-            border-top: 1px solid var(--line);
-        }
-
-        .scope-line {
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0.4;
-            margin-bottom: 12px;
-        }
-
-        .artist-note {
-            font-size: 12px;
-            font-style: italic;
-            opacity: 0.3;
-        }
-
-        /* GALLERY: THE PRESENCE */
-        .gallery {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 250px;
-            padding: 100px 0 300px;
-        }
-
-        .work-item {
-            width: 85%;
-            max-width: 800px;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .work-item.reveal { opacity: 1; transform: translateY(0); }
-
-        .work-item img {
-            width: 100%;
-            display: block;
-            filter: grayscale(20%);
-            transition: filter 1s ease;
-        }
-
-        .work-item:hover img { filter: grayscale(0%); }
-
-        .poetic-label {
-            margin-top: 30px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            opacity: 0.3;
-            font-weight: 300;
-        }
-
-        /* CLOSING */
-        .closing {
-            padding: 200px 10%;
-            text-align: center;
-            border-top: 1px solid var(--line);
-        }
-
-        .exhale {
-            font-size: 14px;
-            letter-spacing: 1px;
-            opacity: 0.4;
-            font-weight: 300;
-        }
-
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; transition: 0.3s; }
-        nav a:hover { opacity: 1; }
-    </style>
-</head>
-<body>
-
-    <div id="aura"></div>
-
-    <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="others.html">THE OTHERS</a>
-    </nav>
-
-    <header class="hero" id="heroTrigger">
-        <div class="hero-title-group">
-            <h1 class="hero-title">NURTURE</h1>
-        </div>
-        <p class="hero-sentiment">For softness. For becoming. For the quiet moments in between.</p>
-    </header>
-
-    <section class="meta-section">
-        <p class="scope-line">SCOPE — Visual Study · 2026</p>
-        <p class="artist-note">Made slowly. Shown gently.</p>
-    </section>
-
-    <main class="gallery">
-        <div class="work-item">
-            <img src="nurture-hero.jpg">
-            <p class="poetic-label">softness in form</p>
-        </div>
-
-        <div class="work-item">
-            <img src="nurture-mockup2.jpg">
-            <p class="poetic-label">warmth in texture</p>
-        </div>
-
-        <div class="work-item">
-            <img src="nurture-mockup1.jpg">
-            <p class="poetic-label">still becoming</p>
-        </div>
-    </main>
-
-    <footer class="closing">
-        <p class="exhale">A quiet field of feeling, held with intention.</p>
-    </footer>
-
-    <script>
-        const aura = document.getElementById('aura');
-        const hero = document.getElementById('heroTrigger');
-
-        // Initial reveal
-        window.onload = () => hero.classList.add('active');
-
-        // Cursor & Parallax
+        // CURSOR + BLUR LOGIC
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
+
+            const rect = heroArea.getBoundingClientRect();
+            if (y >= rect.top && y <= rect.bottom) {
+                heroArea.classList.add('active');
+            } else {
+                heroArea.classList.remove('active');
+            }
         });
 
-        // Intersection Observer for Reveal
+        // THE MELT DOWN SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / window.innerHeight;
+            
+            // As we scroll, text moves down, blurs more, and fades
+            if (scrollPercent < 1.5) {
+                const blurVal = 100 + (scrollPercent * 100);
+                const moveVal = scrollPercent * 300;
+                const scaleVal = 1.2 - (scrollPercent * 0.2);
+                
+                meltTitle.style.filter = `blur(${blurVal}px)`;
+                meltTitle.style.transform = `translateY(${moveVal}px) scale(${scaleVal})`;
+                meltTitle.style.opacity = 0.1 - (scrollPercent * 0.1);
+            }
+        });
+
+        // FLASH LOGIC
+        const triggerFlash = () => {
+            flash.classList.remove('do-flash');
+            void flash.offsetWidth; 
+            flash.classList.add('do-flash');
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('reveal');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    triggerFlash();
+                }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.2 });
 
-        document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
+        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>
 </body>
 </html>

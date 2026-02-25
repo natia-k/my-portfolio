@@ -8,7 +8,7 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --line: rgba(255, 255, 255, 0.1);
+            --pink-aura: rgba(255, 184, 224, 0.25);
             --label: rgba(255, 255, 255, 0.4);
         }
 
@@ -22,11 +22,11 @@
             overflow-x: hidden;
         }
 
-        /* BRIGHTER FLASH-LIGHT AURA */
+        /* STRONGER PINK AURA */
         #aura {
             position: fixed;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.18) 0%, transparent 70%);
+            width: 550px; height: 550px;
+            background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
@@ -34,7 +34,6 @@
             mix-blend-mode: screen;
         }
 
-        /* CAMERA FLASH OVERLAY */
         .flash-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -51,59 +50,60 @@
         }
         .do-flash { animation: camera-flash 0.5s ease-out forwards; }
 
-        /* HERO: MASSIVE & BLURRY */
+        /* HERO: REFINED MASSIVE TEXT */
         .hero {
-            height: 150vh; /* Extra height to allow for the 'melt' scroll */
+            height: 120vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            perspective: 1000px;
         }
 
         .hero-title {
-            position: fixed; /* Keeps it visible as you start scrolling */
-            top: 40%;
-            font-size: clamp(100px, 25vw, 400px); /* Massive text */
+            position: fixed; 
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.1);
+            font-size: clamp(80px, 18vw, 280px); /* Slightly smaller to ensure visibility */
             font-weight: 900;
-            letter-spacing: -0.07em;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
             text-align: center;
             
-            /* DREAM STATE: Maximum Blur */
+            /* DREAM STATE */
             opacity: 0.1;
-            filter: blur(100px); 
-            transform: scale(1.2) translateY(0);
-            transition: filter 1.5s ease, opacity 1.5s ease, transform 0.5s linear;
+            filter: blur(80px); 
+            transition: filter 1.2s ease, opacity 1.2s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
+            z-index: 1;
         }
 
-        /* AWAKE STATE: When cursor touches */
+        /* CURSOR TOUCH STATE */
         .hero.active .hero-title {
-            opacity: 0.8;
+            opacity: 0.7;
             filter: blur(0px);
             mix-blend-mode: difference;
-            transform: scale(1);
+            transform: translate(-50%, -50%) scale(1);
         }
 
-        /* MOCKUP SECTION */
+        /* GALLERY SECTION */
         .gallery {
-            padding: 200px 0 400px;
+            padding: 100px 0 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 500px; /* Big silence */
+            gap: 450px; 
             position: relative;
             z-index: 10;
             background: var(--bg);
         }
 
         .poster {
-            width: 80%;
-            max-width: 800px;
+            width: 85%;
+            max-width: 750px;
             opacity: 0;
-            transform: translateY(100px);
+            transform: translateY(80px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -115,16 +115,14 @@
         .poster img {
             width: 100%;
             display: block;
-            box-shadow: 0 0 80px rgba(255,255,255,0.03);
         }
 
         .caption {
-            margin-top: 40px;
+            margin-top: 30px;
             font-size: 10px;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--label);
-            text-align: center;
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
@@ -168,33 +166,39 @@
         const meltTitle = document.getElementById('meltTitle');
         const flash = document.getElementById('flash');
 
-        // CURSOR + BLUR LOGIC
+        // PINK AURA + BLUR INTERACTION
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
             const rect = heroArea.getBoundingClientRect();
-            if (y >= rect.top && y <= rect.bottom) {
+            // Activates blur-out only if mouse is in the hero top section
+            if (y < window.innerHeight * 0.8) {
                 heroArea.classList.add('active');
             } else {
                 heroArea.classList.remove('active');
             }
         });
 
-        // THE MELT DOWN SCROLL EFFECT
+        // MELT & REAPPEAR LOGIC
         window.addEventListener('scroll', () => {
-            const scrollPercent = window.scrollY / window.innerHeight;
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
             
-            // As we scroll, text moves down, blurs more, and fades
-            if (scrollPercent < 1.5) {
-                const blurVal = 100 + (scrollPercent * 100);
-                const moveVal = scrollPercent * 300;
-                const scaleVal = 1.2 - (scrollPercent * 0.2);
+            if (scrollY < windowHeight) {
+                // Moving down: Title fades and blurs more
+                const opacityVal = 0.1 - (scrollY / windowHeight * 0.1);
+                const blurVal = 80 + (scrollY / 10);
+                const moveVal = (scrollY * 0.5);
                 
-                meltTitle.style.filter = `blur(${blurVal}px)`;
-                meltTitle.style.transform = `translateY(${moveVal}px) scale(${scaleVal})`;
-                meltTitle.style.opacity = 0.1 - (scrollPercent * 0.1);
+                meltTitle.style.opacity = heroArea.classList.contains('active') ? 0.7 : opacityVal;
+                meltTitle.style.filter = heroArea.classList.contains('active') ? 'blur(0px)' : `blur(${blurVal}px)`;
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${moveVal}px))`;
+                meltTitle.style.display = "block";
+            } else {
+                // Hide title completely when deep in gallery
+                meltTitle.style.display = "none";
             }
         });
 

@@ -3,138 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FEELINGS | NATIA STUDIO</title>
+    <title>NURTURE | NATIA STUDIO</title>
     <style>
-        :root {
-            --bg: #FFD1DC; /* Baby Pink */
-            --black: #1a1a1a;
-            --aura: rgba(255, 255, 255, 0.6);
-        }
-
+        :root { --bg: #000000; --white: #ffffff; --aura-p: rgba(255, 184, 224, 0.35); }
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        
-        body {
-            background-color: var(--bg);
-            color: var(--black);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+        body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-        /* BUBBLY AURA */
         #aura {
-            position: fixed; width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
+            position: fixed; width: 450px; height: 450px;
+            background: radial-gradient(circle, var(--aura-p) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
-            transform: translate(-50%, -50%); mix-blend-mode: overlay;
-            filter: blur(30px);
+            transform: translate(-50%, -50%); mix-blend-mode: screen;
         }
 
-        /* NAVIGATION */
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
-        nav a:hover { opacity: 1; }
-
-        /* CLOUD HEADER */
-        .intro {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 10%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%);
+        #flash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; opacity: 0; pointer-events: none; z-index: 10000;
         }
+        .do-flash { animation: shutter 0.4s ease-out; }
+        @keyframes shutter { 0% { opacity: 0; } 20% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* THE BUBBLY TEXT EFFECT */
+        /* HERO & MELT */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
         .hero-title {
-            font-size: clamp(60px, 18vw, 220px);
-            font-weight: 900;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-            display: flex;
-            gap: 5px;
-            filter: drop-shadow(0 10px 20px rgba(255,255,255,0.5));
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: clamp(60px, 15vw, 220px); font-weight: 950; letter-spacing: -0.06em;
+            text-transform: uppercase; display: flex; z-index: 1; pointer-events: none;
         }
+        .hero-title span { display: inline-block; transition: filter 0.3s ease, opacity 0.3s ease; }
+        .hero-title span.active-blur { filter: blur(60px) !important; opacity: 0.2; }
 
-        .hero-title span {
-            display: inline-block;
-            animation: bubble 4s ease-in-out infinite;
-            filter: blur(2px);
-            transition: filter 0.5s ease;
-        }
+        /* GALLERY */
+        .gallery { position: relative; z-index: 10; padding: 100vh 0 400px; display: flex; flex-direction: column; align-items: center; gap: 450px; }
+        .poster { width: 85%; max-width: 900px; opacity: 0; transform: translateY(100px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .poster.reveal { opacity: 1; transform: translateY(0); }
+        .poster img { width: 100%; display: block; background: #111; min-height: 200px; } /* Min-height helps visibility */
 
-        /* Stagger the bubble animation for each letter */
-        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
-        .hero-title span:nth-child(3) { animation-delay: 0.4s; }
-        .hero-title span:nth-child(4) { animation-delay: 0.6s; }
-        .hero-title span:nth-child(5) { animation-delay: 0.8s; }
-        .hero-title span:nth-child(6) { animation-delay: 1.0s; }
-        .hero-title span:nth-child(7) { animation-delay: 1.2s; }
-        .hero-title span:nth-child(8) { animation-delay: 1.4s; }
-
-        @keyframes bubble {
-            0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
-            50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
-        }
-
-        .sub-title {
-            font-size: 14px;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            opacity: 0.5;
-            margin-top: -10px;
-            margin-bottom: 40px;
-        }
-
-        /* GALLERY LOGIC */
-        .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 200px; }
-        .cover-item { width: 100%; max-width: 750px; text-align: center; }
-        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: all 1.5s ease; }
-        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        img { width: 100%; display: block; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
-
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
     </style>
 </head>
 <body>
 
+    <div id="flash"></div>
     <div id="aura"></div>
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="nurture.html">NURTURE</a>
+        <a href="others.html">THE OTHERS</a>
     </nav>
 
-    <header class="intro">
-        <h1 class="hero-title">
-            <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
+    <header class="hero">
+        <h1 class="hero-title" id="meltTitle">
+            <span>N</span><span>U</span><span>R</span><span>T</span><span>U</span><span>R</span><span>E</span>
         </h1>
-        <p class="sub-title">visual identities for sound</p>
     </header>
 
     <main class="gallery">
-        <div class="cover-item reveal-trigger">
-            <img src="cd-covers-hero.jpg" class="smart-load">
-        </div>
-        <div class="cover-item reveal-trigger"><img src="emptiness.jpg" class="smart-load"></div>
-        <div class="cover-item reveal-trigger"><img src="heartbreak-2.jpg" class="smart-load"></div>
-        <div class="cover-item reveal-trigger"><img src="insomnia-1.jpg" class="smart-load"></div>
-        <div class="cover-item reveal-trigger"><img src="love.jpg" class="smart-load"></div>
+        <div class="poster"><img data-src="nurture-hero.jpg" class="failsafe"></div>
+        <div class="poster"><img data-src="nurture-mockup2.jpg" class="failsafe"></div>
+        <div class="poster"><img data-src="nurture-mockup1.jpg" class="failsafe"></div>
     </main>
 
     <script>
-        // Aura movement
-        document.addEventListener('mousemove', (e) => {
-            document.getElementById('aura').style.left = e.clientX + 'px';
-            document.getElementById('aura').style.top = e.clientY + 'px';
+        const aura = document.getElementById('aura');
+        const flash = document.getElementById('flash');
+        const meltTitle = document.getElementById('meltTitle');
+        const letters = document.querySelectorAll('.hero-title span');
+
+        // 1. THE ULTIMATE IMAGE FAILSAFE
+        document.querySelectorAll('.failsafe').forEach(img => {
+            const baseName = img.getAttribute('data-src');
+            const variations = [
+                baseName, 
+                baseName.replace('-', '–'), // Long dash
+                baseName.replace('.jpg', '.png'),
+                baseName.replace('.jpg', '.JPG')
+            ];
+            
+            let i = 0;
+            const tryLoad = () => {
+                if (i < variations.length) {
+                    img.src = variations[i];
+                    i++;
+                }
+            };
+            
+            img.onerror = tryLoad;
+            tryLoad(); // Start first attempt
         });
 
-        // Intersection Observer for images
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
+        // 2. CURSOR & MELT LOGIC
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`; aura.style.top = `${y}px`;
+            letters.forEach(letter => {
+                const rect = letter.getBoundingClientRect();
+                const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
+                if (dist < 100) letter.classList.add('active-blur');
+                else letter.classList.remove('active-blur');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const vh = window.innerHeight;
+            if (scrollY < vh * 1.5) {
+                const p = scrollY / vh;
+                meltTitle.style.filter = `blur(${p * 130}px)`;
+                meltTitle.style.opacity = 1 - (p * 1.3);
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.5}px))`;
+                meltTitle.style.display = "flex";
+            } else { meltTitle.style.display = "none"; }
+        });
+
+        // 3. FLASH & REVEAL
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    flash.classList.remove('do-flash');
+                    void flash.offsetWidth;
+                    flash.classList.add('do-flash');
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>
 </body>
 </html>

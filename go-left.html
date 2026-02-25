@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FEELINGS | NATIA STUDIO</title>
+    <title>GO LEFT | NATIA STUDIO</title>
     <style>
         :root {
-            /* Expensive, neutral palette */
-            --bg: #0f0f0f; 
-            --text: #ffffff;
-            --subtle: rgba(255, 255, 255, 0.4);
+            --bg: #F2ECE4; /* High-end Bone/Off-white */
+            --text: #1a1a1a;
+            --accent: #E8220A;
         }
 
-        /* THE GRAIN (Texture) */
+        /* THE GRAIN OVERLAY */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: multiply;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -31,87 +30,62 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM CURSOR */
         #aura {
-            position: fixed; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            position: fixed; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; mix-blend-mode: difference; }
-        nav a { color: #fff; text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; text-transform: uppercase; }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; text-transform: uppercase; opacity: 0.4; }
 
-        /* UNDERWATER SUNLIGHT TITLE */
-        .intro { 
-            height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; 
+        /* SCROLLING TITLE */
+        .header {
+            height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
 
-        .hero-title {
-            font-size: clamp(60px, 18vw, 240px);
+        #scrolling-title {
+            font-size: clamp(100px, 25vw, 400px);
             font-weight: 900;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
-            display: flex; gap: 10px;
+            white-space: nowrap;
+            will-change: transform;
+            /* Velvety texture */
+            filter: blur(1px);
+            opacity: 0.9;
         }
 
-        .hero-title span { 
-            display: inline-block; 
-            animation: sunlight-underwater 8s ease-in-out infinite;
+        /* ARTWORK SEQUENCE */
+        .sequence {
+            display: flex; flex-direction: column; align-items: center; padding-bottom: 20vh;
         }
 
-        @keyframes sunlight-underwater {
-            0%, 100% { filter: blur(2px) brightness(1); transform: translateY(0) scale(1); }
-            50% { filter: blur(10px) brightness(1.7); transform: translateY(-15px) scale(1.05); text-shadow: 0 0 30px #fff; }
+        .moment {
+            width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;
         }
 
-        /* ASYMMETRICAL FLOATING GALLERY */
-        .gallery { padding: 0 10% 30vh; display: flex; flex-direction: column; gap: 40vh; }
-
-        .item { 
-            display: grid; 
-            grid-template-columns: 1fr 1.2fr; 
-            gap: 100px; 
-            align-items: center; 
-        }
-
-        .item:nth-child(even) { grid-template-columns: 1.2fr 1fr; }
-        .item:nth-child(even) .text-box { order: 2; text-align: right; }
-
-        .text-box { max-width: 400px; }
-        
-        .poem-text {
-            font-size: 20px; line-height: 1.6; font-weight: 500;
-            margin-bottom: 20px; white-space: pre-line;
-        }
-
-        .commentary { font-size: 12px; color: var(--subtle); font-style: italic; line-height: 1.8; }
-
-        /* FLOATING IMAGE */
-        .image-box {
-            position: relative;
-            animation: float-slow 12s ease-in-out infinite;
-        }
-
-        .image-box img {
-            width: 100%; height: auto; border-radius: 2px;
-            filter: drop-shadow(0 30px 100px rgba(0,0,0,0.5));
+        .moment img {
+            max-width: 550px; width: 85%; height: auto;
+            /* The "Floating from wall" shadow */
+            filter: drop-shadow(0 40px 100px rgba(0,0,0,0.08));
             transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .image-box img:hover { transform: scale(1.1); }
+        .moment img:hover { transform: scale(1.1) rotate(1deg); }
 
-        @keyframes float-slow {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(10px, -30px) rotate(1deg); }
+        .hard-line {
+            font-size: 13px; font-weight: 800; letter-spacing: 0.4em;
+            text-transform: uppercase; opacity: 0.3; margin: 10vh 0;
         }
 
-        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+        footer { height: 50vh; display: flex; align-items: center; justify-content: center; border-top: 1px solid rgba(0,0,0,0.05); }
+        .next-link { font-size: 14px; font-weight: 900; letter-spacing: 0.6em; text-decoration: none; color: var(--text); opacity: 0.4; transition: 0.5s; }
+        .next-link:hover { opacity: 1; letter-spacing: 0.8em; }
 
-        footer { height: 50vh; display: flex; align-items: center; justify-content: center; }
-        .next-link { font-size: 80px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -0.04em; opacity: 0.2; transition: 0.5s; }
-        .next-link:hover { opacity: 1; filter: blur(4px); }
+        .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
     </style>
 </head>
 <body>
@@ -120,47 +94,31 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="go-left.html">GO LEFT</a>
+        <a href="feelings.html">FEELINGS</a>
     </nav>
 
-    <header class="intro">
-        <h1 class="hero-title">
-            <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
-        </h1>
+    <header class="header">
+        <h1 id="scrolling-title">GO LEFT</h1>
     </header>
 
-    <main class="gallery">
-        
-        <section class="item reveal-trigger">
-            <div class="text-box">
-                <div class="poem-text">I made a heart.
-                I broke it.
-                Fragments orbit me—
-                tiny planets of pain.</div>
-                <div class="commentary">I literally created a heart shape and broke it. The fragments became orbiting pieces.</div>
-            </div>
-            <div class="image-box">
-                <img src="heartbreak-2.jpg">
-            </div>
+    <main class="sequence">
+        <section class="moment reveal-trigger">
+            <img src="goleft-main.jpg" alt="GO LEFT">
         </section>
 
-        <section class="item reveal-trigger">
-            <div class="image-box" style="animation-delay: -5s;">
-                <img src="love.jpg">
-            </div>
-            <div class="text-box">
-                <div class="poem-text">Love is what remains
-                after explanation leaves.
-                
-                Desire is what moves
-                before permission.</div>
-            </div>
+        <p class="hard-line reveal-trigger">when nothing works, change direction</p>
+
+        <section class="moment reveal-trigger">
+            <img src="go-left-2.jpg" alt="02">
         </section>
 
+        <section class="moment reveal-trigger">
+            <img src="go-left-3.jpg" alt="03">
+        </section>
     </main>
 
     <footer>
-        <a href="go-left.html" class="next-link">GO LEFT</a>
+        <a href="index.html" class="next-link">BACK TO WORKS</a>
     </footer>
 
     <script>
@@ -170,10 +128,15 @@
             aura.style.top = e.clientY + 'px';
         });
 
-        const obs = new IntersectionObserver((entries) => {
+        window.addEventListener('scroll', () => {
+            const title = document.getElementById('scrolling-title');
+            title.style.transform = `translateX(-${window.scrollY * 1.5}px)`;
+        });
+
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
+        document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

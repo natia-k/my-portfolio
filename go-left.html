@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
+        /* 1. CORE BRANDING (Bone & Graphite) */
         :root {
-            --bg: #F2ECE4; /* High-end Bone White */
+            --bg: #F2ECE4; /* High-end Bone */
             --text: #1a1a1a;
+            --noise: url('https://grainy-gradients.vercel.app/noise.svg');
         }
 
-        /* QUENTIN GRAIN EFFECT */
+        /* FILM GRAIN OVERLAY */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+            background-image: var(--noise);
             pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: multiply;
         }
 
@@ -29,54 +31,99 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* MINIMAL CURSOR */
         #aura {
-            position: fixed; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(0,0,0,0.04) 0%, transparent 70%);
+            position: fixed; width: 20px; height: 20px;
+            background: var(--text);
             border-radius: 50%; pointer-events: none; z-index: 999;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); mix-blend-mode: difference;
         }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; text-transform: uppercase; opacity: 0.4; }
+        /* 2. QUIET NAVIGATION */
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 5%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; opacity: 0.3; transition: 0.3s; }
+        nav a:hover { opacity: 1; }
 
-        /* THE GO LEFT SCROLL TITLE */
-        .header {
-            height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;
+        /* 3. HERO TITLE (The Decision) */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #scrolling-title {
-            font-size: clamp(100px, 25vw, 400px);
+        .hero h1 {
+            font-size: clamp(80px, 22vw, 320px);
             font-weight: 900;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            white-space: nowrap;
-            will-change: transform;
-            filter: blur(1px);
+            line-height: 0.8;
+            text-align: center;
         }
 
-        /* MOCKUP SECTION */
+        /* 4. POSTER SEQUENCE (Graphic Authority) */
         .sequence {
-            display: flex; flex-direction: column; align-items: center; padding-bottom: 20vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding-bottom: 20vh;
         }
 
-        .moment {
-            width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;
+        .poster-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 15vh 0; /* Massive Whitespace */
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
         }
 
-        .moment img {
-            max-width: 600px; width: 85%; height: auto;
-            /* Shadow makes it float off the bone wall */
-            filter: drop-shadow(0 30px 80px rgba(0,0,0,0.1));
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        .poster-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .moment img:hover { transform: scale(1.05); }
+        img {
+            max-width: 850px; /* Hero Size */
+            width: 90%;
+            height: auto;
+            /* Subtle depth so it feels "real" on the wall */
+            filter: drop-shadow(0 40px 100px rgba(0,0,0,0.06));
+        }
 
-        .footer { height: 50vh; display: flex; align-items: center; justify-content: center; }
-        .next-link { font-size: 14px; font-weight: 900; letter-spacing: 0.6em; text-decoration: none; color: var(--text); opacity: 0.3; }
+        /* 5. THE STATEMENT LINE */
+        .statement {
+            font-size: 14px;
+            letter-spacing: 0.3em;
+            text-transform: lowercase;
+            opacity: 0.4;
+            margin: 10vh 0;
+            text-align: center;
+        }
 
-        .reveal-trigger { opacity: 0; transform: translateY(40px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+        /* 6. NEXT NAVIGATION */
+        footer {
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .next-link {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.6em;
+            text-decoration: none;
+            color: var(--text);
+            opacity: 0.3;
+            transition: opacity 0.4s;
+        }
+
+        .next-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -88,45 +135,50 @@
         <a href="feelings.html">FEELINGS</a>
     </nav>
 
-    <header class="header">
-        <h1 id="scrolling-title">GO LEFT</h1>
+    <header class="hero">
+        <h1>GO LEFT</h1>
     </header>
 
     <main class="sequence">
-        <section class="moment reveal-trigger">
-            <img src="goleft-main.jpg" alt="Main Mockup">
-        </section>
+        
+        <div class="poster-wrapper">
+            <img src="goleft-main.jpg" alt="GO LEFT Hero">
+        </div>
 
-        <section class="moment reveal-trigger">
-            <img src="go-left-2.jpg" alt="Mockup 2">
-        </section>
+        <p class="statement">when nothing goes right, go left.</p>
 
-        <section class="moment reveal-trigger">
-            <img src="go-left-3.jpg" alt="Mockup 3">
-        </section>
+        <div class="poster-wrapper">
+            <img src="go-left-2.jpg" alt="Sequence 02">
+        </div>
+
+        <div class="poster-wrapper">
+            <img src="go-left-3.jpg" alt="Sequence 03">
+        </div>
+
     </main>
 
-    <footer class="footer">
-        <a href="index.html" class="next-link">BACK TO WORKS</a>
+    <footer>
+        <a href="index.html" class="next-link">NEXT</a>
     </footer>
 
     <script>
+        // CURSOR LOGIC
         document.addEventListener('mousemove', (e) => {
             const aura = document.getElementById('aura');
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
         });
 
-        // Makes the title slide left on scroll
-        window.addEventListener('scroll', () => {
-            const title = document.getElementById('scrolling-title');
-            title.style.transform = `translateX(-${window.scrollY * 1.5}px)`;
-        });
-
+        // SCROLL REVEAL (QUIET FADE)
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.poster-wrapper').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

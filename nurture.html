@@ -9,10 +9,9 @@
             --bg: #000000;
             --white: #ffffff;
             --pink-aura: rgba(255, 184, 224, 0.35);
-            --label: rgba(255, 255, 255, 0.4);
         }
 
-        /* PURE BLACK - NO GRAY */
+        /* PURE BLACK - ZERO GRAY */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body {
             background-color: var(--bg);
@@ -24,7 +23,7 @@
 
         #aura {
             position: fixed;
-            width: 400px; height: 400px;
+            width: 450px; height: 450px;
             background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -51,43 +50,33 @@
             font-weight: 900;
             letter-spacing: -0.05em;
             text-transform: uppercase;
-            text-align: center;
-            width: 100%;
-            z-index: 20;
             display: flex;
             justify-content: center;
+            z-index: 20;
             pointer-events: none;
         }
 
-        /* INDIVIDUAL LETTER LOGIC */
+        /* INDIVIDUAL LETTER BLUR */
         .hero-title span {
             display: inline-block;
-            transition: filter 0.4s ease, opacity 0.4s ease, transform 0.8s ease;
+            transition: filter 0.5s ease, opacity 0.5s ease, transform 0.8s ease;
             filter: blur(0px);
             opacity: 0.8;
         }
 
-        /* When cursor "touches" a letter via JS, we apply this */
+        /* The "Coursera/Cursor" touch effect */
         .hero-title span.blur-me {
-            filter: blur(40px) !important;
+            filter: blur(50px) !important;
             opacity: 0.2;
-            transform: scale(1.1);
         }
 
-        /* MELTY SCROLL STATE */
-        .hero-title.is-melting span {
-            filter: blur(80px);
-            opacity: 0.1;
-            transform: translateY(50px);
-        }
-
-        /* GALLERY - BIG IMAGES */
+        /* GALLERY & POSTERS */
         .gallery {
-            padding: 100px 0 400px;
+            padding: 200px 0 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 400px;
+            gap: 450px;
             background: #000000;
             position: relative;
             z-index: 10;
@@ -97,12 +86,12 @@
             width: 90%;
             max-width: 1000px;
             opacity: 0;
-            transform: translateY(60px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(100px);
+            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .poster.reveal { opacity: 1; transform: translateY(0); }
-        .poster img { width: 100%; display: block; }
+        .poster img { width: 100%; display: block; border-radius: 2px; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; }
@@ -124,9 +113,9 @@
     </header>
 
     <main class="gallery">
-        <div class="poster"><img src="nurture.jpg" class="check-img"><p style="text-align:center; margin-top:20px; font-size:10px; opacity:0.4;">OPENING</p></div>
-        <div class="poster"><img src="nurture-mockup2.jpg" class="check-img"><p style="text-align:center; margin-top:20px; font-size:10px; opacity:0.4;">DETAIL</p></div>
-        <div class="poster"><img src="nurture-mockup1.jpg" class="check-img"><p style="text-align:center; margin-top:20px; font-size:10px; opacity:0.4;">FORM</p></div>
+        <div class="poster"><img src="nurture.jpg" class="failsafe-img"></div>
+        <div class="poster"><img src="nurture-mockup2.jpg" class="failsafe-img"></div>
+        <div class="poster"><img src="nurture-mockup1.jpg" class="failsafe-img"></div>
     </main>
 
     <script>
@@ -134,7 +123,7 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
-        // 1. MOUSE INTERACTION - PER LETTER BLUR
+        // 1. INDIVIDUAL LETTER BLUR ON MOUSE TOUCH
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
@@ -142,10 +131,10 @@
 
             letters.forEach(letter => {
                 const rect = letter.getBoundingClientRect();
-                // If cursor is within 100px of the letter, it blurs
                 const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
                 
-                if (dist < 120) {
+                // If cursor touches a specific letter, it blurs
+                if (dist < 100) {
                     letter.classList.add('blur-me');
                 } else {
                     letter.classList.remove('blur-me');
@@ -153,30 +142,39 @@
             });
         });
 
-        // 2. SMOOTH MELT ON SCROLL
+        // 2. THE MELTING SCROLL EFFECT
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            if (scrollY > 100) {
-                meltTitle.classList.add('is-melting');
+            const threshold = window.innerHeight * 0.8;
+
+            if (scrollY < threshold) {
+                const progress = scrollY / threshold;
+                // Text sinks, blurs more, and fades out smoothly
+                const blurValue = progress * 100;
+                const opacityValue = 0.8 - (progress * 0.8);
+                const moveDown = scrollY * 0.6;
+
+                meltTitle.style.opacity = opacityValue;
+                meltTitle.style.filter = `blur(${blurValue}px)`;
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${moveDown}px))`;
+                meltTitle.style.display = "flex";
             } else {
-                meltTitle.classList.remove('is-melting');
+                meltTitle.style.display = "none";
             }
         });
 
-        // 3. IMAGE PATH AUTO-FIXER (Fixes the "Not Visible" issue)
-        document.querySelectorAll('.check-img').forEach(img => {
+        // 3. IMAGE FAILSAFE (Forces images to show even if extension is wrong)
+        document.querySelectorAll('.failsafe-img').forEach(img => {
             img.onerror = function() {
-                // If .jpg fails, try .png
                 if (this.src.endsWith('.jpg')) {
                     this.src = this.src.replace('.jpg', '.png');
                 } else if (this.src.endsWith('.png')) {
-                    // If .png fails, try the other mockup folder name
-                    this.src = 'nurture_mockup1.jpg'; 
+                    this.src = this.src.replace('.png', '.JPG');
                 }
             };
         });
 
-        // 4. REVEAL IMAGES
+        // 4. REVEAL OBSERVER
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('reveal');

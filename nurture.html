@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 1. SOFT PINK & CUTE PALETTE */
-            --bg: #fdf5f7; /* Very soft, creamy pink-white */
-            --ink: #4a3f3f; /* Warm, earthy charcoal */
-            --accent: #ffb8e0; /* The signature soft pink */
-            --glow: rgba(255, 184, 224, 0.25);
+            --bg: #fdf5f7; /* Soft rose-white */
+            --ink: #4a3f3f; 
+            --accent: #ffb8e0;
+            --line: rgba(74, 63, 63, 0.08);
+            --glow: rgba(255, 184, 224, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -21,10 +21,8 @@
             color: var(--ink);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
-        /* DUSTY ROSE AURA */
         #aura {
             position: fixed;
             width: 700px; height: 700px;
@@ -35,7 +33,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* HERO BLOCK */
+        /* 1. MATCH THE HEADER PATTERN */
         .hero {
             height: 100vh;
             display: flex;
@@ -50,39 +48,42 @@
             font-size: clamp(60px, 12vw, 150px);
             font-weight: 400;
             font-style: italic;
-            color: var(--ink);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
-        .hero-sub {
-            font-size: 17px;
-            line-height: 1.6;
-            max-width: 500px;
-            opacity: 0.8;
-        }
-
-        .hero-sub span {
-            display: block;
-            margin-top: 15px;
-            font-size: 14px;
-            opacity: 0.5;
-        }
-
-        .scope-line {
-            margin-top: 50px;
+        .micro-meta {
             font-size: 10px;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--accent); /* Pink accent for the tag */
-            font-weight: 600;
+            opacity: 0.5;
+            margin-bottom: 40px;
         }
 
-        /* GALLERY */
+        /* 2. SPLIT INTRO INTO 2 LINES */
+        .intro-block {
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .line-1 { font-size: 20px; font-weight: 300; margin-bottom: 10px; }
+        .line-2 { font-size: 16px; font-style: italic; opacity: 0.6; }
+
+        /* 5. THE DETAIL STRIP (CREDIBILITY LINE) */
+        .detail-strip {
+            padding-top: 30px;
+            border-top: 1px solid var(--line);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        /* 4. GALLERY LABELS & SPACING */
         .gallery {
-            padding: 150px 12% 300px;
+            padding: 100px 15% 400px;
             display: flex;
             flex-direction: column;
-            gap: 200px;
+            gap: 250px;
         }
 
         .moment { width: 100%; max-width: 650px; }
@@ -91,34 +92,28 @@
         .moment img {
             width: 100%;
             display: block;
-            border-radius: 4px;
-            /* Soft pink shadow instead of black */
-            box-shadow: 0 30px 60px rgba(255, 184, 224, 0.15);
-            transition: 0.8s ease;
+            border-radius: 2px;
+            box-shadow: 0 30px 60px rgba(255, 184, 224, 0.1);
         }
 
         .caption {
             display: block;
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 11px;
-            letter-spacing: 2px;
-            opacity: 0.5;
-            font-style: italic;
+            letter-spacing: 1px;
+            opacity: 0.6;
         }
+
+        .caption b { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-right: 10px; opacity: 1; }
 
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; }
+        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 600; }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        .reveal { opacity: 0; transform: translateY(30px); transition: 2s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
@@ -133,27 +128,32 @@
 
     <header class="hero">
         <h1 class="hero-title">nurture</h1>
-        <div class="hero-sub">
-            A quiet piece about softness, memory, and becoming.
-            <span>Made slowly, like morning light. Held gently, like something you don’t need to explain.</span>
+        <div class="micro-meta">Art piece · Visual study · 2026</div>
+        
+        <div class="intro-block">
+            <p class="line-1">A quiet piece about softness, memory, and becoming.</p>
+            <p class="line-2">Made slowly. Held gently.</p>
         </div>
-        <div class="scope-line">SCOPE — Organic / 2026</div>
+
+        <div class="detail-strip">
+            Form · Texture · Type · Memory
+        </div>
     </header>
 
     <main class="gallery">
         <div class="moment reveal">
-            <img src="Nurture.jpg" alt="Soft light memory">
-            <span class="caption">a gentle form</span>
+            <img src="Nurture.jpg">
+            <span class="caption"><b>Plate 01</b> — Soft light memory</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture-mockup2.jpg" alt="Cassette mockup">
-            <span class="caption">warm texture</span>
+            <img src="nurture-mockup2.jpg">
+            <span class="caption"><b>Plate 02</b> — Warm texture</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture-mockup1.jpg" alt="Details and type">
-            <span class="caption">still growing</span>
+            <img src="nurture-mockup1.jpg">
+            <span class="caption"><b>Plate 03</b> — Still growing</span>
         </div>
     </main>
 
@@ -165,9 +165,7 @@
         });
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>

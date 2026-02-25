@@ -8,6 +8,198 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
+            --label: rgba(255, 255, 255, 0.4);
+            --line: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* 1. THE DEEP BLUR ENTRANCE */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: clamp(60px, 15vw, 220px);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            
+            /* Initial State: Far away and invisible */
+            opacity: 0;
+            filter: blur(80px);
+            transform: scale(1.5); 
+            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero.active .hero-title {
+            opacity: 0.15;
+            filter: blur(0px);
+            transform: scale(1);
+        }
+
+        /* 2. THE CAMERA FLASH EFFECT */
+        .flash-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes camera-flash {
+            0% { opacity: 0; }
+            10% { opacity: 1; } /* The burst */
+            100% { opacity: 0; } /* The fade out */
+        }
+
+        .do-flash {
+            animation: camera-flash 0.6s ease-out forwards;
+        }
+
+        /* LAYOUT & SCROLLING */
+        .meta-section {
+            padding: 100px 10%;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .scope-line {
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--label);
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 400px;
+            padding-bottom: 400px;
+        }
+
+        .poster {
+            width: 85%;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        /* When the poster enters view */
+        .poster.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .poster img {
+            width: 100%;
+            display: block;
+            /* Lifts it off the black */
+            box-shadow: 0 0 100px rgba(255,255,255,0.05);
+        }
+
+        .caption {
+            margin-top: 30px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--label);
+        }
+
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <div class="flash-overlay" id="flash"></div>
+
+    <nav>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="others.html">THE OTHERS</a>
+    </nav>
+
+    <header class="hero" id="hero">
+        <h1 class="hero-title">NURTURE</h1>
+    </header>
+
+    <section class="meta-section">
+        <p class="scope-line">SCOPE — Visual Study · 2026</p>
+    </section>
+
+    <main class="gallery">
+        <div class="poster">
+            <img src="nurture-hero.jpg">
+            <p class="caption">opening — softness</p>
+        </div>
+
+        <div class="poster">
+            <img src="nurture-mockup2.jpg">
+            <p class="caption">detail — presence</p>
+        </div>
+
+        <div class="poster">
+            <img src="nurture-mockup1.jpg">
+            <p class="caption">closing — form</p>
+        </div>
+    </main>
+
+    <script>
+        const hero = document.getElementById('hero');
+        const flash = document.getElementById('flash');
+
+        // 1. Text coming from far away on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                hero.classList.add('active');
+            }, 500);
+        });
+
+        // 2. Camera Flash Logic
+        const triggerFlash = () => {
+            flash.classList.remove('do-flash');
+            void flash.offsetWidth; // Reset animation
+            flash.classList.add('do-flash');
+        };
+
+        // 3. Observer for Flash + Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    triggerFlash(); // Trigger flash when image hits view
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NURTURE | NATIA STUDIO</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --white: #ffffff;
             --line: rgba(255, 255, 255, 0.1);
             --accent: #ffb8e0;
         }

@@ -8,11 +8,18 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --pink-aura: rgba(255, 184, 224, 0.22);
+            --pink-aura: rgba(255, 184, 224, 0.28);
             --label: rgba(255, 255, 255, 0.4);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        /* REMOVE ALL GRAY/TEXT SELECTION SHADES */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            cursor: none; 
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             background-color: var(--bg);
@@ -25,7 +32,7 @@
         /* PINK GLOW CURSOR */
         #aura {
             position: fixed;
-            width: 500px; height: 500px;
+            width: 600px; height: 600px;
             background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -50,7 +57,7 @@
         }
         .do-flash { animation: camera-flash 0.5s ease-out forwards; }
 
-        /* HERO: MASSIVE & DREAMY */
+        /* HERO: PURE BLACK BASE */
         .hero {
             height: 100vh;
             display: flex;
@@ -58,33 +65,34 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background: #000000; /* Force pure black */
         }
 
         .hero-title {
             position: fixed; 
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1.1);
-            font-size: clamp(80px, 20vw, 300px);
+            transform: translate(-50%, -50%);
+            font-size: clamp(80px, 22vw, 320px);
             font-weight: 900;
             letter-spacing: -0.06em;
             text-transform: uppercase;
             text-align: center;
+            width: 100%;
             
-            /* DEFAULT: Blurry/Dreamy */
-            opacity: 0.12;
-            filter: blur(70px); 
-            transition: filter 1.2s ease, opacity 1.2s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            /* DEFAULT: Deep Dream Blur */
+            opacity: 0.15;
+            filter: blur(80px); 
+            transition: filter 1s ease, opacity 1s ease;
             pointer-events: none;
             z-index: 1;
         }
 
-        /* CURSOR TOUCH: Sharp */
+        /* CURSOR TOUCH: Individual Letter Focus Energy */
         .hero.active .hero-title {
-            opacity: 0.8;
+            opacity: 0.85;
             filter: blur(0px);
             mix-blend-mode: difference;
-            transform: translate(-50%, -50%) scale(1);
         }
 
         /* GALLERY SECTION */
@@ -93,10 +101,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 400px; 
+            gap: 450px; 
             position: relative;
             z-index: 10;
-            background: var(--bg);
+            background: #000000; /* No gray transitions */
         }
 
         .poster {
@@ -104,7 +112,7 @@
             max-width: 800px;
             opacity: 0;
             transform: translateY(60px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .poster.reveal {
@@ -115,19 +123,20 @@
         .poster img {
             width: 100%;
             display: block;
+            filter: grayscale(0); /* Ensure no gray overlay on images */
         }
 
         .caption {
             margin-top: 30px;
             font-size: 10px;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--label);
             text-align: center;
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -167,54 +176,55 @@
         const meltTitle = document.getElementById('meltTitle');
         const flash = document.getElementById('flash');
 
-        // PINK CURSOR + BLUR LOGIC
+        // MOUSE LOGIC: Touches letters to sharpen
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
             const rect = heroArea.getBoundingClientRect();
-            // Sharpens text only when cursor is in the hero zone
-            if (y >= rect.top && y <= rect.bottom) {
+            // Sharpen text only when cursor is in the hero zone and not scrolled deep
+            if (y >= rect.top && y <= rect.bottom && window.scrollY < 300) {
                 heroArea.classList.add('active');
             } else {
                 heroArea.classList.remove('active');
             }
         });
 
-        // SCROLL REAPPEAR & MELT
+        // SMOOTH MELT LOGIC
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            const threshold = window.innerHeight;
+            const windowHeight = window.innerHeight;
             
-            if (scrollY < threshold) {
-                const scrollProgress = scrollY / threshold;
-                // Move title down and blur it more as you scroll away
-                const moveDown = scrollY * 0.4;
-                const extraBlur = scrollProgress * 50;
+            if (scrollY < windowHeight) {
+                const scrollProgress = scrollY / (windowHeight * 0.8);
+                
+                // Calculations for the "Melting" feel
+                const targetBlur = 80 + (scrollProgress * 120); // Gets blurrier as you go down
+                const targetOpacity = 0.15 * (1 - scrollProgress);
+                const targetY = -50 + (scrollProgress * 20); // Sinks slightly
                 
                 meltTitle.style.display = "block";
-                meltTitle.style.transform = `translate(-50%, calc(-50% + ${moveDown}px))`;
                 
-                // If cursor isn't active, keep it blurry
+                // Only apply the "melt blur" if the mouse isn't currently sharpening it
                 if (!heroArea.classList.contains('active')) {
-                    meltTitle.style.filter = `blur(${70 + extraBlur}px)`;
-                    meltTitle.style.opacity = 0.12 - (scrollProgress * 0.1);
+                    meltTitle.style.filter = `blur(${targetBlur}px)`;
+                    meltTitle.style.opacity = targetOpacity;
                 }
+                
+                meltTitle.style.transform = `translate(-50%, ${targetY}%)`;
             } else {
-                // Hide title once we are deep in the images
-                meltTitle.style.display = "none";
+                meltTitle.style.display = "none"; // Kill it once gallery starts
             }
         });
 
-        // FLASH EFFECT
+        // FLASH TRIGGER
         const triggerFlash = () => {
             flash.classList.remove('do-flash');
             void flash.offsetWidth; 
             flash.classList.add('do-flash');
         };
 
-        // IMAGE REVEAL OBSERVER
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -222,7 +232,7 @@
                     triggerFlash();
                 }
             });
-        }, { threshold: 0.25 });
+        }, { threshold: 0.3 });
 
         document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>

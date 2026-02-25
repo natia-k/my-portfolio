@@ -6,140 +6,140 @@
     <title>CD COVERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #FFD1DC;
+            --bg: #FFD1DC; /* Baby Pink */
             --black: #1a1a1a;
-            --glass: rgba(255, 255, 255, 0.2);
+            --aura: rgba(255, 255, 255, 0.4);
         }
 
-        /* GRAIN OVERLAY FOR TEXTURE */
-        body::before {
-            content: "";
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.15; pointer-events: none; z-index: 5000;
-        }
+        /* SILKY SMOOTH SCROLLING */
+        html { scroll-behavior: smooth; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
         body {
             background-color: var(--bg);
             color: var(--black);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         #aura {
-            position: fixed; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            position: fixed; width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: overlay;
         }
 
-        /* NAV */
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 6000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.5; transition: 0.3s; }
+        /* NAVIGATION */
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
         nav a:hover { opacity: 1; }
 
-        /* HERO */
-        .hero {
-            height: 120vh;
+        /* INTRO SECTION */
+        .intro {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
             padding: 0 10%;
         }
 
+        .title-group {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1.5s forwards 0.5s;
+        }
+
         .hero-title {
-            font-size: clamp(50px, 12vw, 150px);
+            font-size: clamp(50px, 12vw, 140px);
             font-weight: 950;
             letter-spacing: -0.05em;
             text-transform: uppercase;
-            line-height: 0.8;
-            margin-bottom: 40px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 10px;
         }
 
-        .feelings-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
-            max-width: 600px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        .sub-title {
+            font-size: 14px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 60px;
         }
 
-        .feelings-text {
+        .intro-text {
+            max-width: 500px;
             font-size: 15px;
             line-height: 1.8;
-            letter-spacing: 0.01em;
-            opacity: 0.9;
+            opacity: 0.7;
+            font-weight: 400;
         }
 
-        /* GALLERY */
-        .gallery { padding-bottom: 400px; }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .img-container {
-            width: 100%;
+        /* GALLERY - THE LISTENING ROOM */
+        .gallery {
+            padding: 0 5% 400px;
             display: flex;
-            justify-content: center;
-            margin-bottom: 200px;
-            perspective: 1000px;
-        }
-
-        /* MAIN BOOK MOCKUP */
-        .main-hero {
-            width: 80%;
-            max-width: 1100px;
-            transform: rotateX(10deg) translateY(100px);
-            opacity: 0;
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* SIDE-BY-SIDE PAIRS */
-        .cover-pair {
-            display: flex;
-            gap: 60px;
-            width: 85%;
-            max-width: 1100px;
-            margin: 0 auto 200px;
-        }
-
-        .cover-item {
-            flex: 1;
-            opacity: 0;
-            transform: translateY(150px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Offset the second image in a pair for the "Liquid" effect */
-        .cover-item.lag { transition-delay: 0.2s; }
-
-        .reveal { opacity: 1 !important; transform: translateY(0) rotateX(0) !important; }
-        
-        img { 
-            width: 100%; 
-            display: block; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            border-radius: 4px;
-        }
-
-        /* Footer Spacing */
-        .next-project {
-            height: 100vh;
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 250px; /* Generous breathing room */
         }
-        .next-project a {
-            font-size: clamp(30px, 5vw, 60px);
+
+        /* HERO MOCKUP */
+        .hero-container {
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        /* SQUARE COVERS */
+        .cover-item {
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .caption {
+            margin-top: 25px;
+            font-size: 11px;
+            letter-spacing: 0.4em;
+            text-transform: lowercase;
+            opacity: 0.4;
+        }
+
+        /* REVEAL LOGIC */
+        .reveal-trigger {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        img { width: 100%; display: block; height: auto; border-radius: 2px; }
+
+        /* NEXT LINK */
+        .footer-nav {
+            padding: 200px 0;
+            text-align: center;
+        }
+        .footer-nav a {
+            font-size: 40px;
+            font-weight: 900;
             text-decoration: none;
             color: var(--black);
-            font-weight: 900;
-            opacity: 0.2;
-            transition: 0.5s;
+            opacity: 0.1;
+            transition: 0.6s;
         }
-        .next-project a:hover { opacity: 1; letter-spacing: 10px; }
+        .footer-nav a:hover { opacity: 1; letter-spacing: 15px; }
+
     </style>
 </head>
 <body>
@@ -151,52 +151,66 @@
         <a href="nurture.html">NURTURE</a>
     </nav>
 
-    <header class="hero">
-        <h1 class="hero-title">CD COVERS</h1>
-        <div class="feelings-card">
-            <div class="feelings-text">
-                Visual interpretations of feeling and sound.<br><br>
-                We are always feeling something. Sometimes it comes from memory, sound, texture, or rhythm. Even when it feels quiet, something is still there.<br><br>
-                These covers are attempts to hold onto those fleeting moments. Not to explain the music, but to give feeling a visual form.
+    <header class="intro">
+        <div class="title-group">
+            <h1 class="hero-title">CD COVERS</h1>
+            <p class="sub-title">Visual identities for sound.</p>
+            <div class="intro-text">
+                Each cover is a space for feeling. These are attempts to hold onto fleeting moments. Not to explain the music, but to give feeling a visual form.
             </div>
         </div>
     </header>
 
     <main class="gallery">
-        <div class="img-container">
-            <div class="main-hero reveal-trigger">
-                <img src="cd-covers-hero.jpg">
-            </div>
-        </div>
-
-        <div class="cover-pair">
-            <div class="cover-item reveal-trigger"><img src="emptiness.jpg"></div>
-            <div class="cover-item reveal-trigger lag"><img src="heartbreak-2.jpg"></div>
-        </div>
-
-        <div class="cover-pair">
-            <div class="cover-item reveal-trigger"><img src="insomnia-1.jpg"></div>
-            <div class="cover-item reveal-trigger lag"><img src="love.jpg"></div>
-        </div>
-
-        <div class="img-container">
-            <div class="main-hero reveal-trigger" style="max-width: 600px;">
-                <img src="pleasure.jpg">
-            </div>
-        </div>
         
-        <div class="img-container">
-            <div class="main-hero reveal-trigger" style="max-width: 600px;">
-                <img src="desire.jpg">
-            </div>
+        <div class="hero-container reveal-trigger">
+            <img src="cd-covers-hero.jpg" class="smart-load">
+            <p class="caption">physical resonance</p>
         </div>
+
+        <div class="cover-item reveal-trigger">
+            <img src="emptiness.jpg" class="smart-load">
+            <p class="caption">hush</p>
+        </div>
+
+        <div class="cover-item reveal-trigger">
+            <img src="heartbreak-2.jpg" class="smart-load">
+            <p class="caption">nocturne</p>
+        </div>
+
+        <div class="cover-item reveal-trigger">
+            <img src="insomnia-1.jpg" class="smart-load">
+            <p class="caption">pulse</p>
+        </div>
+
+        <div class="cover-item reveal-trigger">
+            <img src="love.jpg" class="smart-load">
+            <p class="caption">flux</p>
+        </div>
+
+        <div class="cover-item reveal-trigger">
+            <img src="pleasure.jpg" class="smart-load">
+            <p class="caption">distorted warmth</p>
+        </div>
+
+        <div class="cover-item reveal-trigger">
+            <img src="desire.jpg" class="smart-load">
+            <p class="caption">craving</p>
+        </div>
+
     </main>
 
-    <section class="next-project">
-        <a href="nurture.html">NEXT: NURTURE</a>
-    </section>
+    <footer class="footer-nav">
+        <a href="nurture.html">NURTURE</a>
+    </footer>
 
     <script>
+        // SMART LOAD & CACHE BUSTER
+        document.querySelectorAll('.smart-load').forEach(img => {
+            const raw = img.getAttribute('src');
+            img.src = raw + "?v=" + Date.now();
+        });
+
         // CURSOR
         document.addEventListener('mousemove', (e) => {
             document.getElementById('aura').style.left = e.clientX + 'px';

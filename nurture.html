@@ -8,7 +8,7 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --pink-aura: rgba(255, 184, 224, 0.25);
+            --pink-aura: rgba(255, 184, 224, 0.22);
             --label: rgba(255, 255, 255, 0.4);
         }
 
@@ -22,10 +22,10 @@
             overflow-x: hidden;
         }
 
-        /* STRONGER PINK AURA */
+        /* PINK GLOW CURSOR */
         #aura {
             position: fixed;
-            width: 550px; height: 550px;
+            width: 500px; height: 500px;
             background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -50,9 +50,9 @@
         }
         .do-flash { animation: camera-flash 0.5s ease-out forwards; }
 
-        /* HERO: REFINED MASSIVE TEXT */
+        /* HERO: MASSIVE & DREAMY */
         .hero {
-            height: 120vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,23 +65,23 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(1.1);
-            font-size: clamp(80px, 18vw, 280px); /* Slightly smaller to ensure visibility */
+            font-size: clamp(80px, 20vw, 300px);
             font-weight: 900;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
             text-align: center;
             
-            /* DREAM STATE */
-            opacity: 0.1;
-            filter: blur(80px); 
-            transition: filter 1.2s ease, opacity 1.2s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            /* DEFAULT: Blurry/Dreamy */
+            opacity: 0.12;
+            filter: blur(70px); 
+            transition: filter 1.2s ease, opacity 1.2s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
             pointer-events: none;
             z-index: 1;
         }
 
-        /* CURSOR TOUCH STATE */
+        /* CURSOR TOUCH: Sharp */
         .hero.active .hero-title {
-            opacity: 0.7;
+            opacity: 0.8;
             filter: blur(0px);
             mix-blend-mode: difference;
             transform: translate(-50%, -50%) scale(1);
@@ -93,7 +93,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 450px; 
+            gap: 400px; 
             position: relative;
             z-index: 10;
             background: var(--bg);
@@ -101,9 +101,9 @@
 
         .poster {
             width: 85%;
-            max-width: 750px;
+            max-width: 800px;
             opacity: 0;
-            transform: translateY(80px);
+            transform: translateY(60px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -123,6 +123,7 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--label);
+            text-align: center;
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
@@ -166,49 +167,54 @@
         const meltTitle = document.getElementById('meltTitle');
         const flash = document.getElementById('flash');
 
-        // PINK AURA + BLUR INTERACTION
+        // PINK CURSOR + BLUR LOGIC
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
             const rect = heroArea.getBoundingClientRect();
-            // Activates blur-out only if mouse is in the hero top section
-            if (y < window.innerHeight * 0.8) {
+            // Sharpens text only when cursor is in the hero zone
+            if (y >= rect.top && y <= rect.bottom) {
                 heroArea.classList.add('active');
             } else {
                 heroArea.classList.remove('active');
             }
         });
 
-        // MELT & REAPPEAR LOGIC
+        // SCROLL REAPPEAR & MELT
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
+            const threshold = window.innerHeight;
             
-            if (scrollY < windowHeight) {
-                // Moving down: Title fades and blurs more
-                const opacityVal = 0.1 - (scrollY / windowHeight * 0.1);
-                const blurVal = 80 + (scrollY / 10);
-                const moveVal = (scrollY * 0.5);
+            if (scrollY < threshold) {
+                const scrollProgress = scrollY / threshold;
+                // Move title down and blur it more as you scroll away
+                const moveDown = scrollY * 0.4;
+                const extraBlur = scrollProgress * 50;
                 
-                meltTitle.style.opacity = heroArea.classList.contains('active') ? 0.7 : opacityVal;
-                meltTitle.style.filter = heroArea.classList.contains('active') ? 'blur(0px)' : `blur(${blurVal}px)`;
-                meltTitle.style.transform = `translate(-50%, calc(-50% + ${moveVal}px))`;
                 meltTitle.style.display = "block";
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${moveDown}px))`;
+                
+                // If cursor isn't active, keep it blurry
+                if (!heroArea.classList.contains('active')) {
+                    meltTitle.style.filter = `blur(${70 + extraBlur}px)`;
+                    meltTitle.style.opacity = 0.12 - (scrollProgress * 0.1);
+                }
             } else {
-                // Hide title completely when deep in gallery
+                // Hide title once we are deep in the images
                 meltTitle.style.display = "none";
             }
         });
 
-        // FLASH LOGIC
+        // FLASH EFFECT
         const triggerFlash = () => {
             flash.classList.remove('do-flash');
             void flash.offsetWidth; 
             flash.classList.add('do-flash');
         };
 
+        // IMAGE REVEAL OBSERVER
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -216,7 +222,7 @@
                     triggerFlash();
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.25 });
 
         document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>

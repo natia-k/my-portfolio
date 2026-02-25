@@ -3,148 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NURTURE | NATIA DESIGN</title>
+    <title>NURTURE | NATIA STUDIO</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+        :root {
+            --bg: #f5f2ee; /* Warm Beige */
+            --text: #4a4a4a; /* Soft Charcoal */
+            --leaf: #8a9a5b; /* Muted Green */
+            --rose: #d8b4a6; /* Dusty Rose */
+            --line: rgba(74, 74, 74, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Cormorant Garamond', serif; /* Elegant Serif */
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Nav - Pure White, Heavy Letter Spacing */
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 40px 6%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; font-size: 13px; letter-spacing: 5px; font-weight: 900; 
+        /* LIGHTING GRADIENT (MORNING SUN) */
+        #aura {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(216, 180, 166, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 1s ease;
         }
-        nav a { color: var(--white); text-decoration: none; text-transform: uppercase; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 8px; }
 
-        /* THE SPLIT HERO */
-        .hero-split { 
-            display: flex; 
-            height: 100vh; 
-            width: 100%; 
-            align-items: stretch;
-        }
-        
-        .hero-left { 
-            flex: 1.4; 
+        /* TEXT OVERLAP SYSTEM (NURTURE STYLE) */
+        .hero {
             height: 100vh;
-            overflow: hidden;
-        }
-        
-        .hero-left img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* Keeps image full size without stretching */
-            display: block;
-        }
-
-        .hero-right { 
-            flex: 1; 
-            padding: 0 7%; 
-            display: flex; 
-            flex-direction: column; 
+            display: flex;
+            align-items: center;
             justify-content: center;
-            height: 100vh;
+            position: relative;
         }
-        
-        /* Typography - Huge and Intense */
-        h1 { 
-            font-size: clamp(80px, 14vw, 180px); 
-            font-weight: 900; 
-            line-height: 0.75; 
-            letter-spacing: -10px; 
-            margin-bottom: 50px; 
+
+        .hero-title {
+            position: absolute;
+            font-size: clamp(80px, 20vw, 300px);
+            font-weight: 300;
+            letter-spacing: -0.02em;
             text-transform: uppercase;
+            z-index: 5;
+            color: var(--rose);
+            opacity: 0.3;
+            filter: blur(8px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .desc { 
-            font-size: 28px; 
-            color: var(--white); 
-            margin-bottom: 25px; 
-            line-height: 1.1; 
-            max-width: 480px;
-            font-weight: 400;
+        .hero-container {
+            width: 60%;
+            max-width: 500px;
+            z-index: 10;
+            position: relative;
+            transform: scale(0.95);
+            filter: blur(10px);
+            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .project-scope { 
-            font-size: 12px; 
-            letter-spacing: 3px; 
-            color: var(--white); 
-            text-transform: uppercase; 
-            margin-top: 50px; 
-            border-top: 3px solid var(--white);
-            padding-top: 30px;
-            font-weight: 900;
+        .hero-container.loaded {
+            transform: scale(1);
+            filter: blur(0px);
         }
 
-        /* Grid for Nurture Mockups */
-        .gallery { 
-            padding: 20px 6%; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px;
-            background: var(--black);
+        .hero-img {
+            width: 100%;
+            display: block;
+            border-radius: 200px 200px 0 0; /* Organic Arch */
+            box-shadow: 0 20px 60px rgba(0,0,0,0.03);
         }
-        .gallery img { width: 100%; height: auto; display: block; }
 
-        .next-btn {
-            padding: 160px 6% 200px;
-            text-align: right;
-            border-top: 4px solid var(--white);
+        .hero:hover .hero-title {
+            z-index: 15;
+            opacity: 0.9;
+            filter: blur(0px);
+            color: var(--text);
+            mix-blend-mode: multiply;
         }
-        .next-btn a { text-decoration: none; color: var(--white); }
-        .next-btn h2 { font-size: clamp(60px, 11vw, 130px); font-weight: 900; letter-spacing: -6px; }
-        .next-btn a:hover h2 { color: var(--accent); }
 
-        @media (max-width: 1100px) {
-            .hero-split { flex-direction: column; height: auto; }
-            .hero-left { height: 75vh; }
-            .hero-right { padding: 80px 10%; height: auto; }
-            h1 { letter-spacing: -5px; }
+        /* REVEAL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(10px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+        }
+
+        /* SECTION STYLING */
+        .content-block {
+            padding: 150px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 12px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--leaf);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: '';
+            height: 1px;
+            flex-grow: 1;
+            background: var(--line);
+            margin-left: 20px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.5s ease;
+        }
+
+        .active .section-title::after { transform: scaleX(1); }
+
+        .body-text {
+            font-size: 28px;
+            line-height: 1.4;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .scope-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 3px;
+            padding: 8px 15px;
+            border: 1px solid var(--line);
+            display: inline-block;
+            transition: 0.5s;
+        }
+
+        .scope-tag:hover {
+            border-color: var(--rose);
+            color: var(--rose);
+        }
+
+        /* MOCKUP GRID */
+        .mockup-grid {
+            padding: 0 10% 200px;
+            display: grid;
+            gap: 150px;
+        }
+
+        .mockup-item img {
+            width: 100%;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1s;
+        }
+
+        .mockup-item:hover img {
+            transform: scale(1.02);
+            filter: saturate(1.1);
+        }
+
+        nav {
+            position: fixed;
+            top: 40px; width: 100%; padding: 0 6%;
+            display: flex; justify-content: space-between; z-index: 1000;
+        }
+        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 700; }
+
     </style>
 </head>
 <body>
 
+    <div id="aura"></div>
+
     <nav>
-        <a href="index.html">← BACK</a>
-        <div class="nav-center">NATIA DESIGN</div>
-        <a href="mailto:contact@natiadesign.com">EMAIL</a>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="others.html">BACK</a>
     </nav>
 
-    <div class="container">
-        <section class="hero-split">
-            <div class="hero-left">
-                <img src="nurture-hero.jpg" alt="Nurture Branding Hero">
-            </div>
-            
-            <div class="hero-right">
-                <h1>NUR<br>TURE</h1>
-                <p class="desc">A holistic visual identity for high-end organic skincare. Purity in every detail.</p>
-                <p class="project-scope">SCOPE: BRAND IDENTITY • PACKAGING • ART DIRECTION</p>
-            </div>
-        </section>
+    <header class="hero">
+        <h1 class="hero-title">NURTURE</h1>
+        <div class="hero-container" id="heroAsset">
+            <img src="nurture-hero.jpg" class="hero-img" alt="Nurture Organic Form">
+        </div>
+    </header>
 
-        <section class="gallery">
-            <img src="nurture2.jpg">
-            <img src="nurture3.jpg">
-        </section>
+    <section class="content-block reveal">
+        <div class="section-title">PROCESS / 04</div>
+        <p class="body-text">Inspired by natural systems—a quiet study in organic growth, care, and the calm evolution of form.</p>
+        <div class="scope-tag">SCOPE: BRANDING & CARE</div>
+    </section>
 
-        <footer class="next-btn">
-            <a href="cd-covers.html">
-                <span style="color:var(--accent); font-weight:900; font-size:16px; letter-spacing:5px;">NEXT PROJECT</span>
-                <h2>CD COVERS →</h2>
-            </a>
-        </footer>
-    </div>
+    <main class="mockup-grid">
+        <div class="mockup-item reveal">
+            <img src="nurture-mockup1.jpg" alt="Nurture Detail">
+        </div>
+        <div class="mockup-item reveal">
+            <img src="nurture-mockup2.jpg" alt="Nurture Detail">
+        </div>
+    </main>
 
+    <script>
+        const aura = document.getElementById('aura');
+        const heroAsset = document.getElementById('heroAsset');
+
+        window.onload = () => {
+            heroAsset.classList.add('loaded');
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`;
+            aura.style.top = `${y}px`;
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

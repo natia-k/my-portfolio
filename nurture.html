@@ -11,6 +11,7 @@
             --pink-aura: rgba(255, 184, 224, 0.3);
         }
 
+        /* RESET */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body {
             background-color: var(--bg);
@@ -21,93 +22,57 @@
         }
 
         #aura {
-            position: fixed;
-            width: 450px; height: 450px;
+            position: fixed; width: 450px; height: 450px;
             background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
+            border-radius: 50%; pointer-events: none; z-index: 999;
+            transform: translate(-50%, -50%); mix-blend-mode: screen;
         }
 
         /* CAMERA FLASH */
         #flash {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: white;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 10000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; opacity: 0; pointer-events: none; z-index: 10000;
         }
-        @keyframes shutter {
-            0% { opacity: 0; }
-            20% { opacity: 0.9; }
-            100% { opacity: 0; }
-        }
+        @keyframes shutter { 0% { opacity: 0; } 20% { opacity: 0.9; } 100% { opacity: 0; } }
         .do-flash { animation: shutter 0.4s ease-out; }
 
         /* HERO MELT */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hero-title {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: clamp(60px, 15vw, 220px);
-            font-weight: 950;
-            letter-spacing: -0.06em;
-            text-transform: uppercase;
-            display: flex;
-            z-index: 1;
-            pointer-events: none;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: clamp(60px, 15vw, 220px); font-weight: 950; letter-spacing: -0.06em;
+            text-transform: uppercase; display: flex; z-index: 1; pointer-events: none;
         }
         .hero-title span { display: inline-block; transition: filter 0.3s ease; }
         .hero-title span.active-blur { filter: blur(50px) !important; opacity: 0.2; }
 
-        /* GALLERY STRUCTURE */
+        /* GALLERY */
         .gallery {
-            position: relative;
-            z-index: 10;
-            padding: 100vh 5% 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 200px; /* Reduced gap for better flow */
+            position: relative; z-index: 10; padding: 100vh 5% 400px;
+            display: flex; flex-direction: column; align-items: center; gap: 150px;
         }
 
-        /* MAIN PRINT (Smaller as requested) */
+        /* MAIN PRINT (Smaller) */
         .main-print {
-            width: 65%; /* Made smaller for better visibility */
-            max-width: 700px;
-            opacity: 0;
-            transform: translateY(100px);
+            width: 60%; /* Smaller for better visibility */
+            max-width: 650px;
+            opacity: 0; transform: translateY(80px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* SIDE BY SIDE GRID */
+        /* MOCKUPS SIDE BY SIDE */
         .mockup-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            width: 100%;
-            max-width: 1200px;
+            display: flex; justify-content: center; gap: 30px;
+            width: 100%; max-width: 1100px;
         }
-
         .side-poster {
-            width: 45%;
-            opacity: 0;
-            transform: translateY(100px);
+            width: 48%;
+            opacity: 0; transform: translateY(80px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        img { width: 100%; display: block; }
+        img { width: 100%; display: block; height: auto; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
@@ -131,15 +96,15 @@
 
     <main class="gallery">
         <div class="main-print reveal-trigger">
-            <img src="nurture-hero.jpg">
+            <img src="nurture-hero.jpg" class="cache-fix">
         </div>
 
         <div class="mockup-grid">
             <div class="side-poster reveal-trigger">
-                <img src="nurture-mockup1.jpg">
+                <img src="nurture-mockup1.jpg" class="cache-fix">
             </div>
             <div class="side-poster reveal-trigger">
-                <img src="nurture-mockup2.jpg">
+                <img src="nurture-mockup2.jpg" class="cache-fix">
             </div>
         </div>
     </main>
@@ -150,11 +115,16 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
+        // CACHE BUSTER: This forces the browser to re-check the image on GitHub
+        document.querySelectorAll('.cache-fix').forEach(img => {
+            const originalSrc = img.src;
+            img.src = originalSrc + "?v=" + new Date().getTime();
+        });
+
         // MOUSE
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
-            aura.style.left = `${x}px`;
-            aura.style.top = `${y}px`;
+            aura.style.left = `${x}px`; aura.style.top = `${y}px`;
             letters.forEach(letter => {
                 const rect = letter.getBoundingClientRect();
                 const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
@@ -163,7 +133,7 @@
             });
         });
 
-        // MELT
+        // SCROLL MELT
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const vh = window.innerHeight;
@@ -177,17 +147,13 @@
         });
 
         // FLASH & REVEAL
-        const triggerFlash = () => {
-            flash.classList.remove('do-flash');
-            void flash.offsetWidth; 
-            flash.classList.add('do-flash');
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal');
-                    triggerFlash();
+                    flash.classList.remove('do-flash');
+                    void flash.offsetWidth; 
+                    flash.classList.add('do-flash');
                 }
             });
         }, { threshold: 0.1 });

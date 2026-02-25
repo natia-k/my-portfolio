@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CD COVERS | NATIA STUDIO</title>
+    <title>FEELINGS | NATIA STUDIO</title>
     <style>
         :root {
             --bg: #FFD1DC; /* Baby Pink */
             --black: #1a1a1a;
-            --aura: rgba(255, 255, 255, 0.4);
+            --aura: rgba(255, 255, 255, 0.6);
         }
-
-        /* SILKY SMOOTH SCROLLING */
-        html { scroll-behavior: smooth; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
@@ -24,11 +21,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* BUBBLY AURA */
         #aura {
             position: fixed; width: 600px; height: 600px;
             background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: overlay;
+            filter: blur(30px);
         }
 
         /* NAVIGATION */
@@ -36,7 +35,7 @@
         nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
         nav a:hover { opacity: 1; }
 
-        /* INTRO SECTION */
+        /* CLOUD HEADER */
         .intro {
             height: 100vh;
             display: flex;
@@ -45,100 +44,56 @@
             justify-content: center;
             text-align: center;
             padding: 0 10%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%);
         }
 
-        .title-group {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1.5s forwards 0.5s;
-        }
-
+        /* THE BUBBLY TEXT EFFECT */
         .hero-title {
-            font-size: clamp(50px, 12vw, 140px);
-            font-weight: 950;
-            letter-spacing: -0.05em;
+            font-size: clamp(60px, 18vw, 220px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            display: flex;
+            gap: 5px;
+            filter: drop-shadow(0 10px 20px rgba(255,255,255,0.5));
+        }
+
+        .hero-title span {
+            display: inline-block;
+            animation: bubble 4s ease-in-out infinite;
+            filter: blur(2px);
+            transition: filter 0.5s ease;
+        }
+
+        /* Stagger the bubble animation for each letter */
+        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title span:nth-child(3) { animation-delay: 0.4s; }
+        .hero-title span:nth-child(4) { animation-delay: 0.6s; }
+        .hero-title span:nth-child(5) { animation-delay: 0.8s; }
+        .hero-title span:nth-child(6) { animation-delay: 1.0s; }
+        .hero-title span:nth-child(7) { animation-delay: 1.2s; }
+        .hero-title span:nth-child(8) { animation-delay: 1.4s; }
+
+        @keyframes bubble {
+            0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
+            50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
         }
 
         .sub-title {
             font-size: 14px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            opacity: 0.6;
-            margin-bottom: 60px;
-        }
-
-        .intro-text {
-            max-width: 500px;
-            font-size: 15px;
-            line-height: 1.8;
-            opacity: 0.7;
-            font-weight: 400;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* GALLERY - THE LISTENING ROOM */
-        .gallery {
-            padding: 0 5% 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 250px; /* Generous breathing room */
-        }
-
-        /* HERO MOCKUP */
-        .hero-container {
-            width: 90%;
-            max-width: 1200px;
-        }
-
-        /* SQUARE COVERS */
-        .cover-item {
-            width: 100%;
-            max-width: 700px;
-            text-align: center;
-        }
-
-        .caption {
-            margin-top: 25px;
-            font-size: 11px;
             letter-spacing: 0.4em;
-            text-transform: lowercase;
-            opacity: 0.4;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: -10px;
+            margin-bottom: 40px;
         }
 
-        /* REVEAL LOGIC */
-        .reveal-trigger {
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        img { width: 100%; display: block; height: auto; border-radius: 2px; }
-
-        /* NEXT LINK */
-        .footer-nav {
-            padding: 200px 0;
-            text-align: center;
-        }
-        .footer-nav a {
-            font-size: 40px;
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--black);
-            opacity: 0.1;
-            transition: 0.6s;
-        }
-        .footer-nav a:hover { opacity: 1; letter-spacing: 15px; }
+        /* GALLERY LOGIC */
+        .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 200px; }
+        .cover-item { width: 100%; max-width: 750px; text-align: center; }
+        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: all 1.5s ease; }
+        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+        img { width: 100%; display: block; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
 
     </style>
 </head>
@@ -152,81 +107,34 @@
     </nav>
 
     <header class="intro">
-        <div class="title-group">
-            <h1 class="hero-title">CD COVERS</h1>
-            <p class="sub-title">Visual identities for sound.</p>
-            <div class="intro-text">
-                Each cover is a space for feeling. These are attempts to hold onto fleeting moments. Not to explain the music, but to give feeling a visual form.
-            </div>
-        </div>
+        <h1 class="hero-title">
+            <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
+        </h1>
+        <p class="sub-title">visual identities for sound</p>
     </header>
 
     <main class="gallery">
-        
-        <div class="hero-container reveal-trigger">
+        <div class="cover-item reveal-trigger">
             <img src="cd-covers-hero.jpg" class="smart-load">
-            <p class="caption">physical resonance</p>
         </div>
-
-        <div class="cover-item reveal-trigger">
-            <img src="emptiness.jpg" class="smart-load">
-            <p class="caption">hush</p>
-        </div>
-
-        <div class="cover-item reveal-trigger">
-            <img src="heartbreak-2.jpg" class="smart-load">
-            <p class="caption">nocturne</p>
-        </div>
-
-        <div class="cover-item reveal-trigger">
-            <img src="insomnia-1.jpg" class="smart-load">
-            <p class="caption">pulse</p>
-        </div>
-
-        <div class="cover-item reveal-trigger">
-            <img src="love.jpg" class="smart-load">
-            <p class="caption">flux</p>
-        </div>
-
-        <div class="cover-item reveal-trigger">
-            <img src="pleasure.jpg" class="smart-load">
-            <p class="caption">distorted warmth</p>
-        </div>
-
-        <div class="cover-item reveal-trigger">
-            <img src="desire.jpg" class="smart-load">
-            <p class="caption">craving</p>
-        </div>
-
+        <div class="cover-item reveal-trigger"><img src="emptiness.jpg" class="smart-load"></div>
+        <div class="cover-item reveal-trigger"><img src="heartbreak-2.jpg" class="smart-load"></div>
+        <div class="cover-item reveal-trigger"><img src="insomnia-1.jpg" class="smart-load"></div>
+        <div class="cover-item reveal-trigger"><img src="love.jpg" class="smart-load"></div>
     </main>
 
-    <footer class="footer-nav">
-        <a href="nurture.html">NURTURE</a>
-    </footer>
-
     <script>
-        // SMART LOAD & CACHE BUSTER
-        document.querySelectorAll('.smart-load').forEach(img => {
-            const raw = img.getAttribute('src');
-            img.src = raw + "?v=" + Date.now();
-        });
-
-        // CURSOR
+        // Aura movement
         document.addEventListener('mousemove', (e) => {
             document.getElementById('aura').style.left = e.clientX + 'px';
             document.getElementById('aura').style.top = e.clientY + 'px';
         });
 
-        // REVEAL ON SCROLL
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                }
-            });
+        // Intersection Observer for images
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>

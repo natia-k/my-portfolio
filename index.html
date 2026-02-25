@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA STUDIO | BERLIN</title>
+    <title>NATIA KURTANIDZE | BERLIN</title>
     <style>
         :root {
             --bg: #0a0a0a;
             --text: #ffffff;
-            --accent: #ffb6c1; /* Baby Pink Accent */
+            --accent: #ffb6c1; /* Baby Pink */
             --subtle: rgba(255, 255, 255, 0.3);
         }
 
@@ -18,7 +18,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -28,150 +28,185 @@
             color: var(--text);
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             height: 100vh;
-            display: flex;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* CUSTOM AURA */
         #aura {
-            position: fixed; width: 10px; height: 10px;
-            background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
-            transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.4s, height 0.4s;
+            position: fixed; width: 12px; height: 12px;
+            background: var(--text); border-radius: 50%; pointer-events: none; z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.4s, height 0.4s, background 0.4s;
         }
 
-        /* TAGLINE AT TOP */
-        .tagline {
-            position: fixed; top: 60px; left: 8%;
-            font-size: 11px; letter-spacing: 0.5em;
-            text-transform: uppercase; color: var(--subtle);
+        /* THE FLOATING PREVIEW (LERP MOVEMENT) */
+        #cursor-preview {
+            position: fixed;
+            top: 0; left: 0;
+            width: 400px;
+            height: 500px;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(20%) brightness(0.9);
+        }
+
+        #cursor-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* HEADER & FOOTER */
+        header {
+            position: fixed; top: 60px; left: 60px; z-index: 100;
+        }
+        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+        .loc { font-size: 10px; letter-spacing: 4px; color: var(--subtle); margin-top: 5px; text-transform: uppercase; }
+
+        footer {
+            position: fixed; bottom: 60px; left: 60px; right: 60px;
+            display: flex; justify-content: space-between;
+            font-size: 10px; letter-spacing: 3px; color: var(--subtle);
             z-index: 100;
         }
 
-        /* IMAGE PREVIEW (Fixed Right) */
-        #preview-container {
-            position: fixed; top: 0; right: 0;
-            width: 50%; height: 100%;
-            overflow: hidden; pointer-events: none;
-            z-index: 1;
-        }
-
-        #preview-img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transform: scale(1.05);
-            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(20%) brightness(0.8);
-        }
-
-        /* NAVIGATION LIST */
+        /* PROJECT LIST */
         main {
-            width: 50%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; padding-left: 8%;
-            z-index: 10;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-left: 10%;
         }
 
-        nav { display: flex; flex-direction: column; gap: 8px; }
+        nav { display: flex; flex-direction: column; gap: 5px; }
 
         .nav-item {
-            font-size: clamp(30px, 4.5vw, 70px);
+            font-size: clamp(40px, 6vw, 100px);
             font-weight: 900;
             text-decoration: none;
             color: var(--text);
             text-transform: uppercase;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
             width: fit-content;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 0.4s ease;
             position: relative;
         }
 
-        /* The Baby Pink Glow/Underline */
-        .nav-item::after {
-            content: "";
-            position: absolute; bottom: 5px; left: 0;
-            width: 0; height: 2px;
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
-            transition: 0.5s ease;
+        .nav-item span {
+            font-size: 14px;
+            vertical-align: top;
+            margin-right: 20px;
+            font-weight: 300;
+            opacity: 0.2;
+            letter-spacing: 1px;
         }
 
         .nav-item:hover {
-            padding-left: 20px;
             color: var(--accent);
+            transform: translateX(30px);
         }
 
-        .nav-item:hover::after { width: 100%; }
-
-        /* FOOTER - CORRECTED TO BERLIN */
-        footer {
-            position: fixed; bottom: 60px; left: 8%; width: 84%;
-            display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 2px; color: var(--subtle);
-            z-index: 100;
+        /* HOVER GLOW */
+        .nav-item:hover::after {
+            content: "";
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 1px;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
         }
-        
-        .location { font-weight: 700; color: var(--text); opacity: 0.5; }
 
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div class="tagline">Works that make silence feel familiar.</div>
+    <div id="cursor-preview"><img id="preview-img" src="" alt=""></div>
 
-    <div id="preview-container">
-        <img id="preview-img" src="" alt="">
-    </div>
+    <header>
+        <div class="name">NATIA KURTANIDZE</div>
+        <div class="loc">BERLIN / SELECTED WORK</div>
+    </header>
 
     <main>
         <nav>
-            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg">GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="universe1.jpg">POSTERS / ARCHIVE</a>
-            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg">FEELINGS</a>
-            <a href="kombucha.html" class="nav-item" data-img="kombucha-hero.jpg">KOMBUCHA</a>
-            <a href="nurture.html" class="nav-item" data-img="nurture-main.jpg">NURTURE</a>
-            <a href="others.html" class="nav-item" data-img="others-hero.jpg">THE OTHERS</a>
-            <a href="oatmilk.html" class="nav-item" data-img="oatmilk-design.jpg">OAT MILK</a>
-            <a href="cdcovers.html" class="nav-item" data-img="cd-cover-1.jpg">CD COVERS</a>
+            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg"><span>01</span>GO LEFT</a>
+            <a href="posters.html" class="nav-item" data-img="universe1.jpg"><span>02</span>ARCHIVE</a>
+            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg"><span>03</span>FEELINGS</a>
+            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>04</span>KOMBUCHA</a>
+            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>05</span>NURTURE</a>
+            <a href="others.html" class="nav-item" data-img="others.jpg"><span>06</span>THE OTHERS</a>
+            <a href="oatmilk.html" class="nav-item" data-img="oatmilk.jpg"><span>07</span>OAT MILK</a>
+            <a href="cdcovers.html" class="nav-item" data-img="cdcovers.jpg"><span>08</span>CD COVERS</a>
         </nav>
     </main>
 
     <footer>
         <span>NATIA KURTANIDZE © 2026</span>
-        <span class="location">BERLIN / DESIGN STUDIO</span>
+        <span>BERLIN</span>
     </footer>
 
     <script>
         const aura = document.getElementById('aura');
+        const preview = document.getElementById('cursor-preview');
         const previewImg = document.getElementById('preview-img');
         const navItems = document.querySelectorAll('.nav-item');
 
-        // Cursor Movement
+        // LERP VARIABLES (For Seductive Movement)
+        let mouseX = 0, mouseY = 0;
+        let ballX = 0, ballY = 0;
+        let speed = 0.08; // The "lag" amount - lower is heavier/slower
+
+        // Track Mouse
         document.addEventListener('mousemove', (e) => {
-            aura.style.left = e.clientX + 'px';
-            aura.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Standard Cursor Move
+            aura.style.left = mouseX + 'px';
+            aura.style.top = mouseY + 'px';
         });
 
-        // Hover Reveal Logic
+        // The Smooth Follow Loop
+        function animate() {
+            // Distance = (Destination - Current) * Speed
+            ballX += (mouseX - ballX) * speed;
+            ballY += (mouseY - ballY) * speed;
+
+            preview.style.left = ballX + 'px';
+            preview.style.top = ballY + 'px';
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // HOVER INTERACTIONS
         navItems.forEach(item => {
             item.addEventListener('mouseenter', () => {
                 const imgPath = item.getAttribute('data-img');
                 previewImg.src = imgPath;
-                previewImg.style.opacity = "1";
-                previewImg.style.transform = "scale(1)";
                 
-                aura.style.width = "60px";
-                aura.style.height = "60px";
+                preview.style.opacity = "1";
+                preview.style.transform = "translate(-50%, -50%) scale(1)";
+                
+                aura.style.width = "80px";
+                aura.style.height = "80px";
+                aura.style.background = "var(--accent)";
             });
 
             item.addEventListener('mouseleave', () => {
-                previewImg.style.opacity = "0";
-                previewImg.style.transform = "scale(1.05)";
+                preview.style.opacity = "0";
+                preview.style.transform = "translate(-50%, -50%) scale(0.8)";
                 
-                aura.style.width = "10px";
-                aura.style.height = "10px";
+                aura.style.width = "12px";
+                aura.style.height = "12px";
+                aura.style.background = "white";
             });
         });
     </script>

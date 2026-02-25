@@ -6,129 +6,104 @@
     <title>THE OTHERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #0b0b0b;
+            --bg: #000000;
             --white: #ffffff;
             --soft-pink: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.05);
-            --grain: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+            --line: rgba(255, 255, 255, 0.08);
+            --glow: rgba(255, 184, 224, 0.12);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
-            background-image: var(--grain); /* Barely visible texture */
             color: var(--white);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* 1. THE GALLERY LIGHT (AURA) */
+        /* 1. THE SCARY GLOW AURA */
         #aura {
             position: fixed;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.08) 0%, transparent 75%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
-            mix-blend-mode: plus-lighter;
+            mix-blend-mode: screen;
         }
 
-        /* 2. ENTRY MOMENT: ARCHITECTURAL OVERLAP */
+        /* 2. PRECISION OVERLAP HERO */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            background: var(--bg);
         }
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 20vw, 320px);
-            font-weight: 900;
-            letter-spacing: -0.06em;
+            font-size: clamp(80px, 18vw, 280px);
+            font-weight: 950;
+            letter-spacing: -0.07em;
             text-transform: uppercase;
-            z-index: 5;
-            color: var(--soft-pink);
-            opacity: 0.15;
-            filter: blur(15px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1; /* Sits behind the image container */
+            color: var(--white);
+            mix-blend-mode: difference; /* This creates the "scary" reveal on hover */
+            text-align: center;
+            line-height: 0.8;
+            pointer-events: none;
         }
 
         .hero-container {
-            z-index: 10;
-            width: 75%;
-            max-width: 550px;
-            transform: scale(0.98);
-            transition: transform 1.2s ease;
+            position: relative;
+            z-index: 10; /* Sits on top of the title */
+            width: 70%;
+            max-width: 500px;
+            transition: transform 0.2s ease-out;
         }
 
-        /* INTERACTION: THE SURPRISE */
-        .hero:hover .hero-title {
-            opacity: 1;
-            filter: blur(0px);
-            mix-blend-mode: exclusion;
-            color: var(--white);
-            z-index: 15;
+        .hero-img { 
+            width: 100%; 
+            display: block; 
+            filter: grayscale(1) brightness(0.6); 
+            transition: 0.8s filter ease;
         }
 
-        /* 3. NARRATIVE FLOW (SLOW PACING) */
-        .statement {
-            padding: 200px 10%;
+        .hero:hover .hero-img { filter: grayscale(0) brightness(1); }
+
+        /* 3. PROFESSIONAL INFO BAR */
+        .intro-section { padding: 120px 10%; border-top: 1px solid var(--line); }
+        .intro-section h2 { font-size: clamp(24px, 4vw, 40px); font-weight: 300; line-height: 1.2; max-width: 750px; margin-bottom: 40px; }
+
+        .info-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding-top: 40px;
             border-top: 1px solid var(--line);
         }
+        .info-item { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        .info-label { opacity: 0.3; display: block; margin-bottom: 5px; }
+        .info-value { color: var(--soft-pink); font-weight: 600; }
 
-        .statement h2 {
-            font-size: clamp(24px, 5vw, 48px);
-            font-weight: 300;
-            line-height: 1.1;
-            max-width: 900px;
-            letter-spacing: -0.03em;
-        }
+        /* 4. GALLERY RHYTHM */
+        .gallery-rhythm { padding: 100px 10% 300px; display: flex; flex-direction: column; gap: 150px; }
+        .stagger-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .stagger-row .item:last-child { margin-top: 120px; }
 
-        /* 4. ASYMMETRIC EXHIBITION GRID */
-        .exhibition-grid {
-            padding: 0 10% 300px;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 100px 20px;
-        }
+        .item img, .full-width-item img { width: 100%; border-radius: 2px; display: block; }
+        .caption { margin-top: 15px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            filter: blur(10px);
-            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.5; }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0px);
-        }
-
-        /* Irregular placement */
-        .item-lg { grid-column: 1 / 10; }
-        .item-sm { grid-column: 7 / 13; margin-top: -50px; }
-        .item-md { grid-column: 2 / 8; }
-
-        .exhibition-grid img { 
-            width: 100%; 
-            filter: grayscale(1);
-            transition: 1.2s filter ease;
-        }
-        
-        .exhibition-grid div:hover img { filter: grayscale(0); }
-
-        nav {
-            position: fixed;
-            top: 40px; width: 100%; padding: 0 6%;
-            display: flex; justify-content: space-between; z-index: 1000;
-        }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.4; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1.5s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -141,30 +116,54 @@
     </nav>
 
     <header class="hero">
-        <h1 class="hero-title">THE OTHERS</h1>
-        <div class="hero-container">
-            <img src="others-hero.jpg" style="width:100%;" alt="Anchor Image">
+        <h1 class="hero-title">THE<br>OTHERS</h1>
+        <div class="hero-container" id="heroTarget">
+            <img src="others-hero.jpg" class="hero-img">
         </div>
     </header>
 
-    <section class="statement reveal">
-        <h2>Visual experiments exploring unusual form, contrast, and alternative structure.</h2>
-        <p style="margin-top: 40px; font-size: 14px; opacity: 0.4; max-width: 400px; line-height: 1.6;">
-            A space where experimentation is framed with intention—challenging conventional structure where tension plays against expectation.
-        </p>
+    <section class="intro-section reveal">
+        <h2>A curated set of visual experiments where imbalance becomes the method. Each piece tests contrast, scale, and negative space—then refines the tension into intentional form.</h2>
+        
+        <div class="info-bar">
+            <div class="info-item"><span class="info-label">Role</span><span class="info-value">Concept, Art Direction</span></div>
+            <div class="info-item"><span class="info-label">Output</span><span class="info-value">3 Posters, 1 System Study</span></div>
+            <div class="info-item"><span class="info-label">Tools</span><span class="info-value">Photoshop, Figma</span></div>
+            <div class="info-item"><span class="info-label">Year</span><span class="info-value">2026</span></div>
+        </div>
     </section>
 
-    <main class="exhibition-grid">
-        <div class="item-lg reveal"><img src="others-mockup1.jpg"></div>
-        <div class="item-sm reveal"><img src="others-mockup2.jpg"></div>
-        <div class="item-md reveal"><img src="others-mockup3.jpg"></div>
+    <main class="gallery-rhythm">
+        <div class="stagger-row reveal">
+            <div class="item">
+                <img src="others-piece-1.jpg">
+                <span class="caption">Study 01 — Disrupted hierarchy</span>
+            </div>
+            <div class="item">
+                <img src="others-piece-2.jpg">
+                <span class="caption">Study 02 — Contrast as structure</span>
+            </div>
+        </div>
+
+        <div class="full-width-item reveal">
+            <img src="others-piece-3.jpg">
+            <span class="caption">Study 03 — Tension & negative space</span>
+        </div>
     </main>
 
     <script>
         const aura = document.getElementById('aura');
+        const heroTarget = document.getElementById('heroTarget');
+
         document.addEventListener('mousemove', (e) => {
-            aura.style.left = `${e.clientX}px`;
-            aura.style.top = `${e.clientY}px`;
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`;
+            aura.style.top = `${y}px`;
+
+            // Scary Drifting: Image moves slightly away from cursor to show the text overlap
+            const moveX = (window.innerWidth / 2 - x) / 50;
+            const moveY = (window.innerHeight / 2 - y) / 50;
+            heroTarget.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
         });
 
         const observer = new IntersectionObserver((entries) => {

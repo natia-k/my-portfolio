@@ -6,114 +6,153 @@
     <title>NURTURE | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #0b0b0b; /* Deep, soft black */
-            --white: #ffffff;
-            --soft-pink: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.05);
+            --bg: #f9f7f4; /* Warm, paper-like beige */
+            --text: #3e3b39; /* Soft earth charcoal */
+            --pink-light: rgba(255, 184, 224, 0.2);
+            --accent: #d8b4a6; /* Dusty Rose */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            font-family: 'Cormorant Garamond', serif; /* Elegant, poetic serif */
+            line-height: 1.6;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. SOFT GLOW CURSOR */
+        /* 1. SOFT SUNLIGHT CURSOR */
         #aura {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 70%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--pink-light) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
+            transition: opacity 1s ease;
         }
 
-        /* 2. THE HERO: SOFT OVERLAP */
+        /* 2. HERO: BREATHING SPACE */
         .hero {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        .hero-title {
-            position: absolute;
-            font-size: clamp(60px, 18vw, 280px);
-            font-weight: 200; /* Thin, elegant weight */
-            letter-spacing: -0.02em;
-            text-transform: uppercase;
-            z-index: 5; 
-            color: var(--soft-pink);
-            opacity: 0.3;
-            filter: blur(10px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-container {
-            position: relative;
-            z-index: 10;
-            width: 65%;
-            max-width: 480px;
-        }
-
-        .hero-img { 
-            width: 100%; 
-            display: block; 
-            border-radius: 300px 300px 0 0; /* Organic arch shape */
-            filter: brightness(0.9);
-        }
-
-        /* INTERACTION: TEXT SETTLES INTO CLARITY */
-        .hero:hover .hero-title {
-            opacity: 0.8;
-            filter: blur(0px);
-            letter-spacing: 0.05em; /* Slow expansion */
-        }
-
-        /* 3. SHARP, SHORT IMPACT TEXT */
-        .impact-statement {
-            padding: 120px 10%;
+            padding: 0 10%;
             text-align: center;
         }
 
-        .impact-statement h2 {
-            font-size: clamp(20px, 4vw, 32px);
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--soft-pink);
-            max-width: 700px;
+        .hero-title {
+            font-size: clamp(60px, 12vw, 180px);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: softFadeIn 2.5s forwards 0.5s;
+        }
+
+        .hero-sub {
+            font-size: 20px;
+            font-style: italic;
+            max-width: 600px;
+            opacity: 0;
+            animation: softFadeIn 3s forwards 1.2s;
+        }
+
+        /* 3. NARRATIVE SECTIONS */
+        .content-section {
+            padding: 150px 15%;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* 4. VISUAL FLOW (SLOWER GAPS) */
-        .gallery {
-            padding: 0 10% 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 200px; /* Big whitespace for "Slow" mood */
+        .intro-text {
+            font-size: 32px;
+            max-width: 850px;
+            margin-bottom: 60px;
         }
 
-        .reveal {
+        .intent-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .intent-block p {
+            font-family: 'Inter', sans-serif; /* Modern sans for contrast */
+            font-size: 15px;
+            letter-spacing: 0.02em;
+            color: #666;
+            max-width: 350px;
+        }
+
+        /* 4. TACTILE IMAGERY */
+        .image-moment {
+            margin: 100px 0;
             opacity: 0;
-            filter: blur(20px);
             transform: translateY(40px);
-            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(10px);
+            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
+        .image-moment.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+        }
 
+        .image-moment img {
+            width: 100%;
+            border-radius: 2px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.03);
+        }
+
+        .poetic-caption {
+            margin-top: 25px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* 5. NAVIGATION */
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.5; }
+        nav a { color: var(--text); text-decoration: none; font-size: 11px; letter-spacing: 4px; font-weight: 500; }
+
+        .footer-closing {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        @keyframes softFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 10px;
+            letter-spacing: 5px;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
@@ -122,25 +161,47 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="others.html">NEXT</a>
+        <a href="others.html">THE OTHERS</a>
     </nav>
 
     <header class="hero">
         <h1 class="hero-title">NURTURE</h1>
-        <div class="hero-container">
-            <img src="nurture-hero.jpg" class="hero-img" alt="Organic Growth Form">
-        </div>
+        <p class="hero-sub">A project about stillness, growth, and the quiet poetry of form.</p>
+        <div id="scroll-hint">SCROLL SLOWLY</div>
     </header>
 
-    <section class="impact-statement reveal">
-        <h2>A study in quiet growth and the calm evolution of form.</h2>
-        <p style="margin-top: 30px; font-size: 12px; letter-spacing: 3px; color: rgba(255,255,255,0.3);">SCOPE: ORGANIC BRANDING — 2026</p>
+    <section class="content-section reveal">
+        <h2 class="intro-text">
+            Nurture is an exploration of the space between care and creation. It is a study in slowing down, where design functions as an emotional embrace rather than a loud declaration.
+        </h2>
+        <div class="intent-block">
+            <p>The intention was to strip away the clinical nature of branding, replacing it with organic rhythms that mirror natural systems—gentle transformation through softness and restraint.</p>
+        </div>
     </section>
 
-    <main class="gallery">
-        <div class="reveal"><img src="nurture-mockup1.jpg" style="width:100%;"></div>
-        <div class="reveal"><img src="nurture-mockup2.jpg" style="width:100%;"></div>
+    <main class="content-section">
+        <div class="image-moment reveal">
+            <img src="nurture-visual-system.jpg" alt="Organic Growth System">
+            <span class="poetic-caption">Organic growth system — visual language rooted in harmony</span>
+        </div>
+
+        <div class="image-moment reveal" style="max-width: 70%; margin-left: auto;">
+            <img src="nurture-texture.jpg" alt="Material Exploration">
+            <span class="poetic-caption">Material exploration — texture as emotional touch</span>
+        </div>
+
+        <div class="image-moment reveal">
+            <img src="nurture-identity.jpg" alt="Identity Application">
+            <span class="poetic-caption">Identity application — calm hierarchy and restraint</span>
+        </div>
     </main>
+
+    <footer class="footer-closing reveal">
+        <p style="font-size: 24px; font-style: italic; max-width: 500px; margin-bottom: 50px;">
+            In the end, we grow where we are cared for.
+        </p>
+        <a href="index.html" style="color: var(--text); text-decoration: none; font-size: 11px; letter-spacing: 5px; border-bottom: 1px solid var(--accent); padding-bottom: 10px;">HOME</a>
+    </footer>
 
     <script>
         const aura = document.getElementById('aura');
@@ -150,9 +211,14 @@
         });
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.reveal, .image-moment').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

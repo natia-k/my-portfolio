@@ -3,99 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE | VISUAL DESIGNER</title>
+    <title>NATIA KURTANIDZE</title>
     <style>
         :root {
             --bg: #050505;
             --text: #ffffff;
             --baby-pink: #fce4ec; 
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        body::before {
-            content: "";
-            position: fixed; inset: 0;
-            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.18; mix-blend-mode: overlay;
+        /* 3. TIME-BASED BREATHING SHIFT */
+        @keyframes siteBreath {
+            0% { background-color: #050505; }
+            50% { background-color: #0d0d0f; }
+            100% { background-color: #050505; }
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Inter", "Helvetica Neue", sans-serif;
+            font-family: "Inter", sans-serif;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            animation: siteBreath 120s ease-in-out infinite; /* Very slow, almost imperceptible */
         }
 
-        /* 1. CURSOR MEMORY (Traces) */
-        .trace {
-            position: fixed; width: 4px; height: 4px;
-            background: var(--baby-pink); border-radius: 50%;
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        /* 1. MEMORY CURSOR (Afterimages) */
+        .echo {
+            position: fixed; width: 6px; height: 6px;
+            background: white; border-radius: 50%;
             pointer-events: none; z-index: 10000;
-            opacity: 0.3; transform: translate(-50%, -50%);
-            animation: fadeOut 2s ease-out forwards;
+            opacity: 0.15; transform: translate(-50%, -50%);
+            animation: echoFade 3s var(--ease) forwards;
         }
-        @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -50%) scale(0.1); } }
+        @keyframes echoFade {
+            0% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.5); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); filter: blur(5px); }
+        }
 
-        /* 2. THE DILATED AURA */
         #aura {
-            position: fixed; width: 150px; height: 150px;
-            background: #fff; border-radius: 50%; 
-            pointer-events: none; z-index: 10001;
-            transform: translate(-50%, -50%); 
-            mix-blend-mode: difference;
-            transition: width 0.8s var(--ease-out-expo), height 0.8s var(--ease-out-expo), filter 0.8s ease;
+            position: fixed; width: 120px; height: 120px;
+            background: #fff; border-radius: 50%; pointer-events: none; z-index: 10001;
+            transform: translate(-50%, -50%); mix-blend-mode: difference;
+            transition: width 0.8s var(--ease), height 0.8s var(--ease), border-radius 1s var(--ease);
         }
 
-        /* 3. HIDDEN SUBTEXT (Appears only on Slow Hover) */
-        .hidden-concept {
-            position: absolute; font-size: 10px; letter-spacing: 0.3em;
-            text-transform: uppercase; color: var(--baby-pink);
-            opacity: 0; filter: blur(10px);
-            transition: opacity 2s ease, filter 2s ease;
-            pointer-events: none;
-            margin-top: -20px;
+        /* 4. HIDDEN WATERMARK (Slow Scroll Reveal) */
+        #watermark {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            font-size: 9px; text-transform: uppercase; letter-spacing: 0.5em;
+            opacity: 0; transition: opacity 3s ease; pointer-events: none;
+            color: var(--baby-pink);
         }
 
-        /* 4. LAYOUT & TYPOGRAPHY */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 8%; }
-        
+        /* HERO & ARCHIVE */
+        .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
         .statement {
-            font-size: clamp(30px, 7vw, 90px); font-weight: 900; 
-            text-transform: uppercase; letter-spacing: -0.04em;
-            filter: blur(25px); opacity: 0.1;
-            transition: filter 1.5s var(--ease-out-expo), opacity 1.5s var(--ease-out-expo);
+            font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase;
+            letter-spacing: -0.04em; filter: blur(20px); opacity: 0.1;
+            transition: all 1.5s var(--ease);
         }
+        .hero:hover .statement { filter: blur(0px); opacity: 1; }
 
         .work-section { padding: 10vh 8% 40vh; display: flex; flex-direction: column; }
 
         .project-link {
-            font-size: clamp(40px, 12vw, 180px); font-weight: 900; 
-            text-decoration: none; color: var(--text);
-            text-transform: uppercase; letter-spacing: -0.07em;
-            opacity: 0.1; filter: blur(20px); padding: 30px 0;
-            transition: all 1s var(--ease-out-expo);
-            position: relative;
+            font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
+            color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
+            opacity: 0.1; filter: blur(15px); padding: 25px 0;
+            transition: all 1s var(--ease);
         }
 
-        .project-link:hover { opacity: 1; filter: blur(0px); transform: translateX(30px); }
+        /* 2. HOVER PERSONALITIES */
+        /* Go Left: Sharp & Stretched */
+        .project-link[data-soul="sharp"]:hover { transform: translateX(60px) scaleY(1.1); filter: blur(0); opacity: 1; }
+        /* Nurture: Soft & Pulse */
+        .project-link[data-soul="soft"]:hover { transform: translateX(30px) scale(1.05); filter: blur(0); opacity: 1; color: var(--baby-pink); }
+        /* Kombucha: High Tension */
+        .project-link[data-soul="electric"]:hover { transform: skewX(-5deg) translateX(40px); filter: blur(0); opacity: 1; }
 
-        /* 5. DYNAMIC IMAGE PROJECTION */
         #preview {
-            position: fixed; width: 45vw; max-width: 800px;
-            pointer-events: none; z-index: 5; opacity: 0;
-            transform: translate(-50%, -50%) scale(0.9);
-            transition: opacity 0.8s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+            position: fixed; width: 50vw; max-width: 850px; pointer-events: none; z-index: 5; 
+            opacity: 0; transform: translate(-50%, -50%) scale(0.9);
+            transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
         }
         #preview.active { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
         #preview img { width: 100%; height: auto; object-fit: contain; }
 
         #loader {
-            position: fixed; inset: 0; background: #ff0000; z-index: 10002;
+            position: fixed; inset: 0; background: #ff0000; z-index: 10005;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s var(--ease-out-expo);
+            transition: transform 1.2s var(--ease);
         }
         #loader-count { font-size: 20vw; font-weight: 900; color: #fff; }
 
@@ -105,128 +103,100 @@
 
     <div id="aura"></div>
     <div id="preview"><img id="preview-img" src="" alt=""></div>
+    <div id="watermark">Observing the silent geometry of space.</div>
 
     <div id="loader"><div id="loader-count">00</div></div>
 
     <section class="hero">
-        <div class="statement">
-            VISUAL DESIGNER — <br> I CREATE SILENT FORMS
-        </div>
+        <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
     </section>
 
     <main class="work-section">
-        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg" data-soul="sharp">
-            GO LEFT <span class="hidden-concept">Breaking Symmetry</span>
-        </a>
-        <a href="the-others.html" class="project-link" data-img="others.jpg" data-soul="soft">
-            THE OTHERS <span class="hidden-concept">A Silent Dialogue</span>
-        </a>
-        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg" data-soul="organic">
-            NURTURE <span class="hidden-concept">Soft Growth</span>
-        </a>
-        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg" data-soul="milky">
-            OAT MILK <span class="hidden-concept">Liquid Calm</span>
-        </a>
-        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg" data-soul="electric">
-            KOMBUCHA <span class="hidden-concept">Fermented Energy</span>
-        </a>
-        <a href="posters.html" class="project-link" data-img="nostalgia.jpg" data-soul="archive">
-            POSTERS <span class="hidden-concept">Tactile Memory</span>
-        </a>
-        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg" data-soul="warm">
-            FEELINGS <span class="hidden-concept">Human Error</span>
-        </a>
+        <a href="go-left.html" class="project-link" data-soul="sharp" data-img="goleft-main.jpg">GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-soul="soft" data-img="others.jpg">THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-soul="soft" data-img="nurture-hero.jpg">NURTURE</a>
+        <a href="oat-milk.html" class="project-link" data-soul="soft" data-img="oat-hero.jpg">OAT MILK</a>
+        <a href="kombucha.html" class="project-link" data-soul="electric" data-img="kombucha-hero.jpg">KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-soul="sharp" data-img="nostalgia.jpg">POSTERS</a>
+        <a href="feelings.html" class="project-link" data-soul="soft" data-img="feelings-hero.jpg">FEELINGS</a>
     </main>
 
     <script>
-        const loader = document.getElementById('loader');
-        const count = document.getElementById('loader-count');
         const aura = document.getElementById('aura');
         const preview = document.getElementById('preview');
-        const previewImg = document.getElementById('preview-img');
-
-        // Loading Progress
-        let progress = 0;
-        const loadInterval = setInterval(() => {
-            progress += Math.floor(Math.random() * 10) + 1;
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(loadInterval);
-                setTimeout(() => { loader.style.transform = "translateY(-100%)"; }, 600);
-            }
-            count.innerText = progress.toString().padStart(2, '0');
-        }, 80);
-
+        const watermark = document.getElementById('watermark');
+        
         let mouseX = 0, mouseY = 0;
-        let lastX = 0, lastY = 0;
+        let lastScrollY = 0;
+        let scrollVelocity = 0;
 
+        // 1. MEMORY CURSOR TRACES
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Interaction Trigger: Leave a "Trace" of the cursor
-            if (Math.abs(mouseX - lastX) > 50 || Math.abs(mouseY - lastY) > 50) {
-                createTrace(mouseX, mouseY);
-                lastX = mouseX; lastY = mouseY;
-            }
-
+            mouseX = e.clientX; mouseY = e.clientY;
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
+
+            if (Math.random() > 0.85) { // Only create sometimes for subtle effect
+                createEcho(mouseX, mouseY);
+            }
         });
 
-        function createTrace(x, y) {
-            const t = document.createElement('div');
-            t.className = 'trace';
-            t.style.left = x + 'px';
-            t.style.top = y + 'px';
-            document.body.appendChild(t);
-            setTimeout(() => t.remove(), 2000);
+        function createEcho(x, y) {
+            const e = document.createElement('div');
+            e.className = 'echo';
+            e.style.left = x + 'px';
+            e.style.top = y + 'px';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 3000);
         }
 
-        // Project Specific Souls (Behaviors)
+        // 4. WATERMARK REVEAL (Slow Scroll Logic)
+        window.addEventListener('scroll', () => {
+            let currentScroll = window.pageYOffset;
+            scrollVelocity = Math.abs(currentScroll - lastScrollY);
+            lastScrollY = currentScroll;
+
+            // If scrolling is very slow and delicate, reveal watermark
+            if (scrollVelocity > 0 && scrollVelocity < 2) {
+                watermark.style.opacity = "0.4";
+            } else {
+                watermark.style.opacity = "0";
+            }
+        });
+
+        // 2. PROJECT SOULS & PREVIEW
         document.querySelectorAll('.project-link').forEach(link => {
-            const hidden = link.querySelector('.hidden-concept');
-            let hoverTimer;
-
             link.addEventListener('mouseenter', () => {
-                const img = link.getAttribute('data-img');
-                const soul = link.getAttribute('data-soul');
-                previewImg.src = img;
+                document.getElementById('preview-img').src = link.getAttribute('data-img');
                 preview.classList.add('active');
-
-                // Soul-based aura changes
-                if (soul === 'electric') aura.style.filter = "invert(1) contrast(200%)";
-                if (soul === 'milky') aura.style.width = "350px";
-                if (soul === 'sharp') aura.style.borderRadius = "0%";
-
-                // Time-based reveal: concept appears only after 1s of stillness
-                hoverTimer = setTimeout(() => {
-                    hidden.style.opacity = "0.6";
-                    hidden.style.filter = "blur(0px)";
-                }, 1000);
+                
+                const soul = link.getAttribute('data-soul');
+                if(soul === 'sharp') aura.style.borderRadius = "0%";
+                if(soul === 'electric') aura.style.width = "200px";
             });
-
             link.addEventListener('mouseleave', () => {
                 preview.classList.remove('active');
-                clearTimeout(hoverTimer);
-                hidden.style.opacity = "0";
-                hidden.style.filter = "blur(10px)";
-                aura.style.filter = "none";
-                aura.style.width = "150px";
                 aura.style.borderRadius = "50%";
+                aura.style.width = "120px";
             });
         });
 
-        // Parallax for image
-        let ballX = 0, ballY = 0;
+        // Smooth Image Follow
+        let bX = 0, bY = 0;
         function animate() {
-            ballX += (mouseX - ballX) * 0.04;
-            ballY += (mouseY - ballY) * 0.04;
-            preview.style.left = ballX + 'px';
-            preview.style.top = ballY + 'px';
+            bX += (mouseX - bX) * 0.05; bY += (mouseY - bY) * 0.05;
+            preview.style.left = bX + 'px'; preview.style.top = bY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
+
+        // Standard Loader
+        let p = 0;
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 10) + 1;
+            if (p >= 100) { clearInterval(l); setTimeout(() => document.getElementById('loader').style.transform = "translateY(-100%)", 500); }
+            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
+        }, 80);
     </script>
 </body>
 </html>

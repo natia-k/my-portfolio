@@ -9,7 +9,6 @@
             --bg: #0a0a0a;
             --text: #ffffff;
             --accent: #ffb6c1; /* Baby Pink */
-            --subtle: rgba(255, 255, 255, 0.3);
         }
 
         /* GRAIN */
@@ -17,7 +16,7 @@
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -25,183 +24,176 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            overflow: hidden; /* Lock the screen to allow panning */
+            height: 100vh; width: 100vw;
             -webkit-font-smoothing: antialiased;
         }
 
         #aura {
-            position: fixed; width: 15px; height: 15px;
+            position: fixed; width: 12px; height: 12px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.4s, height 0.4s;
+            transition: width 0.3s, height 0.3s;
         }
 
-        /* SECTION 1: MANIFESTO (REMOVED BERLIN) */
-        .landing-hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 10%;
+        /* THE LABYRINTH CANVAS */
+        #canvas {
+            position: absolute;
+            width: 3000px; /* Large space to explore */
+            height: 2000px;
+            top: -500px; left: -500px;
+            will-change: transform;
         }
 
-        .manifesto {
-            font-size: clamp(30px, 6vw, 85px);
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
+        /* MANIFESTO (Center of the world) */
+        .manifesto-hub {
+            position: absolute;
+            top: 1000px; left: 1500px;
+            transform: translate(-50%, -50%);
+            width: 800px; text-align: center;
         }
 
-        .manifesto span { color: var(--accent); }
-
-        /* SECTION 2: THE VALIENTE LIST */
-        .project-section {
-            padding-bottom: 30vh;
+        .manifesto-hub h1 {
+            font-size: 80px; font-weight: 900; text-transform: uppercase;
+            letter-spacing: -0.05em; line-height: 0.9;
         }
+        .manifesto-hub span { color: var(--accent); }
 
-        .project-item {
-            display: block;
-            padding: 40px 10%;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        /* PROJECTS SCATTERED AROUND */
+        .project-node {
+            position: absolute;
             text-decoration: none;
-            color: var(--text);
-            position: relative;
+            color: white;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 10;
         }
 
-        .project-title {
-            font-size: clamp(40px, 8vw, 120px);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.04em;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+        .project-node img {
+            width: 300px; height: auto;
+            filter: grayscale(100%) brightness(0.6);
+            transition: 0.6s;
         }
 
-        .project-item:hover .project-title {
-            transform: translateX(20px);
-            color: var(--accent);
+        .project-node:hover img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.05);
         }
 
-        /* VALIENTE FLOATING IMAGE */
-        .hover-reveal {
-            position: fixed;
-            width: 400px;
-            height: 500px;
-            top: 0; left: 0;
-            pointer-events: none;
-            opacity: 0;
-            overflow: hidden;
-            z-index: 5;
-            transform: translate(-50%, -50%) scale(0.5);
-            transition: opacity 0.4s, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        .project-node h2 {
+            font-size: 12px; letter-spacing: 5px; margin-top: 10px;
+            text-transform: uppercase; font-weight: 900;
+            opacity: 0.4; transition: 0.3s;
         }
 
-        .hover-reveal.active {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
+        .project-node:hover h2 { opacity: 1; color: var(--accent); }
 
-        .hover-reveal img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        /* SCATTERED COORDINATES */
+        .p1 { top: 400px; left: 600px; }
+        .p2 { top: 1400px; left: 800px; }
+        .p3 { top: 300px; left: 2200px; }
+        .p4 { top: 1600px; left: 2300px; }
+        .p5 { top: 700px; left: 1100px; }
+        .p6 { top: 1100px; left: 2000px; }
+        .p7 { top: 500px; left: 1700px; }
+        .p8 { top: 1200px; left: 400px; }
 
         footer {
-            padding: 100px 10%;
-            display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 4px; opacity: 0.3;
+            position: fixed; bottom: 40px; left: 40px;
+            font-size: 10px; letter-spacing: 3px; opacity: 0.3; z-index: 100;
         }
-
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div id="floating-image" class="hover-reveal"><img src="" id="reveal-img"></div>
 
-    <section class="landing-hero">
-        <h1 class="manifesto">
-            NATIA KURTANIDZE <br>
-            VISUAL DESIGNER — <br>
-            I CREATE <span>SILENT</span> <br>
-            FORMS <span>2026</span>.
-        </h1>
-    </section>
+    <div id="canvas">
+        <div class="manifesto-hub">
+            <h1>NATIA<br>KURTANIDZE<span>.</span></h1>
+            <p style="font-size: 10px; letter-spacing: 8px; margin-top: 20px; opacity: 0.4;">PAN TO EXPLORE ARCHIVE</p>
+        </div>
 
-    <main class="project-section">
-        <a href="kombucha.html" class="project-item" data-img="kombucha.jpg">
-            <h2 class="project-title">KOMBUCHA</h2>
+        <a href="kombucha.html" class="project-node p1">
+            <img src="kombucha.jpg" alt="">
+            <h2>KOMBUCHA</h2>
         </a>
-        <a href="oat-milk.html" class="project-item" data-img="oatmilk.jpg">
-            <h2 class="project-title">OAT MILK</h2>
+        <a href="oat-milk.html" class="project-node p2">
+            <img src="oatmilk.jpg" alt="">
+            <h2>OAT MILK</h2>
         </a>
-        <a href="the-others.html" class="project-item" data-img="others.jpg">
-            <h2 class="project-title">THE OTHERS</h2>
+        <a href="the-others.html" class="project-node p3">
+            <img src="others.jpg" alt="">
+            <h2>THE OTHERS</h2>
         </a>
-        <a href="nurture.html" class="project-item" data-img="nurture.jpg">
-            <h2 class="project-title">NURTURE</h2>
+        <a href="nurture.html" class="project-node p4">
+            <img src="nurture.jpg" alt="">
+            <h2>NURTURE</h2>
         </a>
-        <a href="cd-covers.html" class="project-item" data-img="cdcovers.jpg">
-            <h2 class="project-title">CD COVERS</h2>
+        <a href="cd-covers.html" class="project-node p5">
+            <img src="cdcovers.jpg" alt="">
+            <h2>CD COVERS</h2>
         </a>
-        <a href="go-left.html" class="project-item" data-img="goleft.jpg">
-            <h2 class="project-title">GO LEFT</h2>
+        <a href="go-left.html" class="project-node p6">
+            <img src="goleft.jpg" alt="">
+            <h2>GO LEFT</h2>
         </a>
-        <a href="posters.html" class="project-item" data-img="posters.jpg">
-            <h2 class="project-title">POSTERS</h2>
+        <a href="posters.html" class="project-node p7">
+            <img src="posters.jpg" alt="">
+            <h2>POSTERS</h2>
         </a>
-        <a href="feelings.html" class="project-item" data-img="feelings.jpg">
-            <h2 class="project-title">FEELINGS</h2>
+        <a href="feelings.html" class="project-node p8">
+            <img src="feelings.jpg" alt="">
+            <h2>FEELINGS</h2>
         </a>
-    </main>
+    </div>
 
-    <footer>
-        <span>NATIA KURTANIDZE © 2026</span>
-        <span>DESIGN STUDIO</span>
-    </footer>
+    <footer>NATIA KURTANIDZE © 2026</footer>
 
     <script>
+        const canvas = document.getElementById('canvas');
         const aura = document.getElementById('aura');
-        const reveal = document.getElementById('floating-image');
-        const revealImg = document.getElementById('reveal-img');
-        const items = document.querySelectorAll('.project-item');
 
         let mouseX = 0, mouseY = 0;
-        let ballX = 0, ballY = 0;
+        let posX = -1500, posY = -1000; // Starting center
+        let targetX = -1500, targetY = -1000;
 
+        // PANNING LOGIC
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
+
+            // Cursor
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
+
+            // Calculate "Labyrinth" Panning
+            // As you move mouse right, the canvas moves left
+            const moveX = (window.innerWidth / 2 - mouseX) * 0.5;
+            const moveY = (window.innerHeight / 2 - mouseY) * 0.5;
+            
+            targetX = -1000 + moveX; 
+            targetY = -500 + moveY;
         });
 
-        // ELASTIC ANIMATION
-        function animate() {
-            ballX += (mouseX - ballX) * 0.08;
-            ballY += (mouseY - ballY) * 0.08;
+        function lerp() {
+            posX += (targetX - posX) * 0.05; // 0.05 = Smoothness
+            posY += (targetY - posY) * 0.05;
 
-            reveal.style.left = ballX + 'px';
-            reveal.style.top = ballY + 'px';
-
-            requestAnimationFrame(animate);
+            canvas.style.transform = `translate(${posX}px, ${posY}px)`;
+            requestAnimationFrame(lerp);
         }
-        animate();
+        lerp();
 
-        items.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                revealImg.src = item.dataset.img;
-                reveal.classList.add('active');
-                aura.style.width = "60px";
-                aura.style.height = "60px";
+        // Aura Scaling
+        document.querySelectorAll('.project-node').forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                aura.style.width = "40px";
+                aura.style.height = "40px";
             });
-            item.addEventListener('mouseleave', () => {
-                reveal.classList.remove('active');
-                aura.style.width = "15px";
-                aura.style.height = "15px";
+            node.addEventListener('mouseleave', () => {
+                aura.style.width = "12px";
+                aura.style.height = "12px";
             });
         });
     </script>

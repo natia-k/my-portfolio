@@ -22,7 +22,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* BUBBLY AURA */
         #aura {
             position: fixed; width: 600px; height: 600px;
             background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
@@ -34,12 +33,12 @@
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
 
-        /* THE BUBBLY TEXT EFFECT */
-        .intro { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%); }
+        /* RESTORED BUBBLY TEXT EFFECT */
+        .intro { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         
         .hero-title {
             font-size: clamp(60px, 18vw, 220px);
-            font-weight: 950;
+            font-weight: 900;
             letter-spacing: -0.04em;
             text-transform: uppercase;
             display: flex;
@@ -48,45 +47,49 @@
         }
 
         .hero-title span { display: inline-block; animation: bubble 4s ease-in-out infinite; filter: blur(2px); }
+        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title span:nth-child(3) { animation-delay: 0.4s; }
+        .hero-title span:nth-child(4) { animation-delay: 0.6s; }
+        .hero-title span:nth-child(5) { animation-delay: 0.8s; }
+        .hero-title span:nth-child(6) { animation-delay: 1.0s; }
+        .hero-title span:nth-child(7) { animation-delay: 1.2s; }
+        .hero-title span:nth-child(8) { animation-delay: 1.4s; }
+
         @keyframes bubble {
             0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
-            50% { transform: scale(1.15) translateY(-20px); filter: blur(6px); opacity: 0.9; }
+            50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
         }
 
-        /* GALLERY & POETRY */
+        /* GALLERY LAYOUT */
         .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 300px; }
-        
         .artwork-section { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-        /* HEARTBREAK SPECIAL LAYOUT */
-        .editorial-layout {
+        /* EDITORIAL SIDE LAYOUT FOR HEARTBREAK */
+        .editorial-container {
             display: flex;
             align-items: flex-start;
-            gap: 40px;
+            gap: 50px;
             text-align: left;
-            max-width: 1000px;
             width: 100%;
+            max-width: 1100px;
         }
-
-        .editorial-image { flex: 2; }
-        
-        .editorial-text {
+        .editorial-image { flex: 1.5; }
+        .editorial-text-wrapper {
             flex: 1;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: var(--accent);
-            font-size: 14px;
-            line-height: 1.6;
-            letter-spacing: 0.02em;
-            margin-top: 20px;
-            white-space: pre-line;
-            font-weight: 400;
         }
 
-        .artwork-text { max-width: 550px; margin-top: 40px; font-size: 15px; line-height: 2; color: var(--accent); white-space: pre-line; font-weight: 500; }
-        .artwork-title { font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: 20px; opacity: 0.5; color: var(--accent); }
-        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: all 1.5s ease; }
+        .poem { white-space: pre-line; font-size: 16px; line-height: 1.6; margin-bottom: 30px; }
+        .description { font-size: 13px; line-height: 1.5; opacity: 0.8; }
+
+        .artwork-text { max-width: 600px; margin-top: 30px; font-size: 15px; line-height: 1.8; color: var(--accent); white-space: pre-line; }
+        .artwork-title { font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: 10px; color: var(--accent); opacity: 0.6; }
+        .artwork-meta { font-size: 10px; margin-bottom: 30px; color: var(--accent); opacity: 0.4; }
+
+        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: 1.5s ease; }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        img { width: 100%; border-radius: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        img { width: 100%; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
@@ -102,12 +105,41 @@
         <h1 class="hero-title">
             <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
         </h1>
+        <p style="color: var(--accent); letter-spacing: 0.4em; font-size: 12px; margin-top: 20px; opacity: 0.6;">visual identities for sound</p>
     </header>
 
     <main class="gallery">
         
         <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Insomnia</p>
+            <div class="editorial-container">
+                <div class="editorial-image">
+                    <p class="artwork-title">HEARTBREAK</p>
+                    <p class="artwork-meta">Digital illustration / print, 2022</p>
+                    <img src="heartbreak-2.jpg">
+                </div>
+                <div class="editorial-text-wrapper">
+                    <div class="poem">
+                        I made a heart.
+                        I broke it.
+
+                        Fragments orbit me—
+                        tiny planets of pain
+                        that refuse to burn.
+
+                        The first time
+                        this sadness touches you
+                        it never leaves.
+                    </div>
+                    <div class="description">
+                        For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">INSOMNIA</p>
+            <p class="artwork-meta">Digital illustration / print, 2022</p>
             <img src="insomnia-1.jpg">
             <div class="artwork-text">
                 Since I was five
@@ -116,44 +148,47 @@
                 Terrified of the splash.
                 I speak to the dark.
                 It watches.
+                Sleep is one step away—
+                always
+                a lifetime away.
+
+                I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold.
             </div>
         </section>
 
         <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Heartbreak</p>
-            <div class="editorial-layout">
-                <div class="editorial-image">
-                    <img src="heartbreak-2.jpg">
-                </div>
-                <div class="editorial-text">
-                    I made a heart.
-                    I broke it.
-
-                    Fragments orbit me—
-                    tiny planets of pain
-                    that refuse to burn.
-
-                    The first time
-                    this sadness touches you
-                    it never leaves.
-                </div>
+            <p class="artwork-title">PLEASURE</p>
+            <p class="artwork-meta">Digital illustration / print, 2022</p>
+            <img src="pleasure.jpg">
+            <div class="artwork-text">
+                Warmth turns into gravity.
+                You fall upward.
+                Willingly.
+                Again and
+                Again.
+                A 1001 times,
+                Alive,
+                Infinite.
             </div>
         </section>
 
         <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Emptiness</p>
+            <p class="artwork-title">EMPTINESS</p>
+            <p class="artwork-meta">Digital illustration / print, 2022</p>
             <img src="emptiness.jpg">
             <div class="artwork-text">
                 It arrives without sound.
                 It swallows everything.
                 Even your echo disappears.
                 A black hole rises inside.
+
+                It feels empty,
+                but it is heavy.
+                It can hold everything.
+                You carry space
+                alone.
             </div>
         </section>
-
-        <section class="artwork-section reveal-trigger"><p class="artwork-title">Desire</p><img src="desire.jpg"></section>
-        <section class="artwork-section reveal-trigger"><p class="artwork-title">Love</p><img src="love.jpg"></section>
-        <section class="artwork-section reveal-trigger"><p class="artwork-title">Pleasure</p><img src="pleasure.jpg"></section>
 
     </main>
 

@@ -10,7 +10,7 @@
             --white: #ffffff;
             --acid-green: #bfff00;
             --soft-pink: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.1);
+            --line: rgba(255, 255, 255, 0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -23,12 +23,12 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. BRIGHTER PINK CURSOR AURA */
+        /* BRIGHTER PINK CURSOR AURA */
         #aura {
             position: fixed;
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.25) 0%, transparent 75%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.2) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
@@ -36,11 +36,10 @@
             mix-blend-mode: screen;
         }
 
-        /* 2. HERO: THE OVERLAP SYSTEM */
+        /* HERO: THE OVERLAP (OAT STYLE) */
         .hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
@@ -49,90 +48,81 @@
 
         .hero-title {
             position: absolute;
-            font-size: clamp(60px, 18vw, 300px);
+            font-size: clamp(80px, 20vw, 350px);
             font-weight: 950;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            z-index: 5; /* Starts behind */
-            color: transparent;
-            -webkit-text-stroke: 1px var(--acid-green);
-            opacity: 0.4;
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-            white-space: nowrap;
+            z-index: 5; /* Behind */
+            color: var(--soft-pink); /* Pink Font */
+            opacity: 0.2;
+            filter: blur(10px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-container {
-            width: 70%;
-            max-width: 550px;
-            z-index: 10; /* Starts in front */
             position: relative;
+            z-index: 10; /* In front */
+            width: 80%;
+            max-width: 550px;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
-            /* Premium treatment */
+            /* Premium image treatment */
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255, 184, 224, 0.1);
-            opacity: 0;
-            filter: blur(10px);
-            transform: scale(0.95);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
-        .hero-container.active {
+        .hero-img { width: 100%; display: block; border-radius: 8px; }
+
+        /* INTERACTION: TEXT COMES TO FRONT */
+        .hero:hover .hero-title {
+            z-index: 15;
             opacity: 1;
             filter: blur(0px);
-            transform: scale(1);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-img { width: 100%; display: block; filter: brightness(0.95); }
-
-        /* INTERACTION: OVERLAP COMES FORWARD */
-        .hero:hover .hero-title {
-            z-index: 15; /* Moves to very front */
-            opacity: 1;
-            color: var(--acid-green);
-            -webkit-text-stroke: 0px;
             mix-blend-mode: exclusion;
-        }
-
-        /* 3. REFINED HIERARCHY */
-        .hero-desc {
-            margin-top: 60px;
-            max-width: 650px;
-            text-align: center;
-            z-index: 20;
-        }
-
-        .hero-desc p {
-            font-size: 20px; /* Larger impact */
-            font-weight: 600; /* Darker/Heavier weight */
-            line-height: 1.4;
             color: var(--white);
-            margin-bottom: 25px;
-            opacity: 0.9;
+        }
+
+        /* REFINED DESCRIPTION HIERARCHY */
+        .description-block {
+            padding: 100px 10%;
+            border-top: 1px solid var(--line);
+            margin: 0 5%;
+        }
+
+        .description-block p {
+            font-size: 22px; /* Larger */
+            font-weight: 600; /* Darker/Heavier */
+            max-width: 700px;
+            line-height: 1.4;
+            margin-bottom: 30px;
         }
 
         .scope-line {
             font-size: 11px;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.4);
         }
 
         .scope-line strong {
-            color: var(--acid-green);
+            color: var(--acid-green); /* Visual standout */
             font-weight: 900;
-            letter-spacing: 6px; /* Extra spacing for stand-out */
+            letter-spacing: 6px;
         }
 
-        /* 4. GALLERY ITEMS */
-        .gallery-grid { padding: 100px 8% 200px; display: flex; flex-direction: column; gap: 150px; }
-        
+        /* GALLERY GRID (THE CLEAN LAYOUT) */
+        .gallery-grid {
+            padding: 100px 8% 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 200px; /* Big Whitespace */
+        }
+
         .reveal {
             opacity: 0;
-            filter: blur(15px);
-            transform: translateY(30px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(20px);
+            transform: translateY(50px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
@@ -145,7 +135,7 @@
         nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
 
         .footer-next {
-            height: 60vh;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -154,16 +144,15 @@
         }
 
         .next-link {
-            font-size: clamp(40px, 12vw, 180px);
-            font-weight: 900;
+            font-size: clamp(50px, 15vw, 250px);
+            font-weight: 950;
             text-decoration: none;
             color: transparent;
             -webkit-text-stroke: 1px var(--white);
             transition: 0.6s;
         }
 
-        .next-link:hover { color: var(--acid-green); -webkit-text-stroke: 0px; }
-
+        .next-link:hover { color: var(--acid-green); -webkit-text-stroke: 1px transparent; }
     </style>
 </head>
 <body>
@@ -177,28 +166,27 @@
 
     <header class="hero">
         <h1 class="hero-title">THE OTHERS</h1>
-        
         <div class="hero-container" id="heroTarget">
             <img src="others-hero.jpg" class="hero-img" alt="The Others Poster">
         </div>
-
-        <div class="hero-desc reveal">
-            <p>A curated collection of visual brand exploration, branding concepts, and experimental typography.</p>
-            <div class="scope-line">SCOPE: <strong>EXPERIMENTAL DESIGN</strong> — 2026</div>
-        </div>
     </header>
 
+    <section class="description-block reveal">
+        <p>A curated collection of visual brand exploration, branding concepts, and experimental typography.</p>
+        <div class="scope-line">SCOPE: <strong>EXPERIMENTAL DESIGN</strong> — 2026</div>
+    </section>
+
     <main class="gallery-grid">
-        <section class="item reveal">
-            <img src="others-mockup1.jpg" style="width:100%; border-radius:4px;" alt="Mockup 1">
+        <section class="reveal">
+            <img src="others-mockup1.jpg" style="width: 100%; border-radius: 8px;" alt="Mockup 1">
         </section>
-        <section class="item reveal">
-            <img src="others-mockup2.jpg" style="width:100%; border-radius:4px;" alt="Mockup 2">
+        <section class="reveal">
+            <img src="others-mockup2.jpg" style="width: 100%; border-radius: 8px;" alt="Mockup 2">
         </section>
     </main>
 
     <footer class="footer-next">
-        <span style="font-size: 10px; letter-spacing: 5px; margin-bottom: 20px; opacity: 0.5;">Next</span>
+        <span style="font-size: 10px; letter-spacing: 5px; margin-bottom: 20px; opacity: 0.5;">Next Project</span>
         <a href="nurture.html" class="next-link">NURTURE</a>
     </footer>
 
@@ -206,18 +194,14 @@
         const aura = document.getElementById('aura');
         const heroTarget = document.getElementById('heroTarget');
 
-        window.onload = () => {
-            heroTarget.classList.add('active');
-        };
-
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            const dx = x - window.innerWidth / 2;
-            const dy = y - window.innerHeight / 2;
-            heroTarget.style.transform = `rotateY(${dx / 120}deg) rotateX(${-dy / 120}deg)`;
+            const dx = (x - window.innerWidth / 2) / 100;
+            const dy = (y - window.innerHeight / 2) / 100;
+            heroTarget.style.transform = `rotateY(${dx}deg) rotateX(${-dy}deg)`;
         });
 
         const observer = new IntersectionObserver((entries) => {

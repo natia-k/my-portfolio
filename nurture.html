@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NURTURE | NATIA STUDIO</title>
     <style>
-        :root { --bg: #000000; --white: #ffffff; --pink: rgba(255, 184, 224, 0.3); }
+        :root {
+            --bg: #000000;
+            --white: #ffffff;
+            --pink-aura: rgba(255, 184, 224, 0.3);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
         #aura {
             position: fixed; width: 450px; height: 450px;
-            background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: screen;
         }
@@ -20,8 +31,8 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; opacity: 0; pointer-events: none; z-index: 10000;
         }
+        @keyframes shutter { 0% { opacity: 0; } 20% { opacity: 0.9; } 100% { opacity: 0; } }
         .do-flash { animation: shutter 0.4s ease-out; }
-        @keyframes shutter { 0% { opacity: 0; } 20% { opacity: 1; } 100% { opacity: 0; } }
 
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; }
         .hero-title {
@@ -29,34 +40,52 @@
             font-size: clamp(60px, 15vw, 220px); font-weight: 950; letter-spacing: -0.06em;
             text-transform: uppercase; display: flex; z-index: 1; pointer-events: none;
         }
-        .hero-title span { display: inline-block; transition: filter 0.3s ease; }
 
         .gallery {
             position: relative; z-index: 10; padding: 100vh 5% 400px;
             display: flex; flex-direction: column; align-items: center; gap: 120px;
         }
 
-        /* MAIN PRINT - SMALLER */
-        .main-print { width: 55%; max-width: 600px; opacity: 0; transform: translateY(50px); transition: 1s ease; }
-
-        /* MOCKUPS - SIDE BY SIDE */
-        .mockup-grid {
-            display: flex; justify-content: center; gap: 20px; 
-            width: 100%; max-width: 1100px;
+        /* MAIN PRINT - 60% Width */
+        .main-print {
+            width: 60%; max-width: 650px;
+            opacity: 0; transform: translateY(80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .side-poster { width: 48%; opacity: 0; transform: translateY(50px); transition: 1s ease; }
+
+        /* MOCKUP GRID - Perfectly Side-by-Side */
+        .mockup-grid {
+            display: flex;
+            flex-direction: row; /* Forces side-by-side */
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .side-poster {
+            flex: 1; /* Makes both images equal width */
+            max-width: 500px;
+            opacity: 0; transform: translateY(80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        img { width: 100%; display: block; height: auto; background: #111; }
+        img { width: 100%; display: block; height: auto; background: #0a0a0a; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
     </style>
 </head>
 <body>
+
     <div id="flash"></div>
     <div id="aura"></div>
-    <nav><a href="index.html">NATIA STUDIO</a><a href="others.html">THE OTHERS</a></nav>
+
+    <nav>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="others.html">THE OTHERS</a>
+    </nav>
 
     <header class="hero">
         <h1 class="hero-title" id="meltTitle">
@@ -66,25 +95,33 @@
 
     <main class="gallery">
         <div class="main-print reveal-trigger">
-            <img data-src="nurture-hero.jpg" class="force-load">
+            <img data-src="nurture-hero.jpg" class="smart-load">
         </div>
+
         <div class="mockup-grid">
-            <div class="side-poster reveal-trigger"><img data-src="nurture-mockup1.jpg" class="force-load"></div>
-            <div class="side-poster reveal-trigger"><img data-src="nurture-mockup2.jpg" class="force-load"></div>
+            <div class="side-poster reveal-trigger">
+                <img data-src="nurture-mockup1.jpg" class="smart-load">
+            </div>
+            <div class="side-poster reveal-trigger">
+                <img data-src="nurture-mockup2.jpg" class="smart-load">
+            </div>
         </div>
     </main>
 
     <script>
-        // FORCED RELOAD SCRIPT - KILL THE CACHE
-        document.querySelectorAll('.force-load').forEach(img => {
-            const name = img.getAttribute('data-src');
-            // This timestamp "?t=" forces the browser to download the image fresh
-            img.src = name + "?t=" + new Date().getTime();
-            
-            img.onerror = function() {
-                // If it fails, try the capital version automatically
-                this.src = name.replace('nurture', 'Nurture') + "?t=" + new Date().getTime();
+        // SMART LOAD: Fixes naming/case errors automatically
+        document.querySelectorAll('.smart-load').forEach(img => {
+            const raw = img.getAttribute('data-src');
+            const tries = [raw, raw.replace('-', '–'), raw.replace('nurture', 'Nurture'), raw.replace('.jpg', '.JPG')];
+            let i = 0;
+            const attempt = () => {
+                if (i < tries.length) {
+                    img.src = tries[i] + "?v=" + Date.now();
+                    i++;
+                }
             };
+            img.onerror = attempt;
+            attempt();
         });
 
         // CURSOR & MELT
@@ -110,17 +147,17 @@
         });
 
         // FLASH & REVEAL
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
                     const f = document.getElementById('flash');
                     f.classList.remove('do-flash');
                     void f.offsetWidth; f.classList.add('do-flash');
                 }
             });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
+        document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

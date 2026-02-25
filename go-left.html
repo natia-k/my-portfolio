@@ -6,7 +6,7 @@
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #F2ECE4; 
+            --bg: #F2ECE4; /* High-end Bone */
             --text: #1a1a1a;
         }
 
@@ -29,6 +29,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* MINIMAL CURSOR */
         #aura {
             position: fixed; width: 20px; height: 20px;
             background: var(--text); border-radius: 50%; pointer-events: none; z-index: 999;
@@ -38,7 +39,7 @@
         nav { position: fixed; top: 40px; width: 100%; padding: 0 5%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; opacity: 0.3; }
 
-        /* THE TITLE THAT GOES LEFT */
+        /* THE TITLE THAT GOES LEFT IN 3D */
         .header {
             height: 100vh;
             display: flex;
@@ -67,12 +68,12 @@
 
         .pixel-container {
             position: relative;
-            margin: 10vh 0;
+            margin: 12vh 0;
             width: 85%;
-            max-width: 900px; /* Slightly wider for these mockups */
+            max-width: 900px;
             opacity: 0;
             transform: translateY(40px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .pixel-container.visible { opacity: 1; transform: translateY(0); }
@@ -90,7 +91,8 @@
         }
 
         footer { height: 40vh; display: flex; align-items: center; justify-content: center; }
-        .next-link { font-size: 11px; font-weight: 900; letter-spacing: 0.6em; text-decoration: none; color: var(--text); opacity: 0.3; }
+        .next-link { font-size: 11px; font-weight: 900; letter-spacing: 0.6em; text-decoration: none; color: var(--text); opacity: 0.3; transition: 0.4s; }
+        .next-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -127,21 +129,21 @@
     </footer>
 
     <script>
-        // 1. CURSOR
+        // 1. CURSOR LOGIC
         document.addEventListener('mousemove', (e) => {
             const aura = document.getElementById('aura');
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
         });
 
-        // 2. SCROLL PERSPECTIVE (Title goes LEFT)
+        // 2. SCROLL PERSPECTIVE (Title moves LEFT)
         window.addEventListener('scroll', () => {
             const title = document.getElementById('scrolling-title');
             const scroll = window.scrollY;
             title.style.transform = `translateX(-${scroll * 1.2}px) rotateY(${scroll * 0.03}deg)`;
         });
 
-        // 3. PIXELATE ON HOVER LOGIC
+        // 3. BIG PIXEL LOGIC (Scale set to 0.02 for blocky look)
         const containers = document.querySelectorAll('.pixel-container');
 
         containers.forEach(container => {
@@ -162,8 +164,11 @@
                 const w = canvas.width;
                 const h = canvas.height;
                 ctx.clearRect(0, 0, w, h);
+                
+                // Math.max ensures we don't scale to 0
                 const sw = Math.max(1, w * scale);
                 const sh = Math.max(1, h * scale);
+                
                 ctx.drawImage(img, 0, 0, sw, sh);
                 ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(canvas, 0, 0, sw, sh, 0, 0, w, h);
@@ -177,7 +182,7 @@
 
             container.addEventListener('mousemove', () => {
                 if (isHovered) {
-                    draw(0.06); // Pixelated scale
+                    draw(0.02); // AGGRESSIVE BIG PIXELS
                 }
             });
         });

@@ -136,7 +136,7 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
-        // MOUSE INTERACTION
+        // MOUSE INTERACTION (Blur on touch)
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;

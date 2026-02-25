@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #FFD1DC; /* Baby Pink */
-            --accent: #D6B1B1; /* Your Specific Color */
+            --accent: #F2ECE4; /* Warm Bone / Off-White */
             --black: #1a1a1a;
             --aura: rgba(255, 255, 255, 0.6);
         }
@@ -33,7 +33,7 @@
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
 
-        /* BUBBLY TEXT EFFECT WITH COLOR #D6B1B1 */
+        /* BUBBLY TEXT EFFECT WITH COLOR #F2ECE4 */
         .intro { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         
         .hero-title {
@@ -44,9 +44,10 @@
             display: flex;
             gap: 5px;
             color: var(--accent);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.05));
         }
 
-        .hero-title span { display: inline-block; animation: bubble 4s ease-in-out infinite; filter: blur(2px); }
+        .hero-title span { display: inline-block; animation: bubble 4s ease-in-out infinite; filter: blur(1px); }
         .hero-title span:nth-child(2) { animation-delay: 0.2s; }
         .hero-title span:nth-child(3) { animation-delay: 0.4s; }
         .hero-title span:nth-child(4) { animation-delay: 0.6s; }
@@ -56,8 +57,8 @@
         .hero-title span:nth-child(8) { animation-delay: 1.4s; }
 
         @keyframes bubble {
-            0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
-            50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
+            0%, 100% { transform: scale(1) translateY(0); filter: blur(1px); }
+            50% { transform: scale(1.1) translateY(-15px); filter: blur(5px); opacity: 0.9; }
         }
 
         /* GALLERY & POETRY */
@@ -105,7 +106,7 @@
         <h1 class="hero-title">
             <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
         </h1>
-        <p style="letter-spacing: 0.4em; font-size: 12px; margin-top: 20px; opacity: 0.4;">visual identities for sound</p>
+        <p style="letter-spacing: 0.4em; font-size: 12px; margin-top: 20px; opacity: 0.4; color: var(--black);">visual identities for sound</p>
     </header>
 
     <main class="gallery">
@@ -119,19 +120,19 @@
                 </div>
                 <div class="editorial-text-wrapper">
                     <div class="poem">
-                        I made a heart.
-                        I broke it.
+                        I made a heart. [cite: 22]
+                        I broke it. [cite: 23]
 
-                        Fragments orbit me—
-                        tiny planets of pain
-                        that refuse to burn.
+                        Fragments orbit me— [cite: 24]
+                        tiny planets of pain [cite: 25]
+                        that refuse to burn. [cite: 26]
 
-                        The first time
-                        this sadness touches you
-                        it never leaves.
+                        The first time [cite: 27]
+                        this sadness touches you [cite: 28]
+                        it never leaves. [cite: 29]
                     </div>
                     <div class="description">
-                        For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak.
+                        For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak. [cite: 30, 31]
                     </div>
                 </div>
             </div>
@@ -142,17 +143,17 @@
             <p class="artwork-meta">Digital illustration / print, 2022</p>
             <img src="insomnia-1.jpg">
             <div class="artwork-text">
-                Since I was five
-                I have stood at the edge of sleep.
-                Wanting to jump.
-                Terrified of the splash.
-                I speak to the dark.
-                It watches.
-                Sleep is one step away—
-                always
-                a lifetime away.
+                Since I was five [cite: 3, 44]
+                I have stood at the edge of sleep. [cite: 4, 45]
+                Wanting to jump. [cite: 5, 46]
+                Terrified of the splash. [cite: 6, 47]
+                I speak to the dark. [cite: 7, 48]
+                It watches. [cite: 8, 49]
+                Sleep is one step away— [cite: 9, 50]
+                always [cite: 10, 51]
+                a lifetime away. [cite: 11, 52]
 
-                I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold.
+                I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold. [cite: 12, 53]
             </div>
         </section>
 
@@ -161,14 +162,14 @@
             <p class="artwork-meta">Digital illustration / print, 2022</p>
             <img src="pleasure.jpg">
             <div class="artwork-text">
-                Warmth turns into gravity.
-                You fall upward.
-                Willingly.
-                Again and
-                Again.
-                A 1001 times,
-                Alive,
-                Infinite.
+                Warmth turns into gravity. [cite: 34]
+                You fall upward. [cite: 35]
+                Willingly. [cite: 36]
+                Again and [cite: 37]
+                Again. [cite: 38]
+                A 1001 times, [cite: 39]
+                Alive, [cite: 40]
+                Infinite. [cite: 41]
             </div>
         </section>
 
@@ -177,17 +178,32 @@
             <p class="artwork-meta">Digital illustration / print, 2022</p>
             <img src="emptiness.jpg">
             <div class="artwork-text">
-                It arrives without sound.
-                It swallows everything.
-                Even your echo disappears.
-                A black hole rises inside.
+                It arrives without sound. [cite: 15, 56]
+                It swallows everything. [cite: 15, 56]
+                Even your echo disappears. [cite: 15, 56]
+                A black hole rises inside. [cite: 15, 56]
 
-                It feels empty,
-                but it is heavy.
-                It can hold everything.
-                You carry space
-                alone.
+                It feels empty, [cite: 16, 57]
+                but it is heavy. [cite: 17, 58]
+                It can hold everything. [cite: 18, 59]
+                You carry space [cite: 18, 59]
+                alone. [cite: 19, 60]
             </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">DESIRE</p>
+            <p class="artwork-meta">Digital illustration / print, 2022</p>
+            <img src="desire.jpg">
+            <div class="artwork-text">
+                Craving to feel something.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">LOVE</p>
+            <p class="artwork-meta">Digital illustration / print, 2022</p>
+            <img src="love.jpg">
         </section>
 
     </main>

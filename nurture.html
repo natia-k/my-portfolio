@@ -9,6 +9,7 @@
             --bg: #000000;
             --white: #ffffff;
             --line: rgba(255, 255, 255, 0.1);
+            --accent: #ffb8e0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -23,90 +24,133 @@
 
         #aura {
             position: fixed;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 70%);
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
+        /* HERO: THE EMOTIONAL ENTRY */
         .hero {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
+            text-align: center;
         }
 
-        .hero-wrapper {
+        .hero-title-group {
             position: relative;
-            width: 80%;
-            max-width: 700px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 40px;
         }
 
         .hero-title {
-            position: absolute;
-            font-size: clamp(60px, 15vw, 220px);
+            font-size: clamp(60px, 12vw, 180px);
             font-weight: 900;
             letter-spacing: -0.05em;
             text-transform: uppercase;
-            text-align: center;
-            line-height: 0.8;
-            pointer-events: none;
-            z-index: 1; 
-            opacity: 0.2;
-            filter: blur(25px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-img { 
-            width: 100%; 
-            display: block;
-            z-index: 5;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.1;
+            filter: blur(15px);
+            transition: all 1.5s ease;
         }
 
         .hero.active .hero-title {
-            z-index: 10;
-            opacity: 1;
+            opacity: 0.8;
             filter: blur(0px);
-            mix-blend-mode: difference;
         }
 
-        .intro-section {
-            padding: 100px 10% 160px;
+        .hero-sentiment {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 1s ease 0.5s;
+        }
+
+        .hero.active .hero-sentiment {
+            opacity: 0.7;
+            transform: translateY(0);
+        }
+
+        /* METADATA: CLEAN & ELEGANT */
+        .meta-section {
+            padding: 80px 10%;
             text-align: center;
             border-top: 1px solid var(--line);
         }
 
-        .intro-section h2 { font-size: 18px; font-weight: 400; margin-bottom: 15px; opacity: 0.9; }
-        .scope-line { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; }
+        .scope-line {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 12px;
+        }
 
-        .exhibition {
+        .artist-note {
+            font-size: 12px;
+            font-style: italic;
+            opacity: 0.3;
+        }
+
+        /* GALLERY: THE PRESENCE */
+        .gallery {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 200px;
-            padding-bottom: 200px;
+            gap: 250px;
+            padding: 100px 0 300px;
         }
 
-        .poster { width: 85%; max-width: 650px; opacity: 0; transform: translateY(30px); transition: all 1.5s ease; }
-        .poster.anchor { max-width: 800px; width: 95%; } 
-        .poster.reveal { opacity: 1; transform: translateY(0); }
-        .poster img { width: 100%; display: block; }
+        .work-item {
+            width: 85%;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        .caption { margin-top: 25px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.3; }
+        .work-item.reveal { opacity: 1; transform: translateY(0); }
 
-        .next-project { padding: 100px 0; text-align: center; border-top: 1px solid var(--line); }
-        .next-project a { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; text-decoration: none; color: var(--white); opacity: 0.4; transition: 0.3s; }
-        .next-project a:hover { opacity: 1; }
+        .work-item img {
+            width: 100%;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 1s ease;
+        }
+
+        .work-item:hover img { filter: grayscale(0%); }
+
+        .poetic-label {
+            margin-top: 30px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            opacity: 0.3;
+            font-weight: 300;
+        }
+
+        /* CLOSING */
+        .closing {
+            padding: 200px 10%;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .exhale {
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0.4;
+            font-weight: 300;
+        }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; transition: 0.3s; }
+        nav a:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -118,66 +162,61 @@
         <a href="others.html">THE OTHERS</a>
     </nav>
 
-    <header class="hero" id="heroArea">
-        <div class="hero-wrapper">
-            <h1 class="hero-title" id="titleMove">NURTURE</h1>
-            <img src="nurture-hero.jpg" class="hero-img" id="imgMove">
+    <header class="hero" id="heroTrigger">
+        <div class="hero-title-group">
+            <h1 class="hero-title">NURTURE</h1>
         </div>
+        <p class="hero-sentiment">For softness. For becoming. For the quiet moments in between.</p>
     </header>
 
-    <section class="intro-section">
-        <h2>A quiet piece about softness, memory, and becoming.</h2>
+    <section class="meta-section">
         <p class="scope-line">SCOPE — Visual Study · 2026</p>
+        <p class="artist-note">Made slowly. Shown gently.</p>
     </section>
 
-    <main class="exhibition">
-        <div class="poster anchor">
-            <img src="nurture-mockup2.jpg">
-            <p class="caption">Poster — Texture & Space</p>
+    <main class="gallery">
+        <div class="work-item">
+            <img src="nurture-hero.jpg">
+            <p class="poetic-label">softness in form</p>
         </div>
 
-        <div class="poster">
+        <div class="work-item">
+            <img src="nurture-mockup2.jpg">
+            <p class="poetic-label">warmth in texture</p>
+        </div>
+
+        <div class="work-item">
             <img src="nurture-mockup1.jpg">
-            <p class="caption">Poster — Final Form</p>
+            <p class="poetic-label">still becoming</p>
         </div>
     </main>
 
-    <div class="next-project">
-        <a href="others.html">Next Project: THE OTHERS →</a>
-    </div>
+    <footer class="closing">
+        <p class="exhale">A quiet field of feeling, held with intention.</p>
+    </footer>
 
     <script>
         const aura = document.getElementById('aura');
-        const imgMove = document.getElementById('imgMove');
-        const titleMove = document.getElementById('titleMove');
-        const heroArea = document.getElementById('heroArea');
+        const hero = document.getElementById('heroTrigger');
 
+        // Initial reveal
+        window.onload = () => hero.classList.add('active');
+
+        // Cursor & Parallax
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
-
-            const rect = heroArea.getBoundingClientRect();
-            if (y >= rect.top && y <= rect.bottom) {
-                heroArea.classList.add('active'); 
-                const xPos = (window.innerWidth / 2 - x) / 35;
-                const yPos = (window.innerHeight / 2 - y) / 35;
-                imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
-                titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
-            } else {
-                heroArea.classList.remove('active'); 
-                imgMove.style.transform = `translateX(0px) translateY(0px)`;
-                titleMove.style.transform = `translateX(0px) translateY(0px)`;
-            }
         });
 
+        // Intersection Observer for Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('reveal');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
+        document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
     </script>
 </body>
 </html>

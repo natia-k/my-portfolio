@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE</title>
+    <title>NATIA KURTANIDZE | VISUAL DESIGNER</title>
     <style>
         :root {
-            --bg: #0a0a0a;
+            --bg: #050505;
             --text: #ffffff;
             --baby-pink: #fce4ec; 
-            --kombucha-green: #38b000;
-            --red: #d42020;
+            --accent: #ff003c; /* A sharper punchy red for the glitch */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Film Grain Texture */
+        /* 1. TEXTURE & ATMOSPHERE */
         body::before {
             content: "";
             position: fixed; inset: 0;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.2; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -26,119 +26,111 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. RED PRELOADER */
+        /* 2. CINEMATIC LOADER */
         #loader {
             position: fixed; inset: 0;
-            background: var(--red);
-            z-index: 1000;
+            background: #ff0000;
+            z-index: 10000;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+            transition: transform 1.2s var(--ease-out-expo);
         }
-        #loader-count { font-size: 15vw; font-weight: 900; color: #fff; }
+        #loader-count { font-size: 20vw; font-weight: 900; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
 
-        /* 2. NAME REVEAL */
-        #name-reveal {
-            position: fixed; inset: 0;
-            background: var(--bg);
-            z-index: 999;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease, filter 1.5s ease;
-        }
-        #name-reveal h2 { font-size: 8vw; font-weight: 900; text-transform: uppercase; }
-
-        /* 3. BIGGER CURSOR (THE AURA) */
+        /* 3. FLUID AURA (The "Lens") */
         #aura {
             position: fixed; 
-            width: 150px; /* Much bigger reveal area */
-            height: 150px;
-            background: white; 
+            width: 180px; height: 180px;
+            background: #fff; 
             border-radius: 50%; 
             pointer-events: none; 
             z-index: 10001;
             transform: translate(-50%, -50%); 
-            mix-blend-mode: difference; /* This creates the color inversion like Kombucha */
-            transition: width 0.4s ease, height 0.4s ease;
+            mix-blend-mode: difference;
+            transition: width 0.6s var(--ease-out-expo), height 0.6s var(--ease-out-expo);
         }
 
-        /* 4. HERO & STATEMENT */
+        /* 4. STATEMENT (Extreme Scale) */
         .hero {
             height: 100vh;
             display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            text-align: center;
-            padding: 0 10%;
+            justify-content: center;
+            padding: 0 8%;
         }
 
         .statement {
-            font-size: clamp(24px, 5vw, 60px);
+            font-size: clamp(30px, 7vw, 90px);
             font-weight: 900; text-transform: uppercase;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            filter: blur(15px); /* Oat Milk Blur */
-            opacity: 0.2;
-            transition: all 0.6s ease;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            filter: blur(25px); /* Heavier Oat Milk blur */
+            opacity: 0.1;
+            transition: all 1s var(--ease-out-expo);
         }
 
-        /* When the BIG cursor hits it */
-        .statement:hover {
+        /* The Reveal Interaction */
+        .hero:hover .statement {
             filter: blur(0px);
             opacity: 1;
-            color: var(--baby-pink);
+            transform: skewX(-2deg);
         }
 
-        /* 5. WORK SECTION */
+        /* 5. WORK ARCHIVE */
         .work-section {
-            padding: 20vh 10% 30vh;
+            padding: 10vh 8% 40vh;
             display: flex; flex-direction: column;
-            gap: 60px;
         }
 
         .project-link {
-            font-size: clamp(30px, 8vw, 120px);
+            font-size: clamp(40px, 12vw, 180px);
             font-weight: 900; text-decoration: none; color: var(--text);
-            text-transform: uppercase; letter-spacing: -0.04em;
-            opacity: 0.15;
-            filter: blur(12px);
-            transition: all 0.5s ease;
-            display: block; width: fit-content;
+            text-transform: uppercase; letter-spacing: -0.07em;
+            line-height: 0.8;
+            opacity: 0.1;
+            filter: blur(20px);
+            padding: 20px 0;
+            transition: all 0.8s var(--ease-out-expo);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .project-link:hover {
             opacity: 1;
             filter: blur(0px);
-            transform: translateX(30px);
+            color: var(--baby-pink);
+            transform: translateX(50px) scale(1.02);
         }
 
-        /* 6. PICTURE PREVIEW (Fixed Cutting) */
+        /* 6. PICTURE PREVIEW (Art Gallery Projection) */
         #preview {
             position: fixed; 
-            width: 60vw; /* Responsive width */
-            max-width: 800px;
-            height: auto; 
-            max-height: 80vh; /* Prevents cutting off vertically */
+            width: 50vw; 
+            max-width: 900px;
+            height: auto;
             pointer-events: none; 
             z-index: 5; 
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.9);
-            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 100px rgba(252, 228, 236, 0.15);
+            transform: translate(-50%, -50%) rotate(-2deg);
+            transition: opacity 0.6s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
         }
-        #preview.active { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+        #preview.active { opacity: 0.9; transform: translate(-50%, -50%) rotate(0deg) scale(1.1); }
+        
         #preview img { 
-            width: 100%; 
-            height: auto; 
-            display: block;
-            object-fit: contain; /* Ensures the whole image is visible */
+            width: 100%; height: auto; 
+            object-fit: contain;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
-        footer { padding: 100px 10%; font-size: 10px; opacity: 0.2; text-align: center; letter-spacing: 5px; }
+        footer { 
+            padding: 100px 8%; 
+            font-size: 11px; font-weight: 300;
+            opacity: 0.3; letter-spacing: 0.6em; 
+            text-transform: uppercase;
+        }
+
     </style>
 </head>
 <body>
@@ -146,13 +138,7 @@
     <div id="aura"></div>
     <div id="preview"><img id="preview-img" src="" alt=""></div>
 
-    <div id="loader">
-        <div id="loader-count">0</div>
-    </div>
-
-    <div id="name-reveal">
-        <h2>NATIA KURTANIDZE</h2>
-    </div>
+    <div id="loader"><div id="loader-count">00</div></div>
 
     <section class="hero">
         <div class="statement">
@@ -161,45 +147,39 @@
     </section>
 
     <main class="work-section">
-        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
-        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
-        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
-        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
-        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
-        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">NURTURE</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">OAT MILK</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">POSTERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">FEELINGS</a>
     </main>
 
-    <footer>NATIA KURTANIDZE © 2026</footer>
+    <footer>NATIA KURTANIDZE — STUDIO ARCHIVE 2026</footer>
 
     <script>
         const loader = document.getElementById('loader');
         const count = document.getElementById('loader-count');
-        const nameReveal = document.getElementById('name-reveal');
         const aura = document.getElementById('aura');
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
 
-        // Loader Sequence
-        let counter = 0;
-        const interval = setInterval(() => {
-            counter += Math.floor(Math.random() * 15) + 1;
-            if (counter >= 100) {
-                counter = 100;
-                clearInterval(interval);
+        // Cinematic Loading Sequence
+        let progress = 0;
+        const loadInterval = setInterval(() => {
+            progress += Math.floor(Math.random() * 15) + 1;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadInterval);
                 setTimeout(() => {
-                    loader.style.transform = "translateY(-100%)";
-                    nameReveal.style.opacity = "1";
-                    setTimeout(() => {
-                        nameReveal.style.filter = "blur(40px)";
-                        nameReveal.style.opacity = "0";
-                    }, 1200);
-                }, 400);
+                    loader.style.transform = "translateX(100%)"; // Dramatic slide exit
+                }, 500);
             }
-            count.innerText = counter;
-        }, 50);
+            count.innerText = progress.toString().padStart(2, '0');
+        }, 60);
 
-        // Cursor & Preview Logic
+        // Advanced Mouse Interpolation (Heavy Lag)
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
 
@@ -211,29 +191,28 @@
         });
 
         function animate() {
-            ballX += (mouseX - ballX) * 0.08;
-            ballY += (mouseY - ballY) * 0.08;
+            // Slower Lerp (0.05) makes the image feel "heavy" and expensive
+            ballX += (mouseX - ballX) * 0.05;
+            ballY += (mouseY - ballY) * 0.05;
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
-        // Hover triggers
-        document.querySelectorAll('.project-link, .statement').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                const img = el.getAttribute('data-img');
-                if(img) {
-                    previewImg.src = img;
-                    preview.classList.add('active');
-                }
-                aura.style.width = "250px"; /* Grows even bigger on text */
-                aura.style.height = "250px";
+        // Reveal Logic
+        document.querySelectorAll('.project-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const img = link.getAttribute('data-img');
+                previewImg.src = img;
+                preview.classList.add('active');
+                aura.style.width = "300px"; // Massive lens on hover
+                aura.style.height = "300px";
             });
-            el.addEventListener('mouseleave', () => {
+            link.addEventListener('mouseleave', () => {
                 preview.classList.remove('active');
-                aura.style.width = "150px";
-                aura.style.height = "150px";
+                aura.style.width = "180px";
+                aura.style.height = "180px";
             });
         });
     </script>

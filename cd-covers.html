@@ -31,24 +31,12 @@
             filter: blur(30px);
         }
 
-        /* NAVIGATION */
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
-        nav a:hover { opacity: 1; }
 
-        /* CLOUD HEADER */
-        .intro {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 10%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%);
-        }
-
-        /* THE BUBBLY TEXT EFFECT - RED VERSION */
+        /* THE BUBBLY TEXT EFFECT */
+        .intro { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%); }
+        
         .hero-title {
             font-size: clamp(60px, 18vw, 220px);
             font-weight: 950;
@@ -57,76 +45,48 @@
             display: flex;
             gap: 5px;
             color: var(--accent);
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
         }
 
-        .hero-title span {
-            display: inline-block;
-            animation: bubble 4s ease-in-out infinite;
-            filter: blur(2px);
-            transition: filter 0.5s ease;
-        }
-
-        /* Staggered animation delays */
-        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
-        .hero-title span:nth-child(3) { animation-delay: 0.4s; }
-        .hero-title span:nth-child(4) { animation-delay: 0.6s; }
-        .hero-title span:nth-child(5) { animation-delay: 0.8s; }
-        .hero-title span:nth-child(6) { animation-delay: 1.0s; }
-        .hero-title span:nth-child(7) { animation-delay: 1.2s; }
-        .hero-title span:nth-child(8) { animation-delay: 1.4s; }
-
+        .hero-title span { display: inline-block; animation: bubble 4s ease-in-out infinite; filter: blur(2px); }
         @keyframes bubble {
             0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
             50% { transform: scale(1.15) translateY(-20px); filter: blur(6px); opacity: 0.9; }
         }
 
-        .sub-title {
-            font-size: 14px;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            opacity: 0.6;
-            margin-top: -10px;
-            margin-bottom: 40px;
-            color: var(--accent);
-        }
-
         /* GALLERY & POETRY */
         .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 300px; }
         
-        .artwork-section {
-            width: 100%;
-            max-width: 800px;
+        .artwork-section { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+        /* HEARTBREAK SPECIAL LAYOUT */
+        .editorial-layout {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            align-items: flex-start;
+            gap: 40px;
+            text-align: left;
+            max-width: 1000px;
+            width: 100%;
         }
 
-        .artwork-text {
-            max-width: 550px;
-            margin-top: 40px;
-            font-size: 15px;
-            line-height: 2;
-            letter-spacing: 0.03em;
-            color: var(--accent); /* Red Texts */
-            white-space: pre-line;
-            font-weight: 500;
-        }
-
-        .artwork-title {
-            font-size: 11px;
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            opacity: 0.5;
+        .editorial-image { flex: 2; }
+        
+        .editorial-text {
+            flex: 1;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: var(--accent);
+            font-size: 14px;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+            margin-top: 20px;
+            white-space: pre-line;
+            font-weight: 400;
         }
 
+        .artwork-text { max-width: 550px; margin-top: 40px; font-size: 15px; line-height: 2; color: var(--accent); white-space: pre-line; font-weight: 500; }
+        .artwork-title { font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: 20px; opacity: 0.5; color: var(--accent); }
         .reveal-trigger { opacity: 0; transform: translateY(50px); transition: all 1.5s ease; }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        
-        img { width: 100%; display: block; border-radius: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        img { width: 100%; border-radius: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -142,7 +102,6 @@
         <h1 class="hero-title">
             <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
         </h1>
-        <p class="sub-title">visual identities for sound</p>
     </header>
 
     <main class="gallery">
@@ -157,9 +116,27 @@
                 Terrified of the splash.
                 I speak to the dark.
                 It watches.
-                Sleep is one step away—
-                always
-                a lifetime away. 
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Heartbreak</p>
+            <div class="editorial-layout">
+                <div class="editorial-image">
+                    <img src="heartbreak-2.jpg">
+                </div>
+                <div class="editorial-text">
+                    I made a heart.
+                    I broke it.
+
+                    Fragments orbit me—
+                    tiny planets of pain
+                    that refuse to burn.
+
+                    The first time
+                    this sadness touches you
+                    it never leaves.
+                </div>
             </div>
         </section>
 
@@ -171,53 +148,21 @@
                 It swallows everything.
                 Even your echo disappears.
                 A black hole rises inside.
-
-                It feels empty,
-                but it is heavy.
-                It can hold everything.
-                You carry space
-                alone. 
             </div>
         </section>
 
-        <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Love</p>
-            <img src="love.jpg">
-        </section>
-
-        <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Pleasure</p>
-            <img src="pleasure.jpg">
-        </section>
-
-        <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Desire</p>
-            <img src="desire.jpg">
-            <div class="artwork-text">
-                Craving to feel something.
-            </div>
-        </section>
-
-        <section class="artwork-section reveal-trigger">
-            <p class="artwork-title">Heartbreak</p>
-            <img src="heartbreak-2.jpg">
-        </section>
-
-        <section class="artwork-section reveal-trigger" style="max-width: 1000px;">
-            <p class="artwork-title">Physical Resonance</p>
-            <img src="cd-covers-hero.jpg">
-        </section>
+        <section class="artwork-section reveal-trigger"><p class="artwork-title">Desire</p><img src="desire.jpg"></section>
+        <section class="artwork-section reveal-trigger"><p class="artwork-title">Love</p><img src="love.jpg"></section>
+        <section class="artwork-section reveal-trigger"><p class="artwork-title">Pleasure</p><img src="pleasure.jpg"></section>
 
     </main>
 
     <script>
-        // Aura movement
         document.addEventListener('mousemove', (e) => {
             document.getElementById('aura').style.left = e.clientX + 'px';
             document.getElementById('aura').style.top = e.clientY + 'px';
         });
 
-        // Intersection Observer for images
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });

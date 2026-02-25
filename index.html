@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE | BERLIN</title>
+    <title>NATIA KURTANIDZE | STUDIO</title>
     <style>
         :root {
             --bg: #0a0a0a;
@@ -12,12 +12,12 @@
             --subtle: rgba(255, 255, 255, 0.3);
         }
 
-        /* GRAIN TEXTURE */
+        /* GRAIN */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -37,159 +37,171 @@
             transition: width 0.4s, height 0.4s;
         }
 
-        /* SECTION 1: LANDING MANIFESTO */
+        /* SECTION 1: MANIFESTO (REMOVED BERLIN) */
         .landing-hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            align-items: center;
             padding: 0 10%;
-            background: var(--bg);
         }
 
         .manifesto {
-            font-size: clamp(30px, 5vw, 70px);
+            font-size: clamp(30px, 6vw, 85px);
             font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
+            line-height: 1;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            max-width: 900px;
         }
 
         .manifesto span { color: var(--accent); }
 
-        .scroll-indicator {
-            position: absolute; bottom: 50px; left: 10%;
-            font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
-            opacity: 0.3; animation: breathe 2s infinite;
+        /* SECTION 2: THE VALIENTE LIST */
+        .project-section {
+            padding-bottom: 30vh;
         }
 
-        /* SECTION 2: THE GALLERY LIST */
-        .project-gallery {
-            padding: 15vh 10%;
-            min-height: 100vh;
-        }
-
-        .gallery-title {
-            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-            margin-bottom: 60px; color: var(--subtle);
-        }
-
-        nav { display: flex; flex-direction: column; }
-
-        .nav-item {
-            font-size: clamp(40px, 7vw, 120px);
-            font-weight: 900;
+        .project-item {
+            display: block;
+            padding: 40px 10%;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             text-decoration: none;
             color: var(--text);
+            position: relative;
+            z-index: 10;
+        }
+
+        .project-title {
+            font-size: clamp(40px, 8vw, 120px);
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -0.05em;
-            line-height: 0.9;
-            margin-bottom: 10px;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: block;
+            letter-spacing: -0.04em;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
         }
 
-        .nav-item:hover {
+        .project-item:hover .project-title {
+            transform: translateX(20px);
             color: var(--accent);
-            transform: translateX(30px);
         }
 
-        /* FLOATING PREVIEW IMAGE */
-        #cursor-preview {
-            position: fixed; width: 350px; height: 450px;
-            pointer-events: none; z-index: 5; opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.5s, transform 0.5s;
+        /* VALIENTE FLOATING IMAGE */
+        .hover-reveal {
+            position: fixed;
+            width: 400px;
+            height: 500px;
+            top: 0; left: 0;
+            pointer-events: none;
+            opacity: 0;
             overflow: hidden;
+            z-index: 5;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: opacity 0.4s, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        #cursor-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hover-reveal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .hover-reveal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         footer {
             padding: 100px 10%;
             display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; color: var(--subtle);
+            font-size: 10px; letter-spacing: 4px; opacity: 0.3;
         }
 
-        @keyframes breathe { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div id="cursor-preview"><img id="preview-img" src="" alt=""></div>
+    <div id="floating-image" class="hover-reveal"><img src="" id="reveal-img"></div>
 
     <section class="landing-hero">
         <h1 class="manifesto">
-            NATIA KURTANIDZE — <br>
-            VISUAL DESIGNER BASED IN <span>BERLIN</span>. <br>
-            I TURN COMPLEX FEELINGS INTO <span>SILENT FORMS</span>.
+            NATIA KURTANIDZE <br>
+            VISUAL DESIGNER — <br>
+            I CREATE <span>SILENT</span> <br>
+            FORMS <span>2026</span>.
         </h1>
-        <div class="scroll-indicator">Scroll to view work</div>
     </section>
 
-    <section class="project-gallery">
-        <div class="gallery-title">Selected Archive 2026</div>
-        <nav>
-            <a href="go-left.html" class="nav-item" data-img="goleft-mockup.jpg">GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="posters-hero.jpg">ARCHIVE</a>
-            <a href="feelings.html" class="nav-item" data-img="feelings-hero.jpg">FEELINGS</a>
-            <a href="kombucha.html" class="nav-item" data-img="kombucha-hero.jpg">KOMBUCHA</a>
-            <a href="nurture.html" class="nav-item" data-img="nurture-hero.jpg">NURTURE</a>
-            <a href="the-others.html" class="nav-item" data-img="others-hero.jpg">THE OTHERS</a>
-            <a href="oat-milk.html" class="nav-item" data-img="oatmilk-hero.jpg">OAT MILK</a>
-            <a href="cd-covers.html" class="nav-item" data-img="cd-hero.jpg">CD COVERS</a>
-        </nav>
-    </section>
+    <main class="project-section">
+        <a href="kombucha.html" class="project-item" data-img="kombucha.jpg">
+            <h2 class="project-title">KOMBUCHA</h2>
+        </a>
+        <a href="oat-milk.html" class="project-item" data-img="oatmilk.jpg">
+            <h2 class="project-title">OAT MILK</h2>
+        </a>
+        <a href="the-others.html" class="project-item" data-img="others.jpg">
+            <h2 class="project-title">THE OTHERS</h2>
+        </a>
+        <a href="nurture.html" class="project-item" data-img="nurture.jpg">
+            <h2 class="project-title">NURTURE</h2>
+        </a>
+        <a href="cd-covers.html" class="project-item" data-img="cdcovers.jpg">
+            <h2 class="project-title">CD COVERS</h2>
+        </a>
+        <a href="go-left.html" class="project-item" data-img="goleft.jpg">
+            <h2 class="project-title">GO LEFT</h2>
+        </a>
+        <a href="posters.html" class="project-item" data-img="posters.jpg">
+            <h2 class="project-title">POSTERS</h2>
+        </a>
+        <a href="feelings.html" class="project-item" data-img="feelings.jpg">
+            <h2 class="project-title">FEELINGS</h2>
+        </a>
+    </main>
 
     <footer>
         <span>NATIA KURTANIDZE © 2026</span>
-        <span>BERLIN / DESIGN STUDIO</span>
+        <span>DESIGN STUDIO</span>
     </footer>
 
     <script>
         const aura = document.getElementById('aura');
-        const preview = document.getElementById('cursor-preview');
-        const previewImg = document.getElementById('preview-img');
-        const navItems = document.querySelectorAll('.nav-item');
+        const reveal = document.getElementById('floating-image');
+        const revealImg = document.getElementById('reveal-img');
+        const items = document.querySelectorAll('.project-item');
 
-        // MOUSE FOLLOW LERP
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
         });
 
+        // ELASTIC ANIMATION
         function animate() {
-            ballX += (mouseX - ballX) * 0.1;
-            ballY += (mouseY - ballY) * 0.1;
-            preview.style.left = ballX + 'px';
-            preview.style.top = ballY + 'px';
+            ballX += (mouseX - ballX) * 0.08;
+            ballY += (mouseY - ballY) * 0.08;
+
+            reveal.style.left = ballX + 'px';
+            reveal.style.top = ballY + 'px';
+
             requestAnimationFrame(animate);
         }
         animate();
 
-        // HOVER REVEAL
-        navItems.forEach(item => {
+        items.forEach(item => {
             item.addEventListener('mouseenter', () => {
-                const img = item.getAttribute('data-img');
-                previewImg.src = img;
-                preview.style.opacity = "1";
-                preview.style.transform = "translate(-50%, -50%) scale(1) rotate(2deg)";
+                revealImg.src = item.dataset.img;
+                reveal.classList.add('active');
                 aura.style.width = "60px";
                 aura.style.height = "60px";
-                aura.style.background = "var(--accent)";
             });
             item.addEventListener('mouseleave', () => {
-                preview.style.opacity = "0";
-                preview.style.transform = "translate(-50%, -50%) scale(0.8) rotate(0deg)";
+                reveal.classList.remove('active');
                 aura.style.width = "15px";
                 aura.style.height = "15px";
-                aura.style.background = "white";
             });
         });
     </script>

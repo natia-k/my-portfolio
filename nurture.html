@@ -8,11 +8,11 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --pink-aura: rgba(255, 184, 224, 0.3);
+            --pink-aura: rgba(255, 184, 224, 0.35);
             --label: rgba(255, 255, 255, 0.4);
         }
 
-        /* ABSOLUTE BLACK - NO GRAY AT ALL */
+        /* PURE BLACK - NO GRAY */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body {
             background-color: var(--bg);
@@ -24,7 +24,7 @@
 
         #aura {
             position: fixed;
-            width: 550px; height: 550px;
+            width: 400px; height: 400px;
             background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -32,21 +32,6 @@
             transform: translate(-50%, -50%);
             mix-blend-mode: screen;
         }
-
-        .flash-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: white;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 9999;
-        }
-        @keyframes camera-flash {
-            0% { opacity: 0; }
-            10% { opacity: 0.9; }
-            100% { opacity: 0; }
-        }
-        .do-flash { animation: camera-flash 0.5s ease-out forwards; }
 
         /* HERO AREA */
         .hero {
@@ -62,66 +47,62 @@
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(80px, 18vw, 260px);
+            font-size: clamp(60px, 18vw, 240px);
             font-weight: 900;
-            letter-spacing: -0.06em;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-            z-index: 20; 
-            
-            /* DREAM STATE */
-            opacity: 0.15;
-            filter: blur(80px); 
-            transition: filter 0.8s ease, opacity 0.8s ease;
+            z-index: 20;
+            display: flex;
+            justify-content: center;
             pointer-events: none;
         }
 
-        /* GALLERY & IMAGES */
+        /* INDIVIDUAL LETTER LOGIC */
+        .hero-title span {
+            display: inline-block;
+            transition: filter 0.4s ease, opacity 0.4s ease, transform 0.8s ease;
+            filter: blur(0px);
+            opacity: 0.8;
+        }
+
+        /* When cursor "touches" a letter via JS, we apply this */
+        .hero-title span.blur-me {
+            filter: blur(40px) !important;
+            opacity: 0.2;
+            transform: scale(1.1);
+        }
+
+        /* MELTY SCROLL STATE */
+        .hero-title.is-melting span {
+            filter: blur(80px);
+            opacity: 0.1;
+            transform: translateY(50px);
+        }
+
+        /* GALLERY - BIG IMAGES */
         .gallery {
             padding: 100px 0 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 450px;
+            gap: 400px;
             background: #000000;
             position: relative;
             z-index: 10;
         }
 
         .poster {
-            width: 85%;
-            max-width: 850px;
+            width: 90%;
+            max-width: 1000px;
             opacity: 0;
             transform: translateY(60px);
-            transition: opacity 1.2s ease, transform 1.2s ease, filter 0.8s ease; 
-            filter: blur(0px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .poster.reveal { opacity: 1; transform: translateY(0); }
-
-        /* FOCUS SWAP: When text is sharp, ART blurs out */
-        body.text-sharp .poster {
-            filter: blur(50px); 
-            opacity: 0.2;
-        }
-
-        body.text-sharp .hero-title {
-            opacity: 0.9;
-            filter: blur(0px);
-            mix-blend-mode: difference;
-        }
-
         .poster img { width: 100%; display: block; }
-
-        .caption {
-            margin-top: 30px;
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--label);
-            text-align: center;
-        }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; }
@@ -129,7 +110,6 @@
 </head>
 <body>
 
-    <div class="flash-overlay" id="flash"></div>
     <div id="aura"></div>
 
     <nav>
@@ -138,78 +118,70 @@
     </nav>
 
     <header class="hero" id="heroArea">
-        <h1 class="hero-title" id="meltTitle">NURTURE</h1>
+        <h1 class="hero-title" id="meltTitle">
+            <span>N</span><span>U</span><span>R</span><span>T</span><span>U</span><span>R</span><span>E</span>
+        </h1>
     </header>
 
     <main class="gallery">
-        <div class="poster">
-            <img src="nurture.jpg" onerror="this.src='nurture.png'">
-            <p class="caption">opening — softness</p>
-        </div>
-        <div class="poster">
-            <img src="nurture-mockup2.jpg" onerror="this.src='nurture-mockup2.png'">
-            <p class="caption">detail — presence</p>
-        </div>
-        <div class="poster">
-            <img src="nurture-mockup1.jpg" onerror="this.src='nurture-mockup1.png'">
-            <p class="caption">closing — form</p>
-        </div>
+        <div class="poster"><img src="nurture.jpg" class="check-img"><p style="text-align:center; margin-top:20px; font-size:10px; opacity:0.4;">OPENING</p></div>
+        <div class="poster"><img src="nurture-mockup2.jpg" class="check-img"><p style="text-align:center; margin-top:20px; font-size:10px; opacity:0.4;">DETAIL</p></div>
+        <div class="poster"><img src="nurture-mockup1.jpg" class="check-img"><p style="text-align:center; margin-top:20px; font-size:10px; opacity:0.4;">FORM</p></div>
     </main>
 
     <script>
         const aura = document.getElementById('aura');
         const meltTitle = document.getElementById('meltTitle');
-        const flash = document.getElementById('flash');
+        const letters = document.querySelectorAll('.hero-title span');
 
+        // 1. MOUSE INTERACTION - PER LETTER BLUR
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            // Detect if cursor is "touching" the text area
-            if (y < window.innerHeight * 0.7 && window.scrollY < 500) {
-                document.body.classList.add('text-sharp');
-            } else {
-                document.body.classList.remove('text-sharp');
-            }
-        });
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const threshold = window.innerHeight;
-
-            if (scrollY < threshold) {
-                const progress = scrollY / threshold;
-                const currentBlur = 80 + (progress * 120);
-                const currentOpacity = 0.15 * (1 - progress);
+            letters.forEach(letter => {
+                const rect = letter.getBoundingClientRect();
+                // If cursor is within 100px of the letter, it blurs
+                const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
                 
-                meltTitle.style.display = "block";
-                
-                if (!document.body.classList.contains('text-sharp')) {
-                    meltTitle.style.filter = `blur(${currentBlur}px)`;
-                    meltTitle.style.opacity = currentOpacity;
-                }
-                
-                meltTitle.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.5}px))`;
-            } else {
-                meltTitle.style.display = "none";
-            }
-        });
-
-        const triggerFlash = () => {
-            flash.classList.remove('do-flash');
-            void flash.offsetWidth; 
-            flash.classList.add('do-flash');
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                    triggerFlash();
+                if (dist < 120) {
+                    letter.classList.add('blur-me');
+                } else {
+                    letter.classList.remove('blur-me');
                 }
             });
-        }, { threshold: 0.2 });
+        });
+
+        // 2. SMOOTH MELT ON SCROLL
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 100) {
+                meltTitle.classList.add('is-melting');
+            } else {
+                meltTitle.classList.remove('is-melting');
+            }
+        });
+
+        // 3. IMAGE PATH AUTO-FIXER (Fixes the "Not Visible" issue)
+        document.querySelectorAll('.check-img').forEach(img => {
+            img.onerror = function() {
+                // If .jpg fails, try .png
+                if (this.src.endsWith('.jpg')) {
+                    this.src = this.src.replace('.jpg', '.png');
+                } else if (this.src.endsWith('.png')) {
+                    // If .png fails, try the other mockup folder name
+                    this.src = 'nurture_mockup1.jpg'; 
+                }
+            };
+        });
+
+        // 4. REVEAL IMAGES
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('reveal');
+            });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>

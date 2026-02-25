@@ -1,26 +1,42 @@
 /* style.css - THE COMPLETE BRAND BRAIN */
 
 :root { 
-    --bg: #000000; 
-    --fg: #FFFFFF; 
-    --accent: #E8220A; /* Your signature red */
+    --bg-red: #B22222;    /* GO LEFT Red */
+    --bg-pink: #FFD1DC;   /* FEELINGS Pink */
+    --white: #FFFFFF;
+    --black: #1a1a1a;
+    --bone: #F2ECE4;      /* High-end off-white */
+}
+
+/* 1. THE QUENTIN GRAIN (Global Overlay) */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.15;
+    mix-blend-mode: overlay;
 }
 
 * { 
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
+    cursor: none; /* For your custom cursor */
 }
 
 body { 
-    background: var(--bg); 
-    color: var(--fg); 
-    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    background: var(--black); /* Default to black, change per page */
+    color: var(--white);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
     -webkit-font-smoothing: antialiased; 
     overflow-x: hidden;
 }
 
-/* --- NAVIGATION (NATIA DESIGN) --- */
+/* 2. NAVIGATION */
 nav { 
     position: fixed; 
     top: 30px; 
@@ -52,124 +68,140 @@ nav a {
     opacity: 0.8; 
 }
 
-/* --- PROJECT HERO LAYOUT --- */
-.project-hero { 
-    display: grid; 
-    grid-template-columns: 1.1fr 1fr; 
-    min-height: 95vh; 
-    padding: 140px 40px 40px; 
-    gap: 60px; 
-    align-items: flex-start; 
+/* 3. CUSTOM CURSOR AURA */
+#aura {
+    position: fixed; 
+    width: 400px; 
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%; 
+    pointer-events: none; 
+    z-index: 999;
+    transform: translate(-50%, -50%);
 }
 
-/* --- UPDATED MAIN IMAGE ZOOM --- */
-.main-visual img { 
+/* 4. TYPOGRAPHY ANIMATIONS */
+
+/* Velvety Shimmer for GO LEFT */
+@keyframes velvet-blur {
+    0%, 100% { filter: blur(2px); opacity: 1; text-shadow: 0 0 10px rgba(0,0,0,0.2); }
+    50% { filter: blur(12px); opacity: 0.7; text-shadow: 0 0 40px rgba(0,0,0,0.4); }
+}
+
+/* Underwater Sunlight Sparkle for FEELINGS */
+@keyframes underwater-sparkle {
+    0%, 100% { transform: scale(1); filter: blur(2px) brightness(1); text-shadow: 0 0 0px #fff; }
+    50% { transform: scale(1.05); filter: blur(8px) brightness(1.6); text-shadow: 0 0 30px #fff; }
+}
+
+.hero-title {
+    font-size: clamp(80px, 20vw, 300px);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    line-height: 0.8;
+}
+
+/* 5. LAYOUTS: ASYMMETRICAL GALLERY */
+.gallery-section { 
+    padding: 15vh 8% 30vh; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 35vh; 
+}
+
+.exhibition-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.8fr; /* Text Left, Image Right */
+    gap: 80px;
+    align-items: center;
+}
+
+.wall-text {
+    text-align: left;
+}
+
+.poem {
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.commentary {
+    font-size: 12px;
+    opacity: 0.4;
+    font-style: italic;
+    max-width: 300px;
+}
+
+/* 6. IMAGE EFFECTS (Float & Zoom) */
+.pic-frame img { 
     width: 100%; 
-    max-width: 450px; /* This makes it smaller by default */
+    max-width: 800px;
     height: auto; 
-    object-fit: contain;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth, high-end transition */
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: zoom-in;
-    display: block;
+    filter: drop-shadow(0 40px 100px rgba(0,0,0,0.1));
 }
 
-/* When you hover, it scales up significantly */
-.main-visual img:hover { 
-    transform: scale(1.4); /* Makes it 40% bigger on hover */
-    z-index: 10;
+.pic-frame img:hover { 
+    transform: scale(1.15); 
 }
 
-/* --- STRONK TYPOGRAPHY --- */
-.content-right h1 { 
-    font-size: clamp(80px, 14vw, 160px); 
-    text-transform: uppercase; 
-    font-weight: 900; 
-    margin-bottom: 20px; 
-    line-height: 0.75; 
-    letter-spacing: -0.06em; 
-    color: #FFFFFF; 
+@keyframes gentle-drift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
 }
 
-.content-right .description { 
-    font-size: 24px; 
-    line-height: 1.25; 
-    font-style: italic; 
-    margin-bottom: 40px; 
-    max-width: 450px; 
+.float-effect {
+    animation: gentle-drift 10s ease-in-out infinite;
 }
 
-.content-right .meta { 
-    font-size: 13px; 
-    text-transform: uppercase; 
-    letter-spacing: 3px; 
-    font-weight: 800; 
-    border-top: 1px solid #333; 
-    padding-top: 25px; 
-    display: inline-block; 
-}
-
-/* --- GALLERY SECTION --- */
-.mockup-section { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 20px; 
-    padding: 40px; 
-    max-width: 1600px; 
-    margin: 0 auto; 
-}
-
-.mockup-section img { 
-    width: 100%; 
-    height: auto; 
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
-}
-
-.mockup-section img:hover { 
-    transform: scale(1.02); 
-}
-
-/* --- NEXT PROJECT BUTTON (The Fixed Version) --- */
+/* 7. NEXT PROJECT BUTTON */
 .next-btn-container {
     text-align: center;
-    padding: 150px 40px 200px;
-    border-top: 1px solid #1a1a1a;
-    margin-top: 100px;
+    padding: 150px 40px;
 }
 
-.next-project-link {
-    text-decoration: none;
-    display: inline-block;
+.next-project-link { text-decoration: none; display: inline-block; }
+.next-project-link span { 
+    display: block; 
+    font-size: 12px; 
+    letter-spacing: 5px; 
+    text-transform: uppercase; 
+    color: rgba(255,255,255,0.4); 
+    margin-bottom: 15px; 
 }
 
-.next-project-link span {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: #666;
-    margin-bottom: 15px;
+.next-project-link h3 { 
+    font-size: clamp(50px, 8vw, 100px); 
+    text-transform: uppercase; 
+    font-weight: 900; 
+    color: #FFF; 
+    transition: all 0.4s ease; 
 }
 
-.next-project-link h3 {
-    font-size: clamp(50px, 8vw, 100px);
-    text-transform: uppercase;
-    font-weight: 900;
-    color: #FFF;
-    line-height: 0.8;
-    letter-spacing: -0.04em;
-    transition: all 0.4s ease;
+.next-project-link:hover h3 { 
+    color: var(--bg-red); 
+    transform: scale(1.05); 
 }
 
-.next-project-link:hover h3 {
-    color: var(--accent);
-    transform: scale(1.05);
+/* 8. REVEAL SCRIPT CLASS */
+.reveal-trigger { 
+    opacity: 0; 
+    transform: translateY(40px); 
+    transition: 2s cubic-bezier(0.16, 1, 0.3, 1); 
 }
 
-/* --- RESPONSIVE MOBILE FIXES --- */
+.reveal { 
+    opacity: 1 !important; 
+    transform: translateY(0) !important; 
+}
+
+/* 9. MOBILE RESPONSIVE */
 @media (max-width: 900px) {
-    .project-hero { grid-template-columns: 1fr; padding-top: 100px; }
-    .content-right h1 { font-size: 80px; }
-    .mockup-section { grid-template-columns: 1fr; }
+    .exhibition-row { grid-template-columns: 1fr; gap: 40px; }
+    .hero-title { font-size: 100px; }
     nav { padding: 0 20px; }
-    .studio-name { font-size: 10px; letter-spacing: 3px; }
 }

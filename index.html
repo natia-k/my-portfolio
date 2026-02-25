@@ -9,16 +9,11 @@
             --bg: #050505;
             --text: #ffffff;
             --baby-pink: #fce4ec; 
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
-            --breath-ease: cubic-bezier(0.33, 1, 0.68, 1);
+            --red: #ff0000;
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* 1. ATMOSPHERE & BREATHING ANIMATION */
-        @keyframes siteBreath {
-            0% { background-color: #050505; }
-            50% { background-color: #0d0d0f; }
-            100% { background-color: #050505; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg);
@@ -26,107 +21,119 @@
             font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            animation: siteBreath 120s ease-in-out infinite;
+            transition: background-color 3s var(--ease);
         }
 
+        /* GRAIN TEXTURE */
         body::before {
             content: "";
             position: fixed; inset: 0;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.18; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-
-        /* 2. OPENING BREATH STATES */
-        body.is-inhaling .statement,
-        body.is-inhaling .project-link {
-            filter: blur(25px) brightness(0.3);
-            letter-spacing: -0.1em;
-            transform: scale(1.08);
-            opacity: 0;
-        }
-
-        .statement, .project-link {
-            transition: 
-                filter 3.5s var(--breath-ease),
-                letter-spacing 4s var(--breath-ease),
-                transform 3.5s var(--breath-ease),
-                opacity 3s var(--breath-ease),
-                color 0.5s ease;
-        }
-
-        /* 3. CURSOR & ECHOES */
-        #aura {
-            position: fixed; width: 120px; height: 120px;
-            background: #fff; border-radius: 50%; pointer-events: none; z-index: 10001;
-            transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.8s var(--ease), height 0.8s var(--ease), border-radius 1s var(--ease);
-        }
-
-        .echo {
-            position: fixed; width: 6px; height: 6px;
-            background: white; border-radius: 50%;
-            pointer-events: none; z-index: 10000;
-            opacity: 0.15; transform: translate(-50%, -50%);
-            animation: echoFade 3s var(--ease) forwards;
-        }
-        @keyframes echoFade {
-            0% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.5); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); filter: blur(5px); }
-        }
-
-        /* 4. LAYOUT */
+        /* 1. PRELOADER (Black font, Smaller size) */
         #loader {
-            position: fixed; inset: 0; background: #ff0000; z-index: 10010;
+            position: fixed; inset: 0; 
+            background: var(--red); 
+            z-index: 10010;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s var(--ease);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #loader-count { font-size: 20vw; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
+        #loader-count { 
+            font-size: 8vw; 
+            font-weight: 900; 
+            color: #000000; 
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.05em;
+        }
 
+        /* 2. ATTENTION-BASED TYPOGRAPHY */
+        .statement, .project-link {
+            transition: letter-spacing 3s var(--ease), filter 2s var(--ease), opacity 2s var(--ease), color 0.8s ease;
+            will-change: letter-spacing, filter;
+        }
+
+        /* 3. HERO & PROJECTS */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
         .statement {
             font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase;
             letter-spacing: -0.04em; line-height: 0.9;
         }
 
-        .work-section { padding: 10vh 8% 40vh; display: flex; flex-direction: column; }
-
+        .work-section { padding: 10vh 8% 20vh; display: flex; flex-direction: column; }
         .project-link {
             font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
             color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
             padding: 25px 0; display: block; width: fit-content;
         }
+        .project-link:hover { color: var(--baby-pink); filter: blur(0px) !important; opacity: 1 !important; }
 
-        /* PERSONALITY HOVERS */
-        .project-link:hover { opacity: 1; filter: blur(0); }
-        .project-link[data-soul="sharp"]:hover { transform: translateX(60px) scaleY(1.1); }
-        .project-link[data-soul="soft"]:hover { transform: translateX(30px) scale(1.05); color: var(--baby-pink); }
-        .project-link[data-soul="electric"]:hover { transform: skewX(-5deg) translateX(40px); color: var(--baby-pink); }
+        /* 4. CONTACT SECTION (The "Exhale") */
+        .contact-section {
+            padding: 15vh 8%;
+            background: var(--baby-pink);
+            color: #000;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center;
+        }
 
-        /* 5. IMAGE PREVIEW */
+        .contact-section h2 {
+            font-size: clamp(40px, 10vw, 150px);
+            font-weight: 900; letter-spacing: -0.07em;
+            text-transform: uppercase; margin-bottom: 60px;
+        }
+
+        .contact-form {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+            max-width: 1200px;
+        }
+
+        input, textarea {
+            background: transparent; border: none; border-bottom: 2px solid #000;
+            padding: 20px 0; font-size: 18px; font-family: inherit;
+            outline: none; text-transform: uppercase; font-weight: 600;
+        }
+
+        textarea { grid-column: span 2; height: 120px; resize: none; }
+
+        .submit-btn {
+            grid-column: span 1; background: #000; color: #fff;
+            padding: 20px; border: none; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 0.2em;
+            cursor: pointer; transition: transform 0.3s ease;
+            width: fit-content; padding: 20px 60px; margin-top: 20px;
+        }
+        .submit-btn:hover { transform: scale(1.05); }
+
+        /* 5. PREVIEW SYSTEM */
         #preview {
-            position: fixed; width: 50vw; max-width: 850px; pointer-events: none; z-index: 5; 
-            opacity: 0; transform: translate(-50%, -50%) scale(0.9);
-            transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
+            position: fixed; top: 50%; left: 60%;
+            transform: translate(-50%, -50%);
+            width: 40vw; max-width: 700px; 
+            pointer-events: none; z-index: 5; opacity: 0;
+            transition: opacity 1s var(--ease), transform 1s var(--ease);
         }
-        #preview.active { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
-        #preview img { width: 100%; height: auto; object-fit: contain; box-shadow: 0 30px 90px rgba(0,0,0,0.5); }
+        #preview.active { opacity: 0.75; transform: translate(-50%, -48%); }
+        #preview img { width: 100%; height: auto; object-fit: contain; }
 
-        #watermark {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            font-size: 9px; text-transform: uppercase; letter-spacing: 0.5em;
-            opacity: 0; transition: opacity 3s ease; pointer-events: none; color: var(--baby-pink);
+        footer { 
+            background: var(--baby-pink); color: #000;
+            padding: 60px 8%; font-size: 10px; opacity: 0.5;
+            letter-spacing: 0.5em; text-transform: uppercase; text-align: center;
         }
 
-        footer { padding: 80px 8%; font-size: 11px; opacity: 0.2; letter-spacing: 0.5em; text-transform: uppercase; text-align: center; }
+        @media (max-width: 768px) {
+            .contact-form { grid-template-columns: 1fr; }
+            textarea, .submit-btn { grid-column: span 1; }
+            #preview { width: 80vw; left: 50%; }
+        }
     </style>
 </head>
-<body class="is-inhaling">
+<body>
 
-    <div id="aura"></div>
     <div id="preview"><img id="preview-img" src="" alt=""></div>
-    <div id="watermark">Observing the silent geometry of space.</div>
 
     <div id="loader"><div id="loader-count">00</div></div>
 
@@ -135,108 +142,85 @@
     </section>
 
     <main class="work-section">
-        <a href="go-left.html" class="project-link" data-soul="sharp" data-img="goleft-main.jpg">01 GO LEFT</a>
-        <a href="the-others.html" class="project-link" data-soul="soft" data-img="others.jpg">02 THE OTHERS</a>
-        <a href="nurture.html" class="project-link" data-soul="soft" data-img="nurture-hero.jpg">03 NURTURE</a>
-        <a href="oat-milk.html" class="project-link" data-soul="soft" data-img="oat-hero.jpg">04 OAT MILK</a>
-        <a href="kombucha.html" class="project-link" data-soul="electric" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-        <a href="posters.html" class="project-link" data-soul="sharp" data-img="nostalgia.jpg">06 POSTERS</a>
-        <a href="feelings.html" class="project-link" data-soul="soft" data-img="feelings-hero.jpg">07 FEELINGS</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
     </main>
+
+    <section class="contact-section">
+        <h2>CONTACT</h2>
+        <form class="contact-form" action="https://formspree.io/f/your-id" method="POST">
+            <input type="text" name="name" placeholder="NAME" required>
+            <input type="email" name="email" placeholder="EMAIL" required>
+            <textarea name="message" placeholder="MESSAGE" required></textarea>
+            <button type="submit" class="submit-btn">SEND</button>
+        </form>
+    </section>
 
     <footer>NATIA KURTANIDZE © 2026</footer>
 
     <script>
         const body = document.body;
-        const aura = document.getElementById('aura');
+        const links = document.querySelectorAll('.project-link, .statement');
         const preview = document.getElementById('preview');
-        const watermark = document.getElementById('watermark');
         const previewImg = document.getElementById('preview-img');
-        
-        let mouseX = 0, mouseY = 0;
-        let lastScrollY = 0;
+        let lastMove = Date.now();
+        let isQuiet = false;
 
-        // 1. OPENING BREATH LOGIC
-        function releaseBreath() {
-            setTimeout(() => {
-                body.classList.remove('is-inhaling');
-            }, 300);
+        // ATTENTION LOGIC
+        function checkAttention() {
+            const idle = Date.now() - lastMove;
+            if (idle > 1200) {
+                if (!isQuiet) {
+                    isQuiet = true;
+                    body.style.backgroundColor = "#0d0d0f";
+                    links.forEach(l => { 
+                        l.style.letterSpacing = "0.05em"; 
+                        l.style.filter = "blur(0px)"; 
+                        l.style.opacity = "1"; 
+                    });
+                }
+            } else {
+                if (isQuiet) {
+                    isQuiet = false;
+                    body.style.backgroundColor = "#050505";
+                    links.forEach(l => { 
+                        l.style.letterSpacing = l.classList.contains('statement') ? "-0.04em" : "-0.07em"; 
+                        l.style.filter = "blur(15px)"; 
+                        l.style.opacity = "0.2"; 
+                    });
+                }
+            }
+            requestAnimationFrame(checkAttention);
         }
 
-        // 2. LOADER
-        let progress = 0;
-        const loadInterval = setInterval(() => {
-            progress += Math.floor(Math.random() * 12) + 1;
-            if (progress >= 100) { 
-                progress = 100; 
-                clearInterval(loadInterval); 
-                setTimeout(() => {
-                    document.getElementById('loader').style.transform = "translateY(-100%)";
-                    releaseBreath();
-                }, 500);
-            }
-            document.getElementById('loader-count').innerText = progress.toString().padStart(2, '0');
-        }, 70);
+        document.addEventListener('mousemove', () => lastMove = Date.now());
+        document.addEventListener('scroll', () => lastMove = Date.now());
+        checkAttention();
 
-        // 3. CURSOR & ECHOES
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX; mouseY = e.clientY;
-            aura.style.left = mouseX + 'px';
-            aura.style.top = mouseY + 'px';
-
-            if (Math.random() > 0.9) {
-                const echo = document.createElement('div');
-                echo.className = 'echo';
-                echo.style.left = mouseX + 'px';
-                echo.style.top = mouseY + 'px';
-                document.body.appendChild(echo);
-                setTimeout(() => echo.remove(), 3000);
-            }
-        });
-
-        // 4. WATERMARK REVEAL (SLOW SCROLL)
-        window.addEventListener('scroll', () => {
-            let currentScroll = window.pageYOffset;
-            let velocity = Math.abs(currentScroll - lastScrollY);
-            lastScrollY = currentScroll;
-            if (velocity > 0 && velocity < 1.5) {
-                watermark.style.opacity = "0.4";
-            } else {
-                watermark.style.opacity = "0";
-            }
-        });
-
-        // 5. PROJECT INTERACTIONS
+        // PROJECT PREVIEW
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 previewImg.src = link.getAttribute('data-img');
                 preview.classList.add('active');
-                
-                const soul = link.getAttribute('data-soul');
-                if(soul === 'sharp') aura.style.borderRadius = "0%";
-                if(soul === 'electric') {
-                    aura.style.width = "220px";
-                    aura.style.height = "220px";
-                }
             });
-            link.addEventListener('mouseleave', () => {
-                preview.classList.remove('active');
-                aura.style.borderRadius = "50%";
-                aura.style.width = "120px";
-                aura.style.height = "120px";
-            });
+            link.addEventListener('mouseleave', () => preview.classList.remove('active'));
         });
 
-        // IMAGE FOLLOW (HEAVY LERP)
-        let bX = 0, bY = 0;
-        function animate() {
-            bX += (mouseX - bX) * 0.05; 
-            bY += (mouseY - bY) * 0.05;
-            preview.style.left = bX + 'px'; 
-            preview.style.top = bY + 'px';
-            requestAnimationFrame(animate);
-        }
-        animate();
+        // LOADER SCRIPT
+        let p = 0;
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 15) + 1;
+            if (p >= 100) { 
+                p = 100; clearInterval(l); 
+                setTimeout(() => document.getElementById('loader').style.transform = "translateY(-100%)", 500);
+            }
+            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
+        }, 60);
     </script>
 </body>
 </html>

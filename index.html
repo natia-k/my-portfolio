@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA STUDIO</title>
+    <title>NATIA STUDIO | BERLIN</title>
     <style>
         :root {
             --bg: #0a0a0a;
             --text: #ffffff;
-            --accent: #ff0055;
+            --accent: #ffb6c1; /* Baby Pink Accent */
+            --subtle: rgba(255, 255, 255, 0.3);
         }
 
-        /* GRAIN OVERLAY */
+        /* PREMIUM GRAIN */
         body::before {
             content: "";
             position: fixed;
@@ -25,161 +26,152 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            overflow: hidden;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             height: 100vh;
-            width: 100vw;
+            display: flex;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         #aura {
-            position: fixed; width: 12px; height: 12px;
+            position: fixed; width: 10px; height: 10px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.3s, height 0.3s;
+            transition: width 0.4s, height 0.4s;
         }
 
-        /* THE FLOATING CANVAS */
-        #gallery-wrapper {
-            position: relative;
-            width: 120vw;
-            height: 120vh;
-            left: -10vw;
-            top: -10vh;
-            transition: transform 0.2s ease-out;
-            will-change: transform;
+        /* TAGLINE AT TOP */
+        .tagline {
+            position: fixed; top: 60px; left: 8%;
+            font-size: 11px; letter-spacing: 0.5em;
+            text-transform: uppercase; color: var(--subtle);
+            z-index: 100;
         }
 
-        .project-card {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: white;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), z-index 0s;
+        /* IMAGE PREVIEW (Fixed Right) */
+        #preview-container {
+            position: fixed; top: 0; right: 0;
+            width: 50%; height: 100%;
+            overflow: hidden; pointer-events: none;
             z-index: 1;
         }
 
-        .project-card:hover {
-            z-index: 50;
-            transform: scale(1.1) !important;
-        }
-
-        .project-card img {
-            width: 100%;
-            height: auto;
-            filter: grayscale(100%) brightness(0.7);
-            transition: 0.5s;
-        }
-
-        .project-card:hover img {
-            filter: grayscale(0%) brightness(1);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-        }
-
-        .project-card span {
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 10px;
+        #preview-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
             opacity: 0;
-            transition: 0.3s;
-            font-weight: 900;
+            transform: scale(1.05);
+            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(20%) brightness(0.8);
         }
 
-        .project-card:hover span { opacity: 1; }
+        /* NAVIGATION LIST */
+        main {
+            width: 50%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; padding-left: 8%;
+            z-index: 10;
+        }
 
-        /* ABSOLUTE POSITIONS FOR ALL PROJECTS (Scattered) */
-        .p1 { width: 200px; top: 15%; left: 10%; }
-        .p2 { width: 280px; top: 10%; left: 45%; }
-        .p3 { width: 220px; top: 20%; left: 75%; }
-        .p4 { width: 300px; top: 55%; left: 5%; }
-        .p5 { width: 250px; top: 50%; left: 35%; }
-        .p6 { width: 240px; top: 60%; left: 70%; }
-        .p7 { width: 180px; top: 40%; left: 20%; }
+        nav { display: flex; flex-direction: column; gap: 8px; }
 
-        /* CENTER TITLE */
-        .main-title {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            letter-spacing: 15px;
+        .nav-item {
+            font-size: clamp(30px, 4.5vw, 70px);
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--text);
             text-transform: uppercase;
-            opacity: 0.3;
-            pointer-events: none;
+            letter-spacing: -0.03em;
+            width: fit-content;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        /* The Baby Pink Glow/Underline */
+        .nav-item::after {
+            content: "";
+            position: absolute; bottom: 5px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            transition: 0.5s ease;
+        }
+
+        .nav-item:hover {
+            padding-left: 20px;
+            color: var(--accent);
+        }
+
+        .nav-item:hover::after { width: 100%; }
+
+        /* FOOTER - CORRECTED TO BERLIN */
+        footer {
+            position: fixed; bottom: 60px; left: 8%; width: 84%;
+            display: flex; justify-content: space-between;
+            font-size: 10px; letter-spacing: 2px; color: var(--subtle);
             z-index: 100;
         }
+        
+        .location { font-weight: 700; color: var(--text); opacity: 0.5; }
+
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div class="main-title">NATIA STUDIO</div>
+    <div class="tagline">Works that make silence feel familiar.</div>
 
-    <div id="gallery-wrapper">
-        
-        <a href="go-left.html" class="project-card p1">
-            <img src="goleft-mockup1.jpg" alt="">
-            <span>Go Left</span>
-        </a>
-
-        <a href="posters.html" class="project-card p2">
-            <img src="universe1.jpg" alt="">
-            <span>Universe Series</span>
-        </a>
-
-        <a href="feelings.html" class="project-card p3">
-            <img src="heartbreak-2.jpg" alt="">
-            <span>Feelings</span>
-        </a>
-
-        <a href="others.html" class="project-card p4">
-            <img src="space flower-universe2.jpg" alt="">
-            <span>Nurture</span>
-        </a>
-
-        <a href="posters.html" class="project-card p5">
-            <img src="huzzzman-universe3.jpg" alt="">
-            <span>Humanzz</span>
-        </a>
-
-        <a href="posters.html" class="project-card p6">
-            <img src="flashbacks.jpg" alt="">
-            <span>Nostalgie</span>
-        </a>
-
-        <a href="posters.html" class="project-card p7">
-            <img src="dreamer.jpg" alt="">
-            <span>Dreamer</span>
-        </a>
-
+    <div id="preview-container">
+        <img id="preview-img" src="" alt="">
     </div>
+
+    <main>
+        <nav>
+            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg">GO LEFT</a>
+            <a href="posters.html" class="nav-item" data-img="universe1.jpg">POSTERS / ARCHIVE</a>
+            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg">FEELINGS</a>
+            <a href="kombucha.html" class="nav-item" data-img="kombucha-hero.jpg">KOMBUCHA</a>
+            <a href="nurture.html" class="nav-item" data-img="nurture-main.jpg">NURTURE</a>
+            <a href="others.html" class="nav-item" data-img="others-hero.jpg">THE OTHERS</a>
+            <a href="oatmilk.html" class="nav-item" data-img="oatmilk-design.jpg">OAT MILK</a>
+            <a href="cdcovers.html" class="nav-item" data-img="cd-cover-1.jpg">CD COVERS</a>
+        </nav>
+    </main>
+
+    <footer>
+        <span>NATIA KURTANIDZE © 2026</span>
+        <span class="location">BERLIN / DESIGN STUDIO</span>
+    </footer>
 
     <script>
         const aura = document.getElementById('aura');
-        const wrapper = document.getElementById('gallery-wrapper');
+        const previewImg = document.getElementById('preview-img');
+        const navItems = document.querySelectorAll('.nav-item');
 
+        // Cursor Movement
         document.addEventListener('mousemove', (e) => {
-            // Cursor
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
-
-            // Parallax Move (The "WOW" shift)
-            const x = (window.innerWidth - e.pageX * 2) / 40;
-            const y = (window.innerHeight - e.pageY * 2) / 40;
-            wrapper.style.transform = `translateX(${x}px) translateY(${y}px)`;
         });
 
-        // Scale aura on hover
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                aura.style.width = "40px";
-                aura.style.height = "40px";
+        // Hover Reveal Logic
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const imgPath = item.getAttribute('data-img');
+                previewImg.src = imgPath;
+                previewImg.style.opacity = "1";
+                previewImg.style.transform = "scale(1)";
+                
+                aura.style.width = "60px";
+                aura.style.height = "60px";
             });
-            card.addEventListener('mouseleave', () => {
-                aura.style.width = "12px";
-                aura.style.height = "12px";
+
+            item.addEventListener('mouseleave', () => {
+                previewImg.style.opacity = "0";
+                previewImg.style.transform = "scale(1.05)";
+                
+                aura.style.width = "10px";
+                aura.style.height = "10px";
             });
         });
     </script>

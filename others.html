@@ -32,7 +32,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: TEXT STARTS BEHIND */
+        /* HERO: BLURRED BACKGROUND TEXT */
         .hero {
             height: 100vh;
             display: flex;
@@ -55,37 +55,40 @@
         .hero-title {
             position: absolute;
             font-size: clamp(80px, 16vw, 240px);
-            font-weight: 900;
+            font-weight: 950;
             letter-spacing: -0.05em;
             text-transform: uppercase;
             text-align: center;
             line-height: 0.8;
             pointer-events: none;
             
-            /* START STATE: Behind and subtle */
+            /* START STATE: Blurred and behind like Oats */
             z-index: 1; 
-            opacity: 0.2;
+            opacity: 0.3;
+            filter: blur(20px);
             color: var(--white);
-            mix-blend-mode: normal;
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.9);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-img { 
             width: 100%; 
             display: block;
-            z-index: 5; /* Image is in front by default */
+            z-index: 5; /* Image stays in front */
+            filter: brightness(1);
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ACTIVE STATE: Triggered by JS when mouse is over hero */
+        /* ACTIVE STATE: Sharp and overlaying */
         .hero.active .hero-title {
-            z-index: 10; /* Moves to front */
+            z-index: 10; /* Comes to front */
             opacity: 1;
-            mix-blend-mode: difference; /* Interactions with image */
+            filter: blur(0px);
+            mix-blend-mode: difference; /* Cut-through effect */
             transform: scale(1.05);
         }
 
-        /* INTRO & META */
+        /* INTRO: Updated text for REAL project */
         .intro-section {
             padding: 120px 10%;
             display: grid;
@@ -95,6 +98,7 @@
         }
 
         .intro-text h2 { font-size: 32px; font-weight: 300; line-height: 1.2; }
+        .intro-text p { margin-top: 20px; opacity: 0.6; font-size: 16px; line-height: 1.6; max-width: 450px; }
         
         .meta-grid { display: grid; gap: 20px; }
         .meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
@@ -133,9 +137,11 @@
 
     <section class="intro-section">
         <div class="intro-text">
-            <h2>A playground for breaking systems.</h2>
+            <h2>Breaking systems through visual research.</h2>
+            <p>A multi-disciplinary study on contrast and negative space. This project explores the threshold where structure collapses into form.</p>
         </div>
         <div class="meta-grid">
+            <div class="meta-row"><span class="meta-label">Project</span><span class="meta-value">The Others (Existent)</span></div>
             <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
             <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">Visual Study</span></div>
             <div class="meta-row"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
@@ -166,17 +172,17 @@
 
             const rect = heroArea.getBoundingClientRect();
             
-            // Check if mouse is within the Hero Section
+            // Interaction logic
             if (y >= rect.top && y <= rect.bottom) {
-                heroArea.classList.add('active'); // Brings text to front & applies blend
+                heroArea.classList.add('active'); 
                 
-                const xPos = (window.innerWidth / 2 - x) / 30;
-                const yPos = (window.innerHeight / 2 - y) / 30;
+                const xPos = (window.innerWidth / 2 - x) / 35;
+                const yPos = (window.innerHeight / 2 - y) / 35;
                 
                 imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
                 titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
             } else {
-                heroArea.classList.remove('active'); // Text goes behind & dims
+                heroArea.classList.remove('active'); 
                 imgMove.style.transform = `translateX(0px) translateY(0px)`;
                 titleMove.style.transform = `translateX(0px) translateY(0px)`;
             }

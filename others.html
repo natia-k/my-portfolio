@@ -6,157 +6,129 @@
     <title>THE OTHERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #000000;
+            --bg: #0b0b0b;
             --white: #ffffff;
             --soft-pink: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.1);
+            --line: rgba(255, 255, 255, 0.05);
+            --grain: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
+            background-image: var(--grain); /* Barely visible texture */
             color: var(--white);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* BRIGHTER PINK CURSOR LIGHT */
+        /* 1. THE GALLERY LIGHT (AURA) */
         #aura {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.2) 0%, transparent 70%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.08) 0%, transparent 75%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
+            mix-blend-mode: plus-lighter;
         }
 
-        /* 1. HERO SECTION: VISUAL ANCHOR */
+        /* 2. ENTRY MOMENT: ARCHITECTURAL OVERLAP */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            perspective: 2000px;
-            overflow: hidden;
         }
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 20vw, 350px);
-            font-weight: 950;
+            font-size: clamp(80px, 20vw, 320px);
+            font-weight: 900;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            z-index: 5; /* Starts behind */
+            z-index: 5;
             color: var(--soft-pink);
-            opacity: 0.2;
-            filter: blur(10px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.15;
+            filter: blur(15px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-container {
-            position: relative;
             z-index: 10;
-            width: 85%;
-            max-width: 600px;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-            border-radius: 4px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            width: 75%;
+            max-width: 550px;
+            transform: scale(0.98);
+            transition: transform 1.2s ease;
         }
 
-        .hero-img { width: 100%; display: block; border-radius: 4px; }
-
-        /* OVERLAP: TEXT COMES TO FRONT ON MOUSE OVER */
+        /* INTERACTION: THE SURPRISE */
         .hero:hover .hero-title {
-            z-index: 15;
             opacity: 1;
             filter: blur(0px);
             mix-blend-mode: exclusion;
             color: var(--white);
+            z-index: 15;
         }
 
-        /* 2. CONCEPT DESCRIPTION */
-        .concept-block {
-            padding: 120px 10%;
+        /* 3. NARRATIVE FLOW (SLOW PACING) */
+        .statement {
+            padding: 200px 10%;
             border-top: 1px solid var(--line);
-            margin: 0 5%;
         }
 
-        .concept-block h2 {
-            font-size: clamp(24px, 4vw, 42px);
-            font-weight: 600;
-            line-height: 1.2;
-            max-width: 800px;
-            margin-bottom: 30px;
-            letter-spacing: -0.02em;
+        .statement h2 {
+            font-size: clamp(24px, 5vw, 48px);
+            font-weight: 300;
+            line-height: 1.1;
+            max-width: 900px;
+            letter-spacing: -0.03em;
         }
 
-        .concept-block p {
-            font-size: 16px;
-            color: rgba(255,255,255,0.5);
-            max-width: 500px;
-            line-height: 1.6;
-        }
-
-        /* 3. RHYTHMIC GALLERY GRID */
-        .gallery {
-            padding: 100px 8%;
+        /* 4. ASYMMETRIC EXHIBITION GRID */
+        .exhibition-grid {
+            padding: 0 10% 300px;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
+            gap: 100px 20px;
         }
 
         .reveal {
             opacity: 0;
-            filter: blur(20px);
-            transform: translateY(40px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(60px);
+            filter: blur(10px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+        }
 
-        /* Large Feature */
-        .full-width { grid-column: 1 / 13; margin-bottom: 100px; }
+        /* Irregular placement */
+        .item-lg { grid-column: 1 / 10; }
+        .item-sm { grid-column: 7 / 13; margin-top: -50px; }
+        .item-md { grid-column: 2 / 8; }
+
+        .exhibition-grid img { 
+            width: 100%; 
+            filter: grayscale(1);
+            transition: 1.2s filter ease;
+        }
         
-        /* Side by Side */
-        .half-left { grid-column: 1 / 7; }
-        .half-right { grid-column: 7 / 13; margin-top: 100px; } /* Offset for rhythm */
-
-        .gallery img { width: 100%; display: block; border-radius: 4px; }
+        .exhibition-grid div:hover img { filter: grayscale(0); }
 
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
-
-        .footer-next {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-top: 1px solid var(--line);
-        }
-
-        .next-link {
-            font-size: clamp(50px, 15vw, 250px);
-            font-weight: 950;
-            text-decoration: none;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--white);
-            transition: 0.6s;
-        }
-
-        .next-link:hover { color: var(--soft-pink); -webkit-text-stroke: 1px transparent; }
-
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -165,61 +137,39 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="oat-milk.html">BACK</a>
+        <a href="nurture.html">NURTURE</a>
     </nav>
 
     <header class="hero">
         <h1 class="hero-title">THE OTHERS</h1>
-        <div class="hero-container" id="heroTarget">
-            <img src="others-hero.jpg" class="hero-img" alt="The Others Featured Work">
+        <div class="hero-container">
+            <img src="others-hero.jpg" style="width:100%;" alt="Anchor Image">
         </div>
     </header>
 
-    <section class="concept-block reveal">
-        <h2>A series of visual experiments exploring contrast, disorder, and alternative form.</h2>
-        <p>A collection of visuals that challenge conventional structure, where form, color, and tension play against expectation.</p>
-        <div style="margin-top: 40px; font-size: 10px; letter-spacing: 4px; color: var(--soft-pink);">
-            SCOPE: <strong>EXPERIMENTAL DESIGN</strong> — 2026
-        </div>
+    <section class="statement reveal">
+        <h2>Visual experiments exploring unusual form, contrast, and alternative structure.</h2>
+        <p style="margin-top: 40px; font-size: 14px; opacity: 0.4; max-width: 400px; line-height: 1.6;">
+            A space where experimentation is framed with intention—challenging conventional structure where tension plays against expectation.
+        </p>
     </section>
 
-    <main class="gallery">
-        <div class="full-width reveal">
-            <img src="others-mockup1.jpg" alt="Visual Flow 1">
-        </div>
-        <div class="half-left reveal">
-            <img src="others-mockup2.jpg" alt="Visual Flow 2">
-        </div>
-        <div class="half-right reveal">
-            <img src="others-mockup3.jpg" alt="Visual Flow 3">
-        </div>
+    <main class="exhibition-grid">
+        <div class="item-lg reveal"><img src="others-mockup1.jpg"></div>
+        <div class="item-sm reveal"><img src="others-mockup2.jpg"></div>
+        <div class="item-md reveal"><img src="others-mockup3.jpg"></div>
     </main>
-
-    <footer class="footer-next">
-        <span style="font-size: 10px; letter-spacing: 5px; margin-bottom: 20px; opacity: 0.5;">Next Project</span>
-        <a href="nurture.html" class="next-link">NURTURE</a>
-    </footer>
 
     <script>
         const aura = document.getElementById('aura');
-        const heroTarget = document.getElementById('heroTarget');
-
         document.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            aura.style.left = `${x}px`;
-            aura.style.top = `${y}px`;
-
-            const dx = (x - window.innerWidth / 2) / 100;
-            const dy = (y - window.innerHeight / 2) / 100;
-            heroTarget.style.transform = `rotateY(${dx}deg) rotateX(${-dy}deg)`;
+            aura.style.left = `${e.clientX}px`;
+            aura.style.top = `${e.clientY}px`;
         });
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>

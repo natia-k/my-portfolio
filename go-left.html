@@ -44,7 +44,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1000px; /* Enables the perspective feel */
+            perspective: 1200px; /* Enables the perspective feel */
         }
 
         #scrolling-title {
@@ -54,7 +54,8 @@
             text-transform: uppercase;
             white-space: nowrap;
             will-change: transform;
-            transition: transform 0.1s ease-out; /* Smooths the scroll movement */
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
         }
 
         /* POSTER SEQUENCE */
@@ -68,7 +69,7 @@
 
         .poster-wrapper {
             width: 100%;
-            margin: 10vh 0;
+            margin: 12vh 0;
             display: flex;
             justify-content: center;
             opacity: 0;
@@ -138,13 +139,16 @@
             aura.style.top = e.clientY + 'px';
         });
 
-        // SCROLL SCRIPT: MAKES TEXT GO LEFT
+        // SCROLL SCRIPT: MAKES TEXT GO LEFT WITH PERSPECTIVE
         window.addEventListener('scroll', () => {
             const title = document.getElementById('scrolling-title');
             const scrollValue = window.scrollY;
             
-            // This moves the text left and adds a slight perspective tilt
-            title.style.transform = `translateX(-${scrollValue * 1.5}px) rotateY(${scrollValue * 0.05}deg)`;
+            // Moves left + adds a subtle 3D tilt as it exits
+            const moveX = scrollValue * 1.5;
+            const tiltY = scrollValue * 0.04; 
+            
+            title.style.transform = `translateX(-${moveX}px) rotateY(${tiltY}deg) translateZ(0)`;
         });
 
         // REVEAL ANIMATION

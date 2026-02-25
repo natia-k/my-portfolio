@@ -9,81 +9,51 @@
             --bg: #050505;
             --text: #ffffff;
             --baby-pink: #fce4ec; 
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
-            --breath-ease: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-breath: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* 1. ATMOSPHERE & BREATHING ANIMATION */
-        @keyframes siteBreath {
-            0% { background-color: #050505; }
-            50% { background-color: #0d0d0f; }
-            100% { background-color: #050505; }
-        }
-
+        /* 1. ATMOSPHERE */
         body {
             background-color: var(--bg);
             color: var(--text);
             font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            animation: siteBreath 120s ease-in-out infinite;
+            /* Allow the background to transition with attention */
+            transition: background-color 3s var(--ease-breath);
+            /* Resetting cursor to default */
+            cursor: default;
         }
 
         body::before {
             content: "";
             position: fixed; inset: 0;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.18; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 2. OPENING BREATH STATES */
-        body.is-inhaling .statement,
-        body.is-inhaling .project-link {
-            filter: blur(25px) brightness(0.3);
-            letter-spacing: -0.1em;
-            transform: scale(1.08);
-            opacity: 0;
-        }
-
+        /* 2. ATTENTION-BASED TYPOGRAPHY */
         .statement, .project-link {
             transition: 
-                filter 3.5s var(--breath-ease),
-                letter-spacing 4s var(--breath-ease),
-                transform 3.5s var(--breath-ease),
-                opacity 3s var(--breath-ease),
-                color 0.5s ease;
+                letter-spacing 3s var(--ease-breath),
+                filter 2s var(--ease-breath),
+                opacity 2s var(--ease-breath),
+                transform 1.5s var(--ease-breath),
+                color 0.8s ease;
+            will-change: letter-spacing, filter;
         }
 
-        /* 3. CURSOR & ECHOES */
-        #aura {
-            position: fixed; width: 120px; height: 120px;
-            background: #fff; border-radius: 50%; pointer-events: none; z-index: 10001;
-            transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.8s var(--ease), height 0.8s var(--ease), border-radius 1s var(--ease);
-        }
-
-        .echo {
-            position: fixed; width: 6px; height: 6px;
-            background: white; border-radius: 50%;
-            pointer-events: none; z-index: 10000;
-            opacity: 0.15; transform: translate(-50%, -50%);
-            animation: echoFade 3s var(--ease) forwards;
-        }
-        @keyframes echoFade {
-            0% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.5); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); filter: blur(5px); }
-        }
-
-        /* 4. LAYOUT */
+        /* 3. LOADER */
         #loader {
             position: fixed; inset: 0; background: #ff0000; z-index: 10010;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s var(--ease);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #loader-count { font-size: 20vw; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
 
+        /* 4. LAYOUT */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
         .statement {
             font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase;
@@ -98,35 +68,27 @@
             padding: 25px 0; display: block; width: fit-content;
         }
 
-        /* PERSONALITY HOVERS */
-        .project-link:hover { opacity: 1; filter: blur(0); }
-        .project-link[data-soul="sharp"]:hover { transform: translateX(60px) scaleY(1.1); }
-        .project-link[data-soul="soft"]:hover { transform: translateX(30px) scale(1.05); color: var(--baby-pink); }
-        .project-link[data-soul="electric"]:hover { transform: skewX(-5deg) translateX(40px); color: var(--baby-pink); }
+        .project-link:hover { color: var(--baby-pink); filter: blur(0px) !important; opacity: 1 !important; }
 
-        /* 5. IMAGE PREVIEW */
+        /* 5. FLOATING PREVIEW (Now centered to the screen, not cursor) */
         #preview {
-            position: fixed; width: 50vw; max-width: 850px; pointer-events: none; z-index: 5; 
-            opacity: 0; transform: translate(-50%, -50%) scale(0.9);
-            transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
+            position: fixed; 
+            top: 50%; left: 60%;
+            transform: translate(-50%, -50%);
+            width: 40vw; max-width: 700px; 
+            pointer-events: none; z-index: 5; 
+            opacity: 0;
+            transition: opacity 1s var(--ease-breath), transform 1s var(--ease-breath);
         }
-        #preview.active { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
-        #preview img { width: 100%; height: auto; object-fit: contain; box-shadow: 0 30px 90px rgba(0,0,0,0.5); }
-
-        #watermark {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            font-size: 9px; text-transform: uppercase; letter-spacing: 0.5em;
-            opacity: 0; transition: opacity 3s ease; pointer-events: none; color: var(--baby-pink);
-        }
+        #preview.active { opacity: 0.7; transform: translate(-50%, -45%); }
+        #preview img { width: 100%; height: auto; object-fit: contain; }
 
         footer { padding: 80px 8%; font-size: 11px; opacity: 0.2; letter-spacing: 0.5em; text-transform: uppercase; text-align: center; }
     </style>
 </head>
-<body class="is-inhaling">
+<body>
 
-    <div id="aura"></div>
     <div id="preview"><img id="preview-img" src="" alt=""></div>
-    <div id="watermark">Observing the silent geometry of space.</div>
 
     <div id="loader"><div id="loader-count">00</div></div>
 
@@ -135,108 +97,80 @@
     </section>
 
     <main class="work-section">
-        <a href="go-left.html" class="project-link" data-soul="sharp" data-img="goleft-main.jpg">01 GO LEFT</a>
-        <a href="the-others.html" class="project-link" data-soul="soft" data-img="others.jpg">02 THE OTHERS</a>
-        <a href="nurture.html" class="project-link" data-soul="soft" data-img="nurture-hero.jpg">03 NURTURE</a>
-        <a href="oat-milk.html" class="project-link" data-soul="soft" data-img="oat-hero.jpg">04 OAT MILK</a>
-        <a href="kombucha.html" class="project-link" data-soul="electric" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-        <a href="posters.html" class="project-link" data-soul="sharp" data-img="nostalgia.jpg">06 POSTERS</a>
-        <a href="feelings.html" class="project-link" data-soul="soft" data-img="feelings-hero.jpg">07 FEELINGS</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
     </main>
 
     <footer>NATIA KURTANIDZE © 2026</footer>
 
     <script>
         const body = document.body;
-        const aura = document.getElementById('aura');
+        const links = document.querySelectorAll('.project-link, .statement');
         const preview = document.getElementById('preview');
-        const watermark = document.getElementById('watermark');
         const previewImg = document.getElementById('preview-img');
         
-        let mouseX = 0, mouseY = 0;
-        let lastScrollY = 0;
+        let lastMoveTime = Date.now();
+        let isQuiet = false;
 
-        // 1. OPENING BREATH LOGIC
-        function releaseBreath() {
-            setTimeout(() => {
-                body.classList.remove('is-inhaling');
-            }, 300);
+        // 1. ATTENTION LOGIC (The Breathing)
+        function checkAttention() {
+            const now = Date.now();
+            const idleTime = now - lastMoveTime;
+
+            if (idleTime > 1500) { // If user slows down/stops for 1.5s
+                if (!isQuiet) {
+                    isQuiet = true;
+                    body.style.backgroundColor = "#0f0f12"; // Background lightens
+                    links.forEach(link => {
+                        link.style.letterSpacing = "0.05em"; // Typography opens
+                        link.style.filter = "blur(0px)";
+                        link.style.opacity = "1";
+                    });
+                }
+            } else {
+                if (isQuiet) {
+                    isQuiet = false;
+                    body.style.backgroundColor = "#050505"; // Resets to dark
+                    links.forEach(link => {
+                        link.style.letterSpacing = link.classList.contains('statement') ? "-0.04em" : "-0.07em";
+                        link.style.filter = "blur(15px)"; // Resets to Oat Milk blur
+                        link.style.opacity = "0.2";
+                    });
+                }
+            }
+            requestAnimationFrame(checkAttention);
         }
 
-        // 2. LOADER
-        let progress = 0;
-        const loadInterval = setInterval(() => {
-            progress += Math.floor(Math.random() * 12) + 1;
-            if (progress >= 100) { 
-                progress = 100; 
-                clearInterval(loadInterval); 
-                setTimeout(() => {
-                    document.getElementById('loader').style.transform = "translateY(-100%)";
-                    releaseBreath();
-                }, 500);
-            }
-            document.getElementById('loader-count').innerText = progress.toString().padStart(2, '0');
-        }, 70);
+        document.addEventListener('mousemove', () => { lastMoveTime = Date.now(); });
+        document.addEventListener('scroll', () => { lastMoveTime = Date.now(); });
+        checkAttention();
 
-        // 3. CURSOR & ECHOES
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX; mouseY = e.clientY;
-            aura.style.left = mouseX + 'px';
-            aura.style.top = mouseY + 'px';
-
-            if (Math.random() > 0.9) {
-                const echo = document.createElement('div');
-                echo.className = 'echo';
-                echo.style.left = mouseX + 'px';
-                echo.style.top = mouseY + 'px';
-                document.body.appendChild(echo);
-                setTimeout(() => echo.remove(), 3000);
-            }
-        });
-
-        // 4. WATERMARK REVEAL (SLOW SCROLL)
-        window.addEventListener('scroll', () => {
-            let currentScroll = window.pageYOffset;
-            let velocity = Math.abs(currentScroll - lastScrollY);
-            lastScrollY = currentScroll;
-            if (velocity > 0 && velocity < 1.5) {
-                watermark.style.opacity = "0.4";
-            } else {
-                watermark.style.opacity = "0";
-            }
-        });
-
-        // 5. PROJECT INTERACTIONS
+        // 2. PROJECT REVEAL
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 previewImg.src = link.getAttribute('data-img');
                 preview.classList.add('active');
-                
-                const soul = link.getAttribute('data-soul');
-                if(soul === 'sharp') aura.style.borderRadius = "0%";
-                if(soul === 'electric') {
-                    aura.style.width = "220px";
-                    aura.style.height = "220px";
-                }
             });
             link.addEventListener('mouseleave', () => {
                 preview.classList.remove('active');
-                aura.style.borderRadius = "50%";
-                aura.style.width = "120px";
-                aura.style.height = "120px";
             });
         });
 
-        // IMAGE FOLLOW (HEAVY LERP)
-        let bX = 0, bY = 0;
-        function animate() {
-            bX += (mouseX - bX) * 0.05; 
-            bY += (mouseY - bY) * 0.05;
-            preview.style.left = bX + 'px'; 
-            preview.style.top = bY + 'px';
-            requestAnimationFrame(animate);
-        }
-        animate();
+        // 3. LOADER
+        let p = 0;
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 12) + 1;
+            if (p >= 100) { 
+                p = 100; clearInterval(l); 
+                setTimeout(() => { document.getElementById('loader').style.transform = "translateY(-100%)"; }, 500);
+            }
+            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
+        }, 70);
     </script>
 </body>
 </html>

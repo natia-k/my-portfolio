@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE</title>
+    <title>NATIA KURTANIDZE | STUDIO</title>
     <style>
         :root {
             --bg: #0a0a0a;
             --text: #ffffff;
             --accent: #ffb6c1; /* Baby Pink */
-            --subtle: rgba(255, 255, 255, 0.4);
+            --subtle: rgba(255, 255, 255, 0.3);
         }
 
-        /* PREMIUM GRAIN OVERLAY */
+        /* 1. THE EXPENSIVE GRAIN */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -26,82 +26,80 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            height: 100vh; overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM AURA (CURSOR) */
+        /* 2. MAGNETIC AURA (CURSOR) */
         #aura {
             position: fixed; width: 12px; height: 12px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.4s, height 0.4s, background 0.3s;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* FLOATING PREVIEW (The "Wow" Logic) */
+        /* 3. SEDUCTIVE HOVER PREVIEW */
         #cursor-preview {
             position: fixed; top: 0; left: 0;
-            width: 400px; height: 520px;
+            width: 420px; height: 540px;
             pointer-events: none; z-index: 5;
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: blur(10px);
+            transform: translate(-50%, -50%) scale(0.7);
+            filter: blur(20px) brightness(0.5);
+            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            overflow: hidden;
         }
         #cursor-preview.active {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
-            filter: blur(0px);
+            filter: blur(0px) brightness(1);
         }
         #cursor-preview img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* HEADER */
+        /* 4. EDITORIAL UI */
         header {
-            position: fixed; top: 60px; left: 8%; z-index: 100;
+            position: fixed; top: 60px; left: 60px; z-index: 100;
         }
-        .name { font-weight: 900; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; }
-        .tagline { font-size: 10px; letter-spacing: 4px; color: var(--subtle); margin-top: 8px; text-transform: uppercase; }
+        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+        .location { font-size: 10px; letter-spacing: 5px; color: var(--subtle); margin-top: 5px; text-transform: uppercase; }
+        .tagline { font-size: 10px; letter-spacing: 3px; color: var(--subtle); margin-top: 15px; text-transform: lowercase; font-style: italic; }
 
-        /* PROJECT LIST (EXHIBITION STYLE) */
         main {
-            height: 100vh; display: flex; align-items: center; padding-left: 8%;
+            height: 100vh; display: flex; align-items: center; padding-left: 10%;
+            position: relative; z-index: 10;
         }
 
         nav { display: flex; flex-direction: column; }
 
         .nav-item {
             font-size: clamp(40px, 7vw, 110px);
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-            line-height: 0.95;
-            padding: 10px 0;
-            transition: color 0.3s, transform 0.4s;
+            font-weight: 900; text-decoration: none; color: var(--text);
+            text-transform: uppercase; letter-spacing: -0.05em;
+            line-height: 0.9; padding: 5px 0;
+            transition: color 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
         .nav-item span {
-            font-size: 16px; font-weight: 300; vertical-align: top;
-            margin-right: 30px; opacity: 0.3; letter-spacing: 1px;
+            font-size: 14px; font-weight: 300; vertical-align: top;
+            margin-right: 30px; opacity: 0.2; letter-spacing: 2px;
         }
 
-        /* Hover: Pink Glow & Move */
+        /* THE WOW HOVER STING */
         .nav-item:hover {
             color: var(--accent);
             transform: translateX(40px);
         }
-        .nav-item:hover::after {
-            content: ""; position: absolute; bottom: 15px; left: 0;
-            width: 100%; height: 2px; background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
+        .nav-item::after {
+            content: ""; position: absolute; bottom: 10px; left: 0;
+            width: 0; height: 2px; background: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .nav-item:hover::after { width: 100%; }
 
-        /* FOOTER */
         footer {
-            position: fixed; bottom: 60px; left: 8%; right: 8%;
+            position: fixed; bottom: 60px; left: 60px; right: 60px;
             display: flex; justify-content: space-between;
             font-size: 10px; letter-spacing: 3px; color: var(--subtle);
             z-index: 100; text-transform: uppercase;
@@ -115,19 +113,20 @@
 
     <header>
         <div class="name">NATIA KURTANIDZE</div>
-        <div class="tagline">BASED IN BERLIN — CREATING EMOTIONAL FORMS</div>
+        <div class="location">BERLIN</div>
+        <div class="tagline">visual storyteller</div>
     </header>
 
     <main>
         <nav>
-            <a href="go-left.html" class="nav-item" data-img="go-left-preview.jpg"><span>01</span>GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="archive-preview.jpg"><span>02</span>ARCHIVE</a>
-            <a href="feelings.html" class="nav-item" data-img="feelings-preview.jpg"><span>03</span>FEELINGS</a>
-            <a href="kombucha.html" class="nav-item" data-img="kombucha-preview.jpg"><span>04</span>KOMBUCHA</a>
-            <a href="nurture.html" class="nav-item" data-img="nurture-preview.jpg"><span>05</span>NURTURE</a>
-            <a href="others.html" class="nav-item" data-img="others-preview.jpg"><span>06</span>THE OTHERS</a>
-            <a href="oat-milk.html" class="nav-item" data-img="oat-milk-preview.jpg"><span>07</span>OAT MILK</a>
-            <a href="cd-covers.html" class="nav-item" data-img="cd-covers-preview.jpg"><span>08</span>CD COVERS</a>
+            <a href="go-left.html" class="nav-item" data-img="goleft.jpg"><span>01</span>GO LEFT</a>
+            <a href="the-others.html" class="nav-item" data-img="others.jpg"><span>02</span>THE OTHERS</a>
+            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>03</span>NURTURE</a>
+            <a href="cd-covers.html" class="nav-item" data-img="cdcovers.jpg"><span>04</span>CD COVERS</a>
+            <a href="oat-milk.html" class="nav-item" data-img="oatmilk.jpg"><span>05</span>OAT MILK</a>
+            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>06</span>KOMBUCHA</a>
+            <a href="posters.html" class="nav-item" data-img="posters.jpg"><span>07</span>POSTERS</a>
+            <a href="feelings.html" class="nav-item" data-img="feelings.jpg"><span>08</span>FEELINGS</a>
         </nav>
     </main>
 
@@ -142,36 +141,40 @@
         const previewImg = document.getElementById('preview-img');
         const navItems = document.querySelectorAll('.nav-item');
 
-        // LERP LOGIC (Linear Interpolation for Seductive Lag)
+        // THE LERP (Magnetic Lag)
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
-        let speed = 0.08; 
+        let speed = 0.075; // The "heavy" feel
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            // Cursor Aura follows exactly
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
         });
 
         function animate() {
+            // Preview follows with lag
             ballX += (mouseX - ballX) * speed;
             ballY += (mouseY - ballY) * speed;
+
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
+
             requestAnimationFrame(animate);
         }
         animate();
 
-        // HOVER REVEAL
+        // HOVER INTERACTIONS
         navItems.forEach(item => {
             item.addEventListener('mouseenter', () => {
                 const imgPath = item.getAttribute('data-img');
                 previewImg.src = imgPath;
                 preview.classList.add('active');
                 
-                aura.style.width = "60px";
-                aura.style.height = "60px";
+                aura.style.width = "80px";
+                aura.style.height = "80px";
                 aura.style.background = "var(--accent)";
             });
 

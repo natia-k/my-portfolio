@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA | VISUAL POETRY</title>
+    <title>NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #050505;
+            --bg: #0a0a0a;
             --text: #ffffff;
             --accent: #ff0055;
         }
 
-        /* 1. THE TEXTURE (Essential for the "Seductive" look) */
+        /* GRAIN OVERLAY */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.18; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -25,140 +25,161 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: "Helvetica Neue", Arial, sans-serif;
             overflow: hidden;
             height: 100vh;
-            display: flex;
-            align-items: center;
+            width: 100vw;
         }
 
-        /* 2. THE LIQUID CURSOR */
         #aura {
-            position: fixed; width: 15px; height: 15px;
+            position: fixed; width: 12px; height: 12px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
-            transform: translate(-50%, -50%); 
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
-            mix-blend-mode: difference;
+            transform: translate(-50%, -50%); mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
         }
 
-        /* 3. THE PARALLAX BACKGROUND */
-        #bg-canvas {
-            position: fixed; top: -5%; left: -5%; width: 110%; height: 110%;
-            z-index: 0; opacity: 0; 
-            transition: opacity 1.2s ease;
-            pointer-events: none;
+        /* THE FLOATING CANVAS */
+        #gallery-wrapper {
+            position: relative;
+            width: 120vw;
+            height: 120vh;
+            left: -10vw;
+            top: -10vh;
+            transition: transform 0.2s ease-out;
             will-change: transform;
         }
-        #bg-canvas img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            filter: grayscale(100%) brightness(30%) contrast(120%); 
-        }
 
-        /* 4. THE TYPOGRAPHY (The Power) */
-        main {
-            position: relative; z-index: 10;
-            width: 100%; padding: 0 10%;
-        }
-
-        .hero-line {
-            font-size: 10px; letter-spacing: 0.6em; text-transform: uppercase;
-            margin-bottom: 60px; opacity: 0;
-            animation: fadeIn 2s forwards 0.5s;
-        }
-
-        nav { display: flex; flex-direction: column; gap: 5px; }
-        
-        .nav-item {
-            font-size: clamp(50px, 10vw, 150px);
-            font-weight: 900;
-            text-transform: uppercase;
+        .project-card {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
             text-decoration: none;
-            color: var(--text);
-            line-height: 0.85;
-            letter-spacing: -0.05em;
-            transition: color 0.3s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            width: fit-content;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            color: transparent;
+            color: white;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), z-index 0s;
+            z-index: 1;
         }
 
-        /* Hover: Fill text + Shift */
-        .nav-item:hover {
-            color: var(--text);
-            -webkit-text-stroke: 1px var(--text);
-            transform: translateX(40px) skewX(-5deg);
+        .project-card:hover {
+            z-index: 50;
+            transform: scale(1.1) !important;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 0.4; transform: translateY(0); } }
+        .project-card img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) brightness(0.7);
+            transition: 0.5s;
+        }
 
-        /* FOOTER */
-        footer {
-            position: fixed; bottom: 50px; width: 80%; left: 10%;
-            display: flex; justify-content: space-between;
-            font-size: 9px; letter-spacing: 3px; opacity: 0.2;
+        .project-card:hover img {
+            filter: grayscale(0%) brightness(1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .project-card span {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            opacity: 0;
+            transition: 0.3s;
+            font-weight: 900;
+        }
+
+        .project-card:hover span { opacity: 1; }
+
+        /* ABSOLUTE POSITIONS FOR ALL PROJECTS (Scattered) */
+        .p1 { width: 200px; top: 15%; left: 10%; }
+        .p2 { width: 280px; top: 10%; left: 45%; }
+        .p3 { width: 220px; top: 20%; left: 75%; }
+        .p4 { width: 300px; top: 55%; left: 5%; }
+        .p5 { width: 250px; top: 50%; left: 35%; }
+        .p6 { width: 240px; top: 60%; left: 70%; }
+        .p7 { width: 180px; top: 40%; left: 20%; }
+
+        /* CENTER TITLE */
+        .main-title {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div id="bg-canvas"><img id="bg-img" src="" alt=""></div>
+    <div class="main-title">NATIA STUDIO</div>
 
-    <main>
-        <p class="hero-line">This is where feeling becomes form.</p>
+    <div id="gallery-wrapper">
+        
+        <a href="go-left.html" class="project-card p1">
+            <img src="goleft-mockup1.jpg" alt="">
+            <span>Go Left</span>
+        </a>
 
-        <nav>
-            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg">GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="universe1.jpg">ARCHIVE</a>
-            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg">FEELINGS</a>
-            <a href="others.html" class="nav-item" data-img="others-hero.jpg">NURTURE</a>
-        </nav>
-    </main>
+        <a href="posters.html" class="project-card p2">
+            <img src="universe1.jpg" alt="">
+            <span>Universe Series</span>
+        </a>
 
-    <footer>
-        <span>NATIA STUDIO / TBILISI</span>
-        <span>©2026 INTERNAL ARCHIVE</span>
-    </footer>
+        <a href="feelings.html" class="project-card p3">
+            <img src="heartbreak-2.jpg" alt="">
+            <span>Feelings</span>
+        </a>
+
+        <a href="others.html" class="project-card p4">
+            <img src="space flower-universe2.jpg" alt="">
+            <span>Nurture</span>
+        </a>
+
+        <a href="posters.html" class="project-card p5">
+            <img src="huzzzman-universe3.jpg" alt="">
+            <span>Humanzz</span>
+        </a>
+
+        <a href="posters.html" class="project-card p6">
+            <img src="flashbacks.jpg" alt="">
+            <span>Nostalgie</span>
+        </a>
+
+        <a href="posters.html" class="project-card p7">
+            <img src="dreamer.jpg" alt="">
+            <span>Dreamer</span>
+        </a>
+
+    </div>
 
     <script>
         const aura = document.getElementById('aura');
-        const bgCanvas = document.getElementById('bg-canvas');
-        const bgImg = document.getElementById('bg-img');
-        const navItems = document.querySelectorAll('.nav-item');
+        const wrapper = document.getElementById('gallery-wrapper');
 
-        // PARALLAX MOUSE EFFECT
         document.addEventListener('mousemove', (e) => {
-            // Move Cursor
+            // Cursor
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
 
-            // Subtle Background Shift (Parallax)
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.02;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.02;
-            bgCanvas.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            // Parallax Move (The "WOW" shift)
+            const x = (window.innerWidth - e.pageX * 2) / 40;
+            const y = (window.innerHeight - e.pageY * 2) / 40;
+            wrapper.style.transform = `translateX(${x}px) translateY(${y}px)`;
         });
 
-        // REVEAL LOGIC
-        navItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const imgPath = item.getAttribute('data-img');
-                bgImg.src = imgPath;
-                bgCanvas.style.opacity = "0.7";
-                
-                // Cursor "Explosion"
-                aura.style.width = "120px";
-                aura.style.height = "120px";
-                aura.style.background = "var(--accent)";
+        // Scale aura on hover
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                aura.style.width = "40px";
+                aura.style.height = "40px";
             });
-
-            item.addEventListener('mouseleave', () => {
-                bgCanvas.style.opacity = "0";
-                
-                // Cursor Reset
-                aura.style.width = "15px";
-                aura.style.height = "15px";
-                aura.style.background = "white";
+            card.addEventListener('mouseleave', () => {
+                aura.style.width = "12px";
+                aura.style.height = "12px";
             });
         });
     </script>

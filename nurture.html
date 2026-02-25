@@ -11,7 +11,6 @@
             --pink-aura: rgba(255, 184, 224, 0.3);
         }
 
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body {
             background-color: var(--bg);
@@ -28,7 +27,7 @@
             transform: translate(-50%, -50%); mix-blend-mode: screen;
         }
 
-        /* FLASH EFFECT */
+        /* CAMERA FLASH */
         #flash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; opacity: 0; pointer-events: none; z-index: 10000;
@@ -44,46 +43,43 @@
             text-transform: uppercase; display: flex; z-index: 1; pointer-events: none;
         }
         .hero-title span { display: inline-block; transition: filter 0.3s ease; }
+        .hero-title span.active-blur { filter: blur(50px) !important; opacity: 0.2; }
 
-        /* GALLERY LAYOUT */
+        /* GALLERY STRUCTURE */
         .gallery {
-            position: relative; z-index: 10; padding: 100vh 5% 400px;
-            display: flex; flex-direction: column; align-items: center; gap: 100px;
+            position: relative; z-index: 10;
+            padding: 100vh 5% 400px;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 150px; /* Consistent spacing */
         }
 
-        /* Main Print - Smaller */
+        /* MAIN PRINT (Slightly Smaller) */
         .main-print {
             width: 60%; 
-            max-width: 650px;
-            opacity: 0; transform: translateY(50px);
-            transition: all 1s ease;
-            margin-bottom: 50px;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Mockup Grid - Side by Side */
+        /* MOCKUP GRID (Side by Side) */
         .mockup-grid {
-            display: flex; 
-            justify-content: center; 
-            gap: 20px; 
-            width: 100%; 
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* Space between side-by-side images */
+            width: 100%;
             max-width: 1200px;
         }
+
         .side-poster {
-            width: 48%; 
-            opacity: 0; 
-            transform: translateY(50px);
-            transition: all 1s ease;
+            width: 45%; /* Keeps them side-by-side */
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        
-        /* Image styling with placeholder color */
-        img { 
-            width: 100%; 
-            display: block; 
-            height: auto; 
-            background: #0a0a0a; /* Dark placeholder so you see where the image is */
-        }
+        img { width: 100%; display: block; height: auto; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
@@ -107,15 +103,15 @@
 
     <main class="gallery">
         <div class="main-print reveal-trigger">
-            <img src="./nurture-hero.jpg" class="img-check">
+            <img src="nurture-hero.jpg" class="cache-fix">
         </div>
 
         <div class="mockup-grid">
             <div class="side-poster reveal-trigger">
-                <img src="./nurture-mockup1.jpg" class="img-check">
+                <img src="nurture-mockup1.jpg" class="cache-fix">
             </div>
             <div class="side-poster reveal-trigger">
-                <img src="./nurture-mockup2.jpg" class="img-check">
+                <img src="nurture-mockup2.jpg" class="cache-fix">
             </div>
         </div>
     </main>
@@ -126,50 +122,49 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
-        // 1. SMART LOADER - Forced Refresh for GitHub
-        document.querySelectorAll('.img-check').forEach(img => {
-            const currentSrc = img.getAttribute('src');
-            // Adding a timestamp to bypass GitHub's aggressive caching
-            img.src = currentSrc + "?v=" + new Date().getTime();
-            
-            // If the standard name fails, try the common naming error variation automatically
-            img.onerror = function() {
-                if (this.src.includes('-')) {
-                    this.src = this.src.replace('-', '–'); 
-                }
-            };
+        // CACHE FIX: Forces GitHub to reload images
+        document.querySelectorAll('.cache-fix').forEach(img => {
+            const originalSrc = img.getAttribute('src');
+            img.src = originalSrc + "?v=" + new Date().getTime();
         });
 
-        // 2. CURSOR & INTERACTION
+        // MOUSE
         document.addEventListener('mousemove', (e) => {
-            aura.style.left = `${e.clientX}px`;
-            aura.style.top = `${e.clientY}px`;
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`;
+            aura.style.top = `${y}px`;
             letters.forEach(letter => {
                 const rect = letter.getBoundingClientRect();
-                const dist = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
-                if (dist < 100) letter.style.filter = 'blur(40px)';
-                else letter.style.filter = 'blur(0px)';
+                const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
+                if (dist < 100) letter.classList.add('active-blur');
+                else letter.classList.remove('active-blur');
             });
         });
 
-        // 3. SCROLL MELT
+        // MELT EFFECT
         window.addEventListener('scroll', () => {
-            const p = window.scrollY / window.innerHeight;
-            if (p < 1.5) {
-                meltTitle.style.filter = `blur(${p * 130}px)`;
-                meltTitle.style.opacity = 1 - (p * 1.3);
-                meltTitle.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.5}px))`;
+            const scrollY = window.scrollY;
+            const vh = window.innerHeight;
+            if (scrollY < vh * 1.5) {
+                const progress = scrollY / vh;
+                meltTitle.style.filter = `blur(${progress * 130}px)`;
+                meltTitle.style.opacity = 1 - (progress * 1.3);
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.5}px))`;
             }
         });
 
-        // 4. REVEAL & FLASH
+        // FLASH & REVEAL
+        const triggerFlash = () => {
+            flash.classList.remove('do-flash');
+            void flash.offsetWidth; 
+            flash.classList.add('do-flash');
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal');
-                    flash.classList.remove('do-flash');
-                    void flash.offsetWidth; 
-                    flash.classList.add('do-flash');
+                    triggerFlash();
                 }
             });
         }, { threshold: 0.1 });

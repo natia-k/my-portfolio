@@ -6,21 +6,18 @@
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
         :root {
-            /* 1. Refining the color: Dark Charcoal, not dead black */
             --bg: #0e0e0e; 
             --text: #ffffff;
             --subtle: rgba(255, 255, 255, 0.3);
         }
 
-        /* Subtle Grain for a "printed/physical" feel */
+        /* FINE GRAIN TEXTURE */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; 
-            opacity: 0.04; /* 4% opacity as requested */
-            mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.04; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -39,22 +36,25 @@
             transform: translate(-50%, -50%); mix-blend-mode: difference;
         }
 
-        /* STEP 1: Dominant and Lonely Title */
+        /* TITLE THAT GOES LEFT */
         header {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            perspective: 1200px;
         }
 
-        h1 {
-            font-size: clamp(80px, 15vw, 200px);
+        #scrolling-title {
+            font-size: clamp(80px, 18vw, 280px);
             font-weight: 900;
             letter-spacing: -0.05em;
             text-transform: uppercase;
+            white-space: nowrap;
+            will-change: transform;
         }
 
-        /* STEP 2 & 4: Image Sequence (The Staging) */
+        /* STAGING THE SEQUENCE */
         .sequence {
             display: flex;
             flex-direction: column;
@@ -62,50 +62,44 @@
             width: 100%;
         }
 
-        .hero-poster {
-            width: 85vw;
-            height: 90vh; /* Owns the first screen */
+        /* SMALLER PRINTS: Visible fully on full screen */
+        .poster-wrapper {
+            width: 100%;
+            height: 100vh; /* Takes up the screen but centers the image */
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 30vh; /* Big margin under it */
+            margin-bottom: 10vh;
         }
 
-        .hero-poster img {
-            height: 100%;
+        .poster-wrapper img {
+            max-height: 80vh; /* Ensures vertical visibility */
+            max-width: 85vw;  /* Ensures horizontal visibility */
             width: auto;
+            height: auto;
             object-fit: contain;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.5));
         }
 
-        /* STEP 3: The Sentence (After the hero) */
         .statement {
-            font-size: 16px;
-            letter-spacing: 0.2em;
+            font-size: 14px;
+            letter-spacing: 0.3em;
             text-transform: lowercase;
-            color: var(--subtle); /* Low opacity */
-            margin: 40vh 0; /* Lots of space above and below */
+            color: var(--subtle);
+            margin: 20vh 0;
             text-align: center;
         }
 
-        .sub-poster {
-            width: 70vw;
-            margin-bottom: 30vh; /* Big vertical gaps */
-        }
-
-        .sub-poster img {
-            width: 100%;
-            height: auto;
-        }
-
-        /* STEP 5: End Sharply */
         footer {
-            height: 60vh;
+            height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .next-link {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 900;
             letter-spacing: 0.8em;
             text-decoration: none;
@@ -113,8 +107,8 @@
             opacity: 0.4;
             transition: 0.3s;
         }
-
         .next-link:hover { opacity: 1; }
+
     </style>
 </head>
 <body>
@@ -122,24 +116,24 @@
     <div id="aura"></div>
 
     <header>
-        <h1>GO LEFT</h1>
+        <h1 id="scrolling-title">GO LEFT</h1>
     </header>
 
     <main class="sequence">
         
-        <section class="hero-poster">
+        <div class="poster-wrapper">
             <img src="goleft-mockup1.jpg" alt="Hero Poster">
-        </section>
+        </div>
 
         <p class="statement">when nothing goes right, go left.</p>
 
-        <section class="sub-poster">
-            <img src="goleft-mockup2.jpg" alt="Sequence 2">
-        </section>
+        <div class="poster-wrapper">
+            <img src="goleft-mockup2.jpg" alt="Poster 2">
+        </div>
 
-        <section class="sub-poster">
-            <img src="goleft-main.jpg" alt="Sequence 3">
-        </section>
+        <div class="poster-wrapper">
+            <img src="goleft-main.jpg" alt="Poster 3">
+        </div>
 
     </main>
 
@@ -148,10 +142,19 @@
     </footer>
 
     <script>
+        // 1. CURSOR
         document.addEventListener('mousemove', (e) => {
             const aura = document.getElementById('aura');
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
+        });
+
+        // 2. SCROLL EFFECT: Text goes LEFT and tilts
+        window.addEventListener('scroll', () => {
+            const title = document.getElementById('scrolling-title');
+            const scroll = window.scrollY;
+            // Moves left as you scroll down
+            title.style.transform = `translateX(-${scroll * 1.2}px) rotateY(${scroll * 0.02}deg)`;
         });
     </script>
 </body>

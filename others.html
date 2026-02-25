@@ -8,6 +8,7 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
+            --pink-aura: rgba(255, 184, 224, 0.2); /* Pinkish Glow */
             --line: rgba(255, 255, 255, 0.1);
             --label: rgba(255, 255, 255, 0.4);
         }
@@ -22,11 +23,11 @@
             overflow-x: hidden;
         }
 
-        /* BRIGHTER CURSOR LIGHT */
+        /* PINKISH CURSOR LIGHT */
         #aura {
             position: fixed;
             width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
@@ -34,24 +35,7 @@
             mix-blend-mode: screen;
         }
 
-        .flash-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: white;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        @keyframes camera-flash {
-            0% { opacity: 0; }
-            10% { opacity: 0.8; }
-            100% { opacity: 0; }
-        }
-
-        .do-flash { animation: camera-flash 0.5s ease-out forwards; }
-
-        /* HERO: THE OATS DREAM BLUR */
+        /* HERO: TEXT BEHIND IMAGE */
         .hero {
             height: 100vh;
             display: flex;
@@ -80,27 +64,26 @@
             line-height: 0.8;
             pointer-events: none;
             
-            /* DEFAULT DREAM STATE */
-            z-index: 1; 
+            /* DREAM STATE: Receded and blurred */
+            z-index: 1; /* Stay behind imgMove */
             opacity: 0.15;
-            filter: blur(60px); /* Heavy Oats-style blur */
-            transform: scale(0.8);
-            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            filter: blur(60px);
+            transform: scale(0.85);
+            transition: all 1.3s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .hero-img { 
             width: 100%; 
             display: block;
-            z-index: 5;
+            z-index: 5; /* Stays in front */
             transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* AWAKE STATE (When touching) */
+        /* AWAKE STATE: Sharp but still behind or cutting through */
         .hero.active .hero-title {
-            z-index: 10;
-            opacity: 1;
+            opacity: 0.9;
             filter: blur(0px);
-            mix-blend-mode: difference;
+            /* mix-blend-mode: difference; Optional: keeps it artistic while behind */
             transform: scale(1.05);
         }
 
@@ -124,7 +107,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 400px;
+            gap: 350px;
         }
 
         .poster { 
@@ -152,7 +135,6 @@
 </head>
 <body>
 
-    <div class="flash-overlay" id="flash"></div>
     <div id="aura"></div>
 
     <nav>
@@ -195,7 +177,6 @@
         const imgMove = document.getElementById('imgMove');
         const titleMove = document.getElementById('titleMove');
         const heroArea = document.getElementById('heroArea');
-        const flash = document.getElementById('flash');
 
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
@@ -204,7 +185,6 @@
 
             const rect = heroArea.getBoundingClientRect();
             
-            // Logic to check if mouse is over the hero area
             if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
                 heroArea.classList.add('active'); 
                 
@@ -214,25 +194,15 @@
                 imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
                 titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
             } else {
-                // IMMEDIATELY RETURN TO DREAM STATE
                 heroArea.classList.remove('active'); 
                 imgMove.style.transform = `translateX(0px) translateY(0px)`;
                 titleMove.style.transform = `translateX(0px) translateY(0px)`;
             }
         });
 
-        const triggerFlash = () => {
-            flash.classList.remove('do-flash');
-            void flash.offsetWidth; 
-            flash.classList.add('do-flash');
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                    triggerFlash();
-                }
+                if (entry.isIntersecting) entry.target.classList.add('reveal');
             });
         }, { threshold: 0.3 });
 

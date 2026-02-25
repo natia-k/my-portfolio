@@ -10,6 +10,7 @@
             --text: #ffffff;
             --baby-pink: #fce4ec; 
             --ease-breath: cubic-bezier(0.25, 1, 0.5, 1);
+            --red: #ff0000;
         }
 
         /* 1. ATMOSPHERE */
@@ -19,9 +20,7 @@
             font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            /* Allow the background to transition with attention */
             transition: background-color 3s var(--ease-breath);
-            /* Resetting cursor to default */
             cursor: default;
         }
 
@@ -34,7 +33,23 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 2. ATTENTION-BASED TYPOGRAPHY */
+        /* 2. PRELOADER (Smaller, Black Font) */
+        #loader {
+            position: fixed; inset: 0; 
+            background: var(--red); 
+            z-index: 10010;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #loader-count { 
+            font-size: 8vw; /* Reduced from 20vw */
+            font-weight: 900; 
+            color: #000000; /* Switched to Black */
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.05em;
+        }
+
+        /* 3. ATTENTION-BASED TYPOGRAPHY */
         .statement, .project-link {
             transition: 
                 letter-spacing 3s var(--ease-breath),
@@ -44,14 +59,6 @@
                 color 0.8s ease;
             will-change: letter-spacing, filter;
         }
-
-        /* 3. LOADER */
-        #loader {
-            position: fixed; inset: 0; background: #ff0000; z-index: 10010;
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #loader-count { font-size: 20vw; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
 
         /* 4. LAYOUT */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
@@ -70,7 +77,7 @@
 
         .project-link:hover { color: var(--baby-pink); filter: blur(0px) !important; opacity: 1 !important; }
 
-        /* 5. FLOATING PREVIEW (Now centered to the screen, not cursor) */
+        /* 5. FLOATING PREVIEW */
         #preview {
             position: fixed; 
             top: 50%; left: 60%;
@@ -117,17 +124,17 @@
         let lastMoveTime = Date.now();
         let isQuiet = false;
 
-        // 1. ATTENTION LOGIC (The Breathing)
+        // ATTENTION LOGIC
         function checkAttention() {
             const now = Date.now();
             const idleTime = now - lastMoveTime;
 
-            if (idleTime > 1500) { // If user slows down/stops for 1.5s
+            if (idleTime > 1500) {
                 if (!isQuiet) {
                     isQuiet = true;
-                    body.style.backgroundColor = "#0f0f12"; // Background lightens
+                    body.style.backgroundColor = "#0f0f12";
                     links.forEach(link => {
-                        link.style.letterSpacing = "0.05em"; // Typography opens
+                        link.style.letterSpacing = "0.05em"; 
                         link.style.filter = "blur(0px)";
                         link.style.opacity = "1";
                     });
@@ -135,10 +142,10 @@
             } else {
                 if (isQuiet) {
                     isQuiet = false;
-                    body.style.backgroundColor = "#050505"; // Resets to dark
+                    body.style.backgroundColor = "#050505";
                     links.forEach(link => {
                         link.style.letterSpacing = link.classList.contains('statement') ? "-0.04em" : "-0.07em";
-                        link.style.filter = "blur(15px)"; // Resets to Oat Milk blur
+                        link.style.filter = "blur(15px)";
                         link.style.opacity = "0.2";
                     });
                 }
@@ -150,7 +157,7 @@
         document.addEventListener('scroll', () => { lastMoveTime = Date.now(); });
         checkAttention();
 
-        // 2. PROJECT REVEAL
+        // PROJECT REVEAL
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 previewImg.src = link.getAttribute('data-img');
@@ -161,7 +168,7 @@
             });
         });
 
-        // 3. LOADER
+        // LOADER
         let p = 0;
         const l = setInterval(() => {
             p += Math.floor(Math.random() * 12) + 1;

@@ -6,7 +6,7 @@
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #F2ECE4; /* High-end Bone */
+            --bg: #F2ECE4; 
             --text: #1a1a1a;
         }
 
@@ -69,7 +69,7 @@
             position: relative;
             margin: 10vh 0;
             width: 85%;
-            max-width: 800px;
+            max-width: 900px; /* Slightly wider for these mockups */
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 1.5s ease, transform 1.5s ease;
@@ -81,7 +81,6 @@
             width: 100%;
             height: auto;
             display: block;
-            /* Shadow makes it float */
             filter: drop-shadow(0 40px 100px rgba(0,0,0,0.08));
         }
 
@@ -110,19 +109,14 @@
     <main class="sequence">
         
         <div class="pixel-container reveal">
-            <img src="goleft-1.jpg" class="pixel-source" style="display:none;">
+            <img src="goleft-mockup1.jpg" class="pixel-source" style="display:none;">
             <canvas></canvas>
         </div>
 
         <p class="statement">when nothing goes right, go left.</p>
 
         <div class="pixel-container reveal">
-            <img src="goleft-2.jpg" class="pixel-source" style="display:none;">
-            <canvas></canvas>
-        </div>
-
-        <div class="pixel-container reveal">
-            <img src="goleft-3.jpg" class="pixel-source" style="display:none;">
+            <img src="goleft-mockup2.jpg" class="pixel-source" style="display:none;">
             <canvas></canvas>
         </div>
 
@@ -159,23 +153,18 @@
             img.onload = () => {
                 canvas.width = img.naturalWidth;
                 canvas.height = img.naturalHeight;
-                draw(1); // Start clear
+                draw(1); 
             };
 
-            // Force load if already cached
             if (img.complete) img.onload();
 
             function draw(scale) {
                 const w = canvas.width;
                 const h = canvas.height;
                 ctx.clearRect(0, 0, w, h);
-                
-                // Draw downsampled
-                const sw = w * scale;
-                const sh = h * scale;
+                const sw = Math.max(1, w * scale);
+                const sh = Math.max(1, h * scale);
                 ctx.drawImage(img, 0, 0, sw, sh);
-                
-                // Scale back up with "Nearest Neighbor" for blocks
                 ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(canvas, 0, 0, sw, sh, 0, 0, w, h);
             }
@@ -186,10 +175,9 @@
                 draw(1);
             });
 
-            container.addEventListener('mousemove', (e) => {
+            container.addEventListener('mousemove', () => {
                 if (isHovered) {
-                    // Adjust the 0.08 to make it more or less pixelated (lower = blockier)
-                    draw(0.08); 
+                    draw(0.06); // Pixelated scale
                 }
             });
         });

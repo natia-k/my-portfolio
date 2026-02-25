@@ -32,108 +32,140 @@
             transform: translate(-50%, -50%);
         }
 
-        /* 1. THE ENTRANCE MOMENT (BLUR TO FOCUS) */
-        .hero-title {
-            font-size: clamp(80px, 18vw, 280px);
-            font-weight: 950;
-            letter-spacing: -0.07em;
-            text-transform: uppercase;
-            color: var(--white);
-            mix-blend-mode: difference;
-            text-align: center;
-            line-height: 0.85;
-            
-            filter: blur(20px);
-            opacity: 0;
-            animation: focusEntrance 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes focusEntrance {
-            to { filter: blur(0px); opacity: 1; }
-        }
-
-        .fade-reveal {
-            opacity: 0;
-            animation: softFade 1.5s ease forwards 1.2s; /* Delayed reveal */
-        }
-
-        .meta-reveal {
-            opacity: 0;
-            animation: softFade 1.5s ease forwards 2s; /* Last reveal */
-        }
-
-        @keyframes softFade { to { opacity: 1; } }
-
-        /* 2. TACTILE ART PRINT HOVER */
-        .print-container {
-            position: relative;
-            perspective: 1000px; /* Essential for 3D tilt */
-            transition: transform 0.5s ease;
-        }
-
-        .print-wrap {
+        /* 1. THE INTENTIONAL HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
-            border-radius: 2px;
-            transition: transform 0.1s ease-out;
-            transform-style: preserve-3d;
         }
 
-        .print-wrap img { width: 100%; display: block; filter: brightness(0.9); transition: filter 0.5s ease; }
-
-        /* The Sheen Highlight */
-        .print-wrap::after {
-            content: "";
+        .hero-image-bg {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.15) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            width: 50%; /* Cropped/Embedded feel */
+            opacity: 0.6;
+            z-index: 1;
+            filter: grayscale(1);
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            line-height: 0.8;
+            text-transform: uppercase;
             pointer-events: none;
         }
 
-        .print-wrap:hover::after { opacity: 1; }
-        .print-wrap:hover img { filter: brightness(1.1); }
-
-        /* LAYOUT & SECTIONS */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
-        .hero-container { z-index: 10; width: 65%; max-width: 500px; }
-
-        .intro-section { padding: 160px 10%; display: grid; grid-template-columns: 1.2fr 1fr; gap: 100px; border-top: 1px solid var(--line); }
-        .intro-text h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 300; line-height: 1.3; }
-        .intro-text h2 span { display: block; margin-top: 15px; opacity: 0.6; font-size: 0.7em; }
-
-        .meta-grid { display: grid; gap: 24px; }
-        .meta-row { display: flex; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
-        .meta-label { width: 100px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; }
-        .meta-value { font-size: 13px; font-weight: 500; }
-
-        /* 3. THE DETAILS STRIP */
-        .details-strip {
-            padding: 80px 10%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            margin: 100px 0;
+        .hero-title span {
+            display: block;
+            font-size: clamp(20px, 4vw, 40px);
+            letter-spacing: 0.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            opacity: 0.8;
         }
 
-        .crop-group { display: flex; gap: 20px; }
-        .crop { width: 80px; height: 80px; overflow: hidden; border-radius: 2px; opacity: 0.7; filter: grayscale(1); transition: 0.5s; }
-        .crop:hover { opacity: 1; filter: grayscale(0); transform: scale(1.1); }
-        .crop img { width: 200%; } /* Zoomed in for detail */
+        .hero-title h1 {
+            font-size: clamp(100px, 22vw, 350px);
+            font-weight: 950;
+            letter-spacing: -0.05em;
+            mix-blend-mode: exclusion; /* Title interacts with image behind it */
+        }
 
-        .focus-line { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
+        /* 2 & 3. SHARP INTRO & PREMIUM META GRID */
+        .intro-section {
+            padding: 160px 10%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            border-top: 1px solid var(--line);
+        }
 
-        .gallery-rhythm { padding: 100px 10% 400px; display: flex; flex-direction: column; gap: 200px; }
-        .stagger-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .stagger-row .item:last-child { margin-top: 180px; }
-        .caption { margin-top: 20px; font-size: 11px; letter-spacing: 1px; }
-        .caption b { font-weight: 800; text-transform: uppercase; margin-right: 10px; }
+        .intro-text h2 {
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 300;
+            line-height: 1.1;
+        }
+
+        .intro-text p {
+            margin-top: 25px;
+            font-size: 18px;
+            opacity: 0.5;
+            font-style: italic;
+        }
+
+        .meta-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 10px;
+        }
+
+        .meta-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.3;
+        }
+
+        .meta-value {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--soft-pink);
+        }
+
+        /* 4. GALLERY RHYTHM */
+        .gallery-rhythm {
+            padding: 100px 10% 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 200px;
+        }
+
+        /* Full Width Study */
+        .study-full { width: 100%; margin-bottom: 100px; }
+        .study-full img { width: 100%; filter: brightness(0.9); }
+
+        /* Side-by-Side Stagger */
+        .study-stagger {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        .stagger-low { margin-top: 150px; }
+
+        /* Details Strip */
+        .details-strip {
+            padding: 60px 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 100px 0;
+        }
+        .crop-group { display: flex; gap: 15px; }
+        .crop { width: 60px; height: 60px; background: #111; border-radius: 2px; overflow: hidden; opacity: 0.6; }
+        .crop img { width: 300%; } /* Macro zoom effect */
+
+        .caption {
+            margin-top: 20px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .caption b { color: var(--soft-pink); margin-right: 10px; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.4; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 5px; opacity: 0.4; font-weight: 900; }
     </style>
 </head>
 <body>
@@ -146,78 +178,59 @@
     </nav>
 
     <header class="hero">
-        <h1 class="hero-title">THE<br>OTHERS</h1>
-        <div class="hero-container">
-            <div class="print-wrap">
-                <img src="others-hero.jpg" alt="Hero Print">
-            </div>
+        <img src="others-hero.jpg" class="hero-image-bg" alt="">
+        <div class="hero-title">
+            <span>THE</span>
+            <h1>OTHERS</h1>
         </div>
     </header>
 
     <section class="intro-section">
-        <div class="intro-text fade-reveal">
-            <h2>A curated set of visual experiments where imbalance becomes method.<span>Contrast, scale, and negative space are pushed until tension becomes form.</span></h2>
+        <div class="intro-text">
+            <h2>A playground for breaking systems.</h2>
+            <p>Contrast, scale, and negative space pushed until it feels inevitable.</p>
         </div>
         
-        <div class="meta-grid meta-reveal">
-            <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Concept, Art Direction</span></div>
-            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">3 Posters, 1 System Study</span></div>
-            <div class="meta-row"><span class="meta-label">Tools</span><span class="meta-value">Photoshop, Figma</span></div>
+        <div class="meta-grid">
+            <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
+            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">Visual Studies</span></div>
+            <div class="meta-row"><span class="meta-label">Tools</span><span class="meta-value">Ps / Ai / Figma</span></div>
             <div class="meta-row" style="border:none;"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
         </div>
     </section>
 
-    <div class="details-strip fade-reveal">
-        <div class="crop-group">
-            <div class="crop"><img src="others-piece-1.jpg" style="margin-left: -50px;"></div>
-            <div class="crop"><img src="others-piece-2.jpg" style="margin-top: -30px;"></div>
-            <div class="crop"><img src="others-piece-3.jpg" style="margin-left: -80px; margin-top: -20px;"></div>
-        </div>
-        <div class="focus-line">Focus: hierarchy · tension · negative space</div>
-    </div>
-
     <main class="gallery-rhythm">
-        <div class="stagger-row">
-            <div class="item">
-                <div class="print-wrap"><img src="others-piece-1.jpg"></div>
-                <span class="caption"><b>Study 01</b> — Disrupted hierarchy</span>
+        <div class="study-full">
+            <img src="others-piece-1.jpg">
+            <p class="caption"><b>Study 01</b> — Held tension</p>
+        </div>
+
+        <div class="details-strip">
+            <div class="crop-group">
+                <div class="crop"><img src="others-piece-1.jpg" style="margin-left:-20px"></div>
+                <div class="crop"><img src="others-piece-2.jpg" style="margin-top:-40px"></div>
+                <div class="crop"><img src="others-piece-3.jpg" style="margin-left:-60px"></div>
             </div>
+            <span class="meta-label">Focus: Hierarchy · Texture · Space</span>
+        </div>
+
+        <div class="study-stagger">
             <div class="item">
-                <div class="print-wrap"><img src="others-piece-2.jpg"></div>
-                <span class="caption"><b>Study 02</b> — Contrast as structure</span>
+                <img src="others-piece-2.jpg" style="width:100%">
+                <p class="caption"><b>Study 02</b> — Controlled collapse</p>
+            </div>
+            <div class="item stagger-low">
+                <img src="others-piece-3.jpg" style="width:100%">
+                <p class="caption"><b>Study 03</b> — Quiet pressure</p>
             </div>
         </div>
     </main>
 
     <script>
-        // Aura and Tactile Hover Logic
         const aura = document.getElementById('aura');
-        const printWraps = document.querySelectorAll('.print-wrap');
-
         document.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            aura.style.left = `${x}px`;
-            aura.style.top = `${y}px`;
-
-            printWraps.forEach(wrap => {
-                const rect = wrap.getBoundingClientRect();
-                const px = (x - rect.left) / rect.width * 100;
-                const py = (y - rect.top) / rect.height * 100;
-                wrap.style.setProperty('--x', `${px}%`);
-                wrap.style.setProperty('--y', `${py}%`);
-                
-                // 3D Tilt calculation
-                const tiltX = (y - (rect.top + rect.height/2)) / 20;
-                const tiltY = (x - (rect.left + rect.width/2)) / -20;
-                wrap.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-            });
-        });
-
-        // Reset tilt on mouse leave
-        printWraps.forEach(wrap => {
-            wrap.addEventListener('mouseleave', () => {
-                wrap.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            });
+            aura.style.left = `${e.clientX}px`;
+            aura.style.top = `${e.clientY}px`;
         });
     </script>
 </body>

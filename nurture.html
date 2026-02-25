@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NURTURE | NATIA STUDIO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f5f2ee; /* Warm, raw paper */
-            --ink: #3a3633; /* Soft, human charcoal */
-            --glow: rgba(255, 184, 224, 0.12);
+            --bg: #f5f2ee; /* Warm paper */
+            --ink: #3a3633; /* Faded charcoal */
+            --soft-pink: #ffb8e0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -17,35 +17,22 @@
         body {
             background-color: var(--bg);
             color: var(--ink);
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Inter', sans-serif; /* Everything else: Inter */
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* 1. GRAIN OVERLAY: THE "RAW" LAYER */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        /* 2. SOFT GLOW CURSOR */
         #aura {
             position: fixed;
             width: 800px; height: 800px;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 75%);
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 75%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* 3. HERO: INTIMATE & DREAMY */
+        /* 5. SPACING: BREATHING ROOM */
         .hero {
             height: 100vh;
             display: flex;
@@ -53,61 +40,67 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 0 10%;
         }
 
+        /* 4. TITLE: PLAYFAIR DISPLAY */
         .hero-title {
-            font-size: clamp(50px, 12vw, 150px);
-            font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(60px, 12vw, 160px);
+            font-weight: 400;
             font-style: italic;
-            opacity: 0;
-            animation: softIn 4s forwards;
+            margin-bottom: 24px;
         }
 
-        .hero-line {
+        /* 1. NEW SUBTITLE BLOCK */
+        .hero-sub {
             font-size: 18px;
-            margin-top: 20px;
-            letter-spacing: 0.1em;
-            opacity: 0;
-            animation: softIn 5s forwards 1.5s;
+            line-height: 1.6;
+            max-width: 500px;
         }
 
-        /* 4. UNBALANCED SEQUENCE */
+        .hero-sub span {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        /* 2. SCOPE LINE: SMALL & SPACED */
+        .scope-line {
+            margin-top: 60px;
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        /* 5. BIG SPACE BETWEEN IMAGES */
         .gallery {
-            padding: 100px 10% 400px;
+            padding: 200px 15% 300px; /* Big space between title block and first image */
             display: flex;
             flex-direction: column;
-            gap: 200px;
+            gap: 250px; /* Big space between images */
         }
 
-        .moment {
-            width: 100%;
-            max-width: 500px;
-            opacity: 0;
-            filter: blur(8px);
-            transition: all 3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .moment.active { opacity: 1; filter: blur(0px); }
-
-        /* Asymmetry to feel human, not designed */
-        .moment.pos-1 { align-self: flex-start; }
-        .moment.pos-2 { align-self: flex-end; width: 45%; }
-        .moment.pos-3 { align-self: center; width: 60%; }
+        .moment { width: 100%; max-width: 650px; }
+        .moment:nth-child(even) { align-self: flex-end; }
 
         .moment img {
             width: 100%;
             display: block;
             border-radius: 1px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.03);
-            filter: sepia(0.2) contrast(0.9);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.02);
         }
 
-        .inner-note {
-            margin-top: 20px;
-            font-size: 14px;
-            font-style: italic;
-            opacity: 0.4;
+        /* 3. CAPTIONS: SMALL & FADED */
+        .caption {
             display: block;
+            margin-top: 20px; /* Small space between image and caption */
+            font-size: 12px;
+            letter-spacing: 2px;
+            opacity: 0.4;
+            font-style: italic;
         }
 
         nav {
@@ -115,10 +108,15 @@
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--ink); text-decoration: none; font-size: 11px; letter-spacing: 4px; opacity: 0.3; }
+        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; }
 
-        @keyframes softIn { to { opacity: 0.8; } }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -132,31 +130,29 @@
 
     <header class="hero">
         <h1 class="hero-title">nurture</h1>
-        <p class="hero-line">made slowly. held gently.</p>
+        <div class="hero-sub">
+            A quiet piece about softness, memory, and becoming.
+            <span>Made slowly, like morning light. Held gently, like something you don’t need to explain.</span>
+        </div>
+        <div class="scope-line">SCOPE — Organic / 2026</div>
     </header>
 
     <main class="gallery">
-        
-        <div class="moment pos-1 reveal">
+        <div class="moment reveal">
             <img src="Nurture.jpg">
-            <span class="inner-note">still growing</span>
+            <span class="caption">a gentle form</span>
         </div>
 
-        <div class="moment pos-2 reveal">
+        <div class="moment reveal">
             <img src="nurture–mockup2.jpg">
-            <span class="thought inner-note" style="text-align: right;">holding on</span>
+            <span class="caption">warm texture</span>
         </div>
 
-        <div class="moment pos-3 reveal">
+        <div class="moment reveal">
             <img src="nurture–mockup1.jpg">
-            <span class="inner-note">quiet warmth</span>
+            <span class="caption">still growing</span>
         </div>
-
     </main>
-
-    <footer style="height: 60vh; display: flex; align-items: center; justify-content: center; opacity: 0.15;">
-        <span style="font-size: 12px; letter-spacing: 10px;">FOR BECOMING WITHOUT PRESSURE</span>
-    </footer>
 
     <script>
         const aura = document.getElementById('aura');
@@ -170,8 +166,7 @@
                 if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal, .moment').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

@@ -3,149 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GO LEFT | NATIA STUDIO</title>
+    <title>FEELINGS | NATIA STUDIO</title>
     <style>
-        /* --- STYLE.CSS INTEGRATED --- */
-        :root { 
-            --bg: #B22222; /* Red Wall - sampled from your art */
-            --fg: #FFFFFF; 
-            --accent: #000000;
+        :root {
+            /* Expensive, neutral palette */
+            --bg: #0f0f0f; 
+            --text: #ffffff;
+            --subtle: rgba(255, 255, 255, 0.4);
         }
 
-        /* --- THE QUENTIN GRAIN OVERLAY --- */
+        /* THE GRAIN (Texture) */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.15;
-            mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-
-        body { 
-            background: var(--bg); 
-            color: var(--fg); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            -webkit-font-smoothing: antialiased; 
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- CUSTOM CURSOR --- */
+        /* CUSTOM CURSOR */
         #aura {
-            position: fixed; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            position: fixed; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* --- NAVIGATION --- */
-        nav { 
-            position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; 
-            z-index: 1000; display: flex; justify-content: space-between; 
-            mix-blend-mode: difference; align-items: center; 
-        }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; mix-blend-mode: difference; }
+        nav a { color: #fff; text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; text-transform: uppercase; }
 
-        .studio-name { 
-            font-family: 'Courier New', Courier, monospace; 
-            font-size: 13px; letter-spacing: 6px; text-transform: uppercase; font-weight: 400; color: #FFFFFF; 
-        }
-
-        nav a { text-decoration: none; color: #FFF; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
-
-        /* --- VELVET SHIMMER ANIMATION --- */
-        @keyframes velvet-blur {
-            0%, 100% { filter: blur(2px); opacity: 1; text-shadow: 0 0 10px rgba(0,0,0,0.2); }
-            50% { filter: blur(12px); opacity: 0.7; text-shadow: 0 0 40px rgba(0,0,0,0.4); }
-        }
-
-        /* --- HERO SECTION (GO LEFT COMMAND) --- */
-        .project-hero { 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 140px 40px;
-            text-align: center;
+        /* UNDERWATER SUNLIGHT TITLE */
+        .intro { 
+            height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; 
         }
 
         .hero-title {
-            font-size: clamp(100px, 25vw, 450px);
-            text-transform: uppercase;
+            font-size: clamp(60px, 18vw, 240px);
             font-weight: 900;
-            line-height: 0.8;
-            letter-spacing: -0.06em;
-            color: #FFFFFF;
-            animation: velvet-blur 6s ease-in-out infinite;
-            will-change: transform;
-            cursor: default;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            display: flex; gap: 10px;
         }
 
-        /* --- MAIN IMAGE: GROWING FROM WALL --- */
-        .main-visual {
-            margin-top: -5vh;
-            display: flex;
-            justify-content: center;
-            padding-bottom: 20vh;
+        .hero-title span { 
+            display: inline-block; 
+            animation: sunlight-underwater 8s ease-in-out infinite;
         }
 
-        .main-visual img { 
-            width: 100%; 
-            max-width: 500px; /* Small/High-end size */
-            height: auto; 
-            object-fit: contain;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: zoom-in;
-            filter: drop-shadow(0 40px 100px rgba(0,0,0,0.3));
+        @keyframes sunlight-underwater {
+            0%, 100% { filter: blur(2px) brightness(1); transform: translateY(0) scale(1); }
+            50% { filter: blur(10px) brightness(1.7); transform: translateY(-15px) scale(1.05); text-shadow: 0 0 30px #fff; }
         }
 
-        .main-visual img:hover { 
-            transform: scale(1.3);
-            z-index: 10;
-        }
+        /* ASYMMETRICAL FLOATING GALLERY */
+        .gallery { padding: 0 10% 30vh; display: flex; flex-direction: column; gap: 40vh; }
 
-        /* --- GALLERY SECTION --- */
-        .mockup-section { 
+        .item { 
             display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px; 
-            padding: 40px; 
-            max-width: 1400px; 
-            margin: 0 auto; 
+            grid-template-columns: 1fr 1.2fr; 
+            gap: 100px; 
+            align-items: center; 
         }
 
-        .mockup-section img { 
-            width: 100%; height: auto; 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.2));
+        .item:nth-child(even) { grid-template-columns: 1.2fr 1fr; }
+        .item:nth-child(even) .text-box { order: 2; text-align: right; }
+
+        .text-box { max-width: 400px; }
+        
+        .poem-text {
+            font-size: 20px; line-height: 1.6; font-weight: 500;
+            margin-bottom: 20px; white-space: pre-line;
         }
 
-        .mockup-section img:hover { transform: scale(1.05); }
+        .commentary { font-size: 12px; color: var(--subtle); font-style: italic; line-height: 1.8; }
 
-        /* --- NEXT PROJECT --- */
-        .next-btn-container {
-            text-align: center;
-            padding: 150px 40px 200px;
-            margin-top: 100px;
+        /* FLOATING IMAGE */
+        .image-box {
+            position: relative;
+            animation: float-slow 12s ease-in-out infinite;
         }
 
-        .next-project-link { text-decoration: none; display: inline-block; }
-        .next-project-link span { display: block; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 15px; }
-        .next-project-link h3 { font-size: clamp(50px, 8vw, 100px); text-transform: uppercase; font-weight: 900; color: #FFF; line-height: 0.8; letter-spacing: -0.04em; transition: all 0.4s ease; }
-        .next-project-link:hover h3 { color: var(--accent); transform: scale(1.05); }
+        .image-box img {
+            width: 100%; height: auto; border-radius: 2px;
+            filter: drop-shadow(0 30px 100px rgba(0,0,0,0.5));
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        /* --- REVEAL ANIMATION --- */
-        .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .image-box img:hover { transform: scale(1.1); }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(10px, -30px) rotate(1deg); }
+        }
+
+        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
 
-        @media (max-width: 900px) {
-            .hero-title { font-size: 120px; }
-            .mockup-section { grid-template-columns: 1fr; }
-        }
+        footer { height: 50vh; display: flex; align-items: center; justify-content: center; }
+        .next-link { font-size: 80px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -0.04em; opacity: 0.2; transition: 0.5s; }
+        .next-link:hover { opacity: 1; filter: blur(4px); }
     </style>
 </head>
 <body>
@@ -153,56 +119,61 @@
     <div id="aura"></div>
 
     <nav>
-        <div class="studio-name">NATIA STUDIO</div>
-        <div class="nav-links">
-            <a href="index.html">WORKS</a>
-            <a href="feelings.html" style="margin-left: 20px;">FEELINGS</a>
-        </div>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="go-left.html">GO LEFT</a>
     </nav>
 
-    <header class="project-hero">
-        <h1 class="hero-title" id="scrolling-title">GO LEFT</h1>
+    <header class="intro">
+        <h1 class="hero-title">
+            <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
+        </h1>
     </header>
 
-    <div class="main-visual reveal-trigger">
-        <img src="goleft-main.jpg" alt="GO LEFT">
-    </div>
+    <main class="gallery">
+        
+        <section class="item reveal-trigger">
+            <div class="text-box">
+                <div class="poem-text">I made a heart.
+                I broke it.
+                Fragments orbit me—
+                tiny planets of pain.</div>
+                <div class="commentary">I literally created a heart shape and broke it. The fragments became orbiting pieces.</div>
+            </div>
+            <div class="image-box">
+                <img src="heartbreak-2.jpg">
+            </div>
+        </section>
 
-    <section class="mockup-section">
-        <img src="go-left-2.jpg" class="reveal-trigger" alt="Mockup 2">
-        <img src="go-left-3.jpg" class="reveal-trigger" alt="Mockup 3">
-    </section>
+        <section class="item reveal-trigger">
+            <div class="image-box" style="animation-delay: -5s;">
+                <img src="love.jpg">
+            </div>
+            <div class="text-box">
+                <div class="poem-text">Love is what remains
+                after explanation leaves.
+                
+                Desire is what moves
+                before permission.</div>
+            </div>
+        </section>
 
-    <footer class="next-btn-container">
-        <a href="others.html" class="next-project-link">
-            <span>UP NEXT</span>
-            <h3>OTHERS</h3>
-        </a>
+    </main>
+
+    <footer>
+        <a href="go-left.html" class="next-link">GO LEFT</a>
     </footer>
 
     <script>
-        // MOUSE AURA
         document.addEventListener('mousemove', (e) => {
             const aura = document.getElementById('aura');
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
         });
 
-        // "GO LEFT" SCROLL EFFECT
-        window.addEventListener('scroll', () => {
-            const title = document.getElementById('scrolling-title');
-            const scrollY = window.scrollY;
-            title.style.transform = `translateX(-${scrollY * 2}px)`;
-        });
-
-        // REVEAL ANIMATION
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('reveal');
-            });
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>

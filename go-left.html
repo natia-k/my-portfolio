@@ -6,9 +6,9 @@
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #f5f5f5; /* Clean gallery white/grey */
-            --black: #1a1a1a;
-            --aura: rgba(0, 0, 0, 0.03);
+            --bg: #ffffff; /* Stark white */
+            --black: #000000; /* True black */
+            --aura: rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -16,98 +16,96 @@
         body {
             background-color: var(--bg);
             color: var(--black);
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', -apple-system, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         #aura {
-            position: fixed; width: 400px; height: 400px;
+            position: fixed; width: 300px; height: 300px;
             background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%);
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.3; transition: 0.4s; }
+        nav a { color: var(--black); text-decoration: none; font-size: 11px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; opacity: 0.4; }
         nav a:hover { opacity: 1; }
 
-        /* HEADER ANCHOR */
+        /* 2️⃣ THE ABSOLUTE TITLE */
         .header {
-            height: 100vh;
+            height: 80vh; /* Shorter entrance, more immediate */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
         }
 
         .hero-title {
-            font-size: clamp(80px, 15vw, 200px);
+            font-size: clamp(100px, 20vw, 300px);
             font-weight: 900;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
-            line-height: 0.9;
+            line-height: 0.8;
         }
 
-        .framing-line {
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            margin-top: 25px;
-            opacity: 0.5;
-        }
-
-        /* SEQUENCE & MAIN POSTER RULE */
+        /* 3️⃣ THE POSTER: NO INTERRUPTION */
         .sequence {
-            padding-bottom: 30vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-bottom: 20vh;
         }
 
         .moment {
             width: 100%;
-            height: 120vh;
+            padding: 10vh 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
         }
 
         .moment img {
-            max-width: 850px;
-            width: 85%;
+            max-width: 900px;
+            width: 90%;
             height: auto;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.06);
+            border: 1px solid #eee; /* Sharp edge */
         }
 
-        .micro-text {
-            font-size: 11px;
-            letter-spacing: 0.2em;
-            opacity: 0.2;
-            text-transform: lowercase;
-            margin: 10vh 0;
+        /* 4️⃣ THE HARD LINE (AFTER FIRST IMAGE) */
+        .hard-line {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 15vh 0;
+            text-align: center;
         }
 
+        /* 5️⃣ SEQUENCE OF SIGNALS */
+        .moment:nth-child(n+3) {
+            padding: 5vh 0;
+        }
+
+        /* 6️⃣ ENDING: CUT, NOT FADE */
         .footer {
-            height: 40vh;
+            height: 30vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-top: 1px solid #eee;
+            width: 100%;
         }
 
         .next-link {
-            font-size: 11px;
-            letter-spacing: 0.6em;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.4em;
             text-decoration: none;
             color: var(--black);
-            opacity: 0.2;
-            transition: 0.8s;
+            transition: transform 0.3s ease;
         }
-        .next-link:hover { opacity: 0.6; }
+        .next-link:hover { transform: translateX(10px); }
 
-        .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-trigger { opacity: 0; transform: translateY(20px); transition: 1s ease-out; }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
     </style>
 </head>
@@ -122,29 +120,28 @@
 
     <header class="header">
         <h1 class="hero-title reveal-trigger">GO LEFT</h1>
-        <p class="framing-line reveal-trigger">when nothing goes right, turn instinctive</p>
     </header>
 
     <main class="sequence">
         
         <section class="moment reveal-trigger">
-            <img src="goleft-main.jpg" alt="GO LEFT Main Poster">
+            <img src="goleft-main.jpg" alt="GO LEFT STATEMENT">
         </section>
 
-        <p class="micro-text reveal-trigger">the moment of shift</p>
+        <p class="hard-line reveal-trigger">when nothing works, change direction</p>
 
         <section class="moment reveal-trigger">
-            <img src="go-left-2.jpg" alt="Movement">
+            <img src="go-left-2.jpg" alt="INSTRUCTION 02">
         </section>
 
         <section class="moment reveal-trigger">
-            <img src="go-left-3.jpg" alt="Aftermath">
+            <img src="go-left-3.jpg" alt="INSTRUCTION 03">
         </section>
 
     </main>
 
     <footer class="footer">
-        <a href="others.html" class="next-link">next</a>
+        <a href="others.html" class="next-link">NEXT</a>
     </footer>
 
     <script>

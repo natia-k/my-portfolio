@@ -6,7 +6,7 @@
     <title>NURTURE | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #000000; /* Matching OTHERS pure black */
+            --bg: #000000;
             --white: #ffffff;
             --accent: #ffb8e0;
             --line: rgba(255, 255, 255, 0.1);
@@ -17,7 +17,7 @@
         body {
             background-color: var(--bg);
             color: var(--white);
-            font-family: 'Inter', sans-serif; /* Unified Font */
+            font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
@@ -32,7 +32,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: OATS-STYLE BLUR (Aligned with OTHERS) */
+        /* HERO: OATS-STYLE BLUR */
         .hero {
             height: 100vh;
             display: flex;
@@ -59,8 +59,6 @@
             text-align: center;
             line-height: 0.8;
             pointer-events: none;
-            
-            /* Initial State: Blurred Background */
             z-index: 1; 
             opacity: 0.2;
             filter: blur(25px);
@@ -74,7 +72,6 @@
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Interaction Trigger */
         .hero.active .hero-title {
             z-index: 10;
             opacity: 1;
@@ -82,7 +79,7 @@
             mix-blend-mode: difference;
         }
 
-        /* INTRO: FACTUAL & CLEAN */
+        /* INTRO SECTION */
         .intro-section {
             padding: 100px 10% 160px;
             text-align: center;
@@ -103,7 +100,7 @@
             opacity: 0.4;
         }
 
-        /* EXHIBITION FLOW */
+        /* EXHIBITION FLOW (Aligned with OTHERS) */
         .exhibition {
             display: flex;
             flex-direction: column;
@@ -120,7 +117,6 @@
             transition: all 1.5s ease; 
         }
         
-        /* Centerpiece Anchor */
         .poster.anchor { max-width: 800px; width: 95%; } 
 
         .poster.reveal { opacity: 1; transform: translateY(0); }
@@ -178,12 +174,12 @@
 
     <main class="exhibition">
         <div class="poster anchor">
-            <img src="nurture-mockup2.jpg">
+            <img src="nurture–mockup2.jpg">
             <p class="caption">Poster — Texture & Space</p>
         </div>
 
         <div class="poster">
-            <img src="nurture-mockup1.jpg">
+            <img src="nurture–mockup1.jpg">
             <p class="caption">Poster — Final Form</p>
         </div>
     </main>

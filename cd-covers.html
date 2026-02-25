@@ -3,134 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CD COVERS | NATIA DESIGN</title>
+    <title>CD COVERS | NATIA STUDIO</title>
     <style>
-        :root { --accent: #ff0000; --white: #ffffff; --black: #000000; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: var(--black); 
-            color: var(--white); 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            overflow-x: hidden;
+        :root {
+            --bg: #000000;
+            --white: #ffffff;
+            --pink-aura: rgba(255, 184, 224, 0.3);
         }
 
-        nav { 
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            padding: 40px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            z-index: 1000; 
-            font-size: 11px; 
-            letter-spacing: 3px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-        }
-        nav a { color: var(--white); text-decoration: none; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); letter-spacing: 5px; }
-
-        .hero-split { 
-            display: flex; 
-            height: 100vh; 
-            width: 100%; 
-            align-items: stretch;
-        }
-        
-        .hero-left { 
-            flex: 1.1; 
-            overflow: hidden; 
-            background: #111;
-        }
-        .hero-left img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            display: block;
-        }
-
-        .hero-right { 
-            flex: 1; 
-            padding: 0 8%; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
-        
-        h1 { 
-            font-size: clamp(60px, 10vw, 130px); 
-            font-weight: 900; 
-            line-height: 0.85; 
-            letter-spacing: -6px; 
-            margin-bottom: 30px; 
-            text-transform: uppercase;
-        }
-
-        .description { 
-            font-size: 18px; 
-            color: #999; 
-            margin-bottom: 10px; 
-            line-height: 1.4; 
-            max-width: 400px;
-        }
-
-        .project-scope { 
-            font-size: 9px; 
-            letter-spacing: 2px; 
-            color: #555; 
-            text-transform: uppercase; 
-            margin-top: 50px; 
-            font-weight: 700;
-        }
-
-        .next-btn {
-            padding: 100px 5% 150px;
-            text-align: right;
-            border-top: 1px solid #111;
-        }
-        .next-btn a {
-            text-decoration: none;
+        /* PURE BLACK & NO CURSOR */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body {
+            background-color: var(--bg);
             color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        .next-btn h2 { font-size: 80px; font-weight: 900; letter-spacing: -3px; }
 
-        @media (max-width: 1024px) {
-            .hero-split { flex-direction: column; height: auto; }
-            .hero-left { height: 60vh; }
-            .hero-right { padding: 80px 8%; }
+        #aura {
+            position: fixed;
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
         }
+
+        /* CAMERA FLASH */
+        #flash {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        @keyframes camera-shutter {
+            0% { opacity: 0; }
+            20% { opacity: 0.9; }
+            100% { opacity: 0; }
+        }
+        .do-flash { animation: camera-shutter 0.4s ease-out; }
+
+        /* HERO AREA */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-title {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(50px, 12vw, 180px);
+            font-weight: 950;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            display: flex;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-title span {
+            display: inline-block;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hero-title span.active-blur {
+            filter: blur(50px) !important;
+            opacity: 0.2;
+        }
+
+        /* GALLERY */
+        .gallery {
+            position: relative;
+            z-index: 10;
+            padding: 100vh 0 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 400px;
+        }
+
+        .poster {
+            width: 85%;
+            max-width: 900px;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .poster.reveal { opacity: 1; transform: translateY(0); }
+        .poster img { width: 100%; display: block; }
+
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
     </style>
 </head>
 <body>
 
+    <div id="flash"></div>
+    <div id="aura"></div>
+
     <nav>
-        <a href="index.html">← BACK</a>
-        <div class="nav-center">NATIA DESIGN</div>
-        <a href="mailto:contact@natiadesign.com">EMAIL</a>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="others.html">THE OTHERS</a>
     </nav>
 
-    <div class="container">
-        <section class="hero-split">
-            <div class="hero-left">
-                <img src="cd-hero.jpg" alt="CD Cover Design">
-            </div>
+    <header class="hero">
+        <h1 class="hero-title" id="meltTitle">
+            <span>C</span><span>D</span>&nbsp;<span>C</span><span>O</span><span>V</span><span>E</span><span>R</span><span>S</span>
+        </h1>
+    </header>
+
+    <main class="gallery">
+        <div class="poster"><img src="love.jpg"></div>
+        <div class="poster"><img src="pleasure.jpg"></div>
+        <div class="poster"><img src="nostalgia.jpg"></div>
+        <div class="poster"><img src="emptiness.jpg"></div>
+        <div class="poster"><img src="heartbreak-2.jpg"></div>
+        <div class="poster"><img src="insomnia-1.jpg"></div>
+    </main>
+
+    <script>
+        const aura = document.getElementById('aura');
+        const flash = document.getElementById('flash');
+        const meltTitle = document.getElementById('meltTitle');
+        const letters = document.querySelectorAll('.hero-title span');
+
+        // MOUSE INTERACTION
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`;
+            aura.style.top = `${y}px`;
+
+            letters.forEach(letter => {
+                const rect = letter.getBoundingClientRect();
+                const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
+                if (dist < 100) letter.classList.add('active-blur');
+                else letter.classList.remove('active-blur');
+            });
+        });
+
+        // LIQUID MELT SCROLL
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const vh = window.innerHeight;
             
-            <div class="hero-right">
-                <h1>CD<br>COVERS</h1>
-                <p class="description">Visual narratives through music packaging and digital cover art exploration.</p>
-                <p class="project-scope">PROJECT SCOPE:<br>ALBUM ART • LAYOUT DESIGN • MUSIC BRANDING</p>
-            </div>
-        </section>
+            if (scrollY < vh * 1.5) {
+                const progress = scrollY / vh;
+                meltTitle.style.filter = `blur(${progress * 130}px)`;
+                meltTitle.style.opacity = 1 - (progress * 1.3);
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.5}px))`;
+                meltTitle.style.display = "flex";
+            } else {
+                meltTitle.style.display = "none";
+            }
+        });
 
-        <footer class="next-btn">
-            <a href="go-left.html">
-                <span style="color:var(--accent); font-weight:900; font-size:12px; letter-spacing:3px;">NEXT PROJECT</span>
-                <h2>GO LEFT →</h2>
-            </a>
-        </footer>
-    </div>
+        // FLASH & REVEAL
+        const triggerFlash = () => {
+            flash.classList.remove('do-flash');
+            void flash.offsetWidth; 
+            flash.classList.add('do-flash');
+        };
 
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    triggerFlash();
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
+    </script>
 </body>
 </html>

@@ -136,7 +136,7 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
-        // MOUSE INTERACTION (Blur on touch)
+        // 1. MOUSE INTERACTION (Blur on touch)
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
@@ -150,7 +150,7 @@
             });
         });
 
-        // LIQUID MELT SCROLL
+        // 2. LIQUID MELT SCROLL
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const vh = window.innerHeight;
@@ -166,7 +166,7 @@
             }
         });
 
-        // FLASH & REVEAL
+        // 3. FLASH & REVEAL
         const triggerFlash = () => {
             flash.classList.remove('do-flash');
             void flash.offsetWidth; 

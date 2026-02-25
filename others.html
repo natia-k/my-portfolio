@@ -6,37 +6,35 @@
     <title>THE OTHERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #0b0b0b;
+            --bg: #050505; /* Deeper, inkier black */
             --white: #ffffff;
             --soft-pink: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.05);
-            --grain: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+            --line: rgba(255, 255, 255, 0.03);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
-            background-image: var(--grain); /* Barely visible texture */
             color: var(--white);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* 1. THE GALLERY LIGHT (AURA) */
+        /* 1. INTIMATE LIGHTING */
         #aura {
             position: fixed;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.08) 0%, transparent 75%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.07) 0%, transparent 75%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
-            mix-blend-mode: plus-lighter;
         }
 
-        /* 2. ENTRY MOMENT: ARCHITECTURAL OVERLAP */
+        /* 2. THE HERO: TENSION & RESTRAINT */
         .hero {
             height: 100vh;
             display: flex;
@@ -47,88 +45,98 @@
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 20vw, 320px);
+            font-size: clamp(60px, 16vw, 240px);
             font-weight: 900;
-            letter-spacing: -0.06em;
+            letter-spacing: -0.07em; /* Tighter tension */
             text-transform: uppercase;
-            z-index: 5;
-            color: var(--soft-pink);
-            opacity: 0.15;
-            filter: blur(15px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1; /* Behind */
+            color: var(--white);
+            mix-blend-mode: difference;
+            opacity: 0.1;
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-container {
             z-index: 10;
-            width: 75%;
-            max-width: 550px;
-            transform: scale(0.98);
-            transition: transform 1.2s ease;
+            width: 60%;
+            max-width: 420px;
+            position: relative;
         }
 
-        /* INTERACTION: THE SURPRISE */
-        .hero:hover .hero-title {
-            opacity: 1;
-            filter: blur(0px);
-            mix-blend-mode: exclusion;
-            color: var(--white);
-            z-index: 15;
+        .hero-img { 
+            width: 100%; 
+            display: block; 
+            filter: grayscale(1) contrast(1.1); 
+            transition: 1.5s filter ease;
         }
 
-        /* 3. NARRATIVE FLOW (SLOW PACING) */
-        .statement {
+        .hero:hover .hero-img { filter: grayscale(0) contrast(1); }
+        .hero:hover .hero-title { opacity: 0.9; }
+
+        /* 3. POETIC STATEMENTS */
+        .statement-block {
             padding: 200px 10%;
             border-top: 1px solid var(--line);
         }
 
-        .statement h2 {
-            font-size: clamp(24px, 5vw, 48px);
+        .statement-block h2 {
+            font-size: clamp(24px, 4vw, 40px);
             font-weight: 300;
             line-height: 1.1;
-            max-width: 900px;
-            letter-spacing: -0.03em;
+            max-width: 600px;
+            letter-spacing: -0.04em;
+            margin-bottom: 30px;
         }
 
-        /* 4. ASYMMETRIC EXHIBITION GRID */
-        .exhibition-grid {
+        .statement-block p {
+            font-size: 14px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--soft-pink);
+            opacity: 0.6;
+        }
+
+        /* 4. ASYMMETRIC VISUAL SEQUENCE */
+        .sequence {
             padding: 0 10% 300px;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 250px; /* Intense breathing room */
         }
 
         .reveal {
             opacity: 0;
-            transform: translateY(60px);
-            filter: blur(10px);
-            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(40px);
+            filter: blur(15px);
+            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0px);
+        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0px); }
+
+        .art-piece { position: relative; width: 100%; }
+        .art-piece.right { align-self: flex-end; width: 60%; }
+        .art-piece.left { align-self: flex-start; width: 70%; }
+
+        .art-piece img { width: 100%; border-radius: 2px; }
+
+        .caption {
+            margin-top: 25px;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.3;
+            font-style: italic;
         }
 
-        /* Irregular placement */
-        .item-lg { grid-column: 1 / 10; }
-        .item-sm { grid-column: 7 / 13; margin-top: -50px; }
-        .item-md { grid-column: 2 / 8; }
-
-        .exhibition-grid img { 
-            width: 100%; 
-            filter: grayscale(1);
-            transition: 1.2s filter ease;
-        }
-        
-        .exhibition-grid div:hover img { filter: grayscale(0); }
-
+        /* 5. NAVIGATION */
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.4; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 700; letter-spacing: 5px; opacity: 0.4; transition: 0.5s; }
+        nav a:hover { opacity: 1; color: var(--soft-pink); }
+
     </style>
 </head>
 <body>
@@ -137,27 +145,36 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="nurture.html">NURTURE</a>
+        <a href="mailto:hello@natia.studio">CONTACT</a>
     </nav>
 
     <header class="hero">
         <h1 class="hero-title">THE OTHERS</h1>
         <div class="hero-container">
-            <img src="others-hero.jpg" style="width:100%;" alt="Anchor Image">
+            <img src="others-hero.jpg" class="hero-img">
         </div>
     </header>
 
-    <section class="statement reveal">
-        <h2>Visual experiments exploring unusual form, contrast, and alternative structure.</h2>
-        <p style="margin-top: 40px; font-size: 14px; opacity: 0.4; max-width: 400px; line-height: 1.6;">
-            A space where experimentation is framed with intention—challenging conventional structure where tension plays against expectation.
-        </p>
+    <section class="statement-block reveal">
+        <h2>Where form slips out of order.</h2>
+        <p>A series of visual explorations shaped by tension, contrast, and instinct.</p>
     </section>
 
-    <main class="exhibition-grid">
-        <div class="item-lg reveal"><img src="others-mockup1.jpg"></div>
-        <div class="item-sm reveal"><img src="others-mockup2.jpg"></div>
-        <div class="item-md reveal"><img src="others-mockup3.jpg"></div>
+    <main class="sequence">
+        <div class="art-piece left reveal">
+            <img src="others-piece-1.jpg">
+            <span class="caption">Silent Tension</span>
+        </div>
+
+        <div class="art-piece right reveal">
+            <img src="others-piece-2.jpg">
+            <span class="caption">Form Under Pressure</span>
+        </div>
+
+        <div class="art-piece left reveal" style="width: 50%;">
+            <img src="others-piece-3.jpg">
+            <span class="caption">Disrupted Balance</span>
+        </div>
     </main>
 
     <script>

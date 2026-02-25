@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
-        /* 1. CORE BRANDING (Bone & Graphite) */
         :root {
             --bg: #F2ECE4; /* High-end Bone */
             --text: #1a1a1a;
-            --noise: url('https://grainy-gradients.vercel.app/noise.svg');
         }
 
-        /* FILM GRAIN OVERLAY */
+        /* FILM GRAIN */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: var(--noise);
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
             pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: multiply;
         }
 
@@ -31,99 +29,70 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* MINIMAL CURSOR */
         #aura {
             position: fixed; width: 20px; height: 20px;
-            background: var(--text);
-            border-radius: 50%; pointer-events: none; z-index: 999;
+            background: var(--text); border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
         }
 
-        /* 2. QUIET NAVIGATION */
         nav { position: fixed; top: 40px; width: 100%; padding: 0 5%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; opacity: 0.3; transition: 0.3s; }
-        nav a:hover { opacity: 1; }
+        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; opacity: 0.3; }
 
-        /* 3. HERO TITLE (The Decision) */
-        .hero {
-            height: 80vh;
+        /* THE TITLE THAT GOES LEFT */
+        .header {
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            perspective: 1000px; /* Enables the perspective feel */
         }
 
-        .hero h1 {
-            font-size: clamp(80px, 22vw, 320px);
+        #scrolling-title {
+            font-size: clamp(100px, 22vw, 350px);
             font-weight: 900;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            line-height: 0.8;
-            text-align: center;
+            white-space: nowrap;
+            will-change: transform;
+            transition: transform 0.1s ease-out; /* Smooths the scroll movement */
         }
 
-        /* 4. POSTER SEQUENCE (Graphic Authority) */
+        /* POSTER SEQUENCE */
         .sequence {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            padding-bottom: 20vh;
+            padding-bottom: 30vh;
         }
 
         .poster-wrapper {
             width: 100%;
-            max-width: 1200px;
-            margin: 15vh 0; /* Massive Whitespace */
+            margin: 10vh 0;
             display: flex;
             justify-content: center;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            transform: translateY(40px);
+            transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .poster-wrapper.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .poster-wrapper.visible { opacity: 1; transform: translateY(0); }
 
         img {
-            max-width: 850px; /* Hero Size */
-            width: 90%;
+            max-width: 800px;
+            width: 85%;
             height: auto;
-            /* Subtle depth so it feels "real" on the wall */
             filter: drop-shadow(0 40px 100px rgba(0,0,0,0.06));
         }
 
-        /* 5. THE STATEMENT LINE */
         .statement {
-            font-size: 14px;
-            letter-spacing: 0.3em;
-            text-transform: lowercase;
-            opacity: 0.4;
-            margin: 10vh 0;
-            text-align: center;
+            font-size: 14px; letter-spacing: 0.3em; text-transform: lowercase;
+            opacity: 0.4; margin: 15vh 0; text-align: center;
         }
 
-        /* 6. NEXT NAVIGATION */
-        footer {
-            height: 40vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
+        footer { height: 40vh; display: flex; align-items: center; justify-content: center; border-top: 1px solid rgba(0,0,0,0.05); }
+        .next-link { font-size: 11px; font-weight: 900; letter-spacing: 0.6em; text-decoration: none; color: var(--text); opacity: 0.3; }
 
-        .next-link {
-            font-size: 11px;
-            font-weight: 900;
-            letter-spacing: 0.6em;
-            text-decoration: none;
-            color: var(--text);
-            opacity: 0.3;
-            transition: opacity 0.4s;
-        }
-
-        .next-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -135,24 +104,24 @@
         <a href="feelings.html">FEELINGS</a>
     </nav>
 
-    <header class="hero">
-        <h1>GO LEFT</h1>
+    <header class="header">
+        <h1 id="scrolling-title">GO LEFT</h1>
     </header>
 
     <main class="sequence">
         
         <div class="poster-wrapper">
-            <img src="goleft-main.jpg" alt="GO LEFT Hero">
+            <img src="goleft-1.jpg" alt="GO LEFT Hero">
         </div>
 
         <p class="statement">when nothing goes right, go left.</p>
 
         <div class="poster-wrapper">
-            <img src="go-left-2.jpg" alt="Sequence 02">
+            <img src="goleft-2.jpg" alt="Go Left 02">
         </div>
 
         <div class="poster-wrapper">
-            <img src="go-left-3.jpg" alt="Sequence 03">
+            <img src="goleft-3.jpg" alt="Go Left 03">
         </div>
 
     </main>
@@ -162,19 +131,26 @@
     </footer>
 
     <script>
-        // CURSOR LOGIC
+        // CURSOR
         document.addEventListener('mousemove', (e) => {
             const aura = document.getElementById('aura');
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
         });
 
-        // SCROLL REVEAL (QUIET FADE)
+        // SCROLL SCRIPT: MAKES TEXT GO LEFT
+        window.addEventListener('scroll', () => {
+            const title = document.getElementById('scrolling-title');
+            const scrollValue = window.scrollY;
+            
+            // This moves the text left and adds a slight perspective tilt
+            title.style.transform = `translateX(-${scrollValue * 1.5}px) rotateY(${scrollValue * 0.05}deg)`;
+        });
+
+        // REVEAL ANIMATION
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1 });
 

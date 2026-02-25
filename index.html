@@ -6,19 +6,19 @@
     <title>NATIA KURTANIDZE | BERLIN</title>
     <style>
         :root {
-            --bg: #0a0a0a;
+            --bg: #080808;
             --text: #ffffff;
             --accent: #ffb6c1; /* Baby Pink */
             --impact: #e61919; /* Reform Red */
         }
 
-        /* FILM GRAIN */
+        /* 1. GRAIN & TEXTURE */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 10000; opacity: 0.15; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -31,107 +31,105 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. RED IMPACT ENTRANCE (Reform Collective style) */
+        /* 2. REFORM RED INTRO */
         #intro-curtain {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--impact); z-index: 10001;
+            position: fixed; inset: 0; background: var(--impact); z-index: 20000;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
         }
         #intro-curtain.hide { transform: translateY(-100%); }
-        .intro-word { font-weight: 900; font-size: 8vw; color: white; letter-spacing: -0.05em; }
+        .intro-title { font-weight: 900; font-size: 12vw; color: white; letter-spacing: -0.05em; }
 
-        /* 2. LIQUID BUBBLE MOUSE (Lo & Behold style) */
+        /* 3. LIQUID CURSOR (Aura) */
         #aura {
-            position: fixed; width: 20px; height: 20px;
-            background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
+            position: fixed; width: 15px; height: 15px;
+            background: white; border-radius: 50%; pointer-events: none; z-index: 15000;
             transform: translate(-50%, -50%);
             mix-blend-mode: difference;
-            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1), height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
         }
 
-        /* 3. FLOWER/ORBITAL HERO (Abhishek Jha style) */
-        .flower-container {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 40vh; height: 40vh; opacity: 0.15; z-index: 1; pointer-events: none;
+        /* 4. BACKGROUND FLOWER (Abhishek style) */
+        .bg-visual {
+            position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+            opacity: 0.1; z-index: 1; pointer-events: none;
         }
-        .petal {
-            position: absolute; width: 100%; height: 100%;
-            border: 1px solid white; border-radius: 50% 0%;
-            transform-origin: center; animation: rotate 20s linear infinite;
+        .flower {
+            width: 50vh; height: 50vh; border: 1px solid white; border-radius: 50% 0;
+            animation: spin 30s linear infinite;
         }
 
-        /* 4. SEDUCTIVE LIST */
-        header { position: fixed; top: 40px; left: 40px; z-index: 100; }
-        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; }
-        .loc { font-size: 10px; letter-spacing: 4px; color: rgba(255,255,255,0.3); margin-top: 5px; }
+        /* 5. TYPOGRAPHY & LIST */
+        header {
+            position: fixed; top: 50px; left: 60px; z-index: 100;
+            text-transform: uppercase; font-weight: 900;
+        }
+        .header-top { font-size: 14px; letter-spacing: 2px; }
+        .header-sub { font-size: 10px; letter-spacing: 5px; color: rgba(255,255,255,0.3); margin-top: 8px; }
 
         main {
-            height: 100vh; display: flex; align-items: center; padding-left: 10%;
+            height: 100vh; display: flex; align-items: center; padding-left: 8%;
             position: relative; z-index: 10;
         }
 
-        nav { display: flex; flex-direction: column; gap: 0px; }
+        nav { display: flex; flex-direction: column; }
         
-        /* Bubble Text Effect */
         .nav-item {
-            font-size: clamp(40px, 6.5vw, 110px);
+            font-size: clamp(45px, 8vw, 130px);
             font-weight: 900; text-decoration: none; color: var(--text);
-            text-transform: uppercase; letter-spacing: -0.04em;
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, filter;
-            filter: blur(2px); opacity: 0.4;
+            text-transform: uppercase; letter-spacing: -0.05em;
+            line-height: 0.85; position: relative;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
+            filter: blur(4px); opacity: 0.2;
         }
 
         .nav-item:hover {
             filter: blur(0px); opacity: 1;
-            transform: translateX(30px) scale(1.05);
+            transform: translateX(40px) skewX(-2deg);
             color: var(--accent);
         }
 
-        /* IMAGE PREVIEW WITH LERP */
-        #cursor-preview {
-            position: fixed; width: 350px; height: 450px; pointer-events: none;
+        /* 6. SEDUCTIVE FLOATING PREVIEW */
+        #float-preview {
+            position: fixed; width: 380px; height: 500px; pointer-events: none;
             z-index: 5; overflow: hidden; opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.4s, transform 0.4s;
+            transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+            transition: opacity 0.4s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #cursor-preview img { width: 100%; height: 100%; object-fit: cover; }
+        #float-preview img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) grayscale(20%); }
 
         footer {
-            position: fixed; bottom: 40px; left: 40px; right: 40px;
+            position: fixed; bottom: 50px; left: 60px; right: 60px;
             display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; opacity: 0.3;
+            font-size: 10px; letter-spacing: 4px; opacity: 0.3;
         }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div id="intro-curtain">
-        <div class="intro-word">NATIA</div>
+        <div class="intro-title">NATIA</div>
     </div>
 
     <div id="aura"></div>
-    <div id="cursor-preview"><img id="preview-img" src="" alt=""></div>
+    <div id="float-preview"><img id="preview-img" src="" alt=""></div>
 
-    <div class="flower-container">
-        <div class="petal" style="animation-delay: 0s;"></div>
-        <div class="petal" style="animation-delay: -2s; transform: rotate(45deg);"></div>
-        <div class="petal" style="animation-delay: -4s; transform: rotate(90deg);"></div>
-        <div class="petal" style="animation-delay: -6s; transform: rotate(135deg);"></div>
+    <div class="bg-visual">
+        <div class="flower"></div>
+        <div class="flower" style="transform: rotate(90deg);"></div>
     </div>
 
     <header>
-        <div class="name">NATIA KURTANIDZE</div>
-        <div class="loc">BERLIN / SELECTED WORK</div>
+        <div class="header-top">NATIA KURTANIDZE</div>
+        <div class="header-sub">BERLIN / SELECTED ARCHIVE</div>
     </header>
 
     <main>
         <nav>
             <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg">GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="universe1.jpg">POSTERS</a>
+            <a href="posters.html" class="nav-item" data-img="universe1.jpg">ARCHIVE</a>
             <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg">FEELINGS</a>
             <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg">KOMBUCHA</a>
             <a href="nurture.html" class="nav-item" data-img="nurture.jpg">NURTURE</a>
@@ -142,21 +140,20 @@
     </main>
 
     <footer>
-        <span>NATIA KURTANIDZE © 2026</span>
-        <span>BERLIN</span>
+        <span>BERLIN / 2026</span>
+        <span>FORM BECOMES FEELING</span>
     </footer>
 
     <script>
-        // Intro Animation
+        // Intro Kill
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('intro-curtain').classList.add('hide');
-            }, 1000);
+            }, 1200);
         });
 
-        // Mouse & Lerp
         const aura = document.getElementById('aura');
-        const preview = document.getElementById('cursor-preview');
+        const preview = document.getElementById('float-preview');
         const previewImg = document.getElementById('preview-img');
         const navItems = document.querySelectorAll('.nav-item');
 
@@ -170,29 +167,31 @@
             aura.style.top = mouseY + 'px';
         });
 
+        // The "Heavy" Lerp for the image
         function animate() {
-            ballX += (mouseX - ballX) * 0.1;
-            ballY += (mouseY - ballY) * 0.1;
+            ballX += (mouseX - ballX) * 0.07;
+            ballY += (mouseY - ballY) * 0.07;
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
-        // Bubble Hover
         navItems.forEach(item => {
             item.addEventListener('mouseenter', () => {
                 previewImg.src = item.dataset.img;
                 preview.style.opacity = "1";
-                preview.style.transform = "translate(-50%, -50%) scale(1) rotate(2deg)";
+                preview.style.transform = "translate(-50%, -50%) scale(1.1) rotate(2deg)";
                 aura.style.width = "100px";
                 aura.style.height = "100px";
+                aura.style.background = "var(--accent)";
             });
             item.addEventListener('mouseleave', () => {
                 preview.style.opacity = "0";
-                preview.style.transform = "translate(-50%, -50%) scale(0.8) rotate(0deg)";
-                aura.style.width = "20px";
-                aura.style.height = "20px";
+                preview.style.transform = "translate(-50%, -50%) scale(0.8) rotate(-5deg)";
+                aura.style.width = "15px";
+                aura.style.height = "15px";
+                aura.style.background = "white";
             });
         });
     </script>

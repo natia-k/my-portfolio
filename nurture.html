@@ -8,10 +8,10 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --pink-aura: rgba(255, 184, 224, 0.35);
+            --pink-aura: rgba(255, 184, 224, 0.3);
         }
 
-        /* PURE BLACK - ZERO GRAY */
+        /* RESET & PURE BLACK */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body {
             background-color: var(--bg);
@@ -32,7 +32,7 @@
             mix-blend-mode: screen;
         }
 
-        /* HERO AREA */
+        /* HERO & MELTING TEXT */
         .hero {
             height: 100vh;
             display: flex;
@@ -46,55 +46,61 @@
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(60px, 18vw, 240px);
-            font-weight: 900;
-            letter-spacing: -0.05em;
+            font-size: clamp(60px, 15vw, 220px);
+            font-weight: 950;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
             display: flex;
             justify-content: center;
-            z-index: 20;
+            z-index: 1; /* Below the aura but stays fixed */
             pointer-events: none;
+            will-change: filter, transform, opacity;
         }
 
-        /* INDIVIDUAL LETTER BLUR */
         .hero-title span {
             display: inline-block;
-            transition: filter 0.5s ease, opacity 0.5s ease, transform 0.8s ease;
-            filter: blur(0px);
-            opacity: 0.8;
+            transition: filter 0.3s ease, opacity 0.3s ease;
         }
 
-        /* The "Coursera/Cursor" touch effect */
-        .hero-title span.blur-me {
-            filter: blur(50px) !important;
-            opacity: 0.2;
+        /* JS toggles this on mouse touch */
+        .hero-title span.active-blur {
+            filter: blur(40px) !important;
+            opacity: 0.3;
         }
 
-        /* GALLERY & POSTERS */
+        /* GALLERY SECTION */
         .gallery {
-            padding: 200px 0 400px;
+            position: relative;
+            z-index: 10;
+            background: #000000; /* No gray transitions */
+            padding: 100vh 0 400px; /* Starts after hero */
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 450px;
-            background: #000000;
-            position: relative;
-            z-index: 10;
+            gap: 400px;
         }
 
         .poster {
-            width: 90%;
-            max-width: 1000px;
+            width: 85%;
+            max-width: 900px;
             opacity: 0;
-            transform: translateY(100px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(80px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .poster.reveal { opacity: 1; transform: translateY(0); }
-        .poster img { width: 100%; display: block; border-radius: 2px; }
+        .poster.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .poster img {
+            width: 100%;
+            display: block;
+            border-radius: 0;
+        }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; font-weight: 700; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -106,16 +112,16 @@
         <a href="others.html">THE OTHERS</a>
     </nav>
 
-    <header class="hero" id="heroArea">
+    <header class="hero">
         <h1 class="hero-title" id="meltTitle">
             <span>N</span><span>U</span><span>R</span><span>T</span><span>U</span><span>R</span><span>E</span>
         </h1>
     </header>
 
     <main class="gallery">
-        <div class="poster"><img src="nurture.jpg" class="failsafe-img"></div>
-        <div class="poster"><img src="nurture-mockup2.jpg" class="failsafe-img"></div>
-        <div class="poster"><img src="nurture-mockup1.jpg" class="failsafe-img"></div>
+        <div class="poster"><img src="nurture.jpg"></div>
+        <div class="poster"><img src="nurture-mockup2.jpg"></div>
+        <div class="poster"><img src="nurture-mockup1.jpg"></div>
     </main>
 
     <script>
@@ -123,7 +129,7 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
-        // 1. INDIVIDUAL LETTER BLUR ON MOUSE TOUCH
+        // 1. MOUSE-TOUCH BLUR (PER LETTER)
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
@@ -133,53 +139,43 @@
                 const rect = letter.getBoundingClientRect();
                 const dist = Math.hypot(x - (rect.left + rect.width/2), y - (rect.top + rect.height/2));
                 
-                // If cursor touches a specific letter, it blurs
+                // If cursor is close, blur the letter
                 if (dist < 100) {
-                    letter.classList.add('blur-me');
+                    letter.classList.add('active-blur');
                 } else {
-                    letter.classList.remove('blur-me');
+                    letter.classList.remove('active-blur');
                 }
             });
         });
 
-        // 2. THE MELTING SCROLL EFFECT
+        // 2. THE LIQUID MELT (SCROLL EFFECT)
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            const threshold = window.innerHeight * 0.8;
+            const windowHeight = window.innerHeight;
+            
+            if (scrollY < windowHeight * 1.5) {
+                const progress = scrollY / windowHeight;
+                
+                // Text melts away: gets blurrier and sinks
+                const blurVal = progress * 120;
+                const opacityVal = 1 - (progress * 1.2);
+                const sinkVal = scrollY * 0.4;
 
-            if (scrollY < threshold) {
-                const progress = scrollY / threshold;
-                // Text sinks, blurs more, and fades out smoothly
-                const blurValue = progress * 100;
-                const opacityValue = 0.8 - (progress * 0.8);
-                const moveDown = scrollY * 0.6;
-
-                meltTitle.style.opacity = opacityValue;
-                meltTitle.style.filter = `blur(${blurValue}px)`;
-                meltTitle.style.transform = `translate(-50%, calc(-50% + ${moveDown}px))`;
+                meltTitle.style.filter = `blur(${blurVal}px)`;
+                meltTitle.style.opacity = opacityVal;
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${sinkVal}px))`;
                 meltTitle.style.display = "flex";
             } else {
                 meltTitle.style.display = "none";
             }
         });
 
-        // 3. IMAGE FAILSAFE (Forces images to show even if extension is wrong)
-        document.querySelectorAll('.failsafe-img').forEach(img => {
-            img.onerror = function() {
-                if (this.src.endsWith('.jpg')) {
-                    this.src = this.src.replace('.jpg', '.png');
-                } else if (this.src.endsWith('.png')) {
-                    this.src = this.src.replace('.png', '.JPG');
-                }
-            };
-        });
-
-        // 4. REVEAL OBSERVER
+        // 3. IMAGE REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('reveal');
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
 
         document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>

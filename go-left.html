@@ -6,11 +6,10 @@
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
         :root {
-            /* Sampling the Red from your illustration for the "Wall Growth" effect */
+            /* Sampling the Red from the illustration */
             --bg: #B22222; 
             --white: #ffffff;
-            --black: #000000;
-            --velvet-shadow: rgba(0, 0, 0, 0.3);
+            --velvet-shadow: rgba(0, 0, 0, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -21,13 +20,11 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            /* Smooth scroll for the horizontal shift */
-            scroll-behavior: smooth;
         }
 
         #aura {
             position: fixed; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%);
         }
@@ -35,33 +32,33 @@
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--white); text-decoration: none; font-size: 11px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; opacity: 0.6; }
 
-        /* 1️⃣ VELVETY BLURRY TITLE THAT GOES LEFT */
+        /* 1️⃣ VELVETY BLURRY TITLE */
         .header {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
         #scrolling-title {
-            font-size: clamp(100px, 25vw, 400px);
+            font-size: clamp(120px, 30vw, 500px);
             font-weight: 900;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            line-height: 0.8;
             white-space: nowrap;
-            transition: transform 0.1s linear;
+            will-change: transform;
             
-            /* Velvety Texture & Blurry Shimmer */
+            /* Velvet Texture & Shimmer */
             color: var(--white);
-            text-shadow: 2px 2px 15px var(--velvet-shadow);
-            animation: velvet-blur 4s ease-in-out infinite;
+            text-shadow: 0 10px 30px var(--velvet-shadow);
+            animation: velvet-pulse 6s ease-in-out infinite;
         }
 
-        @keyframes velvet-blur {
-            0%, 100% { filter: blur(0px); opacity: 1; }
-            50% { filter: blur(8px); opacity: 0.8; }
+        @keyframes velvet-pulse {
+            0%, 100% { filter: blur(2px); opacity: 0.9; transform: scale(1); }
+            50% { filter: blur(12px); opacity: 0.7; transform: scale(1.02); }
         }
 
         /* 2️⃣ ILLUSTRATION "GROWING" FROM THE WALL */
@@ -78,38 +75,37 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 0 10%;
         }
 
         .moment img {
-            /* Smaller size as requested */
-            max-width: 600px; 
-            width: 70%;
+            /* Smaller size for high-end feel */
+            max-width: 550px; 
+            width: 100%;
             height: auto;
-            /* No border/shadow makes it look like it's part of the red wall */
-            mix-blend-mode: normal; 
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.2));
-            transition: transform 0.5s ease;
+            /* Merging with the background */
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
         }
 
-        /* Subtle float for the images */
+        /* Floating effect */
         .float-art {
-            animation: gentle-float 8s ease-in-out infinite;
+            animation: gentle-drift 10s ease-in-out infinite;
         }
 
-        @keyframes gentle-float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(5px, -15px) rotate(1deg); }
+        @keyframes gentle-drift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1.5deg); }
         }
 
         .hard-line {
             font-size: 14px;
             font-weight: 800;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            margin: 10vh 0;
-            opacity: 0.7;
-            /* Same velvet blur for consistency */
-            animation: velvet-blur 5s ease-in-out infinite;
+            text-align: center;
+            opacity: 0.6;
+            animation: velvet-pulse 5s ease-in-out infinite;
+            margin-bottom: 10vh;
         }
 
         .footer {
@@ -122,13 +118,15 @@
         .next-link {
             font-size: 14px;
             font-weight: 900;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.5em;
             text-decoration: none;
             color: var(--white);
-            opacity: 0.4;
+            opacity: 0.3;
+            transition: 0.5s;
         }
+        .next-link:hover { opacity: 1; letter-spacing: 0.7em; }
 
-        .reveal-trigger { opacity: 0; transform: translateY(20px); transition: 1.5s ease-out; }
+        .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
     </style>
 </head>
@@ -149,21 +147,21 @@
         
         <section class="moment reveal-trigger">
             <div class="float-art">
-                <img src="goleft-main.jpg" alt="GO LEFT">
+                <img src="goleft-main.jpg" alt="GO LEFT Main">
             </div>
         </section>
 
         <p class="hard-line reveal-trigger">when nothing works, change direction</p>
 
         <section class="moment reveal-trigger">
-            <div class="float-art" style="animation-delay: -2s;">
-                <img src="go-left-2.jpg" alt="DIRECTION 02">
+            <div class="float-art" style="animation-delay: -3s;">
+                <img src="go-left-2.jpg" alt="GO LEFT 02">
             </div>
         </section>
 
         <section class="moment reveal-trigger">
-            <div class="float-art" style="animation-delay: -4s;">
-                <img src="go-left-3.jpg" alt="DIRECTION 03">
+            <div class="float-art" style="animation-delay: -6s;">
+                <img src="go-left-3.jpg" alt="GO LEFT 03">
             </div>
         </section>
 
@@ -174,26 +172,29 @@
     </footer>
 
     <script>
-        // HANDLE CURSOR
+        // MOUSE AURA
         document.addEventListener('mousemove', (e) => {
-            document.getElementById('aura').style.left = e.clientX + 'px';
-            document.getElementById('aura').style.top = e.clientY + 'px';
+            const aura = document.getElementById('aura');
+            aura.style.left = e.clientX + 'px';
+            aura.style.top = e.clientY + 'px';
         });
 
-        // HANDLE SCROLL: MAKE "GO LEFT" GO REALLY LEFT
+        // SCROLL SCRIPT: MAKE IT GO "REALLY" LEFT
         window.addEventListener('scroll', () => {
             const title = document.getElementById('scrolling-title');
-            const scrollPercent = window.scrollY / (document.body.offsetHeight - window.innerHeight);
-            // Move title left by up to 100% of viewport width based on scroll
-            const moveLeft = scrollPercent * 1500; 
-            title.style.transform = `translateX(-${moveLeft}px)`;
+            const scrollY = window.scrollY;
+            // The multiplier (2.5) controls the speed of the slide-out
+            title.style.transform = `translateX(-${scrollY * 2.5}px)`;
         });
 
-        // REVEAL ON SCROLL
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
+        // REVEAL ANIMATION
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('reveal');
+            });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
+
+        document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

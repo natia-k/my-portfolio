@@ -21,10 +21,9 @@
             font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 3s var(--ease);
         }
 
-        /* GRAIN TEXTURE overlay */
+        /* GRAIN OVERLAY */
         body::before {
             content: "";
             position: fixed; inset: 0;
@@ -32,155 +31,146 @@
             pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
-        /* 1. PRELOADER (Small Black Numbers) */
+        /* 1. PRELOADER (Black Numbers, Red Screen) */
         #loader {
-            position: fixed; inset: 0; 
-            background: var(--red); 
-            z-index: 10010;
+            position: fixed; inset: 0; background: var(--red); z-index: 10010;
             display: flex; align-items: center; justify-content: center;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #loader-count { 
-            font-size: 8vw; 
-            font-weight: 900; 
-            color: #000000; 
-            font-variant-numeric: tabular-nums;
-            letter-spacing: -0.05em;
+            font-size: 8vw; font-weight: 900; color: #000; 
+            font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
         }
 
-        /* 2. ATTENTION-BASED TYPOGRAPHY */
-        .statement, .project-link {
-            transition: letter-spacing 3s var(--ease), filter 2s var(--ease), opacity 2s var(--ease), color 0.8s ease;
-            will-change: letter-spacing, filter;
-        }
+        /* 2. LAYOUT SECTIONS */
+        section, main { position: relative; width: 100%; }
 
-        /* 3. HERO & PROJECTS */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
-        .statement {
-            font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase;
-            letter-spacing: -0.04em; line-height: 0.9;
+        
+        .work-section { padding: 10vh 8% 20vh; display: flex; flex-direction: column; }
+
+        /* 3. TYPOGRAPHY & BREATHING CORE */
+        .statement, .project-link {
+            transition: letter-spacing 2s var(--ease), filter 1.5s var(--ease), opacity 1.5s var(--ease), color 0.5s ease;
+            will-change: filter, letter-spacing;
         }
 
-        .work-section { padding: 10vh 8% 20vh; display: flex; flex-direction: column; }
+        .statement { font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.9; }
+
         .project-link {
             font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
             color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
-            padding: 25px 0; display: block; width: fit-content;
+            padding: 20px 0; display: block; width: fit-content;
         }
+
         .project-link:hover { color: var(--baby-pink); filter: blur(0px) !important; opacity: 1 !important; }
 
-        /* 4. DIRECT CONTACT SECTION */
+        /* 4. CONTACT AREA (Solid & Sharp) */
         .contact-section {
-            padding: 20vh 8%;
-            background: var(--baby-pink);
-            color: #000;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center;
+            background: var(--baby-pink); color: #000;
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            padding: 10vh 8%; z-index: 10;
         }
 
-        .contact-section h2 {
-            font-size: 14px; font-weight: 900; letter-spacing: 0.4em;
-            text-transform: uppercase; margin-bottom: 20px; opacity: 0.5;
-        }
+        .contact-label { font-size: 14px; font-weight: 900; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; opacity: 0.4; }
 
-        .direct-link {
-            font-size: clamp(30px, 8vw, 130px);
-            font-weight: 900; color: #000; text-decoration: none;
-            letter-spacing: -0.05em; line-height: 0.9;
-            transition: all 0.5s var(--ease);
-            word-break: break-all;
-            display: inline-block;
+        .direct-email {
+            font-size: clamp(30px, 8vw, 120px); font-weight: 900; color: #000;
+            text-decoration: none; letter-spacing: -0.05em; line-height: 0.9;
+            transition: opacity 0.3s ease; word-break: break-all;
         }
+        .direct-email:hover { opacity: 0.4; }
 
-        .direct-link:hover {
-            opacity: 0.4;
-            transform: translateX(20px);
-        }
+        .socials { margin-top: 60px; display: flex; gap: 30px; }
+        .socials a { color: #000; text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
 
-        .social-links {
-            margin-top: 80px; display: flex; gap: 40px;
-        }
-
-        .social-links a {
-            color: #000; text-decoration: none; font-weight: 900;
-            font-size: 12px; letter-spacing: 0.3em; transition: opacity 0.3s;
-        }
-        .social-links a:hover { opacity: 0.5; }
-
-        /* 5. PREVIEW SYSTEM */
+        /* 5. IMAGE PREVIEW */
         #preview {
-            position: fixed; top: 50%; left: 60%;
-            transform: translate(-50%, -50%);
-            width: 40vw; max-width: 700px; 
-            pointer-events: none; z-index: 5; opacity: 0;
-            transition: opacity 1s var(--ease), transform 1s var(--ease);
+            position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%);
+            width: 45vw; max-width: 800px; pointer-events: none; z-index: 5; opacity: 0;
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
         }
-        #preview.active { opacity: 0.75; transform: translate(-50%, -48%); }
+        #preview.active { opacity: 0.8; transform: translate(-50%, -48%); }
         #preview img { width: 100%; height: auto; object-fit: contain; }
 
-        footer { 
-            background: var(--baby-pink); color: #000;
-            padding: 60px 8%; font-size: 10px; opacity: 0.3;
-            letter-spacing: 0.5em; text-transform: uppercase; text-align: center;
-        }
+        footer { background: var(--baby-pink); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.3; text-align: center; letter-spacing: 0.4em; }
 
+        /* MOBILE FIXES */
         @media (max-width: 768px) {
-            #preview { width: 80vw; left: 50%; top: 40%; }
-            .direct-link { font-size: 10vw; }
+            #preview { width: 80vw; left: 50%; }
+            .project-link { font-size: 12vw; }
         }
     </style>
 </head>
 <body>
 
     <div id="preview"><img id="preview-img" src="" alt=""></div>
-
     <div id="loader"><div id="loader-count">00</div></div>
 
-    <section class="hero">
-        <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
-    </section>
+    <div id="smooth-wrapper">
+        <section class="hero">
+            <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
+        </section>
 
-    <main class="work-section">
-        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
-        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
-        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
-        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
-        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
-        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
-    </main>
+        <main class="work-section">
+            <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
+            <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
+            <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
+            <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
+            <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
+            <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
+            <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
+        </main>
 
-    <section class="contact-section">
-        <h2>REACH OUT DIRECTLY</h2>
-        <a href="mailto:natiadesign@gmail.com" class="direct-link">NATIADESIGN@GMAIL.COM</a>
-        
-        <div class="social-links">
-            <a href="#">INSTAGRAM</a>
-            <a href="#">LINKEDIN</a>
-            <a href="#">BEHANCE</a>
-        </div>
-    </section>
+        <section class="contact-section">
+            <p class="contact-label">Direct Archive Contact</p>
+            <a href="mailto:natiadesign@gmail.com" class="direct-email">NATIADESIGN@GMAIL.COM</a>
+            
+            <div class="socials">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Behance</a>
+            </div>
+        </section>
 
-    <footer>NATIA KURTANIDZE © 2026</footer>
+        <footer>NATIA KURTANIDZE © 2026</footer>
+    </div>
 
     <script>
-        const body = document.body;
         const links = document.querySelectorAll('.project-link, .statement');
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
         let lastMove = Date.now();
         let isQuiet = false;
 
-        // ATTENTION LOGIC: Blurs when moving, Clears when still
+        // 1. LOADER SCRIPT
+        let p = 0;
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 20) + 1;
+            if (p >= 100) { 
+                p = 100; clearInterval(l); 
+                setTimeout(() => document.getElementById('loader').style.transform = "translateY(-100%)", 500);
+            }
+            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
+        }, 60);
+
+        // 2. BREATHING LOGIC (Only triggers on project section)
         function checkAttention() {
             const idle = Date.now() - lastMove;
-            if (idle > 1200) {
+            const scrollPos = window.scrollY;
+            const contactTop = document.querySelector('.contact-section').offsetTop;
+
+            // If we are in the contact section, stay sharp
+            if (scrollPos > contactTop - 400) {
+                links.forEach(l => { l.style.filter = "blur(0px)"; l.style.opacity = "1"; });
+                return requestAnimationFrame(checkAttention);
+            }
+
+            if (idle > 1000) { // If user stops moving for 1s
                 if (!isQuiet) {
                     isQuiet = true;
-                    body.style.backgroundColor = "#0d0d0f";
                     links.forEach(l => { 
-                        l.style.letterSpacing = "0.05em"; 
+                        l.style.letterSpacing = "0.02em"; 
                         l.style.filter = "blur(0px)"; 
                         l.style.opacity = "1"; 
                     });
@@ -188,11 +178,10 @@
             } else {
                 if (isQuiet) {
                     isQuiet = false;
-                    body.style.backgroundColor = "#050505";
                     links.forEach(l => { 
                         l.style.letterSpacing = l.classList.contains('statement') ? "-0.04em" : "-0.07em"; 
                         l.style.filter = "blur(15px)"; 
-                        l.style.opacity = "0.2"; 
+                        l.style.opacity = "0.15"; 
                     });
                 }
             }
@@ -203,28 +192,14 @@
         document.addEventListener('scroll', () => lastMove = Date.now());
         checkAttention();
 
-        // PROJECT PREVIEW
+        // 3. IMAGE PREVIEW
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
-                const imgPath = link.getAttribute('data-img');
-                if(imgPath) {
-                    previewImg.src = imgPath;
-                    preview.classList.add('active');
-                }
+                previewImg.src = link.getAttribute('data-img');
+                preview.classList.add('active');
             });
             link.addEventListener('mouseleave', () => preview.classList.remove('active'));
         });
-
-        // LOADER SCRIPT
-        let p = 0;
-        const l = setInterval(() => {
-            p += Math.floor(Math.random() * 15) + 1;
-            if (p >= 100) { 
-                p = 100; clearInterval(l); 
-                setTimeout(() => document.getElementById('loader').style.transform = "translateY(-100%)", 500);
-            }
-            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
-        }, 60);
     </script>
 </body>
 </html>

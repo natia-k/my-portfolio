@@ -9,14 +9,15 @@
             --bg: #0a0a0a;
             --text: #ffffff;
             --accent: #ffb6c1; /* Baby Pink */
+            --subtle: rgba(255, 255, 255, 0.3);
         }
 
-        /* GRAIN */
+        /* 1. GRAIN TEXTURE */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -25,184 +26,150 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
+            height: 100vh; overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* 2. THE LIQUID AURA */
         #aura {
-            position: fixed; width: 15px; height: 15px;
+            position: fixed; width: 12px; height: 12px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.4s, height 0.4s;
+            transition: width 0.4s, height 0.4s, background 0.3s;
         }
 
-        /* SECTION 1: THE MANIFESTO (WOW ENTRANCE) */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 10%;
-            position: relative;
-        }
-
-        .manifesto-text {
-            font-size: clamp(30px, 5vw, 80px);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .manifesto-text span {
-            display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s;
-        }
-
-        .manifesto-text span:hover {
-            color: var(--accent);
-            transform: scale(1.2) rotate(-3deg);
-        }
-
-        .scroll-hint {
-            position: absolute; bottom: 40px;
-            font-size: 10px; letter-spacing: 5px; opacity: 0.3;
-            text-transform: uppercase;
-        }
-
-        /* SECTION 2: THE PROJECT REVEAL */
-        .projects-section {
-            padding: 20vh 0;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding-left: 10%;
-        }
-
-        .project-row {
-            text-decoration: none;
-            color: var(--text);
-            font-size: clamp(50px, 10vw, 150px);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-            line-height: 0.85;
-            margin-bottom: 10px;
-            transition: 0.5s;
-            position: relative;
-            filter: blur(5px);
-            opacity: 0.1;
-        }
-
-        .project-row.visible {
-            filter: blur(0px);
-            opacity: 1;
-        }
-
-        .project-row:hover {
-            color: var(--accent);
-            transform: translateX(40px);
-        }
-
-        /* FLOATING PREVIEW */
-        #project-preview {
-            position: fixed;
-            width: 300px; height: 400px;
-            pointer-events: none;
-            z-index: 50;
+        /* 3. THE FLOATING PREVIEW (The "Wow" Mechanic) */
+        #cursor-preview {
+            position: fixed; top: 0; left: 0;
+            width: 380px; height: 500px;
+            pointer-events: none; z-index: 5;
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.4s, transform 0.4s;
-            overflow: hidden;
+            transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+            transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(20%) brightness(0.9) blur(10px);
+        }
+        #cursor-preview.active {
+            opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(2deg);
+            filter: grayscale(0%) brightness(1) blur(0px);
+        }
+        #cursor-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 4. LAYOUT */
+        header {
+            position: fixed; top: 60px; left: 60px; z-index: 100;
+            font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
         }
 
-        #project-preview img {
-            width: 100%; height: 100%; object-fit: cover;
+        main {
+            height: 100vh; display: flex; align-items: center; padding-left: 10%;
+            position: relative; z-index: 10;
         }
 
+        nav { display: flex; flex-direction: column; gap: 0px; }
+
+        .nav-item {
+            font-size: clamp(45px, 6vw, 110px);
+            font-weight: 900; text-decoration: none; color: var(--text);
+            text-transform: uppercase; letter-spacing: -0.05em;
+            line-height: 0.9; position: relative;
+            transition: color 0.3s, transform 0.4s ease;
+        }
+
+        .nav-item span {
+            font-size: 14px; font-weight: 300; opacity: 0.2;
+            margin-right: 20px; vertical-align: middle;
+        }
+
+        /* Hover: Baby Pink Glow */
+        .nav-item:hover {
+            color: var(--accent);
+            transform: translateX(30px);
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
+        }
+
+        /* 5. FOOTER (Berlin Corrected) */
         footer {
-            padding: 100px 10%;
+            position: fixed; bottom: 60px; left: 60px; right: 60px;
             display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; opacity: 0.3;
+            font-size: 10px; letter-spacing: 4px; color: var(--subtle);
+            z-index: 100; text-transform: uppercase;
         }
-
+        .loc-tag { color: var(--text); font-weight: 700; }
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div id="project-preview"><img id="preview-img" src="" alt=""></div>
+    <div id="cursor-preview"><img id="preview-img" src="" alt=""></div>
 
-    <section class="hero">
-        <h1 class="manifesto-text" id="interactive-text">
-            <span>NATIA</span> <span>KURTANIDZE</span> <br>
-            <span>VISUAL</span> <span>STORYTELLER</span> <br>
-            <span>BASED</span> <span>IN</span> <span>BERLIN</span> <br>
-            <span>CREATING</span> <span>EMOTIONAL</span> <span>FORMS</span>
-        </h1>
-        <div class="scroll-hint">Scroll to explore</div>
-    </section>
+    <header>NATIA KURTANIDZE</header>
 
-    <main class="projects-section">
-        <a href="go-left.html" class="project-row" data-img="goleft-mockup1.jpg">GO LEFT</a>
-        <a href="posters.html" class="project-row" data-img="universe1.jpg">ARCHIVE</a>
-        <a href="feelings.html" class="project-row" data-img="heartbreak-2.jpg">FEELINGS</a>
-        <a href="kombucha.html" class="project-row" data-img="kombucha.jpg">KOMBUCHA</a>
-        <a href="nurture.html" class="project-row" data-img="nurture.jpg">NURTURE</a>
-        <a href="others.html" class="project-row" data-img="others.jpg">THE OTHERS</a>
-        <a href="oatmilk.html" class="project-row" data-img="oatmilk.jpg">OAT MILK</a>
-        <a href="cdcovers.html" class="project-row" data-img="cdcovers.jpg">CD COVERS</a>
+    <main>
+        <nav>
+            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg"><span>01</span>GO LEFT</a>
+            <a href="posters.html" class="nav-item" data-img="universe1.jpg"><span>02</span>ARCHIVE</a>
+            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg"><span>03</span>FEELINGS</a>
+            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>04</span>KOMBUCHA</a>
+            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>05</span>NURTURE</a>
+            <a href="others.html" class="nav-item" data-img="others.jpg"><span>06</span>THE OTHERS</a>
+            <a href="oatmilk.html" class="nav-item" data-img="oatmilk.jpg"><span>07</span>OAT MILK</a>
+            <a href="cdcovers.html" class="nav-item" data-img="cdcovers.jpg"><span>08</span>CD COVERS</a>
+        </nav>
     </main>
 
     <footer>
         <span>NATIA KURTANIDZE © 2026</span>
-        <span>BERLIN / DESIGN STUDIO</span>
+        <span class="loc-tag">BERLIN / DESIGN STUDIO</span>
     </footer>
 
     <script>
         const aura = document.getElementById('aura');
-        const preview = document.getElementById('project-preview');
+        const preview = document.getElementById('cursor-preview');
         const previewImg = document.getElementById('preview-img');
-        const projectRows = document.querySelectorAll('.project-row');
+        const navItems = document.querySelectorAll('.nav-item');
 
-        // 1. MOUSE FOLLOW
+        // LERP LOGIC (Seductive Mouse Lag)
+        let mouseX = 0, mouseY = 0;
+        let ballX = 0, ballY = 0;
+        let speed = 0.08; // Adjust for "heavier" or "lighter" feel
+
         document.addEventListener('mousemove', (e) => {
-            aura.style.left = e.clientX + 'px';
-            aura.style.top = e.clientY + 'px';
-            
-            // Preview follows with slight lag
-            preview.style.left = e.clientX + 'px';
-            preview.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            // Immediate aura follow
+            aura.style.left = mouseX + 'px';
+            aura.style.top = mouseY + 'px';
         });
 
-        // 2. REVEAL PROJECTS ON SCROLL
-        const observerOptions = { threshold: 0.2 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        function animate() {
+            // Calculate lag position
+            ballX += (mouseX - ballX) * speed;
+            ballY += (mouseY - ballY) * speed;
 
-        projectRows.forEach(row => observer.observe(row));
+            preview.style.left = ballX + 'px';
+            preview.style.top = ballY + 'px';
 
-        // 3. PROJECT HOVER PREVIEW
-        projectRows.forEach(row => {
-            row.addEventListener('mouseenter', () => {
-                previewImg.src = row.dataset.img;
-                preview.style.opacity = "1";
-                preview.style.transform = "translate(-50%, -50%) scale(1) rotate(3deg)";
-                aura.style.width = "60px";
-                aura.style.height = "60px";
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // HOVER REVEAL
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const imgPath = item.getAttribute('data-img');
+                previewImg.src = imgPath;
+                preview.classList.add('active');
+                
+                aura.style.width = "80px";
+                aura.style.height = "80px";
                 aura.style.background = "var(--accent)";
             });
-            row.addEventListener('mouseleave', () => {
-                preview.style.opacity = "0";
-                preview.style.transform = "translate(-50%, -50%) scale(0.8) rotate(0deg)";
-                aura.style.width = "15px";
-                aura.style.height = "15px";
+
+            item.addEventListener('mouseleave', () => {
+                preview.classList.remove('active');
+                
+                aura.style.width = "12px";
+                aura.style.height = "12px";
                 aura.style.background = "white";
             });
         });

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NURTURE | NATIA STUDIO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,500&family=Inter:wght@300&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 1. DEEP & WARM BACKGROUND */
-            --bg: #1a1817; /* Deep cocoa/charcoal */
-            --ink: #e8e2de; /* Warm off-white text */
-            --accent: #d4a3a3; /* Muted rose */
-            --glow: rgba(212, 163, 163, 0.08);
+            /* DEEP DREAMY PALETTE */
+            --bg: #141212; /* Deepest warm black */
+            --ink: #e0d8d0; /* Soft silk white */
+            --accent: #ffb8e0; /* Faded rose */
+            --glow: rgba(255, 184, 224, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -19,33 +19,23 @@
         body {
             background-color: var(--bg);
             color: var(--ink);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Cormorant Garamond', serif; /* Dreamy serif */
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* LIVING TEXTURE OVERLAY */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/pinstriped-dark.png');
-            opacity: 0.2;
-            pointer-events: none;
-            z-index: 100;
-        }
-
+        /* SOFT AMBIENT LIGHT */
         #aura {
             position: fixed;
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 75%);
+            width: 900px; height: 900px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 80%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 99;
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: SOPHISTICATED & DARK */
+        /* HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
@@ -57,66 +47,66 @@
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(60px, 12vw, 150px);
-            font-weight: 400;
+            font-size: clamp(80px, 15vw, 180px);
+            font-weight: 300;
             font-style: italic;
-            margin-bottom: 15px;
-            color: var(--accent);
+            margin-bottom: 5px;
+            color: var(--ink);
+            letter-spacing: -2px;
         }
 
         .micro-meta {
+            font-family: 'Inter', sans-serif;
             font-size: 10px;
             letter-spacing: 5px;
             text-transform: uppercase;
             opacity: 0.4;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
-        .line-1 { font-size: 22px; font-weight: 300; line-height: 1.5; max-width: 600px; }
-        .line-2 { font-size: 16px; font-style: italic; opacity: 0.5; margin-top: 10px; }
+        .line-1 { font-size: 28px; font-weight: 300; font-style: italic; line-height: 1.4; max-width: 600px; }
+        .line-2 { font-size: 18px; opacity: 0.5; margin-top: 15px; }
 
-        /* GALLERY: VISIBILITY FIX */
+        /* GALLERY RHYTHM */
         .gallery {
             padding: 100px 15% 400px;
             display: flex;
             flex-direction: column;
-            gap: 250px;
+            gap: 280px; /* Big space for a gallery feel */
         }
 
-        .moment { width: 100%; max-width: 700px; }
+        .moment { width: 100%; max-width: 750px; position: relative; }
         .moment:nth-child(even) { align-self: flex-end; }
 
+        /* IMAGE VISIBILITY FIX */
         .moment img {
             width: 100%;
             display: block;
-            border-radius: 2px;
-            /* Subtle lift for visibility against dark bg */
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-            filter: brightness(0.9) contrast(1.1);
-            transition: filter 0.8s ease, transform 0.8s ease;
+            border-radius: 1px;
+            filter: brightness(0.9) contrast(1.05);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            transition: 1s ease;
         }
 
-        .moment:hover img {
-            filter: brightness(1) contrast(1);
-            transform: scale(1.01);
-        }
+        .moment:hover img { filter: brightness(1); }
 
         .caption {
             display: block;
-            margin-top: 25px;
-            font-size: 11px;
+            margin-top: 30px;
+            font-size: 14px;
             letter-spacing: 2px;
-            opacity: 0.4;
+            opacity: 0.5;
+            font-style: italic;
         }
 
-        .caption b { font-weight: 600; text-transform: uppercase; margin-right: 8px; color: var(--accent); }
+        .caption b { font-weight: 500; text-transform: uppercase; font-family: 'Inter', sans-serif; font-size: 9px; margin-right: 15px; letter-spacing: 3px; }
 
+        /* CINEMATIC REVEAL */
         .reveal {
             opacity: 0;
             filter: blur(10px);
-            transform: translateY(20px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
@@ -130,7 +120,7 @@
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; }
+        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body>
@@ -144,7 +134,7 @@
 
     <header class="hero">
         <h1 class="hero-title reveal">nurture</h1>
-        <div class="micro-meta reveal">Visual Study · 2026</div>
+        <div class="micro-meta reveal">Art piece · Visual study · 2026</div>
         
         <div class="intro-block reveal">
             <p class="line-1">A quiet piece about softness, memory, and becoming.</p>
@@ -154,17 +144,17 @@
 
     <main class="gallery">
         <div class="moment reveal">
-            <img src="Nurture.jpg">
+            <img src="Nurture.jpg" alt="Study 01">
             <span class="caption"><b>Plate 01</b> — Soft light memory</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture-mockup2.jpg">
+            <img src="nurture-mockup2.jpg" alt="Study 02">
             <span class="caption"><b>Plate 02</b> — Warm texture</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture-mockup1.jpg">
+            <img src="nurture-mockup1.jpg" alt="Study 03">
             <span class="caption"><b>Plate 03</b> — Still growing</span>
         </div>
     </main>

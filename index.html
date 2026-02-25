@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATIA KURTANIDZE | STUDIO</title>
+    <title>NATIA KURTANIDZE</title>
     <style>
         :root {
             --bg: #0a0a0a;
             --text: #ffffff;
-            --baby-pink: #fce4ec; /* True Baby Pink */
-            --subtle: rgba(255, 255, 255, 0.2);
-        }
-
-        /* 1. THE TEXTURE */
-        body::before {
-            content: "";
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
+            --baby-pink: #fce4ec;
+            --red: #d42020; /* Deep Portfolio Red */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -25,120 +17,147 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            height: 100vh; overflow: hidden;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 2. THE CURSOR */
+        /* 1. RED PRELOADER */
+        #loader {
+            position: fixed; inset: 0;
+            background: var(--red);
+            z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+        #loader-count {
+            font-size: 15vw; font-weight: 900; letter-spacing: -0.05em; color: #fff;
+        }
+
+        /* 2. CUSTOM CURSOR */
         #aura {
             position: fixed; width: 12px; height: 12px;
-            background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
+            background: white; border-radius: 50%; pointer-events: none; z-index: 10001;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: width 0.3s, height 0.3s;
         }
 
-        /* 3. THE REVEAL BOX */
-        #reveal-container {
-            position: fixed; top: 0; left: 0;
-            width: 400px; height: 520px;
-            pointer-events: none; z-index: 5;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        #reveal-container.active {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        #reveal-container img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* 4. LAYOUT */
-        header {
-            position: fixed; top: 60px; left: 8%; z-index: 100;
-        }
-        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
-        .tagline { font-size: 10px; letter-spacing: 4px; color: var(--subtle); margin-top: 8px; text-transform: uppercase; }
-
-        main {
-            height: 100vh; display: flex; align-items: center; padding-left: 8%;
+        /* 3. HERO SECTION (FLUFFY/CLOUDY) */
+        .hero {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            perspective: 1000px;
         }
 
-        nav { display: flex; flex-direction: column; }
-
-        .nav-item {
-            font-size: clamp(40px, 7vw, 110px);
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-            line-height: 0.95;
-            padding: 10px 0;
-            transition: color 0.3s, transform 0.4s;
-            position: relative;
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 120px);
+            font-weight: 900; text-transform: uppercase;
+            letter-spacing: -0.05em; line-height: 0.9;
+            filter: blur(20px); opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .nav-item span {
-            font-size: 14px; font-weight: 300; vertical-align: top;
-            margin-right: 30px; opacity: 0.2;
+        .hero.reveal h1 {
+            filter: blur(0px); opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
-        /* HOVER: BABY PINK EFFECT */
-        .nav-item:hover {
+        /* 4. WORK LIST (BLUR REVEAL) */
+        .work-section {
+            padding: 10vh 10%;
+            display: flex; flex-direction: column;
+            gap: 20px;
+        }
+
+        .project-link {
+            font-size: clamp(30px, 6vw, 80px);
+            font-weight: 900; text-decoration: none; color: var(--text);
+            text-transform: uppercase; letter-spacing: -0.04em;
+            filter: blur(10px); opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease-out;
+            display: block;
+        }
+
+        .project-link.in-view {
+            filter: blur(0px); opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project-link:hover {
             color: var(--baby-pink);
-            transform: translateX(40px);
-            text-shadow: 0 0 15px rgba(252, 228, 236, 0.3);
+            transform: skewX(-5deg) translateX(20px);
         }
 
-        footer {
-            position: fixed; bottom: 60px; left: 8%; right: 8%;
-            display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; color: var(--subtle);
-            z-index: 100; text-transform: uppercase;
+        /* FLOATING PREVIEW */
+        #preview {
+            position: fixed; width: 350px; height: 450px;
+            pointer-events: none; z-index: 5; opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.5s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        #preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+
+        footer { padding: 100px 10%; font-size: 10px; opacity: 0.3; letter-spacing: 5px; }
+
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    <div id="reveal-container"><img id="reveal-img" src="" alt=""></div>
+    <div id="preview"><img id="preview-img" src="" alt=""></div>
 
-    <header>
-        <div class="name">NATIA KURTANIDZE</div>
-        <div class="tagline">CREATING EMOTIONAL FORMS</div>
-    </header>
+    <div id="loader">
+        <div id="loader-count">0</div>
+    </div>
 
-    <main>
-        <nav>
-            <a href="go-left.html" class="nav-item" data-img="go-left.jpg"><span>01</span>GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="posters.jpg"><span>02</span>ARCHIVE</a>
-            <a href="feelings.html" class="nav-item" data-img="feelings.jpg"><span>03</span>FEELINGS</a>
-            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>04</span>KOMBUCHA</a>
-            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>05</span>NURTURE</a>
-            <a href="the-others.html" class="nav-item" data-img="others.jpg"><span>06</span>THE OTHERS</a>
-            <a href="oat-milk.html" class="nav-item" data-img="oat-milk.jpg"><span>07</span>OAT MILK</a>
-            <a href="cd-covers.html" class="nav-item" data-img="cd-covers.jpg"><span>08</span>CD COVERS</a>
-        </nav>
+    <section class="hero" id="hero">
+        <h1>NATIA<br>KURTANIDZE</h1>
+        <p style="margin-top: 20px; letter-spacing: 5px; font-size: 10px; opacity: 0.5;">VISUAL DESIGNER</p>
+    </section>
+
+    <main class="work-section">
+        <a href="go-left.html" class="project-link" data-img="go-left.jpg">01 GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture.jpg">03 NURTURE</a>
+        <a href="cd-covers.html" class="project-link" data-img="cd-covers.jpg">04 CD COVERS</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-milk.jpg">05 OAT MILK</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha.jpg">06 KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-img="posters.jpg">07 POSTERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings.jpg">08 FEELINGS</a>
     </main>
 
-    <footer>
-        <span>NATIA KURTANIDZE © 2026</span>
-        <span>DESIGN STUDIO</span>
-    </footer>
+    <footer>NATIA KURTANIDZE © 2026</footer>
 
     <script>
+        const loader = document.getElementById('loader');
+        const count = document.getElementById('loader-count');
+        const hero = document.getElementById('hero');
         const aura = document.getElementById('aura');
-        const reveal = document.getElementById('reveal-container');
-        const revealImg = document.getElementById('reveal-img');
-        const items = document.querySelectorAll('.nav-item');
+        const preview = document.getElementById('preview');
+        const previewImg = document.getElementById('preview-img');
 
-        // LERP (Lag) for the image follow
+        // 1. COUNTDOWN LOGIC
+        let counter = 0;
+        const interval = setInterval(() => {
+            counter += Math.floor(Math.random() * 10) + 1;
+            if (counter >= 100) {
+                counter = 100;
+                clearInterval(interval);
+                setTimeout(() => {
+                    loader.style.transform = "translateY(-100%)";
+                    hero.classList.add('reveal');
+                }, 500);
+            }
+            count.innerText = counter;
+        }, 50);
+
+        // 2. CURSOR & PREVIEW LERP
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
-        let speed = 0.08; 
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -148,30 +167,37 @@
         });
 
         function animate() {
-            ballX += (mouseX - ballX) * speed;
-            ballY += (mouseY - ballY) * speed;
-            reveal.style.left = ballX + 'px';
-            reveal.style.top = ballY + 'px';
+            ballX += (mouseX - ballX) * 0.1;
+            ballY += (mouseY - ballY) * 0.1;
+            preview.style.left = ballX + 'px';
+            preview.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
-        items.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const imgPath = item.getAttribute('data-img');
-                revealImg.src = imgPath;
-                reveal.classList.add('active');
-                
-                aura.style.width = "60px";
-                aura.style.height = "60px";
-                aura.style.background = "var(--baby-pink)";
+        // 3. BLUR REVEAL ON SCROLL
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('in-view');
             });
+        }, { threshold: 0.1 });
 
-            item.addEventListener('mouseleave', () => {
-                reveal.classList.remove('active');
+        document.querySelectorAll('.project-link').forEach(link => {
+            observer.observe(link);
+            
+            // Hover Preview
+            link.addEventListener('mouseenter', () => {
+                previewImg.src = link.dataset.img;
+                preview.style.opacity = "1";
+                preview.style.transform = "translate(-50%, -50%) scale(1)";
+                aura.style.width = "50px";
+                aura.style.height = "50px";
+            });
+            link.addEventListener('mouseleave', () => {
+                preview.style.opacity = "0";
+                preview.style.transform = "translate(-50%, -50%) scale(0.8)";
                 aura.style.width = "12px";
                 aura.style.height = "12px";
-                aura.style.background = "white";
             });
         });
     </script>

@@ -7,9 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f5f2ee; /* Warm paper */
-            --ink: #3a3633; /* Faded charcoal */
-            --soft-pink: #ffb8e0;
+            /* 1. SOFT & WARM BACKGROUND */
+            --bg: #f2ede4; /* Warm linen/sand tone */
+            --ink: #2b2826; /* Deep organic charcoal */
+            --glow: rgba(255, 184, 224, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -17,22 +18,23 @@
         body {
             background-color: var(--bg);
             color: var(--ink);
-            font-family: 'Inter', sans-serif; /* Everything else: Inter */
+            font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
+        /* LIGHTING LAYER */
         #aura {
             position: fixed;
             width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 75%);
+            background: radial-gradient(circle, var(--glow) 0%, transparent 75%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* 5. SPACING: BREATHING ROOM */
+        /* HERO BLOCK */
         .hero {
             height: 100vh;
             display: flex;
@@ -43,7 +45,6 @@
             padding: 0 10%;
         }
 
-        /* 4. TITLE: PLAYFAIR DISPLAY */
         .hero-title {
             font-family: 'Playfair Display', serif;
             font-size: clamp(60px, 12vw, 160px);
@@ -52,7 +53,6 @@
             margin-bottom: 24px;
         }
 
-        /* 1. NEW SUBTITLE BLOCK */
         .hero-sub {
             font-size: 18px;
             line-height: 1.6;
@@ -66,7 +66,6 @@
             opacity: 0.6;
         }
 
-        /* 2. SCOPE LINE: SMALL & SPACED */
         .scope-line {
             margin-top: 60px;
             font-size: 10px;
@@ -75,28 +74,29 @@
             opacity: 0.4;
         }
 
-        /* 5. BIG SPACE BETWEEN IMAGES */
+        /* GALLERY SPACING */
         .gallery {
-            padding: 200px 15% 300px; /* Big space between title block and first image */
+            padding: 200px 15% 300px;
             display: flex;
             flex-direction: column;
-            gap: 250px; /* Big space between images */
+            gap: 250px;
         }
 
-        .moment { width: 100%; max-width: 650px; }
+        .moment { width: 100%; max-width: 700px; position: relative; }
         .moment:nth-child(even) { align-self: flex-end; }
 
         .moment img {
             width: 100%;
             display: block;
-            border-radius: 1px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.02);
+            border-radius: 2px;
+            /* Added a subtle shadow to make images "pop" from the warm background */
+            box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+            transition: transform 0.8s ease;
         }
 
-        /* 3. CAPTIONS: SMALL & FADED */
         .caption {
             display: block;
-            margin-top: 20px; /* Small space between image and caption */
+            margin-top: 20px;
             font-size: 12px;
             letter-spacing: 2px;
             opacity: 0.4;
@@ -139,17 +139,17 @@
 
     <main class="gallery">
         <div class="moment reveal">
-            <img src="Nurture.jpg">
+            <img src="Nurture.jpg" alt="Primary visual">
             <span class="caption">a gentle form</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture–mockup2.jpg">
+            <img src="nurture–mockup2.jpg" alt="Cassette mockup">
             <span class="caption">warm texture</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture–mockup1.jpg">
+            <img src="nurture–mockup1.jpg" alt="Details and type">
             <span class="caption">still growing</span>
         </div>
     </main>

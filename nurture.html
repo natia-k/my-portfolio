@@ -7,114 +7,123 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fdf5f7; /* Soft rose-white */
+            --bg: #fdf5f7; 
             --ink: #4a3f3f; 
             --accent: #ffb8e0;
-            --line: rgba(74, 63, 63, 0.08);
             --glow: rgba(255, 184, 224, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
+        /* 1. BREATHE: LIVING BACKGROUND & GRAIN */
         body {
             background-color: var(--bg);
             color: var(--ink);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle Drifting Grain */
+        body::after {
+            content: "";
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 100;
+            animation: grainDrift 8s steps(10) infinite;
+        }
+
+        @keyframes grainDrift {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-1%, -1%); }
+            30% { transform: translate(1%, -2%); }
+            50% { transform: translate(-2%, 1%); }
+            70% { transform: translate(2%, 2%); }
         }
 
         #aura {
             position: fixed;
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 75%);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 999;
+            z-index: 99;
             transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
         }
 
-        /* 1. MATCH THE HEADER PATTERN */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        /* 2. CINEMATIC ENTRANCE & SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            filter: blur(15px);
+            transform: translateY(30px);
+            transition: opacity 2s ease, filter 2.5s ease, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, filter, opacity;
         }
 
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(60px, 12vw, 150px);
-            font-weight: 400;
-            font-style: italic;
-            margin-bottom: 10px;
+        .reveal.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
         }
 
-        .micro-meta {
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0.5;
-            margin-bottom: 40px;
-        }
-
-        /* 2. SPLIT INTRO INTO 2 LINES */
-        .intro-block {
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
-
-        .line-1 { font-size: 20px; font-weight: 300; margin-bottom: 10px; }
-        .line-2 { font-size: 16px; font-style: italic; opacity: 0.6; }
-
-        /* 5. THE DETAIL STRIP (CREDIBILITY LINE) */
-        .detail-strip {
-            padding-top: 30px;
-            border-top: 1px solid var(--line);
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.4;
-        }
-
-        /* 4. GALLERY LABELS & SPACING */
-        .gallery {
-            padding: 100px 15% 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 250px;
-        }
-
-        .moment { width: 100%; max-width: 650px; }
+        /* 3. PHOTO SHEEN HOVER */
+        .moment { position: relative; width: 100%; max-width: 650px; overflow: hidden; }
         .moment:nth-child(even) { align-self: flex-end; }
 
         .moment img {
             width: 100%;
             display: block;
             border-radius: 2px;
-            box-shadow: 0 30px 60px rgba(255, 184, 224, 0.1);
+            filter: contrast(0.95) brightness(0.95);
+            transition: filter 0.8s ease;
         }
 
-        .caption {
-            display: block;
-            margin-top: 25px;
-            font-size: 11px;
-            letter-spacing: 1px;
-            opacity: 0.6;
+        .moment::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
         }
 
-        .caption b { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-right: 10px; opacity: 1; }
+        .moment:hover::after { transform: translateX(100%); }
+        .moment:hover img { filter: contrast(1.05) brightness(1.02); }
 
-        nav {
-            position: fixed;
-            top: 40px; width: 100%; padding: 0 6%;
-            display: flex; justify-content: space-between; z-index: 1000;
+        /* TYPOGRAPHY & LAYOUT */
+        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(60px, 12vw, 150px); font-weight: 400; font-style: italic; margin-bottom: 10px; }
+        .micro-meta { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.5; margin-bottom: 40px; }
+        
+        .line-1 { font-size: 20px; font-weight: 300; margin-bottom: 10px; }
+        .line-2 { font-size: 16px; font-style: italic; opacity: 0.6; }
+
+        /* EDITORIAL DETAIL STRIP */
+        .details-strip {
+            padding: 60px 0;
+            border-top: 1px solid rgba(74, 63, 63, 0.08);
+            border-bottom: 1px solid rgba(74, 63, 63, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 100px 15%;
         }
+        .crop-group { display: flex; gap: 15px; }
+        .crop { width: 60px; height: 60px; border-radius: 50%; overflow: hidden; opacity: 0.6; }
+        .crop img { width: 300%; }
+
+        .gallery { padding: 100px 15% 400px; display: flex; flex-direction: column; gap: 250px; }
+        .caption { display: block; margin-top: 25px; font-size: 11px; letter-spacing: 1px; opacity: 0.6; }
+        .caption b { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-right: 10px; }
+
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
         nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 600; }
-
-        .reveal { opacity: 0; transform: translateY(30px); transition: 2s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -127,16 +136,12 @@
     </nav>
 
     <header class="hero">
-        <h1 class="hero-title">nurture</h1>
-        <div class="micro-meta">Art piece · Visual study · 2026</div>
+        <h1 class="hero-title reveal">nurture</h1>
+        <div class="micro-meta reveal">Art piece · Visual study · 2026</div>
         
-        <div class="intro-block">
+        <div class="intro-block reveal">
             <p class="line-1">A quiet piece about softness, memory, and becoming.</p>
             <p class="line-2">Made slowly. Held gently.</p>
-        </div>
-
-        <div class="detail-strip">
-            Form · Texture · Type · Memory
         </div>
     </header>
 
@@ -144,6 +149,15 @@
         <div class="moment reveal">
             <img src="Nurture.jpg">
             <span class="caption"><b>Plate 01</b> — Soft light memory</span>
+        </div>
+
+        <div class="details-strip reveal">
+            <div class="crop-group">
+                <div class="crop"><img src="Nurture.jpg" style="margin-left:-20px"></div>
+                <div class="crop"><img src="nurture-mockup2.jpg" style="margin-top:-40px"></div>
+                <div class="crop"><img src="nurture-mockup1.jpg" style="margin-left:-60px"></div>
+            </div>
+            <span style="font-size: 10px; letter-spacing: 3px; opacity: 0.5; font-style: italic;">a softer kind of clarity</span>
         </div>
 
         <div class="moment reveal">
@@ -165,8 +179,13 @@
         });
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
         }, { threshold: 0.1 });
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>

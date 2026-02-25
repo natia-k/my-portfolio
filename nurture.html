@@ -40,32 +40,35 @@
             font-size: clamp(60px, 15vw, 220px); font-weight: 950; letter-spacing: -0.06em;
             text-transform: uppercase; display: flex; z-index: 1; pointer-events: none;
         }
+        .hero-title span { display: inline-block; transition: filter 0.3s ease; }
 
+        /* GALLERY CONTAINER */
         .gallery {
             position: relative; z-index: 10; padding: 100vh 5% 400px;
             display: flex; flex-direction: column; align-items: center; gap: 120px;
         }
 
-        /* MAIN PRINT - 60% Width */
+        /* MAIN PRINT - Centered and Smaller */
         .main-print {
-            width: 60%; max-width: 650px;
+            width: 60%; 
+            max-width: 650px;
             opacity: 0; transform: translateY(80px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* MOCKUP GRID - Perfectly Side-by-Side */
+        /* SIDE-BY-SIDE GRID */
         .mockup-grid {
             display: flex;
-            flex-direction: row; /* Forces side-by-side */
+            flex-direction: row; /* Forces images to stay on one line */
             justify-content: center;
+            align-items: flex-start;
             gap: 25px;
             width: 100%;
             max-width: 1100px;
         }
 
         .side-poster {
-            flex: 1; /* Makes both images equal width */
-            max-width: 500px;
+            flex: 1; /* Ensures both take up equal space */
             opacity: 0; transform: translateY(80px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -109,14 +112,14 @@
     </main>
 
     <script>
-        // SMART LOAD: Fixes naming/case errors automatically
+        // SMART LOAD: This script cycles through name variants if the image breaks
         document.querySelectorAll('.smart-load').forEach(img => {
             const raw = img.getAttribute('data-src');
-            const tries = [raw, raw.replace('-', '–'), raw.replace('nurture', 'Nurture'), raw.replace('.jpg', '.JPG')];
+            const variants = [raw, raw.replace('-', '–'), raw.replace('nurture', 'Nurture'), raw.replace('.jpg', '.JPG')];
             let i = 0;
             const attempt = () => {
-                if (i < tries.length) {
-                    img.src = tries[i] + "?v=" + Date.now();
+                if (i < variants.length) {
+                    img.src = variants[i] + "?v=" + Date.now();
                     i++;
                 }
             };

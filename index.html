@@ -9,16 +9,16 @@
             --bg: #0a0a0a;
             --text: #ffffff;
             --accent: #ffb6c1; /* Baby Pink */
-            --subtle: rgba(255, 255, 255, 0.3);
+            --impact: #e61919; /* Reform Red */
         }
 
-        /* PREMIUM GRAIN */
+        /* FILM GRAIN */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            pointer-events: none; z-index: 9999; opacity: 0.15; mix-blend-mode: overlay;
+            pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -27,107 +27,101 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            height: 100vh; overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM AURA */
+        /* 1. RED IMPACT ENTRANCE (Reform Collective style) */
+        #intro-curtain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--impact); z-index: 10001;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+        #intro-curtain.hide { transform: translateY(-100%); }
+        .intro-word { font-weight: 900; font-size: 8vw; color: white; letter-spacing: -0.05em; }
+
+        /* 2. LIQUID BUBBLE MOUSE (Lo & Behold style) */
         #aura {
-            position: fixed; width: 12px; height: 12px;
-            background: var(--text); border-radius: 50%; pointer-events: none; z-index: 10000;
+            position: fixed; width: 20px; height: 20px;
+            background: white; border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%);
             mix-blend-mode: difference;
-            transition: width 0.4s, height 0.4s, background 0.4s;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1), height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* THE FLOATING PREVIEW (LERP MOVEMENT) */
-        #cursor-preview {
-            position: fixed;
-            top: 0; left: 0;
-            width: 400px;
-            height: 500px;
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(20%) brightness(0.9);
+        /* 3. FLOWER/ORBITAL HERO (Abhishek Jha style) */
+        .flower-container {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 40vh; height: 40vh; opacity: 0.15; z-index: 1; pointer-events: none;
+        }
+        .petal {
+            position: absolute; width: 100%; height: 100%;
+            border: 1px solid white; border-radius: 50% 0%;
+            transform-origin: center; animation: rotate 20s linear infinite;
         }
 
-        #cursor-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        /* 4. SEDUCTIVE LIST */
+        header { position: fixed; top: 40px; left: 40px; z-index: 100; }
+        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; }
+        .loc { font-size: 10px; letter-spacing: 4px; color: rgba(255,255,255,0.3); margin-top: 5px; }
 
-        /* HEADER & FOOTER */
-        header {
-            position: fixed; top: 60px; left: 60px; z-index: 100;
-        }
-        .name { font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
-        .loc { font-size: 10px; letter-spacing: 4px; color: var(--subtle); margin-top: 5px; text-transform: uppercase; }
-
-        footer {
-            position: fixed; bottom: 60px; left: 60px; right: 60px;
-            display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; color: var(--subtle);
-            z-index: 100;
-        }
-
-        /* PROJECT LIST */
         main {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-left: 10%;
+            height: 100vh; display: flex; align-items: center; padding-left: 10%;
+            position: relative; z-index: 10;
         }
 
-        nav { display: flex; flex-direction: column; gap: 5px; }
-
+        nav { display: flex; flex-direction: column; gap: 0px; }
+        
+        /* Bubble Text Effect */
         .nav-item {
-            font-size: clamp(40px, 6vw, 100px);
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-            width: fit-content;
-            transition: 0.4s ease;
-            position: relative;
-        }
-
-        .nav-item span {
-            font-size: 14px;
-            vertical-align: top;
-            margin-right: 20px;
-            font-weight: 300;
-            opacity: 0.2;
-            letter-spacing: 1px;
+            font-size: clamp(40px, 6.5vw, 110px);
+            font-weight: 900; text-decoration: none; color: var(--text);
+            text-transform: uppercase; letter-spacing: -0.04em;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, filter;
+            filter: blur(2px); opacity: 0.4;
         }
 
         .nav-item:hover {
+            filter: blur(0px); opacity: 1;
+            transform: translateX(30px) scale(1.05);
             color: var(--accent);
-            transform: translateX(30px);
         }
 
-        /* HOVER GLOW */
-        .nav-item:hover::after {
-            content: "";
-            position: absolute; bottom: 0; left: 0;
-            width: 100%; height: 1px;
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
+        /* IMAGE PREVIEW WITH LERP */
+        #cursor-preview {
+            position: fixed; width: 350px; height: 450px; pointer-events: none;
+            z-index: 5; overflow: hidden; opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        #cursor-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        footer {
+            position: fixed; bottom: 40px; left: 40px; right: 40px;
+            display: flex; justify-content: space-between;
+            font-size: 10px; letter-spacing: 3px; opacity: 0.3;
         }
 
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
+    <div id="intro-curtain">
+        <div class="intro-word">NATIA</div>
+    </div>
+
     <div id="aura"></div>
     <div id="cursor-preview"><img id="preview-img" src="" alt=""></div>
+
+    <div class="flower-container">
+        <div class="petal" style="animation-delay: 0s;"></div>
+        <div class="petal" style="animation-delay: -2s; transform: rotate(45deg);"></div>
+        <div class="petal" style="animation-delay: -4s; transform: rotate(90deg);"></div>
+        <div class="petal" style="animation-delay: -6s; transform: rotate(135deg);"></div>
+    </div>
 
     <header>
         <div class="name">NATIA KURTANIDZE</div>
@@ -136,14 +130,14 @@
 
     <main>
         <nav>
-            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg"><span>01</span>GO LEFT</a>
-            <a href="posters.html" class="nav-item" data-img="universe1.jpg"><span>02</span>ARCHIVE</a>
-            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg"><span>03</span>FEELINGS</a>
-            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg"><span>04</span>KOMBUCHA</a>
-            <a href="nurture.html" class="nav-item" data-img="nurture.jpg"><span>05</span>NURTURE</a>
-            <a href="others.html" class="nav-item" data-img="others.jpg"><span>06</span>THE OTHERS</a>
-            <a href="oatmilk.html" class="nav-item" data-img="oatmilk.jpg"><span>07</span>OAT MILK</a>
-            <a href="cdcovers.html" class="nav-item" data-img="cdcovers.jpg"><span>08</span>CD COVERS</a>
+            <a href="go-left.html" class="nav-item" data-img="goleft-mockup1.jpg">GO LEFT</a>
+            <a href="posters.html" class="nav-item" data-img="universe1.jpg">POSTERS</a>
+            <a href="feelings.html" class="nav-item" data-img="heartbreak-2.jpg">FEELINGS</a>
+            <a href="kombucha.html" class="nav-item" data-img="kombucha.jpg">KOMBUCHA</a>
+            <a href="nurture.html" class="nav-item" data-img="nurture.jpg">NURTURE</a>
+            <a href="others.html" class="nav-item" data-img="others.jpg">THE OTHERS</a>
+            <a href="oatmilk.html" class="nav-item" data-img="oatmilk.jpg">OAT MILK</a>
+            <a href="cdcovers.html" class="nav-item" data-img="cdcovers.jpg">CD COVERS</a>
         </nav>
     </main>
 
@@ -153,60 +147,52 @@
     </footer>
 
     <script>
+        // Intro Animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('intro-curtain').classList.add('hide');
+            }, 1000);
+        });
+
+        // Mouse & Lerp
         const aura = document.getElementById('aura');
         const preview = document.getElementById('cursor-preview');
         const previewImg = document.getElementById('preview-img');
         const navItems = document.querySelectorAll('.nav-item');
 
-        // LERP VARIABLES (For Seductive Movement)
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
-        let speed = 0.08; // The "lag" amount - lower is heavier/slower
 
-        // Track Mouse
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
-            // Standard Cursor Move
             aura.style.left = mouseX + 'px';
             aura.style.top = mouseY + 'px';
         });
 
-        // The Smooth Follow Loop
         function animate() {
-            // Distance = (Destination - Current) * Speed
-            ballX += (mouseX - ballX) * speed;
-            ballY += (mouseY - ballY) * speed;
-
+            ballX += (mouseX - ballX) * 0.1;
+            ballY += (mouseY - ballY) * 0.1;
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
-
             requestAnimationFrame(animate);
         }
         animate();
 
-        // HOVER INTERACTIONS
+        // Bubble Hover
         navItems.forEach(item => {
             item.addEventListener('mouseenter', () => {
-                const imgPath = item.getAttribute('data-img');
-                previewImg.src = imgPath;
-                
+                previewImg.src = item.dataset.img;
                 preview.style.opacity = "1";
-                preview.style.transform = "translate(-50%, -50%) scale(1)";
-                
-                aura.style.width = "80px";
-                aura.style.height = "80px";
-                aura.style.background = "var(--accent)";
+                preview.style.transform = "translate(-50%, -50%) scale(1) rotate(2deg)";
+                aura.style.width = "100px";
+                aura.style.height = "100px";
             });
-
             item.addEventListener('mouseleave', () => {
                 preview.style.opacity = "0";
-                preview.style.transform = "translate(-50%, -50%) scale(0.8)";
-                
-                aura.style.width = "12px";
-                aura.style.height = "12px";
-                aura.style.background = "white";
+                preview.style.transform = "translate(-50%, -50%) scale(0.8) rotate(0deg)";
+                aura.style.width = "20px";
+                aura.style.height = "20px";
             });
         });
     </script>

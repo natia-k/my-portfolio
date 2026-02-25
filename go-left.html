@@ -5,129 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GO LEFT | NATIA STUDIO</title>
     <style>
-        :root {
-            /* Sampling the Red from the illustration */
-            --bg: #B22222; 
-            --white: #ffffff;
-            --velvet-shadow: rgba(0, 0, 0, 0.4);
+        /* --- STYLE.CSS INTEGRATED --- */
+        :root { 
+            --bg: #B22222; /* Red Wall - sampled from your art */
+            --fg: #FFFFFF; 
+            --accent: #000000;
+        }
+
+        /* --- THE QUENTIN GRAIN OVERLAY --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.15;
+            mix-blend-mode: overlay;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        
-        body {
-            background-color: var(--bg);
-            color: var(--white);
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+        body { 
+            background: var(--bg); 
+            color: var(--fg); 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
+        /* --- CUSTOM CURSOR --- */
         #aura {
             position: fixed; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 11px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; opacity: 0.6; }
-
-        /* 1️⃣ VELVETY BLURRY TITLE */
-        .header {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+        /* --- NAVIGATION --- */
+        nav { 
+            position: fixed; top: 30px; left: 0; width: 100%; padding: 0 40px; 
+            z-index: 1000; display: flex; justify-content: space-between; 
+            mix-blend-mode: difference; align-items: center; 
         }
 
-        #scrolling-title {
-            font-size: clamp(120px, 30vw, 500px);
-            font-weight: 900;
-            letter-spacing: -0.06em;
-            text-transform: uppercase;
-            white-space: nowrap;
-            will-change: transform;
-            
-            /* Velvet Texture & Shimmer */
-            color: var(--white);
-            text-shadow: 0 10px 30px var(--velvet-shadow);
-            animation: velvet-pulse 6s ease-in-out infinite;
+        .studio-name { 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 13px; letter-spacing: 6px; text-transform: uppercase; font-weight: 400; color: #FFFFFF; 
         }
 
-        @keyframes velvet-pulse {
-            0%, 100% { filter: blur(2px); opacity: 0.9; transform: scale(1); }
-            50% { filter: blur(12px); opacity: 0.7; transform: scale(1.02); }
+        nav a { text-decoration: none; color: #FFF; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
+
+        /* --- VELVET SHIMMER ANIMATION --- */
+        @keyframes velvet-blur {
+            0%, 100% { filter: blur(2px); opacity: 1; text-shadow: 0 0 10px rgba(0,0,0,0.2); }
+            50% { filter: blur(12px); opacity: 0.7; text-shadow: 0 0 40px rgba(0,0,0,0.4); }
         }
 
-        /* 2️⃣ ILLUSTRATION "GROWING" FROM THE WALL */
-        .sequence {
+        /* --- HERO SECTION (GO LEFT COMMAND) --- */
+        .project-hero { 
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 30vh;
-        }
-
-        .moment {
-            width: 100%;
-            height: 100vh;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 0 10%;
-        }
-
-        .moment img {
-            /* Smaller size for high-end feel */
-            max-width: 550px; 
-            width: 100%;
-            height: auto;
-            /* Merging with the background */
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
-        }
-
-        /* Floating effect */
-        .float-art {
-            animation: gentle-drift 10s ease-in-out infinite;
-        }
-
-        @keyframes gentle-drift {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1.5deg); }
-        }
-
-        .hard-line {
-            font-size: 14px;
-            font-weight: 800;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
+            min-height: 100vh;
+            padding: 140px 40px;
             text-align: center;
-            opacity: 0.6;
-            animation: velvet-pulse 5s ease-in-out infinite;
-            margin-bottom: 10vh;
         }
 
-        .footer {
-            height: 40vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .next-link {
-            font-size: 14px;
+        .hero-title {
+            font-size: clamp(100px, 25vw, 450px);
+            text-transform: uppercase;
             font-weight: 900;
-            letter-spacing: 0.5em;
-            text-decoration: none;
-            color: var(--white);
-            opacity: 0.3;
-            transition: 0.5s;
+            line-height: 0.8;
+            letter-spacing: -0.06em;
+            color: #FFFFFF;
+            animation: velvet-blur 6s ease-in-out infinite;
+            will-change: transform;
+            cursor: default;
         }
-        .next-link:hover { opacity: 1; letter-spacing: 0.7em; }
 
+        /* --- MAIN IMAGE: GROWING FROM WALL --- */
+        .main-visual {
+            margin-top: -5vh;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 20vh;
+        }
+
+        .main-visual img { 
+            width: 100%; 
+            max-width: 500px; /* Small/High-end size */
+            height: auto; 
+            object-fit: contain;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: zoom-in;
+            filter: drop-shadow(0 40px 100px rgba(0,0,0,0.3));
+        }
+
+        .main-visual img:hover { 
+            transform: scale(1.3);
+            z-index: 10;
+        }
+
+        /* --- GALLERY SECTION --- */
+        .mockup-section { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+            padding: 40px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+
+        .mockup-section img { 
+            width: 100%; height: auto; 
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.2));
+        }
+
+        .mockup-section img:hover { transform: scale(1.05); }
+
+        /* --- NEXT PROJECT --- */
+        .next-btn-container {
+            text-align: center;
+            padding: 150px 40px 200px;
+            margin-top: 100px;
+        }
+
+        .next-project-link { text-decoration: none; display: inline-block; }
+        .next-project-link span { display: block; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 15px; }
+        .next-project-link h3 { font-size: clamp(50px, 8vw, 100px); text-transform: uppercase; font-weight: 900; color: #FFF; line-height: 0.8; letter-spacing: -0.04em; transition: all 0.4s ease; }
+        .next-project-link:hover h3 { color: var(--accent); transform: scale(1.05); }
+
+        /* --- REVEAL ANIMATION --- */
         .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+
+        @media (max-width: 900px) {
+            .hero-title { font-size: 120px; }
+            .mockup-section { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -135,40 +153,31 @@
     <div id="aura"></div>
 
     <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="feelings.html">FEELINGS</a>
+        <div class="studio-name">NATIA STUDIO</div>
+        <div class="nav-links">
+            <a href="index.html">WORKS</a>
+            <a href="feelings.html" style="margin-left: 20px;">FEELINGS</a>
+        </div>
     </nav>
 
-    <header class="header">
-        <h1 id="scrolling-title">GO LEFT</h1>
+    <header class="project-hero">
+        <h1 class="hero-title" id="scrolling-title">GO LEFT</h1>
     </header>
 
-    <main class="sequence">
-        
-        <section class="moment reveal-trigger">
-            <div class="float-art">
-                <img src="goleft-main.jpg" alt="GO LEFT Main">
-            </div>
-        </section>
+    <div class="main-visual reveal-trigger">
+        <img src="goleft-main.jpg" alt="GO LEFT">
+    </div>
 
-        <p class="hard-line reveal-trigger">when nothing works, change direction</p>
+    <section class="mockup-section">
+        <img src="go-left-2.jpg" class="reveal-trigger" alt="Mockup 2">
+        <img src="go-left-3.jpg" class="reveal-trigger" alt="Mockup 3">
+    </section>
 
-        <section class="moment reveal-trigger">
-            <div class="float-art" style="animation-delay: -3s;">
-                <img src="go-left-2.jpg" alt="GO LEFT 02">
-            </div>
-        </section>
-
-        <section class="moment reveal-trigger">
-            <div class="float-art" style="animation-delay: -6s;">
-                <img src="go-left-3.jpg" alt="GO LEFT 03">
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="footer">
-        <a href="others.html" class="next-link">NEXT</a>
+    <footer class="next-btn-container">
+        <a href="others.html" class="next-project-link">
+            <span>UP NEXT</span>
+            <h3>OTHERS</h3>
+        </a>
     </footer>
 
     <script>
@@ -179,12 +188,11 @@
             aura.style.top = e.clientY + 'px';
         });
 
-        // SCROLL SCRIPT: MAKE IT GO "REALLY" LEFT
+        // "GO LEFT" SCROLL EFFECT
         window.addEventListener('scroll', () => {
             const title = document.getElementById('scrolling-title');
             const scrollY = window.scrollY;
-            // The multiplier (2.5) controls the speed of the slide-out
-            title.style.transform = `translateX(-${scrollY * 2.5}px)`;
+            title.style.transform = `translateX(-${scrollY * 2}px)`;
         });
 
         // REVEAL ANIMATION

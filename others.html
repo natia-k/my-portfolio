@@ -6,9 +6,9 @@
     <title>THE OTHERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #000000; /* Pure black, no texture */
+            --bg: #000000;
             --white: #ffffff;
-            --soft-pink: #ffb8e0;
+            --accent: #ffb8e0;
             --line: rgba(255, 255, 255, 0.15);
         }
 
@@ -24,15 +24,15 @@
 
         #aura {
             position: fixed;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 75%);
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* 1. HERO: DYNAMIC OVERLAP */
+        /* HERO: PURE OVERLAY LOGIC */
         .hero {
             height: 100vh;
             display: flex;
@@ -42,68 +42,74 @@
             background: var(--bg);
         }
 
-        .hero-title {
-            position: absolute;
-            font-size: clamp(80px, 18vw, 300px);
-            font-weight: 950;
-            letter-spacing: -0.07em;
-            text-transform: uppercase;
-            z-index: 5;
-            color: var(--white);
-            mix-blend-mode: difference; /* This creates the "cut-through" effect */
-            text-align: center;
-            line-height: 0.85;
-            pointer-events: none;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        .hero-wrapper {
+            position: relative;
+            width: 70%;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .hero-container {
+        .hero-title {
+            position: absolute;
+            font-size: clamp(80px, 15vw, 220px);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
             z-index: 10;
-            width: 65%;
-            max-width: 520px;
-            /* Returns to center automatically */
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--white);
+            /* This makes the text interact with the image underneath */
+            mix-blend-mode: difference; 
+            text-align: center;
+            line-height: 0.8;
+            pointer-events: none;
+            transition: transform 0.6s ease-out;
         }
 
         .hero-img { 
             width: 100%; 
-            display: block; 
-            filter: brightness(1); /* No gray filter */
+            display: block;
+            transition: transform 0.6s ease-out;
         }
 
-        /* 2. INTRO & META GRID */
+        /* INTRO & META */
         .intro-section {
-            padding: 160px 10%;
+            padding: 120px 10%;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            gap: 100px;
+            gap: 80px;
             border-top: 1px solid var(--line);
         }
 
-        .intro-text h2 {
-            font-size: clamp(24px, 3.5vw, 36px);
-            font-weight: 300;
-            line-height: 1.3;
+        .intro-text h2 { font-size: 32px; font-weight: 300; line-height: 1.2; }
+        
+        .meta-grid { display: grid; gap: 20px; }
+        .meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+        .meta-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
+        .meta-value { font-size: 13px; color: var(--accent); }
+
+        /* GALLERY: VISIBILITY FIX */
+        .gallery {
+            padding: 100px 10% 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 150px;
         }
 
-        .intro-text h2 span { display: block; margin-top: 15px; opacity: 0.6; font-size: 0.7em; }
-
-        .meta-grid { display: grid; gap: 24px; }
-        .meta-row { display: flex; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
-        .meta-label { width: 100px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
-        .meta-value { font-size: 13px; font-weight: 500; color: var(--soft-pink); }
-
-        /* 3. GALLERY RHYTHM */
-        .gallery-rhythm { padding: 100px 10% 400px; display: flex; flex-direction: column; gap: 200px; }
-        .stagger-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .stagger-row .item:last-child { margin-top: 180px; }
-
-        .item img, .full-width img { width: 100%; display: block; border-radius: 0; }
-        .caption { margin-top: 20px; font-size: 11px; letter-spacing: 1px; }
-        .caption b { font-weight: 800; text-transform: uppercase; margin-right: 10px; }
+        .item { width: 100%; position: relative; }
+        .item img { width: 100%; display: block; }
+        
+        .caption { 
+            margin-top: 20px; 
+            font-size: 10px; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            opacity: 0.6;
+        }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.6; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; }
     </style>
 </head>
 <body>
@@ -116,74 +122,59 @@
     </nav>
 
     <header class="hero" id="heroArea">
-        <h1 class="hero-title" id="titleMove">THE<br>OTHERS</h1>
-        <div class="hero-container" id="heroTarget">
-            <img src="others-hero.jpg" class="hero-img">
+        <div class="hero-wrapper">
+            <h1 class="hero-title" id="titleMove">THE<br>OTHERS</h1>
+            <img src="others-hero.jpg" class="hero-img" id="imgMove">
         </div>
     </header>
 
     <section class="intro-section">
         <div class="intro-text">
-            <h2>A playground for breaking systems.<span>Contrast, scale, and negative space are pushed until it feels inevitable.</span></h2>
+            <h2>A playground for breaking systems.</h2>
         </div>
-        
         <div class="meta-grid">
             <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
-            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">3 Posters, 1 Study</span></div>
-            <div class="meta-row"><span class="meta-label">Tools</span><span class="meta-value">Ps / Ai / Figma</span></div>
-            <div class="meta-row" style="border:none;"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
+            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">Visual Study</span></div>
+            <div class="meta-row"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
         </div>
     </section>
 
-    <main class="gallery-rhythm">
-        <div class="stagger-row">
-            <div class="item">
-                <img src="others-piece-1.jpg">
-                <p class="caption"><b>Study 01</b> — Held tension</p>
-            </div>
-            <div class="item">
-                <img src="others-piece-2.jpg">
-                <p class="caption"><b>Study 02</b> — Controlled collapse</p>
-            </div>
+    <main class="gallery">
+        <div class="item">
+            <img src="others-mockup1.jpg">
+            <p class="caption">Study 01 — Physical Tension</p>
         </div>
 
-        <div class="full-width">
-            <img src="others-piece-3.jpg">
-            <p class="caption"><b>Study 03</b> — Quiet pressure</p>
+        <div class="item">
+            <img src="others-mockup2.jpg">
+            <p class="caption">Study 02 — Controlled Space</p>
         </div>
     </main>
 
     <script>
         const aura = document.getElementById('aura');
-        const heroArea = document.getElementById('heroArea');
-        const heroTarget = document.getElementById('heroTarget');
+        const imgMove = document.getElementById('imgMove');
         const titleMove = document.getElementById('titleMove');
+        const heroArea = document.getElementById('heroArea');
 
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            // Detect if mouse is near the hero section
             const rect = heroArea.getBoundingClientRect();
+            // Only move if mouse is in the hero section
             if (y < rect.bottom) {
-                const moveX = (window.innerWidth / 2 - x) / 30;
-                const moveY = (window.innerHeight / 2 - y) / 30;
+                const xPos = (window.innerWidth / 2 - x) / 25;
+                const yPos = (window.innerHeight / 2 - y) / 25;
                 
-                // Title and Image move in opposition only when cursor is present
-                heroTarget.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
-                titleMove.style.transform = `translateX(${-moveX * 0.5}px) translateY(${-moveY * 0.5}px)`;
+                imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
+                titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
             } else {
-                // Return to center when mouse leaves the hero area
-                heroTarget.style.transform = `translateX(0px) translateY(0px)`;
+                // Return to center when mouse leaves
+                imgMove.style.transform = `translateX(0px) translateY(0px)`;
                 titleMove.style.transform = `translateX(0px) translateY(0px)`;
             }
-        });
-
-        // Ensure it snaps back if the mouse leaves the window
-        document.addEventListener('mouseleave', () => {
-            heroTarget.style.transform = `translateX(0px) translateY(0px)`;
-            titleMove.style.transform = `translateX(0px) translateY(0px)`;
         });
     </script>
 </body>

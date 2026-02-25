@@ -6,9 +6,11 @@
     <title>FEELINGS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #FFD1DC; /* Baby Pink */
+            --bg: #89CFF0; /* Baby Blue */
+            --accent: #FF6F61; /* Light Red / Coral */
             --black: #1a1a1a;
-            --aura: rgba(255, 255, 255, 0.6);
+            --white: #ffffff;
+            --aura: rgba(255, 255, 255, 0.7);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -21,21 +23,31 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* BUBBLY AURA */
+        /* CLOUD BACKGROUND */
+        .cloud-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; opacity: 0.4;
+        }
+        .cloud {
+            position: absolute; background: white; border-radius: 100px;
+            filter: blur(60px); animation: drift linear infinite;
+        }
+        @keyframes drift {
+            from { transform: translateX(-300px); }
+            to { transform: translateX(110vw); }
+        }
+
         #aura {
-            position: fixed; width: 600px; height: 600px;
+            position: fixed; width: 500px; height: 500px;
             background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: overlay;
-            filter: blur(30px);
         }
 
-        /* NAVIGATION */
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
-        nav a:hover { opacity: 1; }
+        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; }
 
-        /* CLOUD HEADER */
+        /* 3D LIGHT RED TITLE */
         .intro {
             height: 100vh;
             display: flex;
@@ -43,63 +55,75 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0 10%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%);
+            z-index: 10; position: relative;
         }
 
-        /* THE BUBBLY TEXT EFFECT */
         .hero-title {
-            font-size: clamp(60px, 18vw, 220px);
-            font-weight: 900;
-            letter-spacing: -0.04em;
+            font-size: clamp(60px, 18vw, 200px);
+            font-weight: 950;
+            letter-spacing: -0.02em;
             text-transform: uppercase;
-            display: flex;
-            gap: 5px;
-            filter: drop-shadow(0 10px 20px rgba(255,255,255,0.5));
+            color: var(--accent);
+            text-shadow: 
+                0 1px 0 #e05e52, 0 2px 0 #d1584d, 0 3px 0 #c25248, 0 4px 0 #b34b42,
+                0 5px 15px rgba(255, 111, 97, 0.4), 
+                0 10px 20px rgba(0,0,0,0.1);
+            animation: float 5s ease-in-out infinite;
         }
 
-        .hero-title span {
-            display: inline-block;
-            animation: bubble 4s ease-in-out infinite;
-            filter: blur(2px);
-            transition: filter 0.5s ease;
-        }
-
-        /* Stagger the bubble animation for each letter */
-        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
-        .hero-title span:nth-child(3) { animation-delay: 0.4s; }
-        .hero-title span:nth-child(4) { animation-delay: 0.6s; }
-        .hero-title span:nth-child(5) { animation-delay: 0.8s; }
-        .hero-title span:nth-child(6) { animation-delay: 1.0s; }
-        .hero-title span:nth-child(7) { animation-delay: 1.2s; }
-        .hero-title span:nth-child(8) { animation-delay: 1.4s; }
-
-        @keyframes bubble {
-            0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
-            50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(2deg); }
+            50% { transform: translateY(-15px) rotateX(-2deg); }
         }
 
         .sub-title {
-            font-size: 14px;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            opacity: 0.5;
-            margin-top: -10px;
-            margin-bottom: 40px;
+            font-size: 14px; letter-spacing: 0.4em; text-transform: uppercase;
+            opacity: 0.6; margin-top: 20px;
         }
 
-        /* GALLERY LOGIC */
-        .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 200px; }
-        .cover-item { width: 100%; max-width: 750px; text-align: center; }
-        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: all 1.5s ease; }
-        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        img { width: 100%; display: block; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        /* GALLERY LAYOUT */
+        .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 300px; position: relative; z-index: 10; }
+        
+        .artwork-section {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
+        .artwork-text {
+            max-width: 500px;
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            opacity: 0.7;
+        }
+
+        .artwork-title {
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.4;
+        }
+
+        .reveal-trigger { opacity: 0; transform: translateY(80px); transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+        
+        img { width: 100%; border-radius: 8px; box-shadow: 0 40px 80px rgba(0,0,0,0.12); }
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
+    
+    <div class="cloud-bg">
+        <div class="cloud" style="width: 400px; height: 150px; top: 15%; left: -10%; animation-duration: 45s;"></div>
+        <div class="cloud" style="width: 500px; height: 200px; top: 65%; left: -25%; animation-duration: 55s;"></div>
+    </div>
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
@@ -107,30 +131,73 @@
     </nav>
 
     <header class="intro">
-        <h1 class="hero-title">
-            <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
-        </h1>
+        <h1 class="hero-title">FEELINGS</h1>
         <p class="sub-title">visual identities for sound</p>
     </header>
 
     <main class="gallery">
-        <div class="cover-item reveal-trigger">
-            <img src="cd-covers-hero.jpg" class="smart-load">
-        </div>
-        <div class="cover-item reveal-trigger"><img src="emptiness.jpg" class="smart-load"></div>
-        <div class="cover-item reveal-trigger"><img src="heartbreak-2.jpg" class="smart-load"></div>
-        <div class="cover-item reveal-trigger"><img src="insomnia-1.jpg" class="smart-load"></div>
-        <div class="cover-item reveal-trigger"><img src="love.jpg" class="smart-load"></div>
+        
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Insomnia</p>
+            <img src="insomnia-1.jpg">
+            <div class="artwork-text">
+                Since I was five I have stood at the edge of sleep. Wanting to jump. Terrified of the splash. I speak to the dark. It watches. Sleep is one step away—always a lifetime away.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Emptiness</p>
+            <img src="emptiness.jpg">
+            <div class="artwork-text">
+                It arrives without sound. It swallows everything. Even your echo disappears. A black hole rises inside. It feels empty, but it is heavy. It can hold everything. You carry space alone.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Love</p>
+            <img src="love.jpg">
+            <div class="artwork-text">
+                A visual representation of resonance and connection.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Pleasure</p>
+            <img src="pleasure.jpg">
+            <div class="artwork-text">
+                Soft tension and warm distortion in visual form.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Desire</p>
+            <img src="desire.jpg">
+            <div class="artwork-text">
+                Craving to feel something. An attempt to give fleeting moments a visual shape.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger">
+            <p class="artwork-title">Heartbreak</p>
+            <img src="heartbreak-2.jpg">
+            <div class="artwork-text">
+                The visual identity of a quiet, distant memory.
+            </div>
+        </section>
+
+        <section class="artwork-section reveal-trigger" style="max-width: 1000px;">
+            <p class="artwork-title">Collection</p>
+            <img src="cd-covers-hero.jpg">
+        </section>
+
     </main>
 
     <script>
-        // Aura movement
         document.addEventListener('mousemove', (e) => {
             document.getElementById('aura').style.left = e.clientX + 'px';
             document.getElementById('aura').style.top = e.clientY + 'px';
         });
 
-        // Intersection Observer for images
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });

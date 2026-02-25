@@ -6,10 +6,9 @@
     <title>FEELINGS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #89CFF0; /* Baby Blue */
+            --bg: #FFD1DC; /* Baby Pink */
             --black: #1a1a1a;
-            --white: #ffffff;
-            --aura: rgba(255, 255, 255, 0.7);
+            --aura: rgba(255, 255, 255, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -22,31 +21,21 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* FLOATING CLOUDS BACKGROUND */
-        .cloud-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1; opacity: 0.5;
-        }
-        .cloud {
-            position: absolute; background: white; border-radius: 100px;
-            filter: blur(60px); animation: drift linear infinite;
-        }
-        @keyframes drift {
-            from { transform: translateX(-200px); }
-            to { transform: translateX(100vw); }
-        }
-
+        /* BUBBLY AURA */
         #aura {
-            position: fixed; width: 500px; height: 500px;
+            position: fixed; width: 600px; height: 600px;
             background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: overlay;
+            filter: blur(30px);
         }
 
+        /* NAVIGATION */
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; }
+        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
+        nav a:hover { opacity: 1; }
 
-        /* THE 3D TEXT EFFECT */
+        /* CLOUD HEADER */
         .intro {
             height: 100vh;
             display: flex;
@@ -54,50 +43,63 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            z-index: 10; position: relative;
+            padding: 0 10%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 60%);
         }
 
+        /* THE BUBBLY TEXT EFFECT */
         .hero-title {
-            font-size: clamp(60px, 18vw, 200px);
-            font-weight: 950;
-            letter-spacing: -0.02em;
+            font-size: clamp(60px, 18vw, 220px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
             text-transform: uppercase;
-            color: white;
-            /* 3D LAYERED SHADOW */
-            text-shadow: 
-                0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
-                0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1),
-                0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2),
-                0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2),
-                0 20px 20px rgba(0,0,0,.15);
-            animation: float 4s ease-in-out infinite;
+            display: flex;
+            gap: 5px;
+            filter: drop-shadow(0 10px 20px rgba(255,255,255,0.5));
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateX(5deg); }
-            50% { transform: translateY(-20px) rotateX(-5deg); }
+        .hero-title span {
+            display: inline-block;
+            animation: bubble 4s ease-in-out infinite;
+            filter: blur(2px);
+            transition: filter 0.5s ease;
+        }
+
+        /* Stagger the bubble animation for each letter */
+        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title span:nth-child(3) { animation-delay: 0.4s; }
+        .hero-title span:nth-child(4) { animation-delay: 0.6s; }
+        .hero-title span:nth-child(5) { animation-delay: 0.8s; }
+        .hero-title span:nth-child(6) { animation-delay: 1.0s; }
+        .hero-title span:nth-child(7) { animation-delay: 1.2s; }
+        .hero-title span:nth-child(8) { animation-delay: 1.4s; }
+
+        @keyframes bubble {
+            0%, 100% { transform: scale(1) translateY(0); filter: blur(2px); }
+            50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
         }
 
         .sub-title {
-            font-size: 14px; letter-spacing: 0.4em; text-transform: uppercase;
-            opacity: 0.6; margin-top: 20px;
+            font-size: 14px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: -10px;
+            margin-bottom: 40px;
         }
 
-        .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 200px; position: relative; z-index: 10; }
-        .cover-item { width: 100%; max-width: 700px; opacity: 0; transform: translateY(50px); transition: 1.5s ease; }
+        /* GALLERY LOGIC */
+        .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 200px; }
+        .cover-item { width: 100%; max-width: 750px; text-align: center; }
+        .reveal-trigger { opacity: 0; transform: translateY(50px); transition: all 1.5s ease; }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-        img { width: 100%; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        img { width: 100%; display: block; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+
     </style>
 </head>
 <body>
 
     <div id="aura"></div>
-    
-    <div class="cloud-bg">
-        <div class="cloud" style="width: 400px; height: 150px; top: 10%; left: -10%; animation-duration: 40s;"></div>
-        <div class="cloud" style="width: 300px; height: 100px; top: 40%; left: -20%; animation-duration: 60s; animation-delay: -10s;"></div>
-        <div class="cloud" style="width: 500px; height: 200px; top: 70%; left: -30%; animation-duration: 50s; animation-delay: -25s;"></div>
-    </div>
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
@@ -105,24 +107,30 @@
     </nav>
 
     <header class="intro">
-        <h1 class="hero-title">FEELINGS</h1>
+        <h1 class="hero-title">
+            <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
+        </h1>
         <p class="sub-title">visual identities for sound</p>
     </header>
 
     <main class="gallery">
-        <div class="cover-item reveal-trigger"><img src="cd-covers-hero.jpg"></div>
-        <div class="cover-item reveal-trigger"><img src="emptiness.jpg"></div>
-        <div class="cover-item reveal-trigger"><img src="heartbreak-2.jpg"></div>
-        <div class="cover-item reveal-trigger"><img src="insomnia-1.jpg"></div>
-        <div class="cover-item reveal-trigger"><img src="love.jpg"></div>
+        <div class="cover-item reveal-trigger">
+            <img src="cd-covers-hero.jpg" class="smart-load">
+        </div>
+        <div class="cover-item reveal-trigger"><img src="emptiness.jpg" class="smart-load"></div>
+        <div class="cover-item reveal-trigger"><img src="heartbreak-2.jpg" class="smart-load"></div>
+        <div class="cover-item reveal-trigger"><img src="insomnia-1.jpg" class="smart-load"></div>
+        <div class="cover-item reveal-trigger"><img src="love.jpg" class="smart-load"></div>
     </main>
 
     <script>
+        // Aura movement
         document.addEventListener('mousemove', (e) => {
             document.getElementById('aura').style.left = e.clientX + 'px';
             document.getElementById('aura').style.top = e.clientY + 'px';
         });
 
+        // Intersection Observer for images
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });

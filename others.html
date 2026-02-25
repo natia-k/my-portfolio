@@ -8,7 +8,8 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --line: rgba(255, 255, 255, 0.1);
+            --accent: #ffb8e0;
+            --line: rgba(255, 255, 255, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -24,26 +25,28 @@
         #aura {
             position: fixed;
             width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* 1. HERO: RESTORED UNITY */
+        /* HERO: BLURRED BACKGROUND TEXT */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            background: var(--bg);
+            overflow: hidden;
         }
 
         .hero-wrapper {
             position: relative;
-            width: 80%;
-            max-width: 700px;
+            width: 75%;
+            max-width: 650px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -51,95 +54,66 @@
 
         .hero-title {
             position: absolute;
-            font-size: clamp(60px, 15vw, 220px);
-            font-weight: 900;
+            font-size: clamp(80px, 16vw, 240px);
+            font-weight: 950;
             letter-spacing: -0.05em;
             text-transform: uppercase;
             text-align: center;
             line-height: 0.8;
             pointer-events: none;
             
-            /* OATS BLUR INTERACTION */
+            /* START STATE: Blurred and behind like Oats */
             z-index: 1; 
-            opacity: 0.2;
-            filter: blur(25px);
+            opacity: 0.3;
+            filter: blur(20px);
+            color: var(--white);
+            transform: scale(0.9);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-img { 
             width: 100%; 
             display: block;
-            z-index: 5;
+            z-index: 5; /* Image stays in front */
+            filter: brightness(1);
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* ACTIVE STATE: Sharp and overlaying */
         .hero.active .hero-title {
-            z-index: 10;
+            z-index: 10; /* Comes to front */
             opacity: 1;
             filter: blur(0px);
-            mix-blend-mode: difference;
+            mix-blend-mode: difference; /* Cut-through effect */
+            transform: scale(1.05);
         }
 
-        /* 2. SIMPLE, FACTUAL TEXT */
+        /* INTRO: Updated text for REAL project */
         .intro-section {
-            padding: 100px 10% 160px;
-            text-align: center;
+            padding: 120px 10%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
             border-top: 1px solid var(--line);
         }
 
-        .intro-section h2 { 
-            font-size: 18px; 
-            font-weight: 400; 
-            margin-bottom: 15px; 
-            opacity: 0.9;
-        }
+        .intro-text h2 { font-size: 32px; font-weight: 300; line-height: 1.2; }
+        .intro-text p { margin-top: 20px; opacity: 0.6; font-size: 16px; line-height: 1.6; max-width: 450px; }
+        
+        .meta-grid { display: grid; gap: 20px; }
+        .meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+        .meta-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
+        .meta-value { font-size: 13px; color: var(--accent); }
 
-        .scope-line {
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.4;
-        }
-
-        /* 3. POSTER SERIES: SINGLE CALM FLOW */
-        .exhibition {
+        /* GALLERY */
+        .gallery {
+            padding: 100px 10% 300px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 200px; /* Generous exhibition spacing */
-            padding-bottom: 200px;
+            gap: 150px;
         }
-
-        .poster { width: 85%; max-width: 650px; opacity: 0; transform: translateY(30px); transition: all 1.5s ease; }
-        .poster.anchor { max-width: 800px; width: 95%; } /* Visual Anchor */
-        .poster.reveal { opacity: 1; transform: translateY(0); }
-
-        .poster img { width: 100%; display: block; }
-
-        .caption {
-            margin-top: 25px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.3;
-        }
-
-        /* 4. SIMPLE NAVIGATION */
-        .next-project {
-            padding: 100px 0;
-            text-align: center;
-            border-top: 1px solid var(--line);
-        }
-        .next-project a {
-            font-size: 12px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--white);
-            opacity: 0.4;
-            transition: 0.3s;
-        }
-        .next-project a:hover { opacity: 1; }
+        .item img { width: 100%; display: block; }
+        .caption { margin-top: 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; }
@@ -162,30 +136,28 @@
     </header>
 
     <section class="intro-section">
-        <h2>A collection of experimental posters exploring visual tension and form.</h2>
-        <p class="scope-line">SCOPE — Experimental Poster Series · 2026</p>
+        <div class="intro-text">
+            <h2>Breaking systems through visual research.</h2>
+            <p>A multi-disciplinary study on contrast and negative space. This project explores the threshold where structure collapses into form.</p>
+        </div>
+        <div class="meta-grid">
+            <div class="meta-row"><span class="meta-label">Project</span><span class="meta-value">The Others (Existent)</span></div>
+            <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
+            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">Visual Study</span></div>
+            <div class="meta-row"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
+        </div>
     </section>
 
-    <main class="exhibition">
-        <div class="poster anchor">
+    <main class="gallery">
+        <div class="item">
             <img src="others-mockup1.jpg">
-            <p class="caption">Poster — Contrast & Form</p>
+            <p class="caption">Study 01 — Physical Tension</p>
         </div>
-
-        <div class="poster">
+        <div class="item">
             <img src="others-mockup2.jpg">
-            <p class="caption">Poster — Scale & Space</p>
-        </div>
-
-        <div class="poster">
-            <img src="others-piece-3.jpg">
-            <p class="caption">Poster — Visual Tension</p>
+            <p class="caption">Study 02 — Controlled Space</p>
         </div>
     </main>
-
-    <div class="next-project">
-        <a href="nurture.html">Next Project: NURTURE →</a>
-    </div>
 
     <script>
         const aura = document.getElementById('aura');
@@ -199,10 +171,14 @@
             aura.style.top = `${y}px`;
 
             const rect = heroArea.getBoundingClientRect();
+            
+            // Interaction logic
             if (y >= rect.top && y <= rect.bottom) {
                 heroArea.classList.add('active'); 
+                
                 const xPos = (window.innerWidth / 2 - x) / 35;
                 const yPos = (window.innerHeight / 2 - y) / 35;
+                
                 imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
                 titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
             } else {
@@ -211,14 +187,6 @@
                 titleMove.style.transform = `translateX(0px) translateY(0px)`;
             }
         });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('reveal');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>
 </body>
 </html>

@@ -8,8 +8,9 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --label: rgba(255, 255, 255, 0.4); /* 1. Softened text contrast */
+            --accent: #ffb8e0;
             --line: rgba(255, 255, 255, 0.1);
+            --label: rgba(255, 255, 255, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -32,87 +33,128 @@
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: PURE FOCUS */
+        /* CAMERA FLASH OVERLAY */
+        .flash-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes camera-flash {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .do-flash { animation: camera-flash 0.5s ease-out forwards; }
+
+        /* HERO: DREAM-TO-FOCUS */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-wrapper {
-            width: 85%;
-            max-width: 750px;
+            position: relative;
+            width: 75%;
+            max-width: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-title {
+            position: absolute;
+            font-size: clamp(80px, 16vw, 240px);
+            font-weight: 950;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 0.8;
+            pointer-events: none;
+            
+            /* DREAM STATE */
+            z-index: 1; 
+            opacity: 0.2;
+            filter: blur(50px);
+            transform: scale(0.8);
+            transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .hero-img { 
             width: 100%; 
             display: block;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            z-index: 5;
+            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* 2. REMOVED TOOLS / REDUCED META */
+        /* AWAKE STATE */
+        .hero.active .hero-title {
+            z-index: 10;
+            opacity: 1;
+            filter: blur(0px);
+            mix-blend-mode: difference;
+            transform: scale(1.05);
+        }
+
+        /* INTRO METADATA */
         .intro-section {
             padding: 120px 10%;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
             gap: 100px;
             border-top: 1px solid var(--line);
         }
 
-        .intro-text h2 { 
-            font-size: 20px; 
-            font-weight: 300; 
-            line-height: 1.6; /* 1. Increased line spacing */
-            color: var(--label);
-        }
+        .intro-text h2 { font-size: 20px; font-weight: 300; line-height: 1.6; color: var(--label); }
         
         .meta-grid { display: grid; gap: 24px; }
         .meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
         .meta-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--label); }
         .meta-value { font-size: 11px; opacity: 0.8; }
 
-        /* 4. SILENCE: INCREASED VERTICAL SPACE */
+        /* GALLERY: THE FLASH REVEAL */
         .gallery {
             padding: 100px 0 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 350px; /* Massive silence between posters */
+            gap: 400px;
         }
 
         .poster { 
             width: 80%; 
             max-width: 600px; 
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s ease;
         }
 
+        .poster.reveal { opacity: 1; transform: translateY(0); }
         .poster img { width: 100%; display: block; }
 
-        /* 3. CALM IDENTIFIERS */
         .caption { 
             margin-top: 30px; 
             font-size: 10px; 
             letter-spacing: 2px; 
             text-transform: uppercase; 
-            color: var(--label); /* Faded / Quiet */
-            font-weight: 300;
+            color: var(--label);
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.3; }
-        
-        .footer-note {
-            padding: 100px 0;
-            text-align: center;
-            font-size: 10px;
-            letter-spacing: 4px;
-            opacity: 0.2;
-            text-transform: uppercase;
-        }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
     </style>
 </head>
 <body>
 
+    <div class="flash-overlay" id="flash"></div>
     <div id="aura"></div>
 
     <nav>
@@ -120,19 +162,20 @@
         <a href="nurture.html">NURTURE</a>
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="heroArea">
         <div class="hero-wrapper">
-            <img src="others-hero.jpg" class="hero-img">
+            <h1 class="hero-title" id="titleMove">THE<br>OTHERS</h1>
+            <img src="others-hero.jpg" class="hero-img" id="imgMove">
         </div>
     </header>
 
     <section class="intro-section">
         <div class="intro-text">
-            <h2>A collection of experimental posters exploring visual tension and form.</h2>
+            <h2>Experimental studies on visual tension, scale, and the collapse of structure.</h2>
         </div>
         <div class="meta-grid">
             <div class="meta-row"><span class="meta-label">Project</span><span class="meta-value">The Others</span></div>
-            <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
+            <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Visual Research</span></div>
             <div class="meta-row"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
         </div>
     </section>
@@ -147,23 +190,53 @@
             <img src="others-mockup2.jpg">
             <p class="caption">Poster — Scale & Space</p>
         </div>
-
-        <div class="poster">
-            <img src="others-piece-3.jpg">
-            <p class="caption">Poster — Visual Tension</p>
-        </div>
     </main>
-
-    <footer class="footer-note">
-        Series Complete.
-    </footer>
 
     <script>
         const aura = document.getElementById('aura');
+        const imgMove = document.getElementById('imgMove');
+        const titleMove = document.getElementById('titleMove');
+        const heroArea = document.getElementById('heroArea');
+        const flash = document.getElementById('flash');
+
+        // Cursor & Dream Interaction
         document.addEventListener('mousemove', (e) => {
-            aura.style.left = `${e.clientX}px`;
-            aura.style.top = `${e.clientY}px`;
+            const { clientX: x, clientY: y } = e;
+            aura.style.left = `${x}px`;
+            aura.style.top = `${y}px`;
+
+            const rect = heroArea.getBoundingClientRect();
+            if (y >= rect.top && y <= rect.bottom) {
+                heroArea.classList.add('active'); 
+                const xPos = (window.innerWidth / 2 - x) / 40;
+                const yPos = (window.innerHeight / 2 - y) / 40;
+                imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
+                titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
+            } else {
+                heroArea.classList.remove('active'); 
+                imgMove.style.transform = `translateX(0px) translateY(0px)`;
+                titleMove.style.transform = `translateX(0px) translateY(0px)`;
+            }
         });
+
+        // Flash Logic
+        const triggerFlash = () => {
+            flash.classList.remove('do-flash');
+            void flash.offsetWidth; 
+            flash.classList.add('do-flash');
+        };
+
+        // Scroll Reveal + Flash
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    triggerFlash();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.poster').forEach(p => observer.observe(p));
     </script>
 </body>
 </html>

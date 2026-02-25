@@ -6,37 +6,34 @@
     <title>NURTURE | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #f5f2ee; /* Warm Beige */
-            --text: #4a4a4a; /* Soft Charcoal */
-            --leaf: #8a9a5b; /* Muted Green */
-            --rose: #d8b4a6; /* Dusty Rose */
-            --line: rgba(74, 74, 74, 0.1);
+            --bg: #0b0b0b; /* Deep, soft black */
+            --white: #ffffff;
+            --soft-pink: #ffb8e0;
+            --line: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Cormorant Garamond', serif; /* Elegant Serif */
-            overflow-x: hidden;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* LIGHTING GRADIENT (MORNING SUN) */
+        /* 1. SOFT GLOW CURSOR */
         #aura {
             position: fixed;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(216, 180, 166, 0.15) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 999;
             transform: translate(-50%, -50%);
-            transition: opacity 1s ease;
         }
 
-        /* TEXT OVERLAP SYSTEM (NURTURE STYLE) */
+        /* 2. THE HERO: SOFT OVERLAP */
         .hero {
             height: 100vh;
             display: flex;
@@ -47,137 +44,76 @@
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 20vw, 300px);
-            font-weight: 300;
+            font-size: clamp(60px, 18vw, 280px);
+            font-weight: 200; /* Thin, elegant weight */
             letter-spacing: -0.02em;
             text-transform: uppercase;
-            z-index: 5;
-            color: var(--rose);
+            z-index: 5; 
+            color: var(--soft-pink);
             opacity: 0.3;
-            filter: blur(8px);
-            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(10px);
+            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-container {
-            width: 60%;
-            max-width: 500px;
-            z-index: 10;
             position: relative;
-            transform: scale(0.95);
-            filter: blur(10px);
-            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+            width: 65%;
+            max-width: 480px;
         }
 
-        .hero-container.loaded {
-            transform: scale(1);
-            filter: blur(0px);
+        .hero-img { 
+            width: 100%; 
+            display: block; 
+            border-radius: 300px 300px 0 0; /* Organic arch shape */
+            filter: brightness(0.9);
         }
 
-        .hero-img {
-            width: 100%;
-            display: block;
-            border-radius: 200px 200px 0 0; /* Organic Arch */
-            box-shadow: 0 20px 60px rgba(0,0,0,0.03);
-        }
-
+        /* INTERACTION: TEXT SETTLES INTO CLARITY */
         .hero:hover .hero-title {
-            z-index: 15;
-            opacity: 0.9;
+            opacity: 0.8;
             filter: blur(0px);
-            color: var(--text);
-            mix-blend-mode: multiply;
+            letter-spacing: 0.05em; /* Slow expansion */
         }
 
-        /* REVEAL ANIMATIONS */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            filter: blur(10px);
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+        /* 3. SHARP, SHORT IMPACT TEXT */
+        .impact-statement {
+            padding: 120px 10%;
+            text-align: center;
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0px);
-        }
-
-        /* SECTION STYLING */
-        .content-block {
-            padding: 150px 10%;
-            max-width: 1200px;
+        .impact-statement h2 {
+            font-size: clamp(20px, 4vw, 32px);
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--soft-pink);
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 12px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--leaf);
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-        }
-
-        .section-title::after {
-            content: '';
-            height: 1px;
-            flex-grow: 1;
-            background: var(--line);
-            margin-left: 20px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 1.5s ease;
-        }
-
-        .active .section-title::after { transform: scaleX(1); }
-
-        .body-text {
-            font-size: 28px;
-            line-height: 1.4;
-            max-width: 800px;
-            margin-bottom: 20px;
-        }
-
-        .scope-tag {
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
-            letter-spacing: 3px;
-            padding: 8px 15px;
-            border: 1px solid var(--line);
-            display: inline-block;
-            transition: 0.5s;
-        }
-
-        .scope-tag:hover {
-            border-color: var(--rose);
-            color: var(--rose);
-        }
-
-        /* MOCKUP GRID */
-        .mockup-grid {
+        /* 4. VISUAL FLOW (SLOWER GAPS) */
+        .gallery {
             padding: 0 10% 200px;
-            display: grid;
-            gap: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 200px; /* Big whitespace for "Slow" mood */
         }
 
-        .mockup-item img {
-            width: 100%;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1s;
+        .reveal {
+            opacity: 0;
+            filter: blur(20px);
+            transform: translateY(40px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .mockup-item:hover img {
-            transform: scale(1.02);
-            filter: saturate(1.1);
-        }
+        .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
 
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--text); text-decoration: none; font-size: 10px; letter-spacing: 5px; font-weight: 700; }
-
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.5; }
     </style>
 </head>
 <body>
@@ -186,51 +122,36 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="others.html">BACK</a>
+        <a href="others.html">NEXT</a>
     </nav>
 
     <header class="hero">
         <h1 class="hero-title">NURTURE</h1>
-        <div class="hero-container" id="heroAsset">
-            <img src="nurture-hero.jpg" class="hero-img" alt="Nurture Organic Form">
+        <div class="hero-container">
+            <img src="nurture-hero.jpg" class="hero-img" alt="Organic Growth Form">
         </div>
     </header>
 
-    <section class="content-block reveal">
-        <div class="section-title">PROCESS / 04</div>
-        <p class="body-text">Inspired by natural systems—a quiet study in organic growth, care, and the calm evolution of form.</p>
-        <div class="scope-tag">SCOPE: BRANDING & CARE</div>
+    <section class="impact-statement reveal">
+        <h2>A study in quiet growth and the calm evolution of form.</h2>
+        <p style="margin-top: 30px; font-size: 12px; letter-spacing: 3px; color: rgba(255,255,255,0.3);">SCOPE: ORGANIC BRANDING — 2026</p>
     </section>
 
-    <main class="mockup-grid">
-        <div class="mockup-item reveal">
-            <img src="nurture-mockup1.jpg" alt="Nurture Detail">
-        </div>
-        <div class="mockup-item reveal">
-            <img src="nurture-mockup2.jpg" alt="Nurture Detail">
-        </div>
+    <main class="gallery">
+        <div class="reveal"><img src="nurture-mockup1.jpg" style="width:100%;"></div>
+        <div class="reveal"><img src="nurture-mockup2.jpg" style="width:100%;"></div>
     </main>
 
     <script>
         const aura = document.getElementById('aura');
-        const heroAsset = document.getElementById('heroAsset');
-
-        window.onload = () => {
-            heroAsset.classList.add('loaded');
-        };
-
         document.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            aura.style.left = `${x}px`;
-            aura.style.top = `${y}px`;
+            aura.style.left = `${e.clientX}px`;
+            aura.style.top = `${e.clientY}px`;
         });
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>

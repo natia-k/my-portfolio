@@ -3,173 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go Left | NATIA DESIGN</title>
-    <link rel="stylesheet" href="style.css">
+    <title>GO LEFT | NATIA STUDIO</title>
     <style>
-        body { background-color: #000; color: #fff; margin: 0; }
-
-        .project-hero { 
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; 
-            padding: 0 8%; 
-            gap: 60px;
+        :root {
+            --bg: #f5f5f5; /* Clean gallery white/grey */
+            --black: #1a1a1a;
+            --aura: rgba(0, 0, 0, 0.03);
         }
 
-        /* --- THE HERO IMAGE --- */
-        .main-visual {
-            flex: 1.2; 
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--black);
+            font-family: 'Inter', -apple-system, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .main-visual img { 
-            width: 100%;
-            max-width: 480px; 
-            height: auto;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
-            will-change: transform;
+        #aura {
+            position: fixed; width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 999;
+            transform: translate(-50%, -50%);
         }
 
-        .main-visual img:hover {
-            transform: scale(1.5); 
-            z-index: 100;
-        }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.3; transition: 0.4s; }
+        nav a:hover { opacity: 1; }
 
-        /* --- THE TEXT (FIXED MOVE ANIMATION) --- */
-        .content-right {
-            flex: 1;
+        /* HEADER ANCHOR */
+        .header {
+            height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
+            text-align: center;
         }
 
-        .text-trigger {
-            display: block;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: default;
-        }
-
-        .text-trigger:hover {
-            transform: translateX(30px); /* This makes the text slide left-to-right */
-        }
-
-        .text-trigger h1 { 
-            font-size: clamp(60px, 10vw, 130px); 
-            line-height: 0.8;
-            margin-bottom: 30px;
+        .hero-title {
+            font-size: clamp(80px, 15vw, 200px);
+            font-weight: 900;
             letter-spacing: -0.05em;
             text-transform: uppercase;
-            transition: color 0.5s ease;
+            line-height: 0.9;
         }
 
-        .text-trigger:hover h1 {
-            color: var(--accent);
-        }
-
-        .description {
-            max-width: 380px;
-            font-size: 20px;
-            line-height: 1.4;
-            opacity: 0.8;
-            border-left: 3px solid var(--accent);
-            padding-left: 20px;
-        }
-
-        /* --- DYNAMIC MOCKUP GRID --- */
-        .mockup-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            padding: 50px 5%;
-        }
-
-        .mockup-grid img {
-            width: 100%;
-            height: 650px; 
-            object-fit: cover;
-        }
-
-        /* --- FOOTER (NEXT: CD COVERS) --- */
-        .next-btn-container {
-            display: flex;
-            justify-content: center; 
-            padding: 150px 0;
-            border-top: 1px solid #1a1a1a;
-        }
-
-        .next-project-link {
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .next-project-link span {
-            font-size: 14px;
-            letter-spacing: 5px;
+        .framing-line {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            margin-top: 25px;
             opacity: 0.5;
         }
 
-        .next-project-link h3 {
-            font-size: 60px;
-            text-transform: uppercase;
-            margin-top: 15px;
-            transition: color 0.4s ease;
+        /* SEQUENCE & MAIN POSTER RULE */
+        .sequence {
+            padding-bottom: 30vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .next-project-link:hover h3 {
-            color: var(--accent);
+        .moment {
+            width: 100%;
+            height: 120vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        @media (max-width: 1000px) {
-            .project-hero { flex-direction: column; padding: 120px 20px; text-align: center; }
-            .main-visual { justify-content: center; width: 100%; }
-            .text-trigger:hover { transform: none; }
-            .description { border-left: none; padding-left: 0; margin: 0 auto; }
-            .mockup-grid { grid-template-columns: 1fr; }
-            .mockup-grid img { height: auto; }
+        .moment img {
+            max-width: 850px;
+            width: 85%;
+            height: auto;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.06);
         }
+
+        .micro-text {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            opacity: 0.2;
+            text-transform: lowercase;
+            margin: 10vh 0;
+        }
+
+        .footer {
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .next-link {
+            font-size: 11px;
+            letter-spacing: 0.6em;
+            text-decoration: none;
+            color: var(--black);
+            opacity: 0.2;
+            transition: 0.8s;
+        }
+        .next-link:hover { opacity: 0.6; }
+
+        .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
     </style>
 </head>
 <body>
+
+    <div id="aura"></div>
+
     <nav>
-        <a href="index.html">← back</a>
-        <div class="studio-name">NATIA DESIGN</div>
-        <a href="mailto:natia.kurtanidze55@gmail.com">Email</a>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="feelings.html">FEELINGS</a>
     </nav>
 
-    <main>
-        <section class="project-hero">
-            <div class="main-visual">
-                <img src="goleft-hero.jpg" alt="Go Left Poster">
-            </div>
+    <header class="header">
+        <h1 class="hero-title reveal-trigger">GO LEFT</h1>
+        <p class="framing-line reveal-trigger">when nothing goes right, turn instinctive</p>
+    </header>
 
-            <div class="content-right">
-                <div class="text-trigger">
-                    <h1>Go<br>Left</h1>
-                    <p class="description">"If nothing is going right, go left. A study in liquid typography and bold rebellion."</p>
-                    <div class="meta" style="margin-top: 40px; font-size: 12px; letter-spacing: 4px; opacity: 0.5; font-weight: 800;">
-                        BERLIN · 2026
-                    </div>
-                </div>
-            </div>
+    <main class="sequence">
+        
+        <section class="moment reveal-trigger">
+            <img src="goleft-main.jpg" alt="GO LEFT Main Poster">
         </section>
 
-        <section class="mockup-grid">
-            <img src="goleft-mockup1.jpg" alt="Print Mockup">
-            <img src="goleft-mockup2.jpg" alt="Poster Mockup">
+        <p class="micro-text reveal-trigger">the moment of shift</p>
+
+        <section class="moment reveal-trigger">
+            <img src="go-left-2.jpg" alt="Movement">
         </section>
 
-        <footer class="next-btn-container">
-            <a href="cd-covers.html" class="next-project-link">
-                <span>NEXT PROJECT</span>
-                <h3>CD Covers</h3>
-            </a>
-        </footer>
+        <section class="moment reveal-trigger">
+            <img src="go-left-3.jpg" alt="Aftermath">
+        </section>
+
     </main>
+
+    <footer class="footer">
+        <a href="others.html" class="next-link">next</a>
+    </footer>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            document.getElementById('aura').style.left = e.clientX + 'px';
+            document.getElementById('aura').style.top = e.clientY + 'px';
+        });
+
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-trigger').forEach(el => obs.observe(el));
+    </script>
 </body>
 </html>

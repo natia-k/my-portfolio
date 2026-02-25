@@ -7,10 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 1. SOFT & WARM BACKGROUND */
-            --bg: #f2ede4; /* Warm linen/sand tone */
-            --ink: #2b2826; /* Deep organic charcoal */
-            --glow: rgba(255, 184, 224, 0.15);
+            /* 1. SOFT PINK & CUTE PALETTE */
+            --bg: #fdf5f7; /* Very soft, creamy pink-white */
+            --ink: #4a3f3f; /* Warm, earthy charcoal */
+            --accent: #ffb8e0; /* The signature soft pink */
+            --glow: rgba(255, 184, 224, 0.25);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -23,11 +24,11 @@
             overflow-x: hidden;
         }
 
-        /* LIGHTING LAYER */
+        /* DUSTY ROSE AURA */
         #aura {
             position: fixed;
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 75%);
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
@@ -42,64 +43,66 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0 10%;
         }
 
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(60px, 12vw, 160px);
+            font-size: clamp(60px, 12vw, 150px);
             font-weight: 400;
             font-style: italic;
-            margin-bottom: 24px;
+            color: var(--ink);
+            margin-bottom: 20px;
         }
 
         .hero-sub {
-            font-size: 18px;
+            font-size: 17px;
             line-height: 1.6;
             max-width: 500px;
+            opacity: 0.8;
         }
 
         .hero-sub span {
             display: block;
             margin-top: 15px;
             font-size: 14px;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         .scope-line {
-            margin-top: 60px;
+            margin-top: 50px;
             font-size: 10px;
             letter-spacing: 5px;
             text-transform: uppercase;
-            opacity: 0.4;
+            color: var(--accent); /* Pink accent for the tag */
+            font-weight: 600;
         }
 
-        /* GALLERY SPACING */
+        /* GALLERY */
         .gallery {
-            padding: 200px 15% 300px;
+            padding: 150px 12% 300px;
             display: flex;
             flex-direction: column;
-            gap: 250px;
+            gap: 200px;
         }
 
-        .moment { width: 100%; max-width: 700px; position: relative; }
+        .moment { width: 100%; max-width: 650px; }
         .moment:nth-child(even) { align-self: flex-end; }
 
         .moment img {
             width: 100%;
             display: block;
-            border-radius: 2px;
-            /* Added a subtle shadow to make images "pop" from the warm background */
-            box-shadow: 0 40px 100px rgba(0,0,0,0.05);
-            transition: transform 0.8s ease;
+            border-radius: 4px;
+            /* Soft pink shadow instead of black */
+            box-shadow: 0 30px 60px rgba(255, 184, 224, 0.15);
+            transition: 0.8s ease;
         }
 
         .caption {
             display: block;
             margin-top: 20px;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
-            opacity: 0.4;
+            opacity: 0.5;
             font-style: italic;
         }
 
@@ -108,12 +111,12 @@
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; }
+        nav a { color: var(--ink); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; }
 
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -139,17 +142,17 @@
 
     <main class="gallery">
         <div class="moment reveal">
-            <img src="Nurture.jpg" alt="Primary visual">
+            <img src="Nurture.jpg" alt="Soft light memory">
             <span class="caption">a gentle form</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture–mockup2.jpg" alt="Cassette mockup">
+            <img src="nurture-mockup2.jpg" alt="Cassette mockup">
             <span class="caption">warm texture</span>
         </div>
 
         <div class="moment reveal">
-            <img src="nurture–mockup1.jpg" alt="Details and type">
+            <img src="nurture-mockup1.jpg" alt="Details and type">
             <span class="caption">still growing</span>
         </div>
     </main>

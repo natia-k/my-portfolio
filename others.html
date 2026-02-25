@@ -9,6 +9,7 @@
             --bg: #000000;
             --white: #ffffff;
             --soft-pink: #ffb8e0;
+            --line: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -17,99 +18,137 @@
             background-color: var(--bg);
             color: var(--white);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. CURSOR LIGHT */
         #aura {
             position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.1) 0%, transparent 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* 2. PRECISION OVERLAP SYSTEM */
+        /* 1. REFINED HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: var(--bg);
         }
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 18vw, 280px);
+            font-size: clamp(60px, 15vw, 240px);
             font-weight: 950;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
-            /* The Trick: */
-            z-index: 1; 
-            color: var(--white);
-            mix-blend-mode: difference; /* Only reacts when image is on top */
-            pointer-events: none;
-            text-align: center;
+            z-index: 5;
+            color: var(--soft-pink);
+            opacity: 0.3;
+            filter: blur(12px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-container {
             position: relative;
-            z-index: 2; /* Image is on top of the text */
+            z-index: 10;
             width: 70%;
             max-width: 500px;
-            transition: transform 0.1s ease-out;
         }
 
-        .hero-img { 
-            width: 100%; 
-            display: block; 
-            /* We use a slight brightness so the "difference" blend mode has something to react to */
-            filter: grayscale(1) brightness(0.8); 
+        .hero-img { width: 100%; display: block; border-radius: 2px; }
+
+        .hero:hover .hero-title {
+            z-index: 15;
+            opacity: 1;
+            filter: blur(0px);
+            mix-blend-mode: exclusion;
+            color: var(--white);
         }
 
-        /* 3. STAGGERED LAYOUT */
-        .concept-block {
-            padding: 100px 10%;
-            max-width: 800px;
+        /* 2. SHARPER COPY & HIERARCHY */
+        .concept-section {
+            padding: 120px 10%;
+            max-width: 1200px;
         }
 
-        .concept-block h2 {
-            font-size: 20px;
-            font-weight: 500;
+        .concept-section h2 {
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .concept-section p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            max-width: 450px;
+            line-height: 1.6;
+        }
+
+        .scope-tag {
+            margin-top: 40px;
+            font-size: 10px;
+            letter-spacing: 4px;
             color: var(--soft-pink);
-            margin-bottom: 10px;
+            font-weight: 800;
         }
 
-        .gallery {
-            padding: 0 10% 200px;
+        /* 3. STAGGERED GALLERY RHYTHM */
+        .staggered-grid {
+            padding: 100px 10% 200px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 100px 40px;
+            gap: 150px 40px; /* Big vertical gap for pacing */
         }
 
-        .grid-item.offset { margin-top: 120px; }
-        .grid-item img { width: 100%; display: block; filter: brightness(0.7); transition: 0.5s; }
-        .grid-item:hover img { filter: brightness(1); }
+        .grid-item { position: relative; }
+        .grid-item.offset { margin-top: 150px; } /* The Stagger */
+
+        .grid-item img { width: 100%; display: block; }
 
         .caption {
+            margin-top: 20px;
             font-size: 10px;
             letter-spacing: 2px;
-            margin-top: 15px;
-            display: block;
+            text-transform: uppercase;
             opacity: 0.4;
+            font-weight: 600;
+            display: block;
         }
 
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.6; }
 
+        .next-proj {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .next-link {
+            font-size: clamp(40px, 12vw, 150px);
+            font-weight: 900;
+            text-decoration: none;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--white);
+            transition: 0.5s;
+        }
+
+        .next-link:hover { color: var(--soft-pink); -webkit-text-stroke: 0px; }
     </style>
 </head>
 <body>
@@ -122,42 +161,38 @@
     </nav>
 
     <header class="hero">
-        <h1 class="hero-title">THE<br>OTHERS</h1>
-        
-        <div class="hero-container" id="heroTarget">
-            <img src="others-hero.jpg" class="hero-img" alt="Hero Anchor">
+        <h1 class="hero-title">THE OTHERS</h1>
+        <div class="hero-container">
+            <img src="others-hero.jpg" class="hero-img">
         </div>
     </header>
 
-    <section class="concept-block">
+    <section class="concept-section">
         <h2>A series of visual experiments exploring contrast, disorder, and alternative form.</h2>
-        <p style="font-size: 14px; opacity: 0.5;">A playground for breaking systems and rebuilding them with intention.</p>
+        <p>A playground for breaking systems and rebuilding them with intention.</p>
+        <div class="scope-tag">SCOPE: EXPERIMENTAL DESIGN • 2026</div>
     </section>
 
-    <main class="gallery">
+    <main class="staggered-grid">
         <div class="grid-item">
             <img src="others-mockup1.jpg">
-            <span class="caption">Study 01 — Identity</span>
+            <span class="caption">Study 01 — Alternative identity system</span>
         </div>
         <div class="grid-item offset">
             <img src="others-mockup2.jpg">
-            <span class="caption">Study 02 — Composition</span>
+            <span class="caption">Study 02 — Composition + tension</span>
         </div>
     </main>
 
+    <footer class="next-proj">
+        <a href="nurture.html" class="next-link">NURTURE</a>
+    </footer>
+
     <script>
         const aura = document.getElementById('aura');
-        const heroTarget = document.getElementById('heroTarget');
-
         document.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            aura.style.left = `${x}px`;
-            aura.style.top = `${y}px`;
-
-            // Dynamic Tilt to make the overlap move naturally
-            const moveX = (window.innerWidth / 2 - x) / 50;
-            const moveY = (window.innerHeight / 2 - y) / 50;
-            heroTarget.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+            aura.style.left = `${e.clientX}px`;
+            aura.style.top = `${e.clientY}px`;
         });
     </script>
 </body>

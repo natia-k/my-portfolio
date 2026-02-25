@@ -8,8 +8,8 @@
         :root {
             --bg: #0a0a0a;
             --text: #ffffff;
-            --baby-pink: #fce4ec; /* The exact Milky Pink you want */
-            --pink-glow: rgba(252, 228, 236, 0.4);
+            --baby-pink: #fce4ec; /* The exact milky pink */
+            --pink-glow: rgba(252, 228, 236, 0.3);
             --red: #d42020;
         }
 
@@ -43,7 +43,7 @@
 
         /* CURSOR */
         #aura {
-            position: fixed; width: 10px; height: 10px;
+            position: fixed; width: 8px; height: 8px;
             background: white; border-radius: 50%; pointer-events: none; z-index: 10001;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
         }
@@ -56,25 +56,26 @@
         }
 
         .hero h1 {
-            font-size: clamp(40px, 10vw, 150px);
+            font-size: clamp(40px, 12vw, 180px);
             font-weight: 900; text-transform: uppercase;
-            letter-spacing: -0.05em; line-height: 0.85;
-            transition: color 0.4s;
+            letter-spacing: -0.06em; line-height: 0.8;
+            transition: color 0.5s;
         }
         .hero h1:hover { color: var(--baby-pink); }
 
+        /* INCREASED SPACE */
         .work-section {
-            padding: 10vh 10% 20vh;
+            padding: 20vh 10% 30vh; /* Massive top/bottom padding */
             display: flex; flex-direction: column;
-            gap: 12px;
+            gap: 40px; /* More space between titles */
         }
 
         .project-link {
-            font-size: clamp(35px, 8vw, 110px);
+            font-size: clamp(30px, 8vw, 120px);
             font-weight: 900; text-decoration: none; color: var(--text);
             text-transform: uppercase; letter-spacing: -0.04em;
-            opacity: 0.4;
-            transition: all 0.4s ease;
+            opacity: 0.3;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             display: block;
             width: fit-content;
         }
@@ -82,19 +83,20 @@
         .project-link:hover {
             opacity: 1;
             color: var(--baby-pink);
-            transform: translateX(25px);
-            text-shadow: 0 0 15px var(--pink-glow);
+            transform: translateX(40px); /* Elegant slide */
         }
 
-        /* IMAGE PREVIEW BOX */
+        /* LARGER PREVIEW BOX */
         #preview {
-            position: fixed; width: 450px; height: 320px;
+            position: fixed; 
+            width: 550px; /* Wider */
+            height: 380px; /* Taller */
             pointer-events: none; z-index: 5; opacity: 0;
-            transform: translate(-50%, -50%) scale(0.9);
-            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 8px;
+            transform: translate(-50%, -50%) scale(0.85);
+            transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 0 40px var(--pink-glow);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px var(--pink-glow);
         }
         #preview.active {
             opacity: 1;
@@ -102,7 +104,7 @@
         }
         #preview img { width: 100%; height: 100%; object-fit: cover; }
 
-        footer { padding: 60px 10%; font-size: 10px; opacity: 0.3; letter-spacing: 5px; text-transform: uppercase; }
+        footer { padding: 100px 10%; font-size: 10px; opacity: 0.2; letter-spacing: 8px; text-transform: uppercase; text-align: center; }
     </style>
 </head>
 <body>
@@ -122,7 +124,9 @@
         <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
         <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
         <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
+        
         <a href="cd-covers.html" class="project-link" data-img="cd-hero.jpg">04 CD COVERS</a>
+        
         <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">05 OAT MILK</a>
         <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">06 KOMBUCHA</a>
         <a href="posters.html" class="project-link" data-img="nostalgia.jpg">07 POSTERS</a>
@@ -138,7 +142,6 @@
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
 
-        // Loader
         let counter = 0;
         const interval = setInterval(() => {
             counter += Math.floor(Math.random() * 20) + 1;
@@ -150,7 +153,6 @@
             count.innerText = counter;
         }, 50);
 
-        // Mouse follow
         let mouseX = 0, mouseY = 0;
         let ballX = 0, ballY = 0;
 
@@ -161,15 +163,14 @@
         });
 
         function animate() {
-            ballX += (mouseX - ballX) * 0.1;
-            ballY += (mouseY - ballY) * 0.1;
+            ballX += (mouseX - ballX) * 0.07; /* Slower, more elegant follow */
+            ballY += (mouseY - ballY) * 0.07;
             preview.style.left = ballX + 'px';
             preview.style.top = ballY + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
-        // Hover logic
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 const imgSource = link.getAttribute('data-img');

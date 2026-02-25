@@ -8,10 +8,10 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --pink-aura: rgba(255, 184, 224, 0.3);
+            --pink-aura: rgba(255, 184, 224, 0.35);
         }
 
-        /* PURE BLACK - NO GRAY */
+        /* PURE BLACK & NO CURSOR */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body {
             background-color: var(--bg);
@@ -23,7 +23,7 @@
 
         #aura {
             position: fixed;
-            width: 450px; height: 450px;
+            width: 500px; height: 500px;
             background: radial-gradient(circle, var(--pink-aura) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -32,25 +32,23 @@
             mix-blend-mode: screen;
         }
 
-        /* CAMERA FLASH EFFECT */
+        /* BRIGHT CAMERA FLASH */
         #flash {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: white;
             opacity: 0;
             pointer-events: none;
             z-index: 10000;
         }
-
         @keyframes shutter {
             0% { opacity: 0; }
-            20% { opacity: 0.9; }
+            15% { opacity: 1; }
             100% { opacity: 0; }
         }
-        .do-flash { animation: shutter 0.4s ease-out; }
+        .do-flash { animation: shutter 0.35s ease-out; }
 
-        /* HERO AREA & MELTING TEXT */
+        /* LIQUID MELTING TEXT */
         .hero {
             height: 100vh;
             display: flex;
@@ -74,13 +72,14 @@
 
         .hero-title span {
             display: inline-block;
-            transition: filter 0.3s ease, opacity 0.3s ease;
+            transition: filter 0.4s ease, opacity 0.4s ease;
+            filter: blur(0px);
         }
 
-        /* Individual letter blur on cursor touch */
+        /* Blur specific letter on cursor touch */
         .hero-title span.active-blur {
             filter: blur(60px) !important;
-            opacity: 0.2;
+            opacity: 0.15;
         }
 
         /* GALLERY SECTION */
@@ -92,13 +91,14 @@
             flex-direction: column;
             align-items: center;
             gap: 450px;
+            background: #000000;
         }
 
         .poster {
             width: 85%;
             max-width: 900px;
             opacity: 0;
-            transform: translateY(100px);
+            transform: translateY(120px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -126,9 +126,9 @@
     </header>
 
     <main class="gallery">
-        <div class="poster"><img src="nurture-hero.jpg"></div>
-        <div class="poster"><img src="nurture-mockup2.jpg"></div>
-        <div class="poster"><img src="nurture-mockup1.jpg"></div>
+        <div class="poster"><img src="nurture-hero.jpg" class="smart-img"></div>
+        <div class="poster"><img src="nurture-mockup2.jpg" class="smart-img"></div>
+        <div class="poster"><img src="nurture-mockup1.jpg" class="smart-img"></div>
     </main>
 
     <script>
@@ -137,7 +137,22 @@
         const meltTitle = document.getElementById('meltTitle');
         const letters = document.querySelectorAll('.hero-title span');
 
-        // 1. MOUSE INTERACTION (Per-letter blur)
+        // 1. SMART IMAGE LOADER (Automatically fixes naming errors)
+        document.querySelectorAll('.smart-img').forEach(img => {
+            img.onerror = function() {
+                let currentSrc = this.src;
+                // If standard hyphen fails, try the "en-dash" version
+                if (currentSrc.includes('-')) {
+                    this.src = currentSrc.replace('-', '–');
+                } 
+                // If that fails too, try PNG instead of JPG
+                else if (currentSrc.endsWith('.jpg')) {
+                    this.src = currentSrc.replace('.jpg', '.png');
+                }
+            };
+        });
+
+        // 2. CURSOR BLUR LOGIC
         document.addEventListener('mousemove', (e) => {
             const { clientX: x, clientY: y } = e;
             aura.style.left = `${x}px`;
@@ -151,26 +166,26 @@
             });
         });
 
-        // 2. LIQUID MELT SCROLL EFFECT
+        // 3. LIQUID MELT SCROLL
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const vh = window.innerHeight;
             
             if (scrollY < vh * 1.5) {
                 const progress = scrollY / vh;
-                meltTitle.style.filter = `blur(${progress * 130}px)`;
-                meltTitle.style.opacity = 1 - (progress * 1.3);
-                meltTitle.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.5}px))`;
+                meltTitle.style.filter = `blur(${progress * 140}px)`;
+                meltTitle.style.opacity = 1 - (progress * 1.4);
+                meltTitle.style.transform = `translate(-50%, calc(-50% + ${scrollY * 0.7}px))`;
                 meltTitle.style.display = "flex";
             } else {
                 meltTitle.style.display = "none";
             }
         });
 
-        // 3. FLASH & REVEAL IMAGES
+        // 4. FLASH & REVEAL
         const triggerFlash = () => {
             flash.classList.remove('do-flash');
-            void flash.offsetWidth; // Trigger reflow
+            void flash.offsetWidth; 
             flash.classList.add('do-flash');
         };
 

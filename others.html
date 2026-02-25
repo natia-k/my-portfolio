@@ -32,7 +32,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: PURE OVERLAY LOGIC */
+        /* HERO: TEXT STARTS BEHIND */
         .hero {
             height: 100vh;
             display: flex;
@@ -40,12 +40,13 @@
             justify-content: center;
             position: relative;
             background: var(--bg);
+            overflow: hidden;
         }
 
         .hero-wrapper {
             position: relative;
-            width: 70%;
-            max-width: 600px;
+            width: 75%;
+            max-width: 650px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -53,24 +54,35 @@
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 15vw, 220px);
+            font-size: clamp(80px, 16vw, 240px);
             font-weight: 900;
             letter-spacing: -0.05em;
             text-transform: uppercase;
-            z-index: 10;
-            color: var(--white);
-            /* This makes the text interact with the image underneath */
-            mix-blend-mode: difference; 
             text-align: center;
             line-height: 0.8;
             pointer-events: none;
-            transition: transform 0.6s ease-out;
+            
+            /* START STATE: Behind and subtle */
+            z-index: 1; 
+            opacity: 0.2;
+            color: var(--white);
+            mix-blend-mode: normal;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-img { 
             width: 100%; 
             display: block;
-            transition: transform 0.6s ease-out;
+            z-index: 5; /* Image is in front by default */
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ACTIVE STATE: Triggered by JS when mouse is over hero */
+        .hero.active .hero-title {
+            z-index: 10; /* Moves to front */
+            opacity: 1;
+            mix-blend-mode: difference; /* Interactions with image */
+            transform: scale(1.05);
         }
 
         /* INTRO & META */
@@ -89,24 +101,15 @@
         .meta-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
         .meta-value { font-size: 13px; color: var(--accent); }
 
-        /* GALLERY: VISIBILITY FIX */
+        /* GALLERY */
         .gallery {
             padding: 100px 10% 300px;
             display: flex;
             flex-direction: column;
             gap: 150px;
         }
-
-        .item { width: 100%; position: relative; }
         .item img { width: 100%; display: block; }
-        
-        .caption { 
-            margin-top: 20px; 
-            font-size: 10px; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            opacity: 0.6;
-        }
+        .caption { margin-top: 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; }
@@ -144,7 +147,6 @@
             <img src="others-mockup1.jpg">
             <p class="caption">Study 01 — Physical Tension</p>
         </div>
-
         <div class="item">
             <img src="others-mockup2.jpg">
             <p class="caption">Study 02 — Controlled Space</p>
@@ -163,15 +165,18 @@
             aura.style.top = `${y}px`;
 
             const rect = heroArea.getBoundingClientRect();
-            // Only move if mouse is in the hero section
-            if (y < rect.bottom) {
-                const xPos = (window.innerWidth / 2 - x) / 25;
-                const yPos = (window.innerHeight / 2 - y) / 25;
+            
+            // Check if mouse is within the Hero Section
+            if (y >= rect.top && y <= rect.bottom) {
+                heroArea.classList.add('active'); // Brings text to front & applies blend
+                
+                const xPos = (window.innerWidth / 2 - x) / 30;
+                const yPos = (window.innerHeight / 2 - y) / 30;
                 
                 imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
                 titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
             } else {
-                // Return to center when mouse leaves
+                heroArea.classList.remove('active'); // Text goes behind & dims
                 imgMove.style.transform = `translateX(0px) translateY(0px)`;
                 titleMove.style.transform = `translateX(0px) translateY(0px)`;
             }

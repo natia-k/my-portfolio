@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #FFD1DC; /* Baby Pink */
-            --accent: #FF4500; /* Vibrant Red */
+            --accent: #D6B1B1; /* Your Specific Color */
             --black: #1a1a1a;
             --aura: rgba(255, 255, 255, 0.6);
         }
@@ -33,7 +33,7 @@
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; transition: 0.4s; }
 
-        /* RESTORED BUBBLY TEXT EFFECT */
+        /* BUBBLY TEXT EFFECT WITH COLOR #D6B1B1 */
         .intro { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         
         .hero-title {
@@ -60,11 +60,11 @@
             50% { transform: scale(1.1) translateY(-15px); filter: blur(8px); opacity: 0.8; }
         }
 
-        /* GALLERY LAYOUT */
+        /* GALLERY & POETRY */
         .gallery { padding: 0 5% 400px; display: flex; flex-direction: column; align-items: center; gap: 300px; }
         .artwork-section { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-        /* EDITORIAL SIDE LAYOUT FOR HEARTBREAK */
+        /* HEARTBREAK EDITORIAL LAYOUT */
         .editorial-container {
             display: flex;
             align-items: flex-start;
@@ -77,15 +77,15 @@
         .editorial-text-wrapper {
             flex: 1;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            color: var(--accent);
+            color: var(--black);
         }
 
         .poem { white-space: pre-line; font-size: 16px; line-height: 1.6; margin-bottom: 30px; }
-        .description { font-size: 13px; line-height: 1.5; opacity: 0.8; }
+        .description { font-size: 13px; line-height: 1.5; opacity: 0.6; }
 
-        .artwork-text { max-width: 600px; margin-top: 30px; font-size: 15px; line-height: 1.8; color: var(--accent); white-space: pre-line; }
-        .artwork-title { font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: 10px; color: var(--accent); opacity: 0.6; }
-        .artwork-meta { font-size: 10px; margin-bottom: 30px; color: var(--accent); opacity: 0.4; }
+        .artwork-text { max-width: 600px; margin-top: 30px; font-size: 15px; line-height: 1.8; color: var(--black); white-space: pre-line; }
+        .artwork-title { font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: 10px; opacity: 0.4; }
+        .artwork-meta { font-size: 10px; margin-bottom: 30px; opacity: 0.3; }
 
         .reveal-trigger { opacity: 0; transform: translateY(50px); transition: 1.5s ease; }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
@@ -105,7 +105,7 @@
         <h1 class="hero-title">
             <span>F</span><span>E</span><span>E</span><span>L</span><span>I</span><span>N</span><span>G</span><span>S</span>
         </h1>
-        <p style="color: var(--accent); letter-spacing: 0.4em; font-size: 12px; margin-top: 20px; opacity: 0.6;">visual identities for sound</p>
+        <p style="letter-spacing: 0.4em; font-size: 12px; margin-top: 20px; opacity: 0.4;">visual identities for sound</p>
     </header>
 
     <main class="gallery">

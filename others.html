@@ -9,7 +9,7 @@
             --bg: #000000;
             --white: #ffffff;
             --accent: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.15);
+            --line: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -22,31 +22,40 @@
             overflow-x: hidden;
         }
 
+        /* 5. SENSORY DETAIL: SOFT GRAIN OVERLAY */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/pinstriped-dark.png');
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
         #aura {
             position: fixed;
             width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255, 184, 224, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 184, 224, 0.12) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
         }
 
-        /* HERO: BLURRED BACKGROUND TEXT */
+        /* HERO: OATS-STYLE INTERACTION */
         .hero {
-            height: 100vh;
+            height: 110vh; /* Extra height for space */
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: var(--bg);
-            overflow: hidden;
         }
 
         .hero-wrapper {
             position: relative;
-            width: 75%;
-            max-width: 650px;
+            width: 85%; /* 1. THE HERO CENTERPIECE: Visibly Larger */
+            max-width: 800px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -54,7 +63,7 @@
 
         .hero-title {
             position: absolute;
-            font-size: clamp(80px, 16vw, 240px);
+            font-size: clamp(80px, 18vw, 280px);
             font-weight: 950;
             letter-spacing: -0.05em;
             text-transform: uppercase;
@@ -62,11 +71,10 @@
             line-height: 0.8;
             pointer-events: none;
             
-            /* START STATE: Blurred and behind like Oats */
+            /* INITIAL STATE: Blurred Background */
             z-index: 1; 
-            opacity: 0.3;
-            filter: blur(20px);
-            color: var(--white);
+            opacity: 0.25;
+            filter: blur(25px);
             transform: scale(0.9);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -74,49 +82,75 @@
         .hero-img { 
             width: 100%; 
             display: block;
-            z-index: 5; /* Image stays in front */
-            filter: brightness(1);
+            z-index: 5;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8); /* Subtle sensory shadow */
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ACTIVE STATE: Sharp and overlaying */
         .hero.active .hero-title {
-            z-index: 10; /* Comes to front */
+            z-index: 10;
             opacity: 1;
             filter: blur(0px);
-            mix-blend-mode: difference; /* Cut-through effect */
-            transform: scale(1.05);
+            mix-blend-mode: difference;
+            transform: scale(1.02);
         }
 
-        /* INTRO: Updated text for REAL project */
+        /* 2. REDUCED TEXT / INTRO */
         .intro-section {
-            padding: 120px 10%;
+            padding: 160px 10%;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            gap: 80px;
+            gap: 100px;
             border-top: 1px solid var(--line);
         }
 
-        .intro-text h2 { font-size: 32px; font-weight: 300; line-height: 1.2; }
-        .intro-text p { margin-top: 20px; opacity: 0.6; font-size: 16px; line-height: 1.6; max-width: 450px; }
+        .intro-text h2 { 
+            font-size: clamp(24px, 4vw, 42px); 
+            font-weight: 300; 
+            line-height: 1.1; 
+            letter-spacing: -1px;
+        }
         
         .meta-grid { display: grid; gap: 20px; }
         .meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
-        .meta-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
+        .meta-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; }
         .meta-value { font-size: 13px; color: var(--accent); }
 
-        /* GALLERY */
+        /* 4. EDITORIAL RHYTHM */
         .gallery {
-            padding: 100px 10% 300px;
+            padding: 100px 15% 200px;
             display: flex;
             flex-direction: column;
-            gap: 150px;
+            gap: 250px; /* Big gap before first */
         }
-        .item img { width: 100%; display: block; }
-        .caption { margin-top: 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.5; }
+        .item { width: 100%; max-width: 600px; }
+        .item:nth-child(even) { align-self: flex-end; margin-top: -100px; } /* Uneven spacing */
+
+        .item img { width: 100%; display: block; filter: brightness(0.95); transition: 0.6s; }
+        .item:hover img { filter: brightness(1); }
+
+        /* 3. CAPTIONS AS ANCHORS */
+        .caption { 
+            margin-top: 25px; 
+            font-size: 10px; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            opacity: 0.3; /* Faded / Quiet */
+        }
+
+        /* 6. DECISIVE ENDING */
+        .footer-note {
+            padding: 200px 0 100px;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.2;
+        }
+
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -138,12 +172,10 @@
     <section class="intro-section">
         <div class="intro-text">
             <h2>Breaking systems through visual research.</h2>
-            <p>A multi-disciplinary study on contrast and negative space. This project explores the threshold where structure collapses into form.</p>
         </div>
         <div class="meta-grid">
-            <div class="meta-row"><span class="meta-label">Project</span><span class="meta-value">The Others (Existent)</span></div>
+            <div class="meta-row"><span class="meta-label">Project</span><span class="meta-value">The Others</span></div>
             <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
-            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">Visual Study</span></div>
             <div class="meta-row"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
         </div>
     </section>
@@ -151,13 +183,18 @@
     <main class="gallery">
         <div class="item">
             <img src="others-mockup1.jpg">
-            <p class="caption">Study 01 — Physical Tension</p>
+            <p class="caption">Study 01 — Tension</p>
         </div>
+
         <div class="item">
             <img src="others-mockup2.jpg">
-            <p class="caption">Study 02 — Controlled Space</p>
+            <p class="caption">Study 02 — Space</p>
         </div>
     </main>
+
+    <footer class="footer-note">
+        End of Series.
+    </footer>
 
     <script>
         const aura = document.getElementById('aura');
@@ -172,13 +209,10 @@
 
             const rect = heroArea.getBoundingClientRect();
             
-            // Interaction logic
             if (y >= rect.top && y <= rect.bottom) {
                 heroArea.classList.add('active'); 
-                
-                const xPos = (window.innerWidth / 2 - x) / 35;
-                const yPos = (window.innerHeight / 2 - y) / 35;
-                
+                const xPos = (window.innerWidth / 2 - x) / 40;
+                const yPos = (window.innerHeight / 2 - y) / 40;
                 imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
                 titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
             } else {

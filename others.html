@@ -6,166 +6,129 @@
     <title>THE OTHERS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #000000;
+            --bg: #0b0b0b;
             --white: #ffffff;
             --soft-pink: #ffb8e0;
-            --line: rgba(255, 255, 255, 0.1);
+            --line: rgba(255, 255, 255, 0.05);
+            --grain: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
+            background-image: var(--grain); /* Barely visible texture */
             color: var(--white);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
+        /* 1. THE GALLERY LIGHT (AURA) */
         #aura {
             position: fixed;
-            width: 500px; height: 500px;
+            width: 700px;
+            height: 700px;
             background: radial-gradient(circle, rgba(255, 184, 224, 0.08) 0%, transparent 75%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
+            mix-blend-mode: plus-lighter;
         }
 
-        /* 1. THE INTENTIONAL HERO */
+        /* 2. ENTRY MOMENT: ARCHITECTURAL OVERLAP */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero-image-bg {
-            position: absolute;
-            width: 50%; /* Cropped/Embedded feel */
-            opacity: 0.6;
-            z-index: 1;
-            filter: grayscale(1);
         }
 
         .hero-title {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            line-height: 0.8;
+            position: absolute;
+            font-size: clamp(80px, 20vw, 320px);
+            font-weight: 900;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
-            pointer-events: none;
+            z-index: 5;
+            color: var(--soft-pink);
+            opacity: 0.15;
+            filter: blur(15px);
+            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero-title span {
-            display: block;
-            font-size: clamp(20px, 4vw, 40px);
-            letter-spacing: 0.5em;
-            margin-bottom: 10px;
-            font-weight: 300;
-            opacity: 0.8;
+        .hero-container {
+            z-index: 10;
+            width: 75%;
+            max-width: 550px;
+            transform: scale(0.98);
+            transition: transform 1.2s ease;
         }
 
-        .hero-title h1 {
-            font-size: clamp(100px, 22vw, 350px);
-            font-weight: 950;
-            letter-spacing: -0.05em;
-            mix-blend-mode: exclusion; /* Title interacts with image behind it */
+        /* INTERACTION: THE SURPRISE */
+        .hero:hover .hero-title {
+            opacity: 1;
+            filter: blur(0px);
+            mix-blend-mode: exclusion;
+            color: var(--white);
+            z-index: 15;
         }
 
-        /* 2 & 3. SHARP INTRO & PREMIUM META GRID */
-        .intro-section {
-            padding: 160px 10%;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 80px;
+        /* 3. NARRATIVE FLOW (SLOW PACING) */
+        .statement {
+            padding: 200px 10%;
             border-top: 1px solid var(--line);
         }
 
-        .intro-text h2 {
-            font-size: clamp(28px, 4vw, 48px);
+        .statement h2 {
+            font-size: clamp(24px, 5vw, 48px);
             font-weight: 300;
             line-height: 1.1;
+            max-width: 900px;
+            letter-spacing: -0.03em;
         }
 
-        .intro-text p {
-            margin-top: 25px;
-            font-size: 18px;
-            opacity: 0.5;
-            font-style: italic;
-        }
-
-        .meta-grid {
+        /* 4. ASYMMETRIC EXHIBITION GRID */
+        .exhibition-grid {
+            padding: 0 10% 300px;
             display: grid;
-            gap: 20px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 100px 20px;
         }
 
-        .meta-row {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 10px;
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            filter: blur(10px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .meta-label {
-            font-size: 9px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.3;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
         }
 
-        .meta-value {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--soft-pink);
+        /* Irregular placement */
+        .item-lg { grid-column: 1 / 10; }
+        .item-sm { grid-column: 7 / 13; margin-top: -50px; }
+        .item-md { grid-column: 2 / 8; }
+
+        .exhibition-grid img { 
+            width: 100%; 
+            filter: grayscale(1);
+            transition: 1.2s filter ease;
         }
+        
+        .exhibition-grid div:hover img { filter: grayscale(0); }
 
-        /* 4. GALLERY RHYTHM */
-        .gallery-rhythm {
-            padding: 100px 10% 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 200px;
+        nav {
+            position: fixed;
+            top: 40px; width: 100%; padding: 0 6%;
+            display: flex; justify-content: space-between; z-index: 1000;
         }
-
-        /* Full Width Study */
-        .study-full { width: 100%; margin-bottom: 100px; }
-        .study-full img { width: 100%; filter: brightness(0.9); }
-
-        /* Side-by-Side Stagger */
-        .study-stagger {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-        }
-        .stagger-low { margin-top: 150px; }
-
-        /* Details Strip */
-        .details-strip {
-            padding: 60px 0;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 100px 0;
-        }
-        .crop-group { display: flex; gap: 15px; }
-        .crop { width: 60px; height: 60px; background: #111; border-radius: 2px; overflow: hidden; opacity: 0.6; }
-        .crop img { width: 300%; } /* Macro zoom effect */
-
-        .caption {
-            margin-top: 20px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .caption b { color: var(--soft-pink); margin-right: 10px; }
-
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 1000; }
-        nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 5px; opacity: 0.4; font-weight: 900; }
+        nav a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -178,52 +141,23 @@
     </nav>
 
     <header class="hero">
-        <img src="others-hero.jpg" class="hero-image-bg" alt="">
-        <div class="hero-title">
-            <span>THE</span>
-            <h1>OTHERS</h1>
+        <h1 class="hero-title">THE OTHERS</h1>
+        <div class="hero-container">
+            <img src="others-hero.jpg" style="width:100%;" alt="Anchor Image">
         </div>
     </header>
 
-    <section class="intro-section">
-        <div class="intro-text">
-            <h2>A playground for breaking systems.</h2>
-            <p>Contrast, scale, and negative space pushed until it feels inevitable.</p>
-        </div>
-        
-        <div class="meta-grid">
-            <div class="meta-row"><span class="meta-label">Role</span><span class="meta-value">Art Direction</span></div>
-            <div class="meta-row"><span class="meta-label">Output</span><span class="meta-value">Visual Studies</span></div>
-            <div class="meta-row"><span class="meta-label">Tools</span><span class="meta-value">Ps / Ai / Figma</span></div>
-            <div class="meta-row" style="border:none;"><span class="meta-label">Year</span><span class="meta-value">2026</span></div>
-        </div>
+    <section class="statement reveal">
+        <h2>Visual experiments exploring unusual form, contrast, and alternative structure.</h2>
+        <p style="margin-top: 40px; font-size: 14px; opacity: 0.4; max-width: 400px; line-height: 1.6;">
+            A space where experimentation is framed with intention—challenging conventional structure where tension plays against expectation.
+        </p>
     </section>
 
-    <main class="gallery-rhythm">
-        <div class="study-full">
-            <img src="others-piece-1.jpg">
-            <p class="caption"><b>Study 01</b> — Held tension</p>
-        </div>
-
-        <div class="details-strip">
-            <div class="crop-group">
-                <div class="crop"><img src="others-piece-1.jpg" style="margin-left:-20px"></div>
-                <div class="crop"><img src="others-piece-2.jpg" style="margin-top:-40px"></div>
-                <div class="crop"><img src="others-piece-3.jpg" style="margin-left:-60px"></div>
-            </div>
-            <span class="meta-label">Focus: Hierarchy · Texture · Space</span>
-        </div>
-
-        <div class="study-stagger">
-            <div class="item">
-                <img src="others-piece-2.jpg" style="width:100%">
-                <p class="caption"><b>Study 02</b> — Controlled collapse</p>
-            </div>
-            <div class="item stagger-low">
-                <img src="others-piece-3.jpg" style="width:100%">
-                <p class="caption"><b>Study 03</b> — Quiet pressure</p>
-            </div>
-        </div>
+    <main class="exhibition-grid">
+        <div class="item-lg reveal"><img src="others-mockup1.jpg"></div>
+        <div class="item-sm reveal"><img src="others-mockup2.jpg"></div>
+        <div class="item-md reveal"><img src="others-mockup3.jpg"></div>
     </main>
 
     <script>
@@ -232,6 +166,11 @@
             aura.style.left = `${e.clientX}px`;
             aura.style.top = `${e.clientY}px`;
         });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

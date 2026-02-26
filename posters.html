@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POSTERS | NATIA STUDIO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050505;
-            --text: #f5f5f7;
-            --bone: #e8e8e3; /* Warm, cinematic bone color */
-            --text-dim: rgba(232, 232, 227, 0.5); /* Bone with opacity for body */
-            --line: rgba(255, 255, 255, 0.1);
-            --aura-color: rgba(255, 255, 255, 0.02);
+            --bone: #e8e8e3;
+            --text-dim: rgba(232, 232, 227, 0.4);
+            --line: rgba(255, 255, 255, 0.08);
+            --aura-color: rgba(232, 232, 227, 0.02);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -20,13 +19,13 @@
         body {
             background-color: var(--bg);
             color: var(--bone);
-            font-family: 'Inter', sans-serif;
+            font-family: 'IBM Plex Sans', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         #aura {
-            position: fixed; width: 450px; height: 450px;
+            position: fixed; width: 400px; height: 400px;
             background: radial-gradient(circle, var(--aura-color) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%);
@@ -35,11 +34,15 @@
         nav {
             position: fixed; top: 40px; width: 100%; padding: 0 6%;
             display: flex; justify-content: flex-start;
-            z-index: 1000; mix-blend-mode: difference;
+            z-index: 1000;
         }
-        nav a { color: var(--bone); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
+        nav a { 
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--bone); text-decoration: none; font-size: 10px; 
+            font-weight: 600; letter-spacing: 4px; text-transform: uppercase; 
+        }
 
-        /* CINEMATIC HERO - SCALED UP */
+        /* PUNCHY CINEMATIC HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -51,88 +54,124 @@
         }
 
         .hero h1 { 
-            font-size: 11px; 
-            letter-spacing: 2em; 
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px; 
+            letter-spacing: 2.5em; 
             text-transform: uppercase; 
-            margin-bottom: 80px; 
+            margin-bottom: 60px; 
             font-weight: 400; 
-            opacity: 0.5; 
-            color: var(--bone);
+            opacity: 0.3;
+            animation: tracking-in 2s cubic-bezier(0.2, 0, 0, 1) forwards;
+        }
+
+        @keyframes tracking-in {
+            from { letter-spacing: 4em; opacity: 0; filter: blur(10px); }
+            to { letter-spacing: 2.5em; opacity: 0.3; filter: blur(0); }
         }
 
         .hero p { 
-            max-width: 900px; /* Wider for cinematic feel */
-            font-size: 24px; /* Bigger presence */
-            line-height: 1.8; 
-            font-weight: 300; 
+            max-width: 1000px;
+            font-size: 32px; /* Punchier size */
+            line-height: 1.5; 
+            font-weight: 200; 
             color: var(--bone); 
-            letter-spacing: 0.05em; 
+            letter-spacing: -0.02em; /* Tighter for impact */
             text-transform: lowercase;
-            opacity: 0.9;
+            animation: fade-up 1.5s cubic-bezier(0.2, 0, 0, 1) 0.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-up {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .hero .accent-text { 
+            font-family: 'IBM Plex Sans', sans-serif;
             color: var(--bone); 
-            margin-top: 40px; 
+            margin-top: 30px; 
             display: block; 
-            font-size: 22px;
-            letter-spacing: 0.02em;
-            text-transform: none; 
-            font-weight: 400;
+            font-size: 26px;
+            font-weight: 300;
+            opacity: 0.6;
         }
 
-        .stack-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .stack-container { width: 100%; }
 
         .poster-section {
             position: sticky; top: 0; height: 100vh; width: 100%;
             display: flex; align-items: center; justify-content: center;
-            background: var(--bg); padding: 20px;
+            background: var(--bg);
         }
 
         .exhibition-container {
             display: flex; align-items: center; justify-content: center;
-            gap: 120px; width: 90%; max-width: 1500px;
+            gap: 100px; width: 90%; max-width: 1600px;
         }
 
-        /* TEXT STYLING - BONE COLOR */
-        .exhibition-text { max-width: 440px; text-align: left; }
-        .ex-title { font-size: 24px; font-weight: 400; margin-bottom: 8px; letter-spacing: -0.01em; color: var(--bone); }
-        .ex-subtitle { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 45px; opacity: 0.4; color: var(--bone); }
+        /* TEXT STYLING - SYSTEM ARCHITECTURE */
+        .exhibition-text { max-width: 460px; text-align: left; }
+        
+        .ex-title { 
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 28px; font-weight: 400; margin-bottom: 12px; 
+            letter-spacing: -0.03em; color: var(--bone); 
+        }
+        
+        .ex-subtitle { 
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px; font-weight: 400; text-transform: uppercase; 
+            letter-spacing: 0.4em; margin-bottom: 50px; color: var(--bone); opacity: 0.3;
+        }
         
         .ex-body { 
-            font-size: 14px; line-height: 2.1; font-weight: 300; color: var(--text-dim); letter-spacing: 0.02em;
-            max-height: 65vh; overflow-y: auto; padding-right: 20px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 15px; line-height: 1.8; font-weight: 300; 
+            color: var(--text-dim); letter-spacing: 0.01em;
+            max-height: 60vh; overflow-y: auto; padding-right: 25px;
         }
 
-        .ex-body::-webkit-scrollbar { width: 2px; }
-        .ex-body::-webkit-scrollbar-thumb { background: rgba(232, 232, 227, 0.2); }
-        .ex-body p { margin-bottom: 25px; white-space: pre-line; }
+        .ex-body::-webkit-scrollbar { width: 1px; }
+        .ex-body::-webkit-scrollbar-thumb { background: var(--line); }
+        .ex-body p { margin-bottom: 30px; white-space: pre-line; }
 
         /* POSTER FRAME */
         .poster-frame {
-            width: 100%; height: 75vh; max-width: 750px;
+            width: 100%; height: 80vh; max-width: 800px;
             display: flex; align-items: center; justify-content: center;
-            position: relative; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .poster-frame img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 80px 160px rgba(0,0,0,0.9); }
-        .poster-frame.zoomed { z-index: 2000; transform: scale(1.05) !important; opacity: 1 !important; filter: none !important; }
-        .meta { position: absolute; bottom: -55px; right: 0; font-size: 8px; letter-spacing: 0.6em; opacity: 0.3; text-transform: uppercase; font-weight: 600; color: var(--bone); }
+        .poster-frame img { 
+            max-width: 100%; max-height: 100%; object-fit: contain; 
+            box-shadow: 0 100px 200px rgba(0,0,0,0.95);
+        }
 
-        /* FOOTER NAV */
+        .meta { 
+            font-family: 'IBM Plex Mono', monospace;
+            position: absolute; bottom: -60px; right: 0; 
+            font-size: 9px; letter-spacing: 0.5em; opacity: 0.2; 
+            text-transform: uppercase; color: var(--bone); 
+        }
+
+        /* FOOTER */
         .footer-nav {
             position: relative; z-index: 1001;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 140px 8% 100px; border-top: 1px solid var(--line); background: var(--bg);
+            padding: 150px 8% 100px; border-top: 1px solid var(--line); background: var(--bg);
         }
-        .footer-nav a { font-size: 9px; font-weight: 700; letter-spacing: 6px; text-decoration: none; color: var(--bone); opacity: 0.4; transition: 0.4s; }
+        .footer-nav a { 
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px; letter-spacing: 5px; text-decoration: none; 
+            color: var(--bone); opacity: 0.3; transition: 0.4s; 
+        }
         .footer-nav a:hover { opacity: 1; }
 
         @media (max-width: 1100px) {
             * { cursor: auto !important; }
             #aura { display: none; }
-            .hero p { font-size: 18px; }
-            .hero .accent-text { font-size: 16px; }
-            .poster-section { height: auto; position: relative; padding: 100px 20px; }
+            .hero p { font-size: 22px; }
+            .hero .accent-text { font-size: 18px; }
+            .poster-section { height: auto; position: relative; padding: 120px 20px; }
             .exhibition-container { flex-direction: column; gap: 80px; }
             .poster-frame { height: 60vh; }
             .ex-body { max-height: none; }
@@ -160,11 +199,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="nostalgia.jpg" class="auto-fix" alt="Nostalgia">
-                    <div class="meta">01 / NOSTALGIA</div>
+                    <div class="meta">REF / 001</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Nostalgia</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2025</p>
+                    <p class="ex-subtitle">Digital / 2025</p>
                     <div class="ex-body">
                         <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.
 
@@ -188,13 +227,13 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="circle.jpg" class="auto-fix" alt="Circle of Life">
-                    <div class="meta">02 / CIRCLE OF LIFE</div>
+                    <div class="meta">REF / 002</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Circle of Life</h2>
-                    <p class="ex-subtitle">Digital illustration / 2025</p>
+                    <p class="ex-subtitle">Digital / 2025</p>
                     <div class="ex-body">
-                        <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a heartbeat.
+                        <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat.
 
                         And when our light goes out, we don’t disappear. We fall back into the universe, into dust and cloud and soft darkness, maybe even becoming stars again.
 
@@ -209,11 +248,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="universe1.jpg" class="auto-fix" alt="New Beginning">
-                    <div class="meta">03 / NEW BEGINNING</div>
+                    <div class="meta">REF / 003</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">New Beginning</h2>
-                    <p class="ex-subtitle">Digital illustration / 2023</p>
+                    <p class="ex-subtitle">Digital / 2023</p>
                     <div class="ex-body">
                         <p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p>
                     </div>
@@ -225,11 +264,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="space-flower.jpg" class="auto-fix" alt="Flower">
-                    <div class="meta">04 / FLOWER</div>
+                    <div class="meta">REF / 004</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Flower</h2>
-                    <p class="ex-subtitle">Digital illustration / 2023</p>
+                    <p class="ex-subtitle">Digital / 2023</p>
                     <div class="ex-body">
                         <p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p>
                     </div>
@@ -241,11 +280,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="huzzzman.jpg" class="auto-fix" alt="Human / Connection">
-                    <div class="meta">05 / HUMAN / CONNECTION</div>
+                    <div class="meta">REF / 005</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Human / Connection</h2>
-                    <p class="ex-subtitle">Digital illustration / 2023</p>
+                    <p class="ex-subtitle">Digital / 2023</p>
                     <div class="ex-body">
                         <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
 
@@ -260,11 +299,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="dreamer.jpg" class="auto-fix" alt="Dreamer">
-                    <div class="meta">06 / DREAMER</div>
+                    <div class="meta">REF / 006</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Dreamer</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2025</p>
+                    <p class="ex-subtitle">Digital / 2025</p>
                     <div class="ex-body">
                         <p>She believes in what isn’t here yet.</p>
                     </div>
@@ -276,11 +315,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="flashbacks.jpg" class="auto-fix" alt="Flashbacks">
-                    <div class="meta">07 / FLASHBACKS</div>
+                    <div class="meta">REF / 007</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Flashbacks</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2025</p>
+                    <p class="ex-subtitle">Digital / 2025</p>
                     <div class="ex-body">
                         <p>It didn’t happen again.
                         It just never really left.
@@ -294,11 +333,11 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="sun.jpg" class="auto-fix" alt="Sun">
-                    <div class="meta">08 / SOLAR</div>
+                    <div class="meta">REF / 008</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Solar</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <p class="ex-subtitle">Digital / 2023</p>
                     <div class="ex-body">
                         <p>They loved.
                         They could not stay.</p>
@@ -330,21 +369,17 @@
             if(aura) { aura.style.left = e.clientX + 'px'; aura.style.top = e.clientY + 'px'; }
         });
 
-        document.querySelectorAll('.poster-frame').forEach(frame => {
-            frame.addEventListener('click', () => frame.classList.toggle('zoomed'));
-        });
-
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.poster-section');
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 const frame = section.querySelector('.poster-frame');
-                if (frame && !frame.classList.contains('zoomed')) {
+                if (frame) {
                     if (rect.top <= 0) {
                         const progress = Math.abs(rect.top) / window.innerHeight;
-                        frame.style.transform = `scale(${Math.max(1 - (progress * 0.12), 0.88)}) translateY(${progress * 40}px)`;
-                        frame.style.opacity = Math.max(1 - (progress * 0.8), 0);
-                        frame.style.filter = `blur(${progress * 15}px)`;
+                        frame.style.transform = `scale(${Math.max(1 - (progress * 0.1), 0.9)}) translateY(${progress * 30}px)`;
+                        frame.style.opacity = Math.max(1 - (progress * 1.1), 0);
+                        frame.style.filter = `blur(${progress * 10}px)`;
                     } else {
                         frame.style.transform = `scale(1) translateY(0)`; frame.style.opacity = 1; frame.style.filter = `blur(0px)`;
                     }

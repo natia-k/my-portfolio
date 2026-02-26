@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #050505;
-            --text: #ffffff;
+            --text: #f5f5f7; /* Off-White */
             --red: #ff0000;
             --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
             --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -37,7 +37,7 @@
             display: flex; align-items: center; justify-content: center;
             transition: transform 1s var(--ease-snap);
         }
-        #loader-count { font-size: 10vw; font-weight: 900; color: #000; letter-spacing: -0.05em; }
+        #loader-count { font-size: 5vw; font-weight: 900; color: #000; letter-spacing: -0.05em; }
 
         /* 2. HERO SHELL ARTWORK */
         #hero-media {
@@ -51,91 +51,113 @@
         }
         body.is-revealed #hero-media { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%) scale(1); }
 
-        /* 3. SCROLLING CONTENT */
-        .content-wrapper { position: relative; z-index: 10; }
-        
-        .spacer { height: 120vh; } /* Distance before text appears */
+        /* 3. STATEMENT SECTIONS (Hero & About) */
+        .melt-section { 
+            height: 120vh; display: flex; align-items: center; padding: 0 8%; 
+            will-change: transform, filter, opacity;
+        }
 
-        .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
-        
         .statement { 
-            font-size: clamp(34px, 8vw, 110px); font-weight: 900; text-transform: uppercase; 
-            letter-spacing: -0.04em; line-height: 0.85;
-            filter: blur(20px); opacity: 0;
-            transition: filter 1.5s var(--ease-out), opacity 1.5s var(--ease-out);
+            font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; 
+            letter-spacing: -0.04em; line-height: 0.9;
+            filter: blur(50px); opacity: 0;
+            transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
         }
+        
+        .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
+        body.is-revealed .statement { filter: blur(0px); opacity: 1; }
 
-        /* 4. ABOUT SECTION */
-        .about-section { padding: 40vh 8% 30vh; max-width: 1200px; text-align: left; }
+        /* 4. ABOUT TEXT WITH SYNCED MELT */
         .about-text { 
-            font-size: clamp(20px, 4vw, 42px); line-height: 1.3; font-weight: 500; 
-            letter-spacing: -0.02em; color: #eee; 
-            transition: filter 0.6s ease, opacity 0.6s ease;
+            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; 
+            letter-spacing: -0.03em; color: #ccc; 
+            will-change: transform, filter, opacity;
         }
-
+        
         #skills-trigger {
-            display: inline-block; font-family: var(--mono); color: var(--red);
-            font-size: 0.8em; cursor: pointer; padding: 0 5px;
-            border: 1px solid var(--red); vertical-align: middle;
+            display: inline-block; width: 12px; height: 12px; background: var(--red);
+            border-radius: 50%; margin-left: 10px; vertical-align: middle;
+            cursor: pointer; animation: pulse-red 3s infinite;
         }
-        #skills-trigger::before { content: '['; }
-        #skills-trigger::after { content: ']'; }
 
-        /* 5. WORK SECTION */
-        .work-section { padding: 10vh 8% 25vh; display: flex; flex-direction: column; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+        /* 5. OVERLAY */
+        #skills-overlay {
+            position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
+            display: flex; align-items: center; padding: 0 8%;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out);
+            font-family: var(--mono);
+        }
+        #skills-overlay.active { opacity: 1; pointer-events: all; }
+        .code-label { color: var(--red); font-size: 12px; letter-spacing: 0.2em; display: block; margin-bottom: 30px; }
+        .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; color: var(--text); }
+
+        /* 6. WORK SECTION */
+        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; position: relative; z-index: 20; }
         .project-link {
-            font-size: clamp(32px, 10vw, 150px); font-weight: 900; text-decoration: none; 
-            color: var(--text); text-transform: uppercase; letter-spacing: -0.06em;
-            padding: 15px 0; display: block; transition: color 0.3s ease;
+            font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
+            color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
+            padding: 20px 0; display: block; transition: color 0.3s ease;
         }
         .project-link:hover { color: var(--red); }
 
-        #preview { position: fixed; top: 50%; left: 65%; transform: translate(-50%, -50%); width: 35vw; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.4s; }
-        #preview.active { opacity: 0.8; }
+        #preview { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 45vw; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.5s; }
+        #preview.active { opacity: 0.85; }
         #preview img { width: 100%; height: auto; }
+        
+        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 20; }
+        .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
 
-        /* CONTACT & FOOTER */
-        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
-        .direct-email { font-size: clamp(28px, 7vw, 90px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
-        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; text-align: center; font-weight: 900; }
+        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.6; text-align: center; }
 
-        @media (max-width: 768px) { * { cursor: auto; } #cursor, #preview { display: none; } #hero-media { width: 80vw; } }
+        @media (max-width: 768px) { * { cursor: auto; } #cursor, #hero-media { display: none; } }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
-    <div id="loader"><div id="loader-count">00</div></div>
     <div id="preview"><img id="preview-img" src="" alt=""></div>
+    <div id="loader"><div id="loader-count">00</div></div>
 
-    <img src="hero-shell.jpg" id="hero-media" alt="Hero Shell Artwork">
+    <img src="hero-shell.jpg" id="hero-media" alt="Hero Shell">
 
-    <div class="content-wrapper">
-        <section class="spacer"></section>
-
-        <section class="hero">
-            <div class="statement" id="hero-statement">
-                VISUAL DESIGNER — <br> 
-                I CREATE SILENT FORMS
-            </div>
-        </section>
-
-        <section class="about-section" id="about-container">
-            <p class="about-text">
-                I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional <span id="skills-trigger">code_injection</span> interfaces.
-            </p>
-        </section>
-
-        <main class="work-section">
-            <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">01 KOMBUCHA</a>
-            <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">02 OAT MILK</a>
-            <a href="the-others.html" class="project-link" data-img="others.jpg">03 THE OTHERS</a>
-            <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">04 FEELINGS</a>
-            <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">05 NURTURE</a>
-            <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">06 GO LEFT</a>
-            <a href="posters.html" class="project-link" data-img="nostalgia.jpg">07 POSTERS</a>
-        </main>
+    <div id="skills-overlay">
+        <div class="skills-content">
+            <span class="code-label">// SYSTEM_ARCHITECTURE</span>
+            <h2>
+                Visual Design / Branding / Art Direction / Interaction Design<br><br>
+                This entire digital environment was architected, designed, and hand-coded by Natia Kurtanidze.
+            </h2>
+        </div>
     </div>
+
+    <section class="melt-section">
+        <div class="statement" id="hero-statement">
+            <span class="sticky-word">VISUAL</span> <span class="sticky-word">DESIGNER</span> — <br> 
+            <span class="sticky-word">I</span> <span class="sticky-word">CREATE</span> <span class="sticky-word">SILENT</span> <span class="sticky-word">FORMS</span>
+        </div>
+    </section>
+
+    <section class="melt-section">
+        <p class="about-text" id="about-statement">
+            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional <span id="skills-trigger"></span> interfaces.
+        </p>
+    </section>
+
+    <main class="work-section">
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">01 KOMBUCHA</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">02 OAT MILK</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">03 THE OTHERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">04 FEELINGS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">05 NURTURE</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">06 GO LEFT</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">07 POSTERS</a>
+    </main>
 
     <section class="contact-section">
         <a href="mailto:natia.kurtanidze@gmail.com" class="direct-email">natia@design</a>
@@ -145,63 +167,79 @@
 
     <script>
         const cursor = document.getElementById('cursor');
-        const loader = document.getElementById('loader');
-        const count = document.getElementById('loader-count');
+        const heroS = document.getElementById('hero-statement');
+        const aboutS = document.getElementById('about-statement');
+        const stickyWords = document.querySelectorAll('.sticky-word');
+        const trigger = document.getElementById('skills-trigger');
+        const overlay = document.getElementById('skills-overlay');
         const shell = document.getElementById('hero-media');
-        const statement = document.getElementById('hero-statement');
-        const about = document.getElementById('about-container');
 
-        // 1. Cursor
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        let mouse = { x: 0, y: 0 };
+
+        // 1. Custom Cursor
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX; mouse.y = e.clientY;
+            cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
         });
 
-        // 2. Loader
-        let p = 0;
-        const interval = setInterval(() => {
-            p += Math.floor(Math.random() * 12) + 1;
-            if (p >= 100) {
-                p = 100; clearInterval(interval);
-                setTimeout(() => {
-                    loader.style.transform = "translateY(-100%)";
-                    document.body.classList.add('is-revealed');
-                }, 400);
-            }
-            count.innerText = p.toString().padStart(2, '0');
-        }, 60);
-
-        // 3. Scroll Dynamics
-        window.addEventListener('scroll', () => {
+        // 2. Melting Animation Engine
+        function animate() {
             const scrollY = window.scrollY;
             const wh = window.innerHeight;
 
-            // Shell Logic (Fades and Blurs out)
-            const shellOpacity = 1 - (scrollY / 600);
-            const shellBlur = scrollY / 40;
-            shell.style.opacity = Math.max(shellOpacity, 0);
-            shell.style.filter = `blur(${shellBlur}px)`;
+            // Shell Melt
+            const shellFade = 1 - Math.min(scrollY / 600, 1);
+            shell.style.opacity = shellFade;
+            shell.style.filter = `blur(${scrollY / 20}px)`;
             shell.style.transform = `translate(-50%, -50%) scale(${1 + scrollY/2000})`;
 
-            // Statement Logic (Blurs in)
-            const statementTrigger = wh * 0.4;
-            if (scrollY > statementTrigger) {
-                const progress = (scrollY - statementTrigger) / 400;
-                statement.style.opacity = Math.min(progress, 1);
-                statement.style.filter = `blur(${Math.max(20 - progress * 40, 0)}px)`;
-            } else {
-                statement.style.opacity = 0;
-                statement.style.filter = `blur(20px)`;
+            // Hero Statement Melt
+            heroS.style.filter = `blur(${Math.min(scrollY / 10, 50)}px)`;
+            heroS.style.opacity = 1 - Math.min(scrollY / 600, 1);
+            heroS.style.transform = `translateY(${scrollY * 0.4}px)`;
+
+            // About Statement Melt (Calculated based on its position)
+            const aboutRect = aboutS.getBoundingClientRect();
+            const aboutOffset = aboutRect.top + scrollY - wh; // When it starts entering
+            const aboutScroll = Math.max(0, scrollY - wh * 0.5); 
+            
+            aboutS.style.filter = `blur(${Math.min(aboutScroll / 10, 50)}px)`;
+            aboutS.style.opacity = 1 - Math.min(aboutScroll / 600, 1);
+            aboutS.style.transform = `translateY(${aboutScroll * 0.3}px)`;
+
+            // Magnetic Words
+            stickyWords.forEach(word => {
+                const rect = word.getBoundingClientRect();
+                const dx = mouse.x - (rect.left + rect.width / 2);
+                const dy = mouse.y - (rect.top + rect.height / 2);
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 150) word.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+                else word.style.transform = `translate(0, 0)`;
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 3. Overlay
+        trigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
+        overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
+
+        // 4. Loader
+        let p = 0;
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 15) + 2;
+            if (p >= 100) {
+                p = 100; clearInterval(l);
+                setTimeout(() => {
+                    document.getElementById('loader').style.transform = "translateY(-100%)";
+                    document.body.classList.add('is-revealed');
+                }, 400);
             }
+            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
+        }, 50);
 
-            // About Logic (Focus when in center)
-            const rect = about.getBoundingClientRect();
-            const dist = Math.abs((rect.top + rect.height/2) - wh/2);
-            about.style.filter = `blur(${Math.min(dist/120, 15)}px)`;
-            about.style.opacity = Math.max(1 - (dist/800), 0.2);
-        });
-
-        // 4. Project Preview
+        // 5. Project Preview
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 document.getElementById('preview-img').src = link.getAttribute('data-img');

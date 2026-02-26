@@ -36,7 +36,7 @@
             font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
         }
 
-        /* 2. THE LONGER BUBBLY REVEAL */
+        /* 2. THE LONG BUBBLY REVEAL (4s) */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
         
         .statement { 
@@ -45,44 +45,27 @@
             text-transform: uppercase; 
             letter-spacing: -0.04em; 
             line-height: 0.9;
-            /* Initial state: heavy blur */
             filter: blur(50px);
             opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            /* EXTENDED TRANSITION: 4 seconds for a slow, premium feel */
+            transform: translateY(30px);
+            /* Long, cinematic 4-second transition */
             transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out), transform 4s var(--ease-out);
         }
 
         body.is-revealed .statement {
             filter: blur(0px);
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        /* 3. ABOUT / MANIFESTO SECTION */
-        .about-section {
-            padding: 20vh 8%;
-            max-width: 900px;
-        }
-        .about-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5em;
-            color: var(--red);
-            margin-bottom: 30px;
-            font-weight: 900;
-        }
-        .about-text {
-            font-size: clamp(20px, 3vw, 36px);
-            line-height: 1.2;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: #ccc;
-        }
+        /* 3. ABOUT SECTION */
+        .about-section { padding: 15vh 8%; max-width: 900px; }
+        .about-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--red); margin-bottom: 30px; font-weight: 900; }
+        .about-text { font-size: clamp(20px, 3vw, 36px); line-height: 1.2; font-weight: 500; letter-spacing: -0.02em; color: #ccc; }
         .about-text b { color: #fff; font-weight: 900; }
 
-        /* 4. WORK SECTION */
-        .work-section { padding: 10vh 8% 25vh; display: flex; flex-direction: column; }
+        /* 4. REORDERED WORK SECTION */
+        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
         .project-link {
             font-size: clamp(40px, 12vw, 180px); 
             font-weight: 900; 
@@ -99,22 +82,12 @@
 
         /* 5. RED CONTACT SECTION */
         .contact-section {
-            background: var(--red); 
-            color: #000;
-            height: 80vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            text-align: center;
+            background: var(--red); color: #000;
+            height: 80vh; display: flex; align-items: center; justify-content: center;
         }
-
         .direct-email {
-            font-size: clamp(32px, 8vw, 100px); 
-            font-weight: 900; 
-            color: #000;
-            text-decoration: none; 
-            letter-spacing: -0.05em;
-            transition: opacity 0.3s ease;
+            font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000;
+            text-decoration: none; letter-spacing: -0.05em; transition: opacity 0.3s ease;
         }
         .direct-email:hover { opacity: 0.4; }
 
@@ -127,24 +100,17 @@
         #preview.active { opacity: 0.85; }
         #preview img { width: 100%; height: auto; }
 
-        footer { 
-            background: var(--red); color: #000; 
-            padding: 60px 8%; font-size: 10px; 
-            font-weight: 900; opacity: 0.4; 
-            text-align: center; letter-spacing: 0.5em; 
-        }
+        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; letter-spacing: 0.5em; }
 
         @media (max-width: 768px) {
             #preview { width: 85vw; left: 50%; }
             .project-link { font-size: 14vw; }
-            .about-text { font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
     <div id="preview"><img id="preview-img" src="" alt=""></div>
-    
     <div id="loader"><div id="loader-count">00</div></div>
 
     <section class="hero">
@@ -154,18 +120,18 @@
     <section class="about-section">
         <p class="about-label">Identity</p>
         <p class="about-text">
-            I am <b>Natia Kurtanidze</b>, a visual designer focused on the <b>silent geometry</b> of digital spaces. I build minimalist archives, editorial identities, and emotional interfaces for brands that value <b>form over noise</b>.
+            I am <b>Natia Kurtanidze</b>, a visual designer focused on the <b>silent geometry</b> of digital spaces. I build minimalist archives, editorial identities, and emotional interfaces.
         </p>
     </section>
 
     <main class="work-section">
-        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
-        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
-        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
-        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
-        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
-        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">01 KOMBUCHA</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">02 OAT MILK</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">03 THE OTHERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">04 FEELINGS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">05 NURTURE</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">06 GO LEFT</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">07 POSTERS</a>
     </main>
 
     <section class="contact-section">
@@ -178,14 +144,13 @@
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
 
-        // 1. LOADER LOGIC
+        // LOADER
         let p = 0;
         const loader = document.getElementById('loader');
         const l = setInterval(() => {
             p += Math.floor(Math.random() * 15) + 2; 
             if (p >= 100) { 
-                p = 100; 
-                clearInterval(l); 
+                p = 100; clearInterval(l); 
                 setTimeout(() => {
                     loader.style.transform = "translateY(-100%)";
                     document.body.classList.add('is-revealed');
@@ -194,14 +159,11 @@
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
         }, 50);
 
-        // 2. PREVIEW HOVERS
+        // PREVIEW
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 const img = link.getAttribute('data-img');
-                if(img) {
-                    previewImg.src = img;
-                    preview.classList.add('active');
-                }
+                if(img) { previewImg.src = img; preview.classList.add('active'); }
             });
             link.addEventListener('mouseleave', () => preview.classList.remove('active'));
         });

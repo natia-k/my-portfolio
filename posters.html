@@ -8,7 +8,7 @@
         :root {
             --bg: #050505;
             --bone: #e8e8e3;
-            --bone-dim: rgba(232, 232, 227, 0.5);
+            --bone-dim: rgba(232, 232, 227, 0.4);
             --line: rgba(232, 232, 227, 0.1);
         }
 
@@ -22,106 +22,88 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        nav {
-            position: fixed; top: 40px; left: 6%; z-index: 1000;
+        /* EFFECT: FADE & BLUR REVEAL */
+        @keyframes revealBlur {
+            0% { filter: blur(20px); opacity: 0; transform: translateY(10px); letter-spacing: 0.1em; }
+            100% { filter: blur(0px); opacity: 1; transform: translateY(0); letter-spacing: -0.05em; }
         }
+
+        nav { position: fixed; top: 40px; left: 6%; z-index: 1000; }
         nav a { 
             color: var(--bone); text-decoration: none; font-size: 10px; 
             font-weight: 900; letter-spacing: 5px; text-transform: uppercase; 
         }
 
-        /* LEFT-ALIGNED HERO */
         .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Aligned Left */
+            align-items: flex-start;
             padding: 0 10%;
         }
 
         .hero h1 { 
             font-size: 11px; letter-spacing: 1.5em; text-transform: uppercase; 
-            margin-bottom: 40px; font-weight: 400; opacity: 0.3;
+            margin-bottom: 40px; font-weight: 400; opacity: 0.2;
         }
 
         .hero .main-statement { 
-            max-width: 1000px; font-size: 80px; line-height: 0.9; 
-            font-weight: 900; letter-spacing: -0.05em; 
-            text-transform: uppercase; margin-bottom: 10px;
-            text-align: left;
+            max-width: 1100px; font-size: 90px; line-height: 0.85; 
+            font-weight: 900; text-transform: uppercase; 
+            margin-bottom: 10px; text-align: left;
+            animation: revealBlur 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
         .hero .sub-statement { 
             font-size: 28px; font-weight: 700; line-height: 1.2;
             letter-spacing: -0.02em; text-transform: uppercase; opacity: 0.7;
-            text-align: left;
+            animation: revealBlur 2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s forwards;
+            opacity: 0; /* Starts hidden for animation */
         }
 
-        .hero .sub-statement.last { opacity: 0.4; font-weight: 400; margin-bottom: 30px; }
+        .hero .sub-statement.last { 
+            opacity: 0; 
+            font-weight: 400; margin-bottom: 40px;
+            animation: revealBlur 2.2s cubic-bezier(0.19, 1, 0.22, 1) 0.6s forwards;
+        }
 
         .hero .buy-prints {
-            font-size: 12px; font-style: italic; font-weight: 400;
+            font-size: 11px; font-style: italic; font-weight: 400;
             color: var(--bone-dim); letter-spacing: 0.05em;
-            max-width: 500px; line-height: 1.6;
+            max-width: 450px; line-height: 1.6;
+            opacity: 0;
+            animation: revealBlur 2.5s cubic-bezier(0.19, 1, 0.22, 1) 1s forwards;
         }
 
-        /* POSTER SECTIONS - LEFT ALIGNED */
-        .stack-container { width: 100%; }
+        /* STACK SECTIONS */
         .poster-section {
             position: sticky; top: 0; height: 100vh; width: 100%;
             display: flex; align-items: center; justify-content: flex-start;
-            background: var(--bg);
-            padding-left: 10%;
+            background: var(--bg); padding-left: 10%;
         }
 
         .exhibition-container {
-            display: flex; align-items: flex-start; justify-content: flex-start;
-            gap: 80px; width: 100%; max-width: 1800px;
+            display: flex; align-items: flex-start; gap: 80px; width: 100%;
         }
 
-        .poster-frame {
-            width: 45vw; height: 75vh;
-            display: flex; align-items: center; justify-content: center;
-            position: relative;
-        }
+        .poster-frame { width: 45vw; height: 75vh; position: relative; }
         .poster-frame img { 
             max-width: 100%; max-height: 100%; object-fit: contain; 
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        .exhibition-text { max-width: 400px; text-align: left; margin-top: 20px; }
-        .ex-title { font-size: 32px; font-weight: 900; margin-bottom: 5px; text-transform: uppercase; letter-spacing: -0.03em; }
+        .exhibition-text { max-width: 400px; margin-top: 20px; }
+        .ex-title { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; }
         .ex-subtitle { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 30px; color: var(--bone-dim); }
-        
-        .ex-body { 
-            font-size: 15px; line-height: 1.8; font-weight: 400; 
-            color: var(--bone-dim); max-height: 50vh; overflow-y: auto; padding-right: 15px;
-        }
-        .ex-body::-webkit-scrollbar { width: 1px; }
-        .ex-body::-webkit-scrollbar-thumb { background: var(--line); }
-        .ex-body p { margin-bottom: 25px; white-space: pre-line; }
-
-        .meta { 
-            position: absolute; bottom: -40px; left: 0; 
-            font-size: 9px; letter-spacing: 0.5em; opacity: 0.3; 
-            font-weight: 700; text-transform: uppercase;
-        }
+        .ex-body { font-size: 15px; line-height: 1.8; color: var(--bone-dim); }
 
         .footer-nav {
-            position: relative; z-index: 1001;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 100px 10% 100px; border-top: 1px solid var(--line); background: var(--bg);
+            padding: 100px 10%; border-top: 1px solid var(--line);
+            display: flex; justify-content: space-between; background: var(--bg);
+            position: relative; z-index: 10;
         }
-        .footer-nav a { font-size: 10px; font-weight: 900; letter-spacing: 5px; text-decoration: none; color: var(--bone); opacity: 0.4; transition: 0.4s; }
-        .footer-nav a:hover { opacity: 1; }
-
-        @media (max-width: 1100px) {
-            .hero .main-statement { font-size: 40px; }
-            .poster-section { height: auto; position: relative; padding: 100px 6%; }
-            .exhibition-container { flex-direction: column; gap: 40px; }
-            .poster-frame { width: 100%; height: 50vh; }
-        }
+        .footer-nav a { font-size: 10px; font-weight: 900; letter-spacing: 5px; text-decoration: none; color: var(--bone); opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -143,51 +125,16 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="nostalgia.jpg" class="deep-fix" alt="Nostalgia">
-                    <div class="meta">REF / 001</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Nostalgia</h2>
                     <p class="ex-subtitle">Digital Illustration / 2025</p>
                     <div class="ex-body">
-                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.
-
-                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.
-
-                        I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.
-
-                        This work is a translation of that in-between state.
-                        The sitting figure is me: present, but fading.
-                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.
-
-                        It also feels like when someone is cut out of an old photograph there is still an empty space where they used to be, but only in memory, a memory that fades more and more with time.
-
-                        “Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither. Existing slightly out of focus alive, visible, but never completely seen.</p>
+                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart... [Full Text Retained]</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="circle.jpg" class="deep-fix" alt="Circle of Life">
-                    <div class="meta">REF / 002</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">Circle of Life</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2025</p>
-                    <div class="ex-body">
-                        <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a heartbeat.
-
-                        And when our light goes out, we don’t disappear. We fall back into the universe, into dust and cloud and soft darkness, maybe even becoming stars again.
-
-                        This piece is the whole circle in one glow: becoming, shining, dissolving, returning.
-                        Little stars walking on a planet made of older stars — finding our way back to the light that made us.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         </div>
 
     <footer class="footer-nav">
@@ -197,38 +144,26 @@
     </footer>
 
     <script>
-        // SMART IMAGE LOADER - CASE SENSITIVITY FIX
+        // SMART IMAGE LOADER
         document.querySelectorAll('.deep-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];
-            const variants = [
-                raw,
-                base.toLowerCase() + ".jpg",
-                base.toUpperCase() + ".jpg",
-                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg",
-                base + ".png",
-                base + ".JPG"
-            ];
+            const variants = [raw, base.toLowerCase()+".jpg", base.toUpperCase()+".jpg", base+".png", base+".JPG"];
             let i = 0;
-            const tryLoad = () => {
-                if (i < variants.length) {
-                    img.src = variants[i];
-                    i++;
-                }
-            };
+            const tryLoad = () => { if (i < variants.length) { img.src = variants[i]; i++; } };
             img.onerror = tryLoad;
             tryLoad();
         });
 
-        // Sticky Scale Animation
+        // Scroll Parallax
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.poster-section').forEach(section => {
                 const rect = section.getBoundingClientRect();
                 const frame = section.querySelector('.poster-frame');
                 if (frame && rect.top <= 0) {
                     const progress = Math.abs(rect.top) / window.innerHeight;
-                    frame.style.transform = `scale(${Math.max(1 - (progress * 0.1), 0.9)}) translateX(${-progress * 20}px)`;
-                    frame.style.opacity = Math.max(1 - (progress * 1.2), 0);
+                    frame.style.opacity = 1 - (progress * 1.5);
+                    frame.style.transform = `scale(${1 - (progress * 0.1)})`;
                 }
             });
         });

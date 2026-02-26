@@ -17,7 +17,8 @@
         body { 
             background: var(--bg); color: var(--text); font-family: "Inter", sans-serif;
             height: 100vh; width: 100vw; overflow: hidden;
-            perspective: 1200px; /* Perspective gives the 3D depth */
+            /* Perspective is the "camera" distance */
+            perspective: 1000px; 
         }
 
         #cursor {
@@ -32,7 +33,7 @@
             display: flex; justify-content: space-between; z-index: 1000;
         }
         .logo { text-decoration: none; color: #fff; font-weight: 900; font-size: 14px; text-transform: uppercase; }
-        .instructions { font-family: var(--mono); font-size: 9px; color: #444; text-transform: uppercase; }
+        .instructions { font-family: var(--mono); font-size: 9px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* THE 3D SCENE */
         .stage {
@@ -43,10 +44,11 @@
 
         .ring {
             position: relative;
-            width: 300px; /* Width of a single poster */
-            height: 450px;
+            width: 300px; /* Width of your "walls" */
+            height: 400px;
             transform-style: preserve-3d;
             will-change: transform;
+            transition: transform 0.1s ease-out;
         }
 
         .poster-card {
@@ -54,42 +56,53 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             transform-style: preserve-3d;
-            backface-visibility: hidden;
+            /* This ensures you don't see the back of the "wall" */
+            backface-visibility: hidden; 
             display: flex; flex-direction: column;
+            align-items: center;
         }
 
         .poster-card img {
             width: 100%; height: auto;
             filter: grayscale(1);
-            transition: filter 0.5s ease;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transition: filter 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            border: 1px solid #222;
         }
 
-        .poster-card:hover img { filter: grayscale(0); }
+        .poster-card:hover img { 
+            filter: grayscale(0); 
+            transform: scale(1.05);
+            border-color: var(--red);
+        }
 
         .label {
             margin-top: 15px; font-family: var(--mono); font-size: 10px;
             color: #555; text-transform: uppercase;
         }
 
-        /* BG TEXT */
+        /* DECORATIVE BACKGROUND */
         .bg-text {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 20vw; font-weight: 900; color: #0a0a0a; z-index: -1;
+            font-size: 25vw; font-weight: 900; color: #080808; z-index: -1;
             text-transform: uppercase; pointer-events: none;
         }
 
-        @media (max-width: 768px) { #cursor { display: none; } .ring { width: 200px; height: 300px; } }
+        @media (max-width: 768px) { 
+            #cursor { display: none; } 
+            .ring { width: 180px; height: 260px; }
+            perspective: 800px;
+        }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
-    <div class="bg-text">ARCHIVE</div>
+    <div class="bg-text">07</div>
 
     <div class="nav-ui">
         <a href="index.html" class="logo">NATIA STUDIO</a>
-        <div class="instructions">[ DRAG TO ROTATE ]</div>
+        <div class="instructions">ARCHIVE_ROTATION_ACTIVE</div>
     </div>
 
     <div class="stage">
@@ -115,45 +128,57 @@
         let rotation = 0;
         let targetRotation = 0;
 
-        // 1. Position posters in a 3D circle
-        // Using a Radius that fits within the viewport
-        const radius = window.innerWidth > 768 ? 600 : 300; 
+        // 1. POSITIONING THE "WALLS"
+        // Radius calculation: (Width / 2) / Math.tan(Math.PI / numberOfCards)
+        const radius = Math.round( (300 / 2) / Math.tan(Math.PI / cards.length) ) + 100; 
         
         cards.forEach((card, i) => {
-            const angle = (i / cards.length) * 360;
+            const angle = i * (360 / cards.length);
             card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
         });
 
-        // 2. Mouse Tracking
+        // 2. MOUSE TRACKING
         document.addEventListener('mousemove', e => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // 3. Drag Logic
+        // 3. ROTATION LOGIC (Click and Drag or Move)
+        // Let's make it rotate based on mouse position for that "Studio" feel
+        window.addEventListener('mousemove', e => {
+            const percent = e.clientX / window.innerWidth;
+            targetRotation = (percent - 0.5) * -180; // Swings 90 degrees each way
+        });
+
+        // Optional: Manual drag for 360 rotation
         window.addEventListener('mousedown', e => { isDown = true; startX = e.pageX; });
         window.addEventListener('mouseup', () => isDown = false);
         window.addEventListener('mousemove', e => {
             if (!isDown) return;
             const x = e.pageX - startX;
-            targetRotation += x * 0.1; // Rotation speed
+            targetRotation += x * 0.2; 
             startX = e.pageX;
         });
 
-        // 4. Smooth Animation Loop
+        // 4. ANIMATION LOOP
         function animate() {
-            rotation += (targetRotation - rotation) * 0.05; // Easing/Inertia
+            // Smooth interpolation (Inertia)
+            rotation += (targetRotation - rotation) * 0.05;
             ring.style.transform = `rotateY(${rotation}deg)`;
 
-            // Depth Filtering (Blur posters that are far away)
+            // Depth Effect: Light up the front, dim the back
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
-                const centerDiff = Math.abs((window.innerWidth / 2) - (rect.left + rect.width / 2));
-                const blur = Math.min(centerDiff / 100, 10);
-                const opacity = Math.max(0.1, 1 - (centerDiff / 800));
+                // If it's in the center of the screen, make it bright
+                const centerScreen = window.innerWidth / 2;
+                const cardCenter = rect.left + (rect.width / 2);
+                const distance = Math.abs(centerScreen - cardCenter);
                 
-                card.style.filter = `blur(${blur}px) grayscale(1)`;
+                const opacity = Math.max(0.2, 1 - (distance / 600));
+                const blur = Math.min(distance / 100, 5);
+                
                 card.style.opacity = opacity;
+                card.style.filter = `blur(${blur}px) grayscale(1)`;
             });
 
             requestAnimationFrame(animate);

@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NATIA KURTANIDZE | VISUAL DESIGNER</title>
-
   <style>
     :root{
       --bg:#050505;
@@ -12,19 +11,9 @@
       --red:#ff0000;
       --ease-snap:cubic-bezier(1,0,0,1);
       --ease-out:cubic-bezier(0.16,1,0.3,1);
-
-      /* mode vars (defaults = luxury) */
-      --grain: 0.09;
-      --vignette: 0.70;
-      --previewMix: screen;
-      --linkShift: 6px;
-      --titleTrack: -0.07em;
-      --labelOpacity: 0.72;
-      --glow: 0.07;
     }
 
-    *{ margin:0; padding:0; box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    *{margin:0;padding:0;box-sizing:border-box}
     body{
       background:var(--bg);
       color:var(--text);
@@ -33,23 +22,21 @@
       -webkit-font-smoothing:antialiased;
     }
 
-    /* ===== CINEMATIC FINISH: GRAIN + VIGNETTE ===== */
+    /* CINEMATIC FINISH: GRAIN + VIGNETTE */
     .film{
       position:fixed; inset:0; pointer-events:none; z-index:2;
       background:
         radial-gradient(1200px 700px at 50% 40%, rgba(255,255,255,0.08), transparent 60%),
         radial-gradient(900px 500px at 50% 60%, transparent 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%);
       mix-blend-mode:soft-light;
-      opacity:var(--vignette);
-      transition:opacity .45s var(--ease-out);
+      opacity:0.55;
     }
     .grain{
       position:fixed; inset:-20%; pointer-events:none; z-index:3;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       background-size:260px 260px;
-      opacity:var(--grain);
+      opacity:0.12;
       animation:grainMove 8s steps(10) infinite;
-      transition:opacity .45s var(--ease-out);
     }
     @keyframes grainMove{
       0%{transform:translate3d(-2%, -2%, 0)}
@@ -57,48 +44,7 @@
       100%{transform:translate3d(-1%, 2%, 0)}
     }
 
-    /* ===== MODE SWITCH UI ===== */
-    .mode-ui{
-      position: fixed;
-      top: 22px;
-      right: 22px;
-      z-index: 9999;
-      display:flex;
-      gap:10px;
-      mix-blend-mode:difference;
-      user-select:none;
-    }
-    .mode-ui button{
-      background: transparent;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.25);
-      padding: 10px 12px;
-      font-size: 10px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 999px;
-      opacity: .92;
-      transition: transform .2s var(--ease-out), border-color .2s var(--ease-out), opacity .2s var(--ease-out);
-    }
-    .mode-ui button:hover{
-      border-color: rgba(255,255,255,.55);
-      transform: translateY(-1px);
-      opacity: 1;
-    }
-
-    /* ===== MODE CURTAIN TRANSITION ===== */
-    .curtain{
-      position:fixed; inset:0;
-      background:radial-gradient(800px 500px at 50% 40%, rgba(255,255,255,.08), rgba(0,0,0,.85));
-      z-index:9998;
-      pointer-events:none;
-      opacity:0;
-      transition: opacity .35s var(--ease-out);
-    }
-    .curtain.on{ opacity:1; }
-
-    /* ===== LOADER ===== */
+    /* LOADER */
     #loader{
       position:fixed; inset:0;
       background:var(--red);
@@ -130,15 +76,8 @@
       100%{filter:blur(0); opacity:1; transform:translateY(0) scale(1);}
     }
 
-    /* ===== LAYOUT ===== */
-    .hero{
-      height:100vh;
-      display:flex;
-      align-items:center;
-      padding:0 8%;
-      position:relative;
-      z-index:4;
-    }
+    /* LAYOUT */
+    .hero{height:100vh; display:flex; align-items:center; padding:0 8%; position:relative; z-index:4;}
     .statement{
       font-size:clamp(30px,7vw,90px);
       font-weight:900;
@@ -152,43 +91,25 @@
       font-size:12px;
       letter-spacing:.22em;
       text-transform:uppercase;
-      opacity:0;
+      opacity:.7;
     }
-    body.is-revealed .statement{
-      animation:bubblyBlur 1.6s var(--ease-out) forwards;
-    }
-    body.is-revealed .meta{
-      animation:bubblyBlur 1.8s var(--ease-out) forwards;
-      animation-delay:.06s;
-    }
+    .is-revealed .statement{animation:bubblyBlur 1.6s var(--ease-out) forwards;}
+    .is-revealed .meta{animation:bubblyBlur 1.8s var(--ease-out) forwards; animation-delay:.06s; opacity:0;}
 
-    .work-section{
-      padding:10vh 8% 18vh;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      position:relative;
-      z-index:4;
-      counter-reset: work;
-    }
-
+    .work-section{padding:10vh 8% 18vh; display:flex; flex-direction:column; gap:6px; position:relative; z-index:4;}
     .project-link{
       font-size:clamp(40px,12vw,180px);
       font-weight:900;
       text-decoration:none;
       color:var(--text);
       text-transform:uppercase;
-      letter-spacing:var(--titleTrack);
+      letter-spacing:-.07em;
       padding:14px 0;
       width:fit-content;
-      transition:color .25s ease, transform .25s var(--ease-out), text-shadow .25s var(--ease-out);
+      transition:color .25s ease, transform .25s var(--ease-out);
       outline:none;
-      position:relative;
     }
-    .project-link:hover{
-      color:var(--red);
-      transform:translateX(var(--linkShift));
-    }
+    .project-link:hover{color:var(--red); transform:translateX(6px);}
     .project-link:focus-visible{
       color:var(--red);
       text-decoration:underline;
@@ -196,27 +117,9 @@
       text-decoration-thickness:3px;
     }
 
-    /* Museum labels (only visible in museum mode) */
-    .project-link::after{
-      content:"— archive label";
-      position:absolute;
-      left:calc(100% + 16px);
-      top:22%;
-      font-size:11px;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      opacity:0;
-      transform:translateX(-8px);
-      transition:opacity .35s ease, transform .35s ease;
-      white-space:nowrap;
-      pointer-events:none;
-    }
-
-    /* ===== PREVIEW ===== */
+    /* PREVIEW (DESKTOP) */
     #preview{
-      position:fixed;
-      top:50%;
-      left:60%;
+      position:fixed; top:50%; left:60%;
       transform:translate(-50%,-50%) scale(.985);
       width:min(46vw, 860px);
       pointer-events:none;
@@ -224,31 +127,23 @@
       opacity:0;
       filter:blur(10px);
       transition:opacity .35s var(--ease-out), transform .35s var(--ease-out), filter .35s var(--ease-out);
-      mix-blend-mode:var(--previewMix);
+      mix-blend-mode:screen;
     }
     #preview.active{
       opacity:.85;
       filter:blur(0);
       transform:translate(-50%,-50%) scale(1);
     }
-    #preview img{
-      width:100%;
-      height:auto;
-      object-fit:contain;
-      border-radius:16px;
-    }
+    #preview img{width:100%; height:auto; object-fit:contain; border-radius:16px;}
 
-    /* ===== CONTACT ===== */
+    /* CONTACT */
     .contact-section{
       background:var(--red);
       color:#000;
       height:68vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex; align-items:center; justify-content:center;
       text-align:center;
-      position:relative;
-      z-index:4;
+      position:relative; z-index:4;
     }
     .direct-email{
       font-size:clamp(22px,5vw,60px);
@@ -259,7 +154,7 @@
       transition:transform .3s ease;
       display:inline-block;
     }
-    .direct-email:hover{ transform:scale(1.04); }
+    .direct-email:hover{transform:scale(1.04);}
 
     footer{
       background:var(--red);
@@ -269,56 +164,13 @@
       opacity:.55;
       text-align:center;
       letter-spacing:.4em;
-      position:relative;
-      z-index:4;
+      position:relative; z-index:4;
     }
 
-    /* ===== MODES ===== */
-    body[data-mode="luxury"]{
-      --grain: 0.09;
-      --vignette: 0.70;
-      --previewMix: screen;
-      --linkShift: 6px;
-      --titleTrack: -0.07em;
-      --glow: 0.07;
-      --labelOpacity: 0.72;
-    }
-
-    body[data-mode="studio"]{
-      --grain: 0.14;
-      --vignette: 0.55;
-      --previewMix: difference;
-      --linkShift: 12px;
-      --titleTrack: -0.09em;
-      --glow: 0.16;
-      --labelOpacity: 0.60;
-    }
-    body[data-mode="studio"] .project-link:hover{
-      text-shadow:
-        0 0 20px rgba(255,0,0,var(--glow)),
-        0 0 80px rgba(255,0,0,calc(var(--glow) * .8));
-    }
-
-    body[data-mode="museum"]{
-      --grain: 0.06;
-      --vignette: 0.78;
-      --previewMix: normal;
-      --linkShift: 4px;
-      --titleTrack: -0.06em;
-      --glow: 0.04;
-      --labelOpacity: 0.95;
-    }
-    body[data-mode="museum"] .project-link::after{
-      opacity:var(--labelOpacity);
-      transform:translateX(0);
-    }
-
-    /* ===== MOBILE ===== */
+    /* MOBILE: make preview a bottom-sheet on tap */
     @media (max-width:768px){
       #preview{
-        top:auto;
-        left:50%;
-        bottom:18px;
+        top:auto; left:50%; bottom:18px;
         transform:translate(-50%,0) scale(1);
         width:92vw;
         opacity:0;
@@ -328,47 +180,29 @@
         opacity:.95;
         filter:blur(0);
       }
-      #preview img{ border-radius:18px; }
-
-      .project-link{ font-size:12vw; }
-      #loader-count{ font-size:15vw; }
-      .mode-ui{ top:14px; right:14px; }
-      .mode-ui button{ padding:9px 10px; }
+      #preview img{border-radius:18px;}
+      .project-link{font-size:12vw;}
+      #loader-count{font-size:15vw;}
     }
 
-    /* ===== REDUCED MOTION ===== */
+    /* REDUCED MOTION */
     @media (prefers-reduced-motion: reduce){
-      *{ animation:none!important; transition:none!important; }
-      #preview{ filter:none!important; }
-      #loader{ display:none; }
-      .statement,.meta{ opacity:1!important; }
-      .curtain{ display:none; }
+      *{animation:none!important; transition:none!important; scroll-behavior:auto!important;}
+      #preview{filter:none!important;}
+      .statement,.meta{opacity:1!important;}
+      #loader{display:none;}
     }
   </style>
 </head>
+<body>
 
-<body data-mode="luxury">
-
-  <!-- overlays -->
   <div class="film"></div>
   <div class="grain"></div>
 
-  <!-- mode curtain -->
-  <div class="curtain" id="curtain"></div>
-
-  <!-- mode ui -->
-  <div class="mode-ui" aria-label="Visual mode switch">
-    <button data-setmode="luxury" type="button">01 LUXURY</button>
-    <button data-setmode="studio" type="button">02 STUDIO</button>
-    <button data-setmode="museum" type="button">03 MUSEUM</button>
-  </div>
-
-  <!-- preview -->
   <div id="preview" aria-hidden="true">
     <img id="preview-img" src="" alt="" loading="eager" />
   </div>
 
-  <!-- loader -->
   <div id="loader" role="status" aria-live="polite">
     <div class="loader-inner">
       <div id="loader-count">00</div>
@@ -376,7 +210,6 @@
     </div>
   </div>
 
-  <!-- hero -->
   <section class="hero">
     <div>
       <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
@@ -384,7 +217,6 @@
     </div>
   </section>
 
-  <!-- work -->
   <main class="work-section" aria-label="Selected work">
     <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
     <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
@@ -395,7 +227,6 @@
     <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
   </main>
 
-  <!-- contact -->
   <section class="contact-section">
     <a href="mailto:natia.kurtanidze@gmail.com" class="direct-email">natia@design</a>
   </section>
@@ -407,18 +238,18 @@
     const previewImg = document.getElementById("preview-img");
     const loader = document.getElementById("loader");
     const loaderCount = document.getElementById("loader-count");
-    const curtain = document.getElementById("curtain");
 
-    // ===== preload hover images =====
+    // Preload hover images (feels premium)
     const preload = (srcs) => srcs.forEach(src => { const i = new Image(); i.src = src; });
-    const links = Array.from(document.querySelectorAll(".project-link"));
-    const imgSrcs = links.map(a => a.getAttribute("data-img")).filter(Boolean);
+    const imgSrcs = Array.from(document.querySelectorAll(".project-link"))
+      .map(a => a.getAttribute("data-img"))
+      .filter(Boolean);
     preload(imgSrcs);
 
-    // ===== loader: smooth progress =====
+    // Loader: smooth easing progress (less "fake random")
     let start = performance.now();
-    const duration = 900;
-    const lock = 250;
+    const duration = 900;  // progress duration
+    const lock = 250;      // small lock so reveal feels intentional
 
     function easeOutExpo(x){ return x === 1 ? 1 : 1 - Math.pow(2, -10 * x); }
 
@@ -437,70 +268,44 @@
     }
     requestAnimationFrame(tick);
 
-    // ===== preview: mouse drift + mobile tap preview =====
-    const isTouch = matchMedia("(pointer: coarse)").matches;
+    // Preview: mouse follow (desktop) + tap support (mobile)
+    let isTouch = matchMedia("(pointer: coarse)").matches;
 
     if (!isTouch) {
       window.addEventListener("mousemove", (e) => {
+        // subtle drift towards cursor, not literal follow
         const x = (e.clientX / window.innerWidth - 0.5) * 30;
         const y = (e.clientY / window.innerHeight - 0.5) * 20;
         preview.style.transform = `translate(-50%, -50%) scale(1) translate(${x}px, ${y}px)`;
       });
     }
 
-    function showPreview(src){
-      if(!src) return;
-      previewImg.src = src;
-      preview.classList.add("active");
-    }
-    function hidePreview(){
-      preview.classList.remove("active");
-    }
-
-    links.forEach(link => {
+    document.querySelectorAll(".project-link").forEach(link => {
       const src = link.getAttribute("data-img");
 
-      link.addEventListener("mouseenter", () => showPreview(src));
-      link.addEventListener("mouseleave", hidePreview);
-      link.addEventListener("focus", () => showPreview(src));
-      link.addEventListener("blur", hidePreview);
+      const show = () => {
+        if (!src) return;
+        previewImg.src = src;
+        preview.classList.add("active");
+      };
+      const hide = () => preview.classList.remove("active");
 
+      link.addEventListener("mouseenter", show);
+      link.addEventListener("mouseleave", hide);
+      link.addEventListener("focus", show);
+      link.addEventListener("blur", hide);
+
+      // Mobile: tap to preview, second tap navigates
       link.addEventListener("click", (e) => {
         if (!matchMedia("(pointer: coarse)").matches) return;
-        // first tap = preview, second tap = navigate
-        const isSame = previewImg.src.includes(src || "");
-        if (!preview.classList.contains("active") || !isSame) {
+        if (!preview.classList.contains("active") || previewImg.src.indexOf(src) === -1) {
           e.preventDefault();
-          showPreview(src);
+          show();
+          // auto-hide after a moment
           clearTimeout(window.__pvT);
-          window.__pvT = setTimeout(hidePreview, 1400);
+          window.__pvT = setTimeout(hide, 1400);
         }
       });
-    });
-
-    // ===== mode switch with cinematic curtain =====
-    const MODE_KEY = "natia_mode";
-
-    function setMode(m){
-      curtain.classList.add("on");
-      setTimeout(() => {
-        document.body.setAttribute("data-mode", m);
-        localStorage.setItem(MODE_KEY, m);
-      }, 120);
-
-      setTimeout(() => curtain.classList.remove("on"), 420);
-    }
-
-    setMode(localStorage.getItem(MODE_KEY) || "luxury");
-
-    document.querySelectorAll("[data-setmode]").forEach(btn=>{
-      btn.addEventListener("click", ()=> setMode(btn.dataset.setmode));
-    });
-
-    window.addEventListener("keydown", (e)=>{
-      if(e.key === "1") setMode("luxury");
-      if(e.key === "2") setMode("studio");
-      if(e.key === "3") setMode("museum");
     });
   </script>
 </body>

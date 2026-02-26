@@ -18,6 +18,7 @@
             color: var(--text);
             font-family: "Inter", sans-serif;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .back-link {
@@ -31,120 +32,131 @@
             text-transform: uppercase;
             font-size: 11px;
             letter-spacing: 0.3em;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover { color: var(--red); }
+
+        /* THE STACK CONTAINER */
+        .stack-container {
+            width: 100%;
+            padding: 10vh 0 20vh 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* POSTER SECTION */
-        .container {
-            padding: 15vh 10% 20vh;
-        }
-
-        .poster-wrapper {
+        .poster-section {
             position: sticky;
-            top: 10vh; /* Where the poster stops as you scroll */
-            height: 80vh;
+            top: 0;
+            height: 100vh;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20vh; /* Space between posters */
+            background: var(--bg); /* Prevents seeing posters underneath */
         }
 
-        .poster-card {
-            width: 100%;
+        .poster-frame {
+            width: 80%;
             max-width: 500px;
-            height: 100%;
+            aspect-ratio: 2/3;
             background: #111;
-            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
             position: relative;
         }
 
-        /* Subtle scaling effect on scroll */
-        .poster-card img {
+        .poster-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(20%);
-            transition: filter 0.5s ease;
+            display: block;
         }
 
-        .poster-card:hover img {
-            filter: grayscale(0%);
-        }
-
-        .poster-info {
+        .meta {
             position: absolute;
             bottom: 20px;
             left: 20px;
             font-size: 10px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.2em;
+            opacity: 0.4;
             text-transform: uppercase;
-            opacity: 0.5;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .poster-card { max-width: 80%; }
-            .back-link { top: 20px; left: 20px; }
+        /* Small instruction for user */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            opacity: 0.3;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <a href="index.html" class="back-link">← Archive</a>
+    <div class="scroll-indicator">Scroll to Explore</div>
 
-    <div class="container">
-        <div class="poster-wrapper">
-            <div class="poster-card">
+    <div class="stack-container">
+        <section class="poster-section">
+            <div class="poster-frame">
                 <img src="poster1.jpg" alt="Poster 01">
-                <div class="poster-info">01 / ARCHIVE</div>
+                <div class="meta">01 / ARCHIVE</div>
             </div>
-        </div>
+        </section>
 
-        <div class="poster-wrapper">
-            <div class="poster-card">
+        <section class="poster-section">
+            <div class="poster-frame">
                 <img src="poster2.jpg" alt="Poster 02">
-                <div class="poster-info">02 / ARCHIVE</div>
+                <div class="meta">02 / ARCHIVE</div>
             </div>
-        </div>
+        </section>
 
-        <div class="poster-wrapper">
-            <div class="poster-card">
+        <section class="poster-section">
+            <div class="poster-frame">
                 <img src="poster3.jpg" alt="Poster 03">
-                <div class="poster-info">03 / ARCHIVE</div>
+                <div class="meta">03 / ARCHIVE</div>
             </div>
-        </div>
+        </section>
 
-        <div class="poster-wrapper">
-            <div class="poster-card">
+        <section class="poster-section">
+            <div class="poster-frame">
                 <img src="poster4.jpg" alt="Poster 04">
-                <div class="poster-info">04 / ARCHIVE</div>
+                <div class="meta">04 / ARCHIVE</div>
             </div>
-        </div>
+        </section>
 
-        <div class="poster-wrapper">
-            <div class="poster-card">
+        <section class="poster-section">
+            <div class="poster-frame">
                 <img src="poster5.jpg" alt="Poster 05">
-                <div class="poster-info">05 / ARCHIVE</div>
+                <div class="meta">05 / ARCHIVE</div>
             </div>
-        </div>
+        </section>
     </div>
 
     <script>
-        // Adding a subtle "parallax" scaling as posters stack
+        // Subtle Parallax: Images scale down slightly as they get "covered"
         window.addEventListener('scroll', () => {
-            const wrappers = document.querySelectorAll('.poster-wrapper');
-            
-            wrappers.forEach((wrapper) => {
-                const card = wrapper.querySelector('.poster-card');
-                const rect = wrapper.getBoundingClientRect();
+            const sections = document.querySelectorAll('.poster-section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const frame = section.querySelector('.poster-frame');
                 
-                // If the poster is near the top, shrink it slightly
-                if (rect.top < 200 && rect.top > -500) {
-                    const scale = 1 - (Math.abs(rect.top) * 0.0002);
-                    card.style.transform = `scale(${Math.max(scale, 0.85)})`;
+                if (rect.top <= 0) {
+                    // As the section stays sticky at the top, it scales down 
+                    // to look like it's going into the distance
+                    const progress = Math.abs(rect.top) / window.innerHeight;
+                    const scale = 1 - (progress * 0.1);
+                    const opacity = 1 - (progress * 0.5);
+                    frame.style.transform = `scale(${Math.max(scale, 0.9)})`;
+                    frame.style.opacity = Math.max(opacity, 0.5);
                 } else {
-                    card.style.transform = `scale(1)`;
+                    frame.style.transform = `scale(1)`;
+                    frame.style.opacity = 1;
                 }
             });
         });

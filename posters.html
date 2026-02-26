@@ -22,9 +22,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* EFFECT: FADE & BLUR REVEAL */
+        /* ATMOSPHERIC REVEAL EFFECT */
         @keyframes revealBlur {
-            0% { filter: blur(20px); opacity: 0; transform: translateY(10px); letter-spacing: 0.1em; }
+            0% { filter: blur(30px); opacity: 0; transform: translateY(20px); letter-spacing: 0.1em; }
             100% { filter: blur(0px); opacity: 1; transform: translateY(0); letter-spacing: -0.05em; }
         }
 
@@ -57,26 +57,32 @@
 
         .hero .sub-statement { 
             font-size: 28px; font-weight: 700; line-height: 1.2;
-            letter-spacing: -0.02em; text-transform: uppercase; opacity: 0.7;
+            letter-spacing: -0.02em; text-transform: uppercase;
             animation: revealBlur 2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s forwards;
-            opacity: 0; /* Starts hidden for animation */
+            opacity: 0;
         }
 
         .hero .sub-statement.last { 
-            opacity: 0; 
             font-weight: 400; margin-bottom: 40px;
             animation: revealBlur 2.2s cubic-bezier(0.19, 1, 0.22, 1) 0.6s forwards;
-        }
-
-        .hero .buy-prints {
-            font-size: 11px; font-style: italic; font-weight: 400;
-            color: var(--bone-dim); letter-spacing: 0.05em;
-            max-width: 450px; line-height: 1.6;
             opacity: 0;
-            animation: revealBlur 2.5s cubic-bezier(0.19, 1, 0.22, 1) 1s forwards;
         }
 
-        /* STACK SECTIONS */
+        /* ENHANCED VISIBILITY FOR PRINT NOTICE */
+        .hero .buy-prints {
+            font-size: 16px; /* Bigger size */
+            font-style: italic; font-weight: 400;
+            color: var(--bone); /* Higher contrast */
+            letter-spacing: 0.02em;
+            max-width: 600px; line-height: 1.6;
+            animation: revealBlur 2.5s cubic-bezier(0.19, 1, 0.22, 1) 1s forwards;
+            opacity: 0;
+            border-left: 1px solid var(--line);
+            padding-left: 20px;
+        }
+
+        /* CONTENT SECTIONS */
+        .stack-container { width: 100%; }
         .poster-section {
             position: sticky; top: 0; height: 100vh; width: 100%;
             display: flex; align-items: center; justify-content: flex-start;
@@ -87,23 +93,44 @@
             display: flex; align-items: flex-start; gap: 80px; width: 100%;
         }
 
-        .poster-frame { width: 45vw; height: 75vh; position: relative; }
+        .poster-frame { width: 45vw; height: 75vh; position: relative; flex-shrink: 0; }
         .poster-frame img { 
             max-width: 100%; max-height: 100%; object-fit: contain; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            box-shadow: 0 40px 120px rgba(0,0,0,0.9);
         }
 
-        .exhibition-text { max-width: 400px; margin-top: 20px; }
-        .ex-title { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; }
+        .exhibition-text { max-width: 420px; text-align: left; margin-top: 20px; }
+        .ex-title { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 5px; }
         .ex-subtitle { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 30px; color: var(--bone-dim); }
-        .ex-body { font-size: 15px; line-height: 1.8; color: var(--bone-dim); }
+        
+        .ex-body { 
+            font-size: 15px; line-height: 1.8; font-weight: 400; 
+            color: var(--bone-dim); max-height: 50vh; overflow-y: auto; padding-right: 20px;
+        }
+        .ex-body::-webkit-scrollbar { width: 1px; }
+        .ex-body::-webkit-scrollbar-thumb { background: var(--line); }
+        .ex-body p { margin-bottom: 25px; white-space: pre-line; }
+
+        .meta { 
+            position: absolute; bottom: -40px; left: 0; 
+            font-size: 9px; letter-spacing: 0.5em; opacity: 0.3; 
+            font-weight: 700; text-transform: uppercase;
+        }
 
         .footer-nav {
-            padding: 100px 10%; border-top: 1px solid var(--line);
-            display: flex; justify-content: space-between; background: var(--bg);
             position: relative; z-index: 10;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 100px 10% 100px; border-top: 1px solid var(--line); background: var(--bg);
         }
-        .footer-nav a { font-size: 10px; font-weight: 900; letter-spacing: 5px; text-decoration: none; color: var(--bone); opacity: 0.4; }
+        .footer-nav a { font-size: 10px; font-weight: 900; letter-spacing: 5px; text-decoration: none; color: var(--bone); opacity: 0.4; transition: 0.4s; }
+        .footer-nav a:hover { opacity: 1; }
+
+        @media (max-width: 1100px) {
+            .hero .main-statement { font-size: 44px; }
+            .poster-section { height: auto; position: relative; padding: 100px 6%; }
+            .exhibition-container { flex-direction: column; gap: 40px; }
+            .poster-frame { width: 100%; height: 50vh; }
+        }
     </style>
 </head>
 <body>
@@ -125,17 +152,150 @@
             <div class="exhibition-container">
                 <div class="poster-frame">
                     <img data-src="nostalgia.jpg" class="deep-fix" alt="Nostalgia">
+                    <div class="meta">REF / 001</div>
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Nostalgia</h2>
                     <p class="ex-subtitle">Digital Illustration / 2025</p>
                     <div class="ex-body">
-                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart... [Full Text Retained]</p>
+                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.
+
+                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.
+
+                        I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.
+
+                        This work is a translation of that in-between state.
+                        The sitting figure is me: present, but fading.
+                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.
+
+                        It also feels like when someone is cut out of an old photograph there is still an empty space where they used to be, but only in memory, a memory that fades more and more with time.
+
+                        “Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither. Existing slightly out of focus alive, visible, but never completely seen.</p>
                     </div>
                 </div>
             </div>
         </section>
-        </div>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="circle.jpg" class="deep-fix" alt="Circle of Life">
+                    <div class="meta">REF / 002</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Circle of Life</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2025</p>
+                    <div class="ex-body">
+                        <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a heartbeat.
+
+                        And when our light goes out, we don’t disappear. We fall back into the universe, into dust and cloud and soft darkness, maybe even becoming stars again.
+
+                        This piece is the whole circle in one glow: becoming, shining, dissolving, returning.
+                        Little stars walking on a planet made of older stars — finding our way back to the light that made us.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="universe1.jpg" class="deep-fix" alt="New Beginning">
+                    <div class="meta">REF / 003</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">New Beginning</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <div class="ex-body">
+                        <p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="space-flower.jpg" class="deep-fix" alt="Flower">
+                    <div class="meta">REF / 004</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Flower</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <div class="ex-body">
+                        <p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="huzzzman.jpg" class="deep-fix" alt="Human / Connection">
+                    <div class="meta">REF / 005</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Human / Connection</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <div class="ex-body">
+                        <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
+
+                        Yet we forget, we take, we harm, we break what we were meant to hold. 
+                        We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="dreamer.jpg" class="deep-fix" alt="Dreamer">
+                    <div class="meta">REF / 006</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Dreamer</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2025</p>
+                    <div class="ex-body">
+                        <p>She believes in what isn’t here yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="flashbacks.jpg" class="deep-fix" alt="Flashbacks">
+                    <div class="meta">REF / 007</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Flashbacks</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2025</p>
+                    <div class="ex-body">
+                        <p>It didn’t happen again. It just never really left. Some moments stay longer than we do.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="sun.jpg" class="deep-fix" alt="Solar">
+                    <div class="meta">REF / 008</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Solar</h2>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <div class="ex-body">
+                        <p>They loved. They could not stay.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <footer class="footer-nav">
         <a href="index.html">← PREV</a>
@@ -144,18 +304,29 @@
     </footer>
 
     <script>
-        // SMART IMAGE LOADER
+        // FORCED SCAN FOR GITHUB FILENAMES
         document.querySelectorAll('.deep-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];
-            const variants = [raw, base.toLowerCase()+".jpg", base.toUpperCase()+".jpg", base+".png", base+".JPG"];
+            const variants = [
+                raw, 
+                base.toLowerCase() + ".jpg", 
+                base.toUpperCase() + ".jpg", 
+                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg",
+                base + ".png", base + ".JPG", base + ".webp", base.toLowerCase() + ".png"
+            ];
             let i = 0;
-            const tryLoad = () => { if (i < variants.length) { img.src = variants[i]; i++; } };
+            const tryLoad = () => {
+                if (i < variants.length) {
+                    img.src = variants[i];
+                    i++;
+                }
+            };
             img.onerror = tryLoad;
             tryLoad();
         });
 
-        // Scroll Parallax
+        // Sticky Scale Animation
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.poster-section').forEach(section => {
                 const rect = section.getBoundingClientRect();

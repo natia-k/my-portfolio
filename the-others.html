@@ -47,7 +47,7 @@
 
         .hero-wrapper {
             position: relative;
-            width: 95%; /* Even bigger posters */
+            width: 95%; 
             max-width: 1200px; 
             display: flex;
             align-items: center;
@@ -63,11 +63,9 @@
             text-align: center;
             line-height: 0.8;
             pointer-events: none;
-            
-            /* GHOSTLY STATE (Behind and slightly visible) */
             z-index: 1; 
-            opacity: 0.25; /* Increased so people know it is there */
-            filter: blur(40px); /* Slightly less blur than before */
+            opacity: 0.25; 
+            filter: blur(40px); 
             transform: scale(0.9);
             transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
@@ -82,7 +80,6 @@
             transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* THE REVEAL: Triggered by specific center spot */
         .hero.overlap .hero-title {
             z-index: 10;
             opacity: 1;
@@ -93,7 +90,7 @@
 
         /* GALLERY: BIG POSTERS */
         .gallery {
-            padding: 100px 0 300px;
+            padding: 100px 0 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -123,6 +120,39 @@
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--white); text-decoration: none; font-size: 10px; letter-spacing: 4px; opacity: 0.4; font-weight: 700; }
+
+        /* UNIVERSAL FOOTER NAVIGATION */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 8% 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000000;
+        }
+
+        .footer-nav a {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: var(--white);
+            text-transform: uppercase;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+        .footer-nav a:hover { opacity: 1; }
+
+        /* MOBILE FIXES */
+        @media (max-width: 800px) {
+            * { cursor: auto !important; }
+            #aura { display: none; }
+            .hero-title { font-size: 60px; opacity: 1; filter: blur(0); position: relative; margin-bottom: 20px; }
+            .hero-wrapper { flex-direction: column; }
+            .hero { height: auto; padding-top: 120px; }
+            .gallery { gap: 100px; }
+            .footer-nav { padding: 60px 8%; }
+        }
     </style>
 </head>
 <body>
@@ -153,6 +183,12 @@
         </div>
     </main>
 
+    <footer class="footer-nav">
+        <a href="go-left.html">← PREV</a>
+        <a href="index.html">MAIN</a>
+        <a href="feelings.html">NEXT →</a>
+    </footer>
+
     <script>
         const aura = document.getElementById('aura');
         const imgMove = document.getElementById('imgMove');
@@ -165,28 +201,28 @@
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            const wrapperRect = imgWrapper.getBoundingClientRect();
+            if (window.innerWidth > 800) {
+                const wrapperRect = imgWrapper.getBoundingClientRect();
 
-            // Parallax always active while in hero
-            if (y >= wrapperRect.top && y <= wrapperRect.bottom) {
-                const xPos = (window.innerWidth / 2 - x) / 40;
-                const yPos = (window.innerHeight / 2 - y) / 40;
-                imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
-                titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
+                if (y >= wrapperRect.top && y <= wrapperRect.bottom) {
+                    const xPos = (window.innerWidth / 2 - x) / 40;
+                    const yPos = (window.innerHeight / 2 - y) / 40;
+                    imgMove.style.transform = `translateX(${xPos}px) translateY(${yPos}px)`;
+                    titleMove.style.transform = `translateX(${-xPos}px) translateY(${-yPos}px)`;
 
-                // SPECIFIC SPOT: Only the very center (Middle 20%) triggers the overlap
-                const horizontalMid = x > (wrapperRect.left + wrapperRect.width * 0.4) && 
-                                     x < (wrapperRect.right - wrapperRect.width * 0.4);
-                const verticalMid = y > (wrapperRect.top + wrapperRect.height * 0.4) && 
-                                   y < (wrapperRect.bottom - wrapperRect.height * 0.4);
+                    const horizontalMid = x > (wrapperRect.left + wrapperRect.width * 0.4) && 
+                                         x < (wrapperRect.right - wrapperRect.width * 0.4);
+                    const verticalMid = y > (wrapperRect.top + wrapperRect.height * 0.4) && 
+                                       y < (wrapperRect.bottom - wrapperRect.height * 0.4);
 
-                if (horizontalMid && verticalMid) {
-                    heroArea.classList.add('overlap');
+                    if (horizontalMid && verticalMid) {
+                        heroArea.classList.add('overlap');
+                    } else {
+                        heroArea.classList.remove('overlap');
+                    }
                 } else {
                     heroArea.classList.remove('overlap');
                 }
-            } else {
-                heroArea.classList.remove('overlap');
             }
         });
 

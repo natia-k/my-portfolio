@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #050505;
-            --text: #f5f5f7; /* Bone White */
+            --text: #f5f5f7; /* BONE WHITE */
             --red: #ff0000;
         }
 
@@ -17,71 +17,8 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: "Inter", sans-serif;
-            height: 600vh; /* Needed for scrolling */
             overflow-x: hidden;
         }
-
-        /* 1. STAGE - THE CAMERA */
-        .stage {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            /* Large perspective prevents images from disappearing */
-            perspective: 3000px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        /* 2. CAROUSEL - THE ROTATING RING */
-        .carousel {
-            position: relative;
-            width: 350px;
-            height: 500px;
-            transform-style: preserve-3d;
-            will-change: transform;
-            /* Start slightly tilted for better 3D effect */
-            transform: rotateX(-5deg); 
-        }
-
-        /* 3. POSTER ITEMS */
-        .poster-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* Crucial: ensures we see the front of the image */
-            transform-origin: center;
-            backface-visibility: visible; 
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .poster-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Prevents ghostly flickering */
-            -webkit-user-drag: none;
-        }
-
-        /* 4. CIRCLE POSITIONING (7 Posters) */
-        /* Each poster is rotated by ~51.4 degrees and pushed 600px out */
-        .poster-item:nth-child(1) { transform: rotateY(0deg) translateZ(700px); }
-        .poster-item:nth-child(2) { transform: rotateY(51.4deg) translateZ(700px); }
-        .poster-item:nth-child(3) { transform: rotateY(102.8deg) translateZ(700px); }
-        .poster-item:nth-child(4) { transform: rotateY(154.2deg) translateZ(700px); }
-        .poster-item:nth-child(5) { transform: rotateY(205.6deg) translateZ(700px); }
-        .poster-item:nth-child(6) { transform: rotateY(257deg) translateZ(700px); }
-        .poster-item:nth-child(7) { transform: rotateY(308.4deg) translateZ(700px); }
 
         .back-link {
             position: fixed;
@@ -90,10 +27,65 @@
             color: var(--text);
             text-decoration: none;
             font-weight: 900;
-            z-index: 100;
+            z-index: 1000;
             text-transform: uppercase;
             font-size: 11px;
             letter-spacing: 0.3em;
+        }
+
+        /* POSTER SECTION */
+        .container {
+            padding: 15vh 10% 20vh;
+        }
+
+        .poster-wrapper {
+            position: sticky;
+            top: 10vh; /* Where the poster stops as you scroll */
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20vh; /* Space between posters */
+        }
+
+        .poster-card {
+            width: 100%;
+            max-width: 500px;
+            height: 100%;
+            background: #111;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        /* Subtle scaling effect on scroll */
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.5s ease;
+        }
+
+        .poster-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        .poster-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .poster-card { max-width: 80%; }
+            .back-link { top: 20px; left: 20px; }
         }
     </style>
 </head>
@@ -101,41 +93,61 @@
 
     <a href="index.html" class="back-link">← Archive</a>
 
-    <div class="stage">
-        <div class="carousel" id="carousel">
-            <div class="poster-item"><img src="poster1.jpg" alt=""></div>
-            <div class="poster-item"><img src="poster2.jpg" alt=""></div>
-            <div class="poster-item"><img src="poster3.jpg" alt=""></div>
-            <div class="poster-item"><img src="poster4.jpg" alt=""></div>
-            <div class="poster-item"><img src="poster5.jpg" alt=""></div>
-            <div class="poster-item"><img src="poster6.jpg" alt=""></div>
-            <div class="poster-item"><img src="poster7.jpg" alt=""></div>
+    <div class="container">
+        <div class="poster-wrapper">
+            <div class="poster-card">
+                <img src="poster1.jpg" alt="Poster 01">
+                <div class="poster-info">01 / ARCHIVE</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper">
+            <div class="poster-card">
+                <img src="poster2.jpg" alt="Poster 02">
+                <div class="poster-info">02 / ARCHIVE</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper">
+            <div class="poster-card">
+                <img src="poster3.jpg" alt="Poster 03">
+                <div class="poster-info">03 / ARCHIVE</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper">
+            <div class="poster-card">
+                <img src="poster4.jpg" alt="Poster 04">
+                <div class="poster-info">04 / ARCHIVE</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper">
+            <div class="poster-card">
+                <img src="poster5.jpg" alt="Poster 05">
+                <div class="poster-info">05 / ARCHIVE</div>
+            </div>
         </div>
     </div>
 
     <script>
-        const carousel = document.getElementById('carousel');
-        let currentRotation = 0;
-        let targetRotation = 0;
-        const ease = 0.06; // Lower is smoother
-
+        // Adding a subtle "parallax" scaling as posters stack
         window.addEventListener('scroll', () => {
-            // Adjust 0.15 to spin faster or slower
-            targetRotation = window.scrollY * 0.15;
+            const wrappers = document.querySelectorAll('.poster-wrapper');
+            
+            wrappers.forEach((wrapper) => {
+                const card = wrapper.querySelector('.poster-card');
+                const rect = wrapper.getBoundingClientRect();
+                
+                // If the poster is near the top, shrink it slightly
+                if (rect.top < 200 && rect.top > -500) {
+                    const scale = 1 - (Math.abs(rect.top) * 0.0002);
+                    card.style.transform = `scale(${Math.max(scale, 0.85)})`;
+                } else {
+                    card.style.transform = `scale(1)`;
+                }
+            });
         });
-
-        function animate() {
-            // LERP for smooth glide
-            currentRotation += (targetRotation - currentRotation) * ease;
-            
-            // We rotate the carousel. 
-            // Note: rotateX(-5deg) keeps the slight tilt while spinning
-            carousel.style.transform = `rotateX(-5deg) rotateY(${-currentRotation}deg)`;
-            
-            requestAnimationFrame(animate);
-        }
-
-        animate();
     </script>
 </body>
 </html>

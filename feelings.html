@@ -80,7 +80,7 @@
 
         /* 3️⃣ ASYMMETRICAL EDITORIAL LAYOUT */
         .gallery { 
-            padding: 20vh 8% 40vh; 
+            padding: 20vh 8% 20vh; 
             display: flex; 
             flex-direction: column; 
             gap: 45vh; 
@@ -140,9 +140,30 @@
         .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
 
+        /* 5️⃣ UNIVERSAL NAV STYLES */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 150px 8% 80px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .footer-nav a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            transition: 0.4s;
+        }
+        .footer-nav a:hover { opacity: 1; color: var(--white); }
+
         @media (max-width: 1000px) {
             .exhibition-row { grid-template-columns: 1fr; gap: 40px; }
             .pic-frame { justify-content: center; }
+            .footer-nav { padding: 100px 8% 60px; }
         }
     </style>
 </head>
@@ -152,7 +173,7 @@
 
     <nav>
         <a href="index.html">NATIA STUDIO</a>
-        <a href="nurture.html">NURTURE</a>
+        <a href="mailto:natia.kurtanidze@gmail.com">CONTACT</a>
     </nav>
 
     <header class="intro">
@@ -174,7 +195,7 @@
                 The first time
                 this sadness touches you
                 it never leaves.</div>
-                <div class="commentary">For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak. [cite: 3-12]</div>
+                <div class="commentary">For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak.</div>
             </div>
             <div class="pic-frame">
                 <img src="heartbreak-2.jpg" alt="Heartbreak">
@@ -191,7 +212,7 @@
                 It watches.
                 Sleep is one step away—
                 always a lifetime away.</div>
-                <div class="commentary">I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold. [cite: 25-34]</div>
+                <div class="commentary">I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold.</div>
             </div>
             <div class="pic-frame" style="animation-delay: -6s;">
                 <img src="insomnia-1.jpg" alt="Insomnia">
@@ -205,7 +226,7 @@
                 Willingly.
                 Again and Again.
                 A 1001 times,
-                Alive, Infinite. [cite: 15-22]</div>
+                Alive, Infinite.</div>
             </div>
             <div class="pic-frame">
                 <img src="pleasure.jpg" alt="Pleasure">
@@ -221,34 +242,20 @@
                 It feels empty,
                 but it is heavy.
                 It can hold everything.
-                You carry space alone. [cite: 37-41]</div>
+                You carry space alone.</div>
             </div>
             <div class="pic-frame" style="animation-delay: -3s;">
                 <img src="emptiness.jpg" alt="Emptiness">
             </div>
         </section>
 
-        <section class="exhibition-row reveal-trigger">
-            <div class="wall-text">
-                <div class="poem">Love is what remains
-                after explanation leaves.</div>
-            </div>
-            <div class="pic-frame">
-                <img src="love.jpg" alt="Love">
-            </div>
-        </section>
-
-        <section class="exhibition-row reveal-trigger">
-            <div class="wall-text">
-                <div class="poem">Desire is what moves
-                before permission.</div>
-            </div>
-            <div class="pic-frame" style="animation-delay: -8s;">
-                <img src="desire.jpg" alt="Desire">
-            </div>
-        </section>
-
     </main>
+
+    <footer class="footer-nav">
+        <a href="the-others.html">← PREV</a>
+        <a href="index.html">INDEX</a>
+        <a href="nurture.html">NEXT →</a>
+    </footer>
 
     <script>
         document.addEventListener('mousemove', (e) => {

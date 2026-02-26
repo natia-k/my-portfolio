@@ -40,7 +40,7 @@
         #loader-count { font-size: 5vw; font-weight: 900; color: #000; letter-spacing: -0.05em; }
 
         /* 2. HERO SECTION */
-        .hero { height: 110vh; display: flex; align-items: center; padding: 0 8%; }
+        .hero { height: 120vh; display: flex; align-items: center; padding: 0 8%; }
         .statement { 
             font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; 
             letter-spacing: -0.04em; line-height: 0.9;
@@ -50,58 +50,43 @@
         .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
         body.is-revealed .statement { filter: blur(0px); opacity: 1; }
 
-        /* 3. ABOUT SECTION */
-        .about-section { padding: 30vh 8% 20vh; max-width: 1000px; text-align: left; }
-        .about-text { font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; letter-spacing: -0.03em; color: #ccc; }
-        .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
-        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
-
-        /* 4. NEW FLOATING TRIGGER (Bottom Right) */
-        #skills-trigger {
-            position: fixed; bottom: 50px; right: 50px;
-            width: 60px; height: 60px; background: transparent;
-            border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9000; transition: transform 0.3s var(--ease-out), border 0.3s;
+        /* 3. ABOUT SECTION (LEFT ALIGNED) */
+        .about-section { padding: 40vh 8% 30vh; max-width: 1000px; text-align: left; }
+        .about-text { 
+            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; 
+            font-weight: 500; letter-spacing: -0.03em; color: #ccc;
         }
-        .core-dot { width: 12px; height: 12px; background: var(--red); border-radius: 50%; animation: pulse-red 2s infinite; }
         
-        #skills-trigger:hover { transform: scale(1.1); border-color: var(--red); }
+        /* THE INLINE TRIGGER (Hidden naturally in the text) */
+        #skills-trigger {
+            display: inline-block; width: 12px; height: 12px; background: var(--red);
+            border-radius: 50%; margin-left: 10px; vertical-align: middle;
+            cursor: pointer; animation: pulse-red 3s infinite;
+            transition: transform 0.3s var(--ease-out);
+        }
+        #skills-trigger:hover { transform: scale(1.8); }
 
         @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
             70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
-        /* 5. FUN DEV-MODE OVERLAY */
+        /* 4. CLEAN DEV MODE OVERLAY */
         #skills-overlay {
-            position: fixed; inset: 0; background: #000; z-index: 10005;
+            position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
             display: flex; align-items: center; padding: 0 8%;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out);
             font-family: var(--mono);
         }
-        #skills-overlay.active { opacity: 1; pointer-events: all; animation: glitch 0.2s linear; }
-        
-        /* Scanline effect for fun */
-        #skills-overlay::after {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%; pointer-events: none;
-        }
+        #skills-overlay.active { opacity: 1; pointer-events: all; }
+        .skills-content { color: #fff; }
+        .skills-content h2 { font-size: clamp(22px, 3vw, 44px); line-height: 1.3; font-weight: 400; }
+        .code-keyword { color: var(--red); }
+        .code-comment { color: #555; display: block; margin-bottom: 15px; }
 
-        .skills-content { color: #fff; text-transform: none; }
-        .code-keyword { color: var(--red); font-weight: 900; }
-        .code-string { color: #888; }
-
-        @keyframes glitch {
-            0% { transform: translate(2px, -2px); filter: hue-rotate(90deg); }
-            50% { transform: translate(-2px, 2px); }
-            100% { transform: translate(0); }
-        }
-
-        /* 6. WORK SECTION */
-        .work-section { padding: 10vh 8% 25vh; display: flex; flex-direction: column; }
+        /* 5. WORK SECTION */
+        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
         .project-link {
             font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
             color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
@@ -117,8 +102,11 @@
         .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
 
         footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
+        
+        .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
+        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
 
-        @media (max-width: 768px) { * { cursor: auto; } #cursor, #skills-trigger { display: none; } }
+        @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
     </style>
 </head>
 <body>
@@ -129,20 +117,15 @@
 
     <div id="skills-overlay">
         <div class="skills-content">
-            <p class="code-string">// SYSTEM_OVERRIDE_SUCCESSFUL</p><br>
-            <h2><span class="code-keyword">NATIA_K.EXE</span> — SKILLS:</h2><br>
+            <span class="code-comment">// src/capabilities/natia.js</span>
             <h2>
-                [01] VISUAL DESIGN<br>
-                [02] BRANDING & IDENTITY<br>
-                [03] CREATIVE CODING<br>
-                [04] WEB ARCHITECTURE
-            </h2><br>
-            <p class="code-string">> status: Site built and deployed by hand.<br>> location: Georgia, TB.</p>
+                <span class="code-keyword">export const</span> Skills = [<br>
+                &nbsp;&nbsp;"Visual Design", "Branding", "Art Direction",<br>
+                &nbsp;&nbsp;"Web Architecture", "Creative Coding"<br>
+                ];<br><br>
+                <span class="code-keyword">const</span> build = "This entire environment was architected and coded by myself.";
+            </h2>
         </div>
-    </div>
-
-    <div id="skills-trigger">
-        <div class="core-dot"></div>
     </div>
 
     <section class="hero">
@@ -154,7 +137,7 @@
 
     <section class="about-section">
         <p class="about-text" id="about-content">
-            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional interfaces.
+            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional <span id="skills-trigger"></span> interfaces.
         </p>
     </section>
 
@@ -184,8 +167,14 @@
 
         let mouse = { x: 0, y: 0 };
 
-        // 1. Water Effect on About
-        aboutContent.innerHTML = aboutContent.innerText.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
+        // 1. Re-split word water effect (Avoiding breaking the trigger)
+        const textParts = aboutContent.innerHTML.split('<span id="skills-trigger"></span>');
+        const part1 = textParts[0].split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
+        const part2 = textParts[1].split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
+        aboutContent.innerHTML = `${part1} <span id="skills-trigger"></span> ${part2}`;
+
+        // Re-target trigger after innerHTML rewrite
+        const newTrigger = document.getElementById('skills-trigger');
 
         // 2. Cursor & Animation Loop
         document.addEventListener('mousemove', (e) => {
@@ -211,13 +200,9 @@
         }
         animate();
 
-        // 3. Dev Mode Trigger Logic
-        trigger.addEventListener('mouseenter', () => {
-            overlay.classList.add('active');
-        });
-        overlay.addEventListener('mouseleave', () => {
-            overlay.classList.remove('active');
-        });
+        // 3. Skills Overlay Logic
+        newTrigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
+        overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
 
         // 4. Loader
         let p = 0;

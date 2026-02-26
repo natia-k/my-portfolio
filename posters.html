@@ -22,7 +22,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM CURSOR AURA */
         #aura {
             position: fixed; width: 400px; height: 400px;
             background: radial-gradient(circle, var(--aura-color) 0%, transparent 70%);
@@ -73,7 +72,7 @@
             object-fit: contain; 
             display: block;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            background: #0a0a0a; /* Placeholder while loading */
+            background: #0a0a0a;
         }
 
         .meta {
@@ -86,7 +85,6 @@
             text-transform: uppercase;
         }
 
-        /* UNIVERSAL FOOTER NAVIGATION */
         .footer-nav {
             position: relative;
             z-index: 1001;
@@ -114,7 +112,6 @@
             * { cursor: auto !important; }
             #aura { display: none; }
             .poster-frame { height: 65vh; }
-            .footer-nav { padding: 60px 8%; }
         }
     </style>
 </head>
@@ -151,29 +148,29 @@
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img data-src="huzzzman-universe3.jpg" class="auto-fix" alt="Universe 3">
-                <div class="meta">04 / UNIVERSE_03</div>
+                <img data-src="universe1.jpg" class="auto-fix" alt="Universe 1">
+                <div class="meta">04 / UNIVERSE_01</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img data-src="space flower-universe2.jpg" class="auto-fix" alt="Universe 2">
+                <img data-src="space-flower.jpg" class="auto-fix" alt="Space Flower">
                 <div class="meta">05 / SPACE_FLOWER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img data-src="sun.jpg" class="auto-fix" alt="Sun">
-                <div class="meta">06 / SOLAR</div>
+                <img data-src="huzzzman.jpg" class="auto-fix" alt="Huzzzman">
+                <div class="meta">06 / HUZZZMAN</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img data-src="universe1.jpg" class="auto-fix" alt="Universe 1">
-                <div class="meta">07 / UNIVERSE_01</div>
+                <img data-src="sun.jpg" class="auto-fix" alt="Sun">
+                <div class="meta">07 / SOLAR</div>
             </div>
         </section>
 
@@ -192,20 +189,16 @@
     </footer>
 
     <script>
-        // 1. IMAGE AUTO-REPAIR LOGIC
+        // IMAGE AUTO-REPAIR
         document.querySelectorAll('.auto-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];
-            
-            // Potential naming fixes
             const variants = [
                 raw,
                 base + ".png",
                 base + ".JPG",
                 base + ".webp",
-                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg", // Capitalize
-                raw.replace(/ /g, '-'), // Replace space with dash
-                raw.replace(/ /g, '%20') // Replace space with web-safe space
+                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg"
             ];
 
             let i = 0;
@@ -215,12 +208,11 @@
                     i++;
                 }
             };
-
             img.onerror = tryLoad;
-            tryLoad(); // Initial call
+            tryLoad();
         });
 
-        // 2. CURSOR AURA
+        // CURSOR
         const aura = document.getElementById('aura');
         document.addEventListener('mousemove', (e) => {
             if(aura) {
@@ -229,7 +221,7 @@
             }
         });
 
-        // 3. STACKING ANIMATION
+        // STACKING EFFECT
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.poster-section');
             sections.forEach(section => {
@@ -238,13 +230,9 @@
                 
                 if (rect.top <= 0) {
                     const progress = Math.abs(rect.top) / window.innerHeight;
-                    const scale = 1 - (progress * 0.15);
-                    const opacity = 1 - (progress * 0.9);
-                    const blur = progress * 20;
-                    
-                    frame.style.transform = `scale(${Math.max(scale, 0.85)}) translateY(${progress * 50}px)`;
-                    frame.style.opacity = Math.max(opacity, 0);
-                    frame.style.filter = `blur(${blur}px)`;
+                    frame.style.transform = `scale(${Math.max(1 - (progress * 0.15), 0.85)}) translateY(${progress * 50}px)`;
+                    frame.style.opacity = Math.max(1 - (progress * 0.9), 0);
+                    frame.style.filter = `blur(${progress * 20}px)`;
                 } else {
                     frame.style.transform = `scale(1) translateY(0)`;
                     frame.style.opacity = 1;

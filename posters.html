@@ -13,13 +13,12 @@
             --aura-color: rgba(255, 255, 255, 0.05);
         }
 
-        /* CHANGED FONT TO INTER */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -38,7 +37,6 @@
         }
         nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
 
-        /* HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
@@ -56,7 +54,6 @@
             text-transform: uppercase;
             margin-bottom: 45px;
             font-weight: 400;
-            opacity: 0.9;
         }
 
         .hero p {
@@ -64,7 +61,6 @@
             font-size: 17px;
             line-height: 1.7;
             font-weight: 300;
-            letter-spacing: -0.01em;
             color: #a0a0a0;
         }
 
@@ -72,10 +68,8 @@
             color: var(--text);
             margin-top: 24px;
             display: block;
-            font-weight: 300;
         }
 
-        /* STACK LOGIC */
         .stack-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
         .poster-section {
@@ -89,30 +83,25 @@
             gap: 100px; width: 90%; max-width: 1400px;
         }
 
-        /* TEXT STYLING */
-        .exhibition-text { 
-            max-width: 400px; 
-            text-align: left; 
-            max-height: 80vh; 
-            display: flex; 
-            flex-direction: column;
-        }
-        
+        .exhibition-text { max-width: 400px; text-align: left; }
         .ex-title { font-size: 26px; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.03em; }
         .ex-subtitle { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 35px; opacity: 0.4; }
         
         .ex-body { 
             font-size: 14px; line-height: 1.85; font-weight: 300; 
+            color: #d1d1d1;
+        }
+
+        /* Collapsible logic for long text */
+        .collapsible .ex-body {
             max-height: 140px; overflow: hidden; position: relative;
             mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            color: #d1d1d1;
         }
 
         .exhibition-text.expanded .ex-body { 
             max-height: 1200px; mask-image: none; -webkit-mask-image: none;
-            overflow-y: auto;
         }
 
         .ex-body p { margin-bottom: 20px; white-space: pre-line; }
@@ -125,7 +114,6 @@
         }
         .read-more-btn:hover { opacity: 1; border-bottom: 1px solid var(--text); }
 
-        /* POSTER FRAME */
         .poster-frame {
             width: 100%; height: 75vh; max-width: 700px;
             display: flex; align-items: center; justify-content: center;
@@ -153,7 +141,6 @@
             .poster-section { height: auto; position: relative; padding: 100px 20px; }
             .exhibition-container { flex-direction: column; gap: 50px; }
             .poster-frame { height: 60vh; }
-            .hero p { font-size: 16px; }
         }
     </style>
 </head>
@@ -182,17 +169,23 @@
                     <img data-src="nostalgia.jpg" class="auto-fix" alt="Nostalgia">
                     <div class="meta">01 / NOSTALGIA</div>
                 </div>
-                <div class="exhibition-text">
+                <div class="exhibition-text collapsible">
                     <h2 class="ex-title">Nostalgia</h2>
                     <p class="ex-subtitle">Digital Illustration / print 2025</p>
                     <div class="ex-body">
                         <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.
 
-                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.</p>
-                        <p>I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.</p>
-                        <p>This work is a translation of that in-between state.
+                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.
+
+                        I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.
+
+                        This work is a translation of that in-between state.
                         The sitting figure is me: present, but fading.
-                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.</p>
+                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.
+
+                        It also feels like when someone is cut out of an old photograph there is still an empty space where they used to be, but only in memory, a memory that fades more and more with time.
+
+                        “Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither. Existing slightly out of focus alive, visible, but never completely seen.</p>
                     </div>
                     <button class="read-more-btn" onclick="toggleText(this)">Read Story</button>
                 </div>
@@ -205,7 +198,7 @@
                     <img data-src="circle.jpg" class="auto-fix" alt="Circle of Life">
                     <div class="meta">02 / CIRCLE OF LIFE</div>
                 </div>
-                <div class="exhibition-text">
+                <div class="exhibition-text collapsible">
                     <h2 class="ex-title">Circle of Life</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2025</p>
                     <div class="ex-body">
@@ -231,7 +224,12 @@
                     <h2 class="ex-title">New Beginning</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
-                        <p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p>
+                        <p>Before anything,
+                        there was a light
+                        that wanted to exist.
+                        No sound, no shape —
+                        only the quiet pulse
+                        to begin.</p>
                     </div>
                 </div>
             </div>
@@ -247,7 +245,12 @@
                     <h2 class="ex-title">Flower</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
-                        <p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p>
+                        <p>From that light,
+                        something opened.
+                        A flower made of breath,
+                        color shifting like a secret.
+                        Nothing stays still;
+                        everything moves outward.</p>
                     </div>
                 </div>
             </div>
@@ -259,22 +262,73 @@
                     <img data-src="huzzzman.jpg" class="auto-fix" alt="Human / Connection">
                     <div class="meta">05 / HUMAN / CONNECTION</div>
                 </div>
-                <div class="exhibition-text">
+                <div class="exhibition-text collapsible">
                     <h2 class="ex-title">Human / Connection</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
-                        <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
+                        <p>Then came a figure.
+                        A piece of the universe, born to guard, to care.
+                        We grow, we watch, we continue the circle.
                         
-                        Yet we forget, we take, we harm, we break what we were meant to hold. We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
+                        Yet we forget, we take, we harm, we break what we were meant to hold. 
+                        We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
                     </div>
                     <button class="read-more-btn" onclick="toggleText(this)">Read Story</button>
                 </div>
             </div>
         </section>
 
-        <section class="poster-section"><div class="poster-frame"><img data-src="dreamer.jpg" class="auto-fix"><div class="meta">06 / DREAMER</div></div></section>
-        <section class="poster-section"><div class="poster-frame"><img data-src="flashbacks.jpg" class="auto-fix"><div class="meta">07 / FLASHBACKS</div></div></section>
-        <section class="poster-section"><div class="poster-frame"><img data-src="sun.jpg" class="auto-fix"><div class="meta">08 / SOLAR</div></div></section>
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="dreamer.jpg" class="auto-fix" alt="Dreamer">
+                    <div class="meta">06 / DREAMER</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Dreamer</h2>
+                    <p class="ex-subtitle">Digital Illustration / print 2025</p>
+                    <div class="ex-body">
+                        <p>She believes in what isn’t here yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="flashbacks.jpg" class="auto-fix" alt="Flashbacks">
+                    <div class="meta">07 / FLASHBACKS</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Flashbacks</h2>
+                    <p class="ex-subtitle">Digital Illustration / print 2025</p>
+                    <div class="ex-body">
+                        <p>It didn’t happen again.
+                        It just never really left.
+                        Some moments stay longer than we do.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="sun.jpg" class="auto-fix" alt="Sun">
+                    <div class="meta">08 / SOLAR</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Sun</h2>
+                    <p class="ex-subtitle">Digital Illustration / print 2023</p>
+                    <div class="ex-body">
+                        <p>They loved.
+
+                        They could not stay.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <footer class="footer-nav">

@@ -29,14 +29,50 @@
             transform: translate(-50%, -50%);
         }
 
-        /* TOP NAVIGATION - Minimal */
         nav {
             position: fixed; top: 40px; width: 100%; padding: 0 6%;
-            display: flex; justify-content: flex-start; /* Logo only as requested */
+            display: flex; justify-content: flex-start;
             z-index: 1000; mix-blend-mode: difference;
         }
         nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
 
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            background: var(--bg);
+        }
+
+        .hero h1 {
+            font-size: 12px;
+            letter-spacing: 1em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            color: #888;
+        }
+
+        .hero .accent-text {
+            color: var(--text);
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* STACK LOGIC */
         .stack-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
         .poster-section {
@@ -50,21 +86,29 @@
             gap: 100px; width: 90%; max-width: 1400px;
         }
 
-        /* TEXT TOGGLE LOGIC */
-        .exhibition-text { max-width: 400px; text-align: left; }
+        /* TEXT STYLING */
+        .exhibition-text { 
+            max-width: 400px; 
+            text-align: left; 
+            max-height: 80vh; 
+            display: flex; 
+            flex-direction: column;
+        }
+        
         .ex-title { font-size: 28px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.02em; }
         .ex-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 30px; opacity: 0.5; }
         
         .ex-body { 
             font-size: 14px; line-height: 1.8; font-weight: 300; 
-            max-height: 120px; overflow: hidden; position: relative;
-            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            max-height: 140px; overflow: hidden; position: relative;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .exhibition-text.expanded .ex-body { 
             max-height: 1200px; mask-image: none; -webkit-mask-image: none;
+            overflow-y: auto; /* Scroll if it exceeds screen */
         }
 
         .ex-body p { margin-bottom: 20px; white-space: pre-line; }
@@ -73,11 +117,11 @@
             background: none; border: none; color: var(--text);
             font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
             margin-top: 20px; opacity: 0.4; border-bottom: 1px solid transparent;
-            transition: 0.3s;
+            transition: 0.3s; width: fit-content;
         }
         .read-more-btn:hover { opacity: 1; border-bottom: 1px solid var(--text); }
 
-        /* POSTER IMAGE */
+        /* POSTER FRAME */
         .poster-frame {
             width: 100%; height: 75vh; max-width: 700px;
             display: flex; align-items: center; justify-content: center;
@@ -91,7 +135,6 @@
 
         .meta { position: absolute; bottom: -40px; right: 0; font-size: 9px; letter-spacing: 0.3em; opacity: 0.4; text-transform: uppercase; }
 
-        /* FOOTER NAVIGATION */
         .footer-nav {
             position: relative; z-index: 1001;
             display: flex; justify-content: space-between; align-items: center;
@@ -106,6 +149,7 @@
             .poster-section { height: auto; position: relative; padding: 100px 20px; }
             .exhibition-container { flex-direction: column; gap: 50px; }
             .poster-frame { height: 60vh; }
+            .hero p { font-size: 16px; }
         }
     </style>
 </head>
@@ -116,6 +160,16 @@
     <nav>
         <a href="index.html">NATIA STUDIO</a>
     </nav>
+
+    <header class="hero">
+        <h1>Posters</h1>
+        <p>
+            An archive of fragments — light, orbit, nostalgia, dream states.
+            <span class="accent-text">
+                Some of these works were created specifically for exhibition settings, designed to exist not only on paper but within space. They move between personal memory and collective atmosphere.
+            </span>
+        </p>
+    </header>
 
     <div class="stack-container">
         <section class="poster-section">
@@ -130,17 +184,11 @@
                     <div class="ex-body">
                         <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.
 
-                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.
-
-                        I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.
-
-                        This work is a translation of that in-between state.
+                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.</p>
+                        <p>I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.</p>
+                        <p>This work is a translation of that in-between state.
                         The sitting figure is me: present, but fading.
-                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.
-
-                        It also feels like when someone is cut out of an old photograph there is still an empty space where they used to be, but only in memory, a memory that fades more and more with time.
-
-                        “Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither. Existing slightly out of focus alive, visible, but never completely seen.</p>
+                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.</p>
                     </div>
                     <button class="read-more-btn" onclick="toggleText(this)">Read Story</button>
                 </div>
@@ -162,7 +210,6 @@
                         And when our light goes out, we don’t disappear. We fall back into the universe, into dust and cloud and soft darkness, maybe even becoming stars again.
 
                         This piece is the whole circle in one glow: becoming, shining, dissolving, returning.
-
                         Little stars walking on a planet made of older stars — finding our way back to the light that made us.</p>
                     </div>
                     <button class="read-more-btn" onclick="toggleText(this)">Read Story</button>
@@ -223,20 +270,11 @@
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
                         <p>Then came a figure.
-                        A piece of the universe,
-                        born to guard, to care.
-                        We grow,
-                        we watch,
-                        we continue the circle.
-                        Yet we forget,
-                        we take, we harm,
-                        we break what we were meant to hold.
+                        A piece of the universe, born to guard, to care.
+                        We grow, we watch, we continue the circle.
                         
-                        We are not the center.
-                        Only guests,
-                        called to protect
-                        what is fragile,
-                        what is alive.</p>
+                        Yet we forget, we take, we harm, we break what we were meant to hold. 
+                        We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
                     </div>
                     <button class="read-more-btn" onclick="toggleText(this)">Read Story</button>
                 </div>
@@ -258,7 +296,7 @@
         function toggleText(btn) {
             const container = btn.parentElement;
             container.classList.toggle('expanded');
-            btn.innerText = container.classList.contains('expanded') ? "Close" : "Read Story";
+            btn.innerText = container.classList.contains('expanded') ? "Close Story" : "Read Story";
         }
 
         document.querySelectorAll('.auto-fix').forEach(img => {

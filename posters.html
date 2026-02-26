@@ -32,14 +32,11 @@
             text-transform: uppercase;
             font-size: 11px;
             letter-spacing: 0.3em;
-            transition: color 0.3s ease;
         }
-        .back-link:hover { color: var(--red); }
 
-        /* THE STACK CONTAINER */
         .stack-container {
             width: 100%;
-            padding: 10vh 0 20vh 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -53,18 +50,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg); /* Prevents seeing posters underneath */
+            background: var(--bg);
         }
 
         .poster-frame {
-            width: 80%;
+            width: 85%;
             max-width: 500px;
             aspect-ratio: 2/3;
             background: #111;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
             overflow: hidden;
             position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
         .poster-frame img {
@@ -77,21 +74,10 @@
         .meta {
             position: absolute;
             bottom: 20px;
-            left: 20px;
+            right: 20px;
             font-size: 10px;
             letter-spacing: 0.2em;
-            opacity: 0.4;
-            text-transform: uppercase;
-        }
-
-        /* Small instruction for user */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            opacity: 0.3;
+            opacity: 0.5;
             text-transform: uppercase;
         }
     </style>
@@ -99,47 +85,66 @@
 <body>
 
     <a href="index.html" class="back-link">← Archive</a>
-    <div class="scroll-indicator">Scroll to Explore</div>
 
     <div class="stack-container">
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="poster1.jpg" alt="Poster 01">
-                <div class="meta">01 / ARCHIVE</div>
+                <img src="nostalgia.jpg" alt="Nostalgia">
+                <div class="meta">01 / NOSTALGIA</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="poster2.jpg" alt="Poster 02">
-                <div class="meta">02 / ARCHIVE</div>
+                <img src="dreamer.jpg" alt="Dreamer">
+                <div class="meta">02 / DREAMER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="poster3.jpg" alt="Poster 03">
-                <div class="meta">03 / ARCHIVE</div>
+                <img src="flashbacks.jpg" alt="Flashbacks">
+                <div class="meta">03 / FLASHBACKS</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="poster4.jpg" alt="Poster 04">
-                <div class="meta">04 / ARCHIVE</div>
+                <img src="huzzzman-universe3.jpg" alt="Universe 3">
+                <div class="meta">04 / UNIVERSE_03</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="poster5.jpg" alt="Poster 05">
-                <div class="meta">05 / ARCHIVE</div>
+                <img src="space flower-universe2.jpg" alt="Universe 2">
+                <div class="meta">05 / SPACE_FLOWER</div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="poster-frame">
+                <img src="sun.jpg" alt="Sun">
+                <div class="meta">06 / SOLAR</div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="poster-frame">
+                <img src="universe1.jpg" alt="Universe 1">
+                <div class="meta">07 / UNIVERSE_01</div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="poster-frame">
+                <img src="circle.jpg" alt="Circle">
+                <div class="meta">08 / GEOMETRY</div>
             </div>
         </section>
     </div>
 
     <script>
-        // Subtle Parallax: Images scale down slightly as they get "covered"
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.poster-section');
             sections.forEach(section => {
@@ -147,15 +152,15 @@
                 const frame = section.querySelector('.poster-frame');
                 
                 if (rect.top <= 0) {
-                    // As the section stays sticky at the top, it scales down 
-                    // to look like it's going into the distance
                     const progress = Math.abs(rect.top) / window.innerHeight;
-                    const scale = 1 - (progress * 0.1);
-                    const opacity = 1 - (progress * 0.5);
-                    frame.style.transform = `scale(${Math.max(scale, 0.9)})`;
-                    frame.style.opacity = Math.max(opacity, 0.5);
+                    const scale = 1 - (progress * 0.15);
+                    const blur = progress * 10;
+                    frame.style.transform = `scale(${Math.max(scale, 0.85)})`;
+                    frame.style.filter = `blur(${blur}px)`;
+                    frame.style.opacity = 1 - (progress * 0.7);
                 } else {
                     frame.style.transform = `scale(1)`;
+                    frame.style.filter = `blur(0px)`;
                     frame.style.opacity = 1;
                 }
             });

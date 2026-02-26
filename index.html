@@ -1,455 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NATIA KURTANIDZE | VISUAL DESIGNER</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATIA KURTANIDZE | VISUAL DESIGNER</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --red: #ff0000;
+            --ease-snap: cubic-bezier(1, 0, 0, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-  <style>
-    :root{
-      --bg:#050505;
-      --text:#ffffff;
-      --red:#ff0000;
-      --ease-snap:cubic-bezier(1,0,0,1);
-      --ease-out:cubic-bezier(0.16,1,0.3,1);
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:"Inter","Helvetica Neue",Arial,sans-serif;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-    }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* CINEMATIC FINISH: GRAIN + VIGNETTE */
-    .film{
-      position:fixed; inset:0; pointer-events:none; z-index:2;
-      background:
-        radial-gradient(1200px 700px at 50% 40%, rgba(255,255,255,0.08), transparent 60%),
-        radial-gradient(900px 500px at 50% 60%, transparent 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%);
-      mix-blend-mode:soft-light;
-      opacity:0.55;
-    }
-    .grain{
-      position:fixed; inset:-20%; pointer-events:none; z-index:3;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      background-size:260px 260px;
-      opacity:0.12;
-      animation:grainMove 8s steps(10) infinite;
-    }
-    @keyframes grainMove{
-      0%{transform:translate3d(-2%, -2%, 0)}
-      50%{transform:translate3d(2%, 1%, 0)}
-      100%{transform:translate3d(-1%, 2%, 0)}
-    }
+        /* 1. RED HERO ENTRANCE */
+        #loader {
+            position: fixed; inset: 0; 
+            background: var(--red); 
+            z-index: 10010;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1s var(--ease-snap);
+        }
+        #loader-count { 
+            font-size: 5vw; font-weight: 900; color: #000; 
+            font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
+        }
 
-    /* LOADER */
-    #loader{
-      position:fixed; inset:0;
-      background:var(--red);
-      z-index:10010;
-      display:flex; align-items:center; justify-content:center;
-      transition:transform .85s var(--ease-snap);
-    }
-    .loader-inner{
-      text-align:center; color:#000;
-      display:flex; flex-direction:column; gap:10px;
-      transform:translateY(-2%);
-    }
-    #loader-count{
-      font-size:clamp(42px, 6vw, 92px);
-      font-weight:900;
-      font-variant-numeric:tabular-nums;
-      letter-spacing:-.06em;
-      line-height:1;
-    }
-    .loader-sub{
-      font-size:12px;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      opacity:.75;
-    }
+        /* 2. THE BUBBLY REVEAL */
+        .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
+        
+        .statement { 
+            font-size: clamp(30px, 7vw, 90px); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: -0.04em; 
+            line-height: 0.9;
+            /* Initial state for bubbly reveal */
+            filter: blur(30px);
+            opacity: 0;
+            transform: scale(0.98);
+            transition: filter 2.5s var(--ease-out), opacity 2s var(--ease-out), transform 2.5s var(--ease-out);
+        }
 
-    @keyframes bubblyBlur{
-      0%{filter:blur(40px); opacity:0; transform:translateY(10px) scale(.98);}
-      100%{filter:blur(0); opacity:1; transform:translateY(0) scale(1);}
-    }
+        body.is-revealed .statement {
+            filter: blur(0px);
+            opacity: 1;
+            transform: scale(1);
+        }
 
-    /* LAYOUT */
-    .hero{
-      height:100vh;
-      display:flex;
-      align-items:center;
-      padding:0 8%;
-      position:relative;
-      z-index:4;
-      overflow:hidden;
-    }
-    .hero-inner{ position:relative; z-index:5; }
+        /* 3. WORK SECTION */
+        .work-section { padding: 10vh 8% 25vh; display: flex; flex-direction: column; }
+        .project-link {
+            font-size: clamp(40px, 12vw, 180px); 
+            font-weight: 900; 
+            text-decoration: none; 
+            color: var(--text); 
+            text-transform: uppercase; 
+            letter-spacing: -0.07em;
+            padding: 20px 0; 
+            display: block; 
+            width: fit-content;
+            transition: color 0.3s ease;
+        }
+        .project-link:hover { color: var(--red); }
 
-    .statement{
-      font-size:clamp(30px,7vw,90px);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:-.04em;
-      line-height:.9;
-      opacity:0;
-      will-change: transform, filter, text-shadow;
-      transition: transform .25s var(--ease-out), filter .25s var(--ease-out), text-shadow .25s var(--ease-out);
-    }
+        /* 4. SOLID RED CONTACT SECTION */
+        .contact-section {
+            background: var(--red); 
+            color: #000;
+            height: 80vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+            margin-top: 10vh;
+        }
 
-    .meta{
-      margin-top:18px;
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      opacity:.7;
-    }
+        .direct-email {
+            font-size: clamp(32px, 8vw, 100px); 
+            font-weight: 900; 
+            color: #000;
+            text-decoration: none; 
+            letter-spacing: -0.05em;
+            transition: opacity 0.3s ease;
+        }
+        .direct-email:hover { opacity: 0.4; }
 
-    .hero-hint{
-      margin-top:22px;
-      font-size:10px;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      opacity:0;
-      transform:translateY(8px);
-    }
+        /* 5. IMAGE PREVIEW */
+        #preview {
+            position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%);
+            width: 45vw; max-width: 800px; pointer-events: none; z-index: 5; opacity: 0;
+            transition: opacity 0.5s var(--ease-out);
+        }
+        #preview.active { opacity: 0.85; }
+        #preview img { width: 100%; height: auto; border-radius: 2px; }
 
-    .is-revealed .statement{
-      animation:bubblyBlur 1.6s var(--ease-out) forwards;
-    }
-    .is-revealed .meta{
-      animation:bubblyBlur 1.8s var(--ease-out) forwards;
-      animation-delay:.06s;
-      opacity:0;
-    }
-    .is-revealed .hero-hint{
-      animation:bubblyBlur 1.6s var(--ease-out) forwards;
-      animation-delay:.18s;
-    }
+        footer { 
+            background: var(--red); color: #000; 
+            padding: 60px 8%; font-size: 10px; 
+            font-weight: 900; opacity: 0.4; 
+            text-align: center; letter-spacing: 0.5em; 
+        }
 
-    /* interactive light (follows cursor via CSS vars) */
-    .spotlight{
-      position:absolute; inset:-20%;
-      z-index:4;
-      pointer-events:none;
-      opacity:0;
-      transition: opacity .4s var(--ease-out);
-      background: radial-gradient(650px 460px at var(--mx, 50%) var(--my, 45%),
-        rgba(255,255,255,.12),
-        rgba(255,0,0,.08),
-        transparent 62%);
-      mix-blend-mode: screen;
-      filter: blur(10px);
-    }
-    .hero:hover .spotlight{ opacity:.95; }
-
-    /* subtle “alive” effect on hover */
-    .hero:hover .statement{
-      filter: saturate(1.05) contrast(1.06);
-    }
-
-    /* museum-ish underline reveal */
-    .statement::after{
-      content:"";
-      display:block;
-      width:160px;
-      height:3px;
-      background:rgba(255,255,255,.22);
-      margin-top:18px;
-      transform-origin:left;
-      transform:scaleX(0);
-      transition:transform .8s var(--ease-out);
-    }
-    .is-revealed .statement::after{
-      transform:scaleX(1);
-      transition-delay:.08s;
-    }
-
-    /* WORK SECTION */
-    .work-section{
-      padding:10vh 8% 18vh;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      position:relative;
-      z-index:4;
-    }
-    .project-link{
-      font-size:clamp(40px,12vw,180px);
-      font-weight:900;
-      text-decoration:none;
-      color:var(--text);
-      text-transform:uppercase;
-      letter-spacing:-.07em;
-      padding:14px 0;
-      width:fit-content;
-      transition:color .25s ease, transform .25s var(--ease-out);
-      outline:none;
-    }
-    .project-link:hover{ color:var(--red); transform:translateX(6px); }
-    .project-link:focus-visible{
-      color:var(--red);
-      text-decoration:underline;
-      text-underline-offset:8px;
-      text-decoration-thickness:3px;
-    }
-
-    /* PREVIEW (DESKTOP) */
-    #preview{
-      position:fixed; top:50%; left:60%;
-      transform:translate(-50%,-50%) scale(.985);
-      width:min(46vw, 860px);
-      pointer-events:none;
-      z-index:6;
-      opacity:0;
-      filter:blur(10px);
-      transition:opacity .35s var(--ease-out), transform .35s var(--ease-out), filter .35s var(--ease-out);
-      mix-blend-mode:screen;
-    }
-    #preview.active{
-      opacity:.85;
-      filter:blur(0);
-      transform:translate(-50%,-50%) scale(1);
-    }
-    #preview img{
-      width:100%;
-      height:auto;
-      object-fit:contain;
-      border-radius:16px;
-    }
-
-    /* CONTACT */
-    .contact-section{
-      background:var(--red);
-      color:#000;
-      height:68vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      position:relative;
-      z-index:4;
-    }
-    .direct-email{
-      font-size:clamp(22px,5vw,60px);
-      font-weight:900;
-      color:#000;
-      text-decoration:none;
-      letter-spacing:-.02em;
-      transition:transform .3s ease;
-      display:inline-block;
-    }
-    .direct-email:hover{ transform:scale(1.04); }
-
-    footer{
-      background:var(--red);
-      color:#000;
-      padding:40px 8%;
-      font-size:10px;
-      opacity:.55;
-      text-align:center;
-      letter-spacing:.4em;
-      position:relative;
-      z-index:4;
-    }
-
-    /* MOBILE: preview becomes bottom-sheet on tap */
-    @media (max-width:768px){
-      #preview{
-        top:auto; left:50%; bottom:18px;
-        transform:translate(-50%,0) scale(1);
-        width:92vw;
-        opacity:0;
-        filter:blur(10px);
-      }
-      #preview.active{
-        opacity:.95;
-        filter:blur(0);
-      }
-      #preview img{ border-radius:18px; }
-      .project-link{ font-size:12vw; }
-      #loader-count{ font-size:15vw; }
-      .hero:hover .spotlight{ opacity:0; } /* no hover on mobile */
-    }
-
-    /* Mobile breathe animation */
-    @keyframes breathe{
-      0%,100%{ transform: translate3d(0,0,0) scale(1); }
-      50%{ transform: translate3d(0,-6px,0) scale(1.01); }
-    }
-
-    /* REDUCED MOTION */
-    @media (prefers-reduced-motion: reduce){
-      *{animation:none!important; transition:none!important; scroll-behavior:auto!important;}
-      #preview{filter:none!important;}
-      .statement,.meta,.hero-hint{opacity:1!important; transform:none!important;}
-      #loader{display:none;}
-      .spotlight{display:none!important;}
-    }
-  </style>
+        @media (max-width: 768px) {
+            #preview { width: 85vw; left: 50%; }
+            .project-link { font-size: 14vw; }
+            #loader-count { font-size: 18vw; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <div class="film"></div>
-  <div class="grain"></div>
+    <div id="preview"><img id="preview-img" src="" alt=""></div>
+    
+    <div id="loader"><div id="loader-count">00</div></div>
 
-  <div id="preview" aria-hidden="true">
-    <img id="preview-img" src="" alt="" loading="eager" />
-  </div>
+    <section class="hero">
+        <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
+    </section>
 
-  <div id="loader" role="status" aria-live="polite">
-    <div class="loader-inner">
-      <div id="loader-count">00</div>
-      <div class="loader-sub">ARCHIVE LOADING</div>
-    </div>
-  </div>
+    <main class="work-section">
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
+    </main>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="statement" id="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
-      <div class="meta" id="meta">Berlin · Branding / Posters / Packaging · Available for freelance</div>
-      <div class="hero-hint" id="heroHint">move · hover · touch</div>
-    </div>
-    <div class="spotlight" id="spotlight" aria-hidden="true"></div>
-  </section>
+    <section class="contact-section">
+        <a href="mailto:natia.kurtanidze@gmail.com" class="direct-email">natia@design</a>
+    </section>
 
-  <main class="work-section" aria-label="Selected work">
-    <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
-    <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
-    <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
-    <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
-    <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-    <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
-    <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
-  </main>
+    <footer>NATIA KURTANIDZE © 2026</footer>
 
-  <section class="contact-section">
-    <a href="mailto:natia.kurtanidze@gmail.com" class="direct-email">natia@design</a>
-  </section>
+    <script>
+        const preview = document.getElementById('preview');
+        const previewImg = document.getElementById('preview-img');
 
-  <footer>NATIA KURTANIDZE © 2026</footer>
+        // 1. LOADER LOGIC
+        let p = 0;
+        const loader = document.getElementById('loader');
+        const count = document.getElementById('loader-count');
+        
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 15) + 2; 
+            if (p >= 100) { 
+                p = 100; 
+                clearInterval(l); 
+                setTimeout(() => {
+                    loader.style.transform = "translateY(-100%)";
+                    // Trigger the bubbly reveal
+                    document.body.classList.add('is-revealed');
+                }, 400);
+            }
+            count.innerText = p.toString().padStart(2, '0');
+        }, 50);
 
-  <script>
-    const preview = document.getElementById("preview");
-    const previewImg = document.getElementById("preview-img");
-    const loader = document.getElementById("loader");
-    const loaderCount = document.getElementById("loader-count");
-
-    // Preload hover images (feels premium)
-    const preload = (srcs) => srcs.forEach(src => { const i = new Image(); i.src = src; });
-    const imgSrcs = Array.from(document.querySelectorAll(".project-link"))
-      .map(a => a.getAttribute("data-img"))
-      .filter(Boolean);
-    preload(imgSrcs);
-
-    // Loader: smooth easing progress
-    let start = performance.now();
-    const duration = 900;
-    const lock = 250;
-
-    function easeOutExpo(x){ return x === 1 ? 1 : 1 - Math.pow(2, -10 * x); }
-
-    function tick(now){
-      const t = Math.min(1, (now - start) / duration);
-      const val = Math.floor(easeOutExpo(t) * 100);
-      loaderCount.textContent = String(val).padStart(2, "0");
-
-      if (t < 1) requestAnimationFrame(tick);
-      else {
-        setTimeout(() => {
-          loader.style.transform = "translateY(-100%)";
-          document.body.classList.add("is-revealed");
-        }, lock);
-      }
-    }
-    requestAnimationFrame(tick);
-
-    // Preview: mouse drift + mobile tap preview
-    const isTouch = matchMedia("(pointer: coarse)").matches;
-
-    if (!isTouch) {
-      window.addEventListener("mousemove", (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 30;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        preview.style.transform = `translate(-50%, -50%) scale(1) translate(${x}px, ${y}px)`;
-      });
-    }
-
-    document.querySelectorAll(".project-link").forEach(link => {
-      const src = link.getAttribute("data-img");
-
-      const show = () => {
-        if (!src) return;
-        previewImg.src = src;
-        preview.classList.add("active");
-      };
-      const hide = () => preview.classList.remove("active");
-
-      link.addEventListener("mouseenter", show);
-      link.addEventListener("mouseleave", hide);
-      link.addEventListener("focus", show);
-      link.addEventListener("blur", hide);
-
-      link.addEventListener("click", (e) => {
-        if (!matchMedia("(pointer: coarse)").matches) return;
-        if (!preview.classList.contains("active") || previewImg.src.indexOf(src) === -1) {
-          e.preventDefault();
-          show();
-          clearTimeout(window.__pvT);
-          window.__pvT = setTimeout(hide, 1400);
-        }
-      });
-    });
-
-    // ===== HERO INTERACTION (spotlight + parallax + micro-glitch) =====
-    const hero = document.querySelector(".hero");
-    const statement = document.getElementById("statement");
-
-    let lastX = 0, lastY = 0, lastT = performance.now();
-    let glitchTimeout = null;
-
-    window.addEventListener("mousemove", (e) => {
-      if(!hero || !statement) return;
-
-      // spotlight position
-      const mx = (e.clientX / window.innerWidth) * 100;
-      const my = (e.clientY / window.innerHeight) * 100;
-      hero.style.setProperty("--mx", mx + "%");
-      hero.style.setProperty("--my", my + "%");
-
-      // parallax on statement
-      const dx = (e.clientX / window.innerWidth - 0.5);
-      const dy = (e.clientY / window.innerHeight - 0.5);
-      statement.style.transform = `translate3d(${dx*14}px, ${dy*12}px, 0)`;
-
-      // micro-glitch on fast movement
-      const now = performance.now();
-      const dt = now - lastT;
-      const vx = (e.clientX - lastX) / Math.max(1, dt);
-      const vy = (e.clientY - lastY) / Math.max(1, dt);
-      const speed = Math.sqrt(vx*vx + vy*vy);
-
-      if (speed > 1.25){
-        clearTimeout(glitchTimeout);
-        statement.style.textShadow = "2px 0 rgba(255,0,0,.28), -2px 0 rgba(255,255,255,.10)";
-        statement.style.filter = "contrast(1.2) saturate(1.1)";
-        glitchTimeout = setTimeout(() => {
-          statement.style.textShadow = "";
-          statement.style.filter = "";
-        }, 80);
-      }
-
-      lastX = e.clientX; lastY = e.clientY; lastT = now;
-    });
-
-    // mobile breathing (no mouse)
-    if (matchMedia("(pointer: coarse)").matches && statement) {
-      statement.style.animation = "breathe 4.2s ease-in-out infinite";
-    }
-  </script>
+        // 2. PREVIEW HOVERS
+        document.querySelectorAll('.project-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const img = link.getAttribute('data-img');
+                if(img) {
+                    previewImg.src = img;
+                    preview.classList.add('active');
+                }
+            });
+            link.addEventListener('mouseleave', () => preview.classList.remove('active'));
+        });
+    </script>
 </body>
 </html>

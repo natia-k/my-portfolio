@@ -6,12 +6,13 @@
     <title>FEELINGS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #FFD1DC; 
+            --bg: #FFD1DC; /* Your signature Pink */
             --white: #ffffff;
             --black: #1a1a1a;
             --caustic: rgba(255, 255, 255, 0.45);
         }
 
+        /* 1️⃣ HIGH-END TYPOGRAPHY */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
         body {
@@ -30,9 +31,10 @@
             filter: blur(60px);
         }
 
-        nav { position: fixed; top: 20px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
+        nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
         nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; }
 
+        /* 2️⃣ MONOCHROME SUNLIGHT TITLE */
         .intro { 
             height: 100vh; 
             display: flex; 
@@ -40,19 +42,16 @@
             align-items: center; 
             justify-content: center; 
             text-align: center; 
-            padding: 0 20px;
         }
 
         .hero-title {
-            font-size: clamp(50px, 18vw, 260px);
+            font-size: clamp(80px, 20vw, 260px);
             font-weight: 900;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            color: var(--white);
+            color: var(--white); 
             display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-            justify-content: center;
+            gap: 10px;
         }
 
         .hero-title span { 
@@ -61,30 +60,35 @@
             filter: blur(2px);
         }
 
+        .hero-title span:nth-child(odd) { animation-delay: -1s; }
+        .hero-title span:nth-child(even) { animation-delay: -4s; }
+
         @keyframes underwater-sparkle {
-            0%, 100% { transform: translate(0, 0) scale(1); filter: blur(2px) brightness(1); }
-            50% { transform: translate(5px, -15px) scale(1.05); filter: blur(8px) brightness(1.5); }
+            0%, 100% { transform: translate(0, 0) scale(1) skew(0deg); filter: blur(2px) brightness(1); text-shadow: 0 0 0px var(--white); }
+            50% { transform: translate(10px, -25px) scale(1.05) skew(2deg); filter: blur(10px) brightness(1.8); text-shadow: 0 0 40px var(--white); }
         }
 
         .sub-whisper {
-            font-size: 10px;
-            letter-spacing: 0.4em;
+            font-size: 11px;
+            letter-spacing: 0.5em;
             text-transform: uppercase;
             opacity: 0.4;
             margin-top: 15px;
+            color: var(--black);
         }
 
+        /* 3️⃣ ASYMMETRICAL EDITORIAL LAYOUT */
         .gallery { 
-            padding: 10vh 8% 10vh; 
+            padding: 20vh 8% 40vh; 
             display: flex; 
             flex-direction: column; 
-            gap: 25vh; 
+            gap: 45vh; 
         }
 
         .exhibition-row {
             display: grid;
-            grid-template-columns: 1fr 1.5fr; 
-            gap: 40px;
+            grid-template-columns: 1.2fr 1.8fr; 
+            gap: 80px;
             align-items: center;
             width: 100%;
         }
@@ -92,38 +96,50 @@
         .wall-text { text-align: left; }
 
         .poem {
-            font-size: clamp(14px, 2vw, 16px);
+            font-size: 16px;
             line-height: 1.7;
             font-weight: 500;
+            color: var(--black);
             white-space: pre-line;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            letter-spacing: -0.01em;
         }
 
         .commentary {
-            font-size: 11px;
-            line-height: 1.8;
+            font-size: 12px;
+            line-height: 1.9;
             opacity: 0.4;
             font-style: italic;
-            max-width: 300px;
+            max-width: 320px;
         }
 
         .pic-frame {
+            animation: gentle-drift 12s ease-in-out infinite;
             display: flex;
             justify-content: flex-end;
-            width: 100%;
+        }
+
+        @keyframes gentle-drift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(0.5deg); }
         }
 
         img { 
             width: 100%; 
             max-width: 800px;
             height: auto; 
-            box-shadow: 0 30px 80px rgba(0,0,0,0.06);
+            border-radius: 2px;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.06);
         }
 
+        .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+
+        /* FOOTER NAV */
         .footer-nav {
             display: flex;
             justify-content: space-between;
-            padding: 80px 8% 60px;
+            padding: 100px 8% 80px;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
         .footer-nav a {
@@ -131,27 +147,20 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 10px;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             opacity: 0.4;
         }
 
-        .reveal-trigger { opacity: 0; transform: translateY(20px); transition: 1.5s ease-out; }
-        .reveal { opacity: 1 !important; transform: translateY(0) !important; }
-
         /* MOBILE FIXES */
-        @media (max-width: 800px) {
+        @media (max-width: 1000px) {
             * { cursor: auto !important; }
             #aura { display: none; }
-            nav { top: 15px; }
-            .exhibition-row { 
-                grid-template-columns: 1fr; 
-                gap: 30px; 
-            }
-            .pic-frame { justify-content: center; order: -1; } /* Image above text on mobile */
-            .gallery { gap: 15vh; }
+            .exhibition-row { grid-template-columns: 1fr; gap: 40px; }
+            .pic-frame { justify-content: center; }
+            .hero-title { gap: 5px; flex-wrap: wrap; justify-content: center; }
+            .gallery { gap: 20vh; padding: 10vh 8%; }
             .footer-nav { padding: 60px 8%; }
-            .hero-title { gap: 2px; }
         }
     </style>
 </head>
@@ -172,30 +181,79 @@
     </header>
 
     <main class="gallery">
+        
         <section class="exhibition-row reveal-trigger">
             <div class="wall-text">
                 <div class="poem">I made a heart.
                 I broke it.
                 Fragments orbit me—
-                tiny planets of pain.</div>
-                <div class="commentary">The fragments became the orbiting pieces you see, like echoes of heartbreak.</div>
+                tiny planets of pain
+                that refuse to burn.
+                The first time
+                this sadness touches you
+                it never leaves.</div>
+                <div class="commentary">For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak.</div>
             </div>
-            <div class="pic-frame">
-                <img src="heartbreak-2.jpg" alt="Heartbreak">
-            </div>
+            <div class="pic-frame"><img src="heartbreak-2.jpg"></div>
         </section>
 
         <section class="exhibition-row reveal-trigger">
             <div class="wall-text">
                 <div class="poem">Since I was five
                 I have stood at the edge of sleep.
-                Wanting to jump.</div>
-                <div class="commentary">Lately, I've learned to take it as a gift—longer days to watch the world.</div>
+                Wanting to jump.
+                Terrified of the splash.
+                I speak to the dark.
+                It watches.
+                Sleep is one step away—
+                always a lifetime away.</div>
+                <div class="commentary">I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold.</div>
             </div>
-            <div class="pic-frame">
-                <img src="insomnia-1.jpg" alt="Insomnia">
-            </div>
+            <div class="pic-frame" style="animation-delay: -6s;"><img src="insomnia-1.jpg"></div>
         </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Warmth turns into gravity.
+                You fall upward.
+                Willingly.
+                Again and Again.
+                A 1001 times,
+                Alive, Infinite.</div>
+            </div>
+            <div class="pic-frame"><img src="pleasure.jpg"></div>
+        </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">It arrives without sound.
+                It swallows everything.
+                Even your echo disappears.
+                A black hole rises inside.
+                It feels empty,
+                but it is heavy.
+                It can hold everything.
+                You carry space alone.</div>
+            </div>
+            <div class="pic-frame" style="animation-delay: -3s;"><img src="emptiness.jpg"></div>
+        </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Love is what remains
+                after explanation leaves.</div>
+            </div>
+            <div class="pic-frame"><img src="love.jpg"></div>
+        </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Desire is what moves
+                before permission.</div>
+            </div>
+            <div class="pic-frame" style="animation-delay: -8s;"><img src="desire.jpg"></div>
+        </section>
+
     </main>
 
     <footer class="footer-nav">
@@ -206,11 +264,8 @@
 
     <script>
         document.addEventListener('mousemove', (e) => {
-            const aura = document.getElementById('aura');
-            if(aura) {
-                aura.style.left = e.clientX + 'px';
-                aura.style.top = e.clientY + 'px';
-            }
+            document.getElementById('aura').style.left = e.clientX + 'px';
+            document.getElementById('aura').style.top = e.clientY + 'px';
         });
 
         const obs = new IntersectionObserver((entries) => {

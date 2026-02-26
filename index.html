@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #050505;
-            --text: #f5f5f7; /* Off-White */
+            --text: #ffffff;
             --red: #ff0000;
             --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
             --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -39,44 +39,24 @@
         }
         #loader-count { font-size: 5vw; font-weight: 900; color: #000; letter-spacing: -0.05em; }
 
-        /* 2. HERO SHELL ARTWORK */
-        #hero-media {
-            position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 45vw; max-width: 700px; z-index: 5;
-            opacity: 0; filter: blur(30px);
-            transition: opacity 2.5s var(--ease-out), filter 2s var(--ease-out), transform 2.5s var(--ease-out);
-            pointer-events: none;
-            will-change: transform, filter, opacity;
-        }
-        body.is-revealed #hero-media { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%) scale(1); }
-
-        /* 3. STATEMENT SECTIONS (Hero & About) */
-        .melt-section { 
-            height: 120vh; display: flex; align-items: center; padding: 0 8%; 
-            will-change: transform, filter, opacity;
-        }
-
+        /* 2. HERO SECTION */
+        .hero { height: 120vh; display: flex; align-items: center; padding: 0 8%; }
         .statement { 
             font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; 
             letter-spacing: -0.04em; line-height: 0.9;
             filter: blur(50px); opacity: 0;
             transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
         }
-        
         .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
         body.is-revealed .statement { filter: blur(0px); opacity: 1; }
 
-        /* 4. ABOUT TEXT WITH SYNCED MELT */
-        .about-text { 
-            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; 
-            letter-spacing: -0.03em; color: #ccc; 
-            will-change: transform, filter, opacity;
-        }
+        /* 3. ABOUT SECTION */
+        .about-section { padding: 40vh 8% 30vh; max-width: 1000px; text-align: left; }
+        .about-text { font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; letter-spacing: -0.03em; color: #ccc; }
         
         #skills-trigger {
-            display: inline-block; width: 12px; height: 12px; background: var(--red);
-            border-radius: 50%; margin-left: 10px; vertical-align: middle;
+            display: inline-block; width: 10px; height: 10px; background: var(--red);
+            border-radius: 50%; margin-left: 5px; vertical-align: baseline;
             cursor: pointer; animation: pulse-red 3s infinite;
         }
 
@@ -86,7 +66,7 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
-        /* 5. OVERLAY */
+        /* 4. THE WHITE MONO OVERLAY (DEV MODE) */
         #skills-overlay {
             position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
             display: flex; align-items: center; padding: 0 8%;
@@ -94,11 +74,13 @@
             font-family: var(--mono);
         }
         #skills-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .skills-content { color: #fff; width: 100%; }
+        .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; text-transform: none; }
         .code-label { color: var(--red); font-size: 12px; letter-spacing: 0.2em; display: block; margin-bottom: 30px; }
-        .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; color: var(--text); }
 
-        /* 6. WORK SECTION */
-        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; position: relative; z-index: 20; }
+        /* 5. WORK SECTION */
+        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
         .project-link {
             font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
             color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
@@ -110,12 +92,15 @@
         #preview.active { opacity: 0.85; }
         #preview img { width: 100%; height: auto; }
         
-        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 20; }
+        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
         .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
 
-        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.6; text-align: center; }
+        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
+        
+        .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
+        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
 
-        @media (max-width: 768px) { * { cursor: auto; } #cursor, #hero-media { display: none; } }
+        @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
     </style>
 </head>
 <body>
@@ -124,27 +109,26 @@
     <div id="preview"><img id="preview-img" src="" alt=""></div>
     <div id="loader"><div id="loader-count">00</div></div>
 
-    <img src="hero-shell.jpg" id="hero-media" alt="Hero Shell">
-
     <div id="skills-overlay">
         <div class="skills-content">
             <span class="code-label">// SYSTEM_ARCHITECTURE</span>
             <h2>
                 Visual Design / Branding / Art Direction / Interaction Design<br><br>
-                This entire digital environment was architected, designed, and hand-coded by Natia Kurtanidze.
+                Turns out, this entire digital environment was architected, <br> 
+                designed, and hand-coded by Natia Kurtanidze.
             </h2>
         </div>
     </div>
 
-    <section class="melt-section">
-        <div class="statement" id="hero-statement">
+    <section class="hero">
+        <div class="statement" id="sticky-hero">
             <span class="sticky-word">VISUAL</span> <span class="sticky-word">DESIGNER</span> — <br> 
             <span class="sticky-word">I</span> <span class="sticky-word">CREATE</span> <span class="sticky-word">SILENT</span> <span class="sticky-word">FORMS</span>
         </div>
     </section>
 
-    <section class="melt-section">
-        <p class="about-text" id="about-statement">
+    <section class="about-section">
+        <p class="about-text" id="about-content">
             I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional <span id="skills-trigger"></span> interfaces.
         </p>
     </section>
@@ -167,47 +151,31 @@
 
     <script>
         const cursor = document.getElementById('cursor');
-        const heroS = document.getElementById('hero-statement');
-        const aboutS = document.getElementById('about-statement');
+        const heroStatement = document.getElementById('sticky-hero');
         const stickyWords = document.querySelectorAll('.sticky-word');
+        const aboutContent = document.getElementById('about-content');
         const trigger = document.getElementById('skills-trigger');
         const overlay = document.getElementById('skills-overlay');
-        const shell = document.getElementById('hero-media');
 
         let mouse = { x: 0, y: 0 };
 
-        // 1. Custom Cursor
+        // 1. Water Effect Logic (Split by parts to keep trigger safe)
+        const parts = aboutContent.innerHTML.split('<span id="skills-trigger"></span>');
+        aboutContent.innerHTML = parts[0].split(' ').map(w => `<span class="word">${w}</span>`).join(' ') + ' <span id="skills-trigger"></span> ' + parts[1].split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
+
+        // 2. Custom Cursor
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX; mouse.y = e.clientY;
             cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
         });
 
-        // 2. Melting Animation Engine
+        // 3. Magnetic & Scroll Animations
         function animate() {
             const scrollY = window.scrollY;
-            const wh = window.innerHeight;
+            heroStatement.style.filter = `blur(${Math.min(scrollY / 10, 40)}px)`;
+            heroStatement.style.opacity = 1 - Math.min(scrollY / 600, 1);
+            heroStatement.style.transform = `translateY(${scrollY * 0.4}px)`;
 
-            // Shell Melt
-            const shellFade = 1 - Math.min(scrollY / 600, 1);
-            shell.style.opacity = shellFade;
-            shell.style.filter = `blur(${scrollY / 20}px)`;
-            shell.style.transform = `translate(-50%, -50%) scale(${1 + scrollY/2000})`;
-
-            // Hero Statement Melt
-            heroS.style.filter = `blur(${Math.min(scrollY / 10, 50)}px)`;
-            heroS.style.opacity = 1 - Math.min(scrollY / 600, 1);
-            heroS.style.transform = `translateY(${scrollY * 0.4}px)`;
-
-            // About Statement Melt (Calculated based on its position)
-            const aboutRect = aboutS.getBoundingClientRect();
-            const aboutOffset = aboutRect.top + scrollY - wh; // When it starts entering
-            const aboutScroll = Math.max(0, scrollY - wh * 0.5); 
-            
-            aboutS.style.filter = `blur(${Math.min(aboutScroll / 10, 50)}px)`;
-            aboutS.style.opacity = 1 - Math.min(aboutScroll / 600, 1);
-            aboutS.style.transform = `translateY(${aboutScroll * 0.3}px)`;
-
-            // Magnetic Words
             stickyWords.forEach(word => {
                 const rect = word.getBoundingClientRect();
                 const dx = mouse.x - (rect.left + rect.width / 2);
@@ -216,16 +184,16 @@
                 if (dist < 150) word.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
                 else word.style.transform = `translate(0, 0)`;
             });
-
             requestAnimationFrame(animate);
         }
         animate();
 
-        // 3. Overlay
-        trigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
+        // 4. Trigger & Overlay Interaction
+        const finalTrigger = document.getElementById('skills-trigger');
+        finalTrigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
         overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
 
-        // 4. Loader
+        // 5. Loader
         let p = 0;
         const l = setInterval(() => {
             p += Math.floor(Math.random() * 15) + 2;
@@ -239,7 +207,7 @@
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
         }, 50);
 
-        // 5. Project Preview
+        // 6. Project Preview
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 document.getElementById('preview-img').src = link.getAttribute('data-img');

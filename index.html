@@ -9,9 +9,7 @@
             --bg: #050505;
             --text: #ffffff;
             --red: #ff0000;
-            /* Font for the main site */
             --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
-            /* Font for the 'Dev Mode' Skills */
             --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
             --ease-snap: cubic-bezier(1, 0, 0, 1);
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -30,7 +28,7 @@
         #cursor {
             position: fixed; width: 8px; height: 8px; background: var(--red);
             border-radius: 50%; pointer-events: none; z-index: 20000;
-            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, opacity 0.3s;
+            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s;
         }
 
         /* 1. LOADER */
@@ -39,78 +37,88 @@
             display: flex; align-items: center; justify-content: center;
             transition: transform 1s var(--ease-snap);
         }
-        #loader-count { 
-            font-size: 5vw; font-weight: 900; color: #000; 
-            font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
-        }
+        #loader-count { font-size: 5vw; font-weight: 900; color: #000; letter-spacing: -0.05em; }
 
         /* 2. HERO SECTION */
-        .hero { height: 120vh; display: flex; align-items: center; padding: 0 8%; }
+        .hero { height: 110vh; display: flex; align-items: center; padding: 0 8%; }
         .statement { 
             font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; 
             letter-spacing: -0.04em; line-height: 0.9;
-            will-change: filter, opacity, transform;
-            transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
             filter: blur(50px); opacity: 0;
+            transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
         }
         .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
         body.is-revealed .statement { filter: blur(0px); opacity: 1; }
 
-        /* 3. ABOUT SECTION (LEFT ALIGNED) */
-        .about-section { padding: 40vh 8%; max-width: 1000px; text-align: left; }
-        .about-text { 
-            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; 
-            font-weight: 500; letter-spacing: -0.03em; color: #ccc;
-        }
-        
-        /* THE RED TRIGGER CIRCLE */
-        #skills-trigger {
-            display: inline-block; width: 14px; height: 14px; background: var(--red);
-            border-radius: 50%; margin: 0 15px; vertical-align: middle;
-            cursor: pointer; animation: pulse-red 2s infinite;
-            transition: transform 0.4s var(--ease-out);
-        }
-
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-        }
-
-        /* 4. CODE MODE OVERLAY */
-        #skills-overlay {
-            position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
-            display: flex; align-items: center; padding: 0 8%;
-            opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out);
-            font-family: var(--mono);
-        }
-        #skills-overlay.active { opacity: 1; pointer-events: all; }
-        .skills-content { width: 100%; color: #00ff41; /* Classic Matrix/Dev Green */ }
-        .skills-content h2 { font-size: clamp(24px, 3vw, 50px); line-height: 1.2; font-weight: 400; text-transform: none; }
-        .code-comment { color: #666; margin-bottom: 20px; display: block; }
-        .code-keyword { color: var(--red); }
-
-        /* 5. WORK SECTION */
-        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
-        .project-link {
-            font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
-            color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
-            padding: 20px 0; display: block; width: fit-content; transition: color 0.3s ease;
-        }
-        .project-link:hover { color: var(--red); }
-
-        /* 6. PREVIEW & FOOTER */
-        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
-        .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
-        #preview { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 45vw; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.5s; }
-        #preview.active { opacity: 0.85; }
-        #preview img { width: 100%; height: auto; }
-        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
-        
+        /* 3. ABOUT SECTION */
+        .about-section { padding: 30vh 8% 20vh; max-width: 1000px; text-align: left; }
+        .about-text { font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; letter-spacing: -0.03em; color: #ccc; }
         .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
         .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
 
-        @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
+        /* 4. NEW FLOATING TRIGGER (Bottom Right) */
+        #skills-trigger {
+            position: fixed; bottom: 50px; right: 50px;
+            width: 60px; height: 60px; background: transparent;
+            border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9000; transition: transform 0.3s var(--ease-out), border 0.3s;
+        }
+        .core-dot { width: 12px; height: 12px; background: var(--red); border-radius: 50%; animation: pulse-red 2s infinite; }
+        
+        #skills-trigger:hover { transform: scale(1.1); border-color: var(--red); }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+        /* 5. FUN DEV-MODE OVERLAY */
+        #skills-overlay {
+            position: fixed; inset: 0; background: #000; z-index: 10005;
+            display: flex; align-items: center; padding: 0 8%;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            font-family: var(--mono);
+        }
+        #skills-overlay.active { opacity: 1; pointer-events: all; animation: glitch 0.2s linear; }
+        
+        /* Scanline effect for fun */
+        #skills-overlay::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%; pointer-events: none;
+        }
+
+        .skills-content { color: #fff; text-transform: none; }
+        .code-keyword { color: var(--red); font-weight: 900; }
+        .code-string { color: #888; }
+
+        @keyframes glitch {
+            0% { transform: translate(2px, -2px); filter: hue-rotate(90deg); }
+            50% { transform: translate(-2px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* 6. WORK SECTION */
+        .work-section { padding: 10vh 8% 25vh; display: flex; flex-direction: column; }
+        .project-link {
+            font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
+            color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
+            padding: 20px 0; display: block; transition: color 0.3s ease;
+        }
+        .project-link:hover { color: var(--red); }
+
+        #preview { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 45vw; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.5s; }
+        #preview.active { opacity: 0.85; }
+        #preview img { width: 100%; height: auto; }
+        
+        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
+        .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
+
+        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
+
+        @media (max-width: 768px) { * { cursor: auto; } #cursor, #skills-trigger { display: none; } }
     </style>
 </head>
 <body>
@@ -121,17 +129,20 @@
 
     <div id="skills-overlay">
         <div class="skills-content">
-            <span class="code-comment">// Technical_Proficiency_Matrix.js</span>
+            <p class="code-string">// SYSTEM_OVERRIDE_SUCCESSFUL</p><br>
+            <h2><span class="code-keyword">NATIA_K.EXE</span> — SKILLS:</h2><br>
             <h2>
-                <span class="code-keyword">const</span> capabilities = [<br>
-                &nbsp;&nbsp;"Visual Design", "Branding", "Art Direction",<br>
-                &nbsp;&nbsp;"Web Architecture", "Creative Coding"<br>
-                ];<br><br>
-                <span class="code-keyword">if</span> (user_is_curious) {<br>
-                &nbsp;&nbsp;return "This entire site was architected and coded by Natia Kurtanidze";<br>
-                }
-            </h2>
+                [01] VISUAL DESIGN<br>
+                [02] BRANDING & IDENTITY<br>
+                [03] CREATIVE CODING<br>
+                [04] WEB ARCHITECTURE
+            </h2><br>
+            <p class="code-string">> status: Site built and deployed by hand.<br>> location: Georgia, TB.</p>
         </div>
+    </div>
+
+    <div id="skills-trigger">
+        <div class="core-dot"></div>
     </div>
 
     <section class="hero">
@@ -143,7 +154,7 @@
 
     <section class="about-section">
         <p class="about-text" id="about-content">
-            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces <span id="skills-trigger"></span> where I build minimalist archives, editorial identities, and emotional interfaces.
+            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional interfaces.
         </p>
     </section>
 
@@ -174,13 +185,9 @@
         let mouse = { x: 0, y: 0 };
 
         // 1. Water Effect on About
-        const words = aboutContent.innerText.split(' ');
-        aboutContent.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
-        // Re-inject the trigger after splitting
-        const wordSpans = aboutContent.querySelectorAll('.word');
-        wordSpans[11].insertAdjacentElement('afterend', trigger);
+        aboutContent.innerHTML = aboutContent.innerText.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
 
-        // 2. Custom Cursor
+        // 2. Cursor & Animation Loop
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX; mouse.y = e.clientY;
             cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
@@ -204,14 +211,12 @@
         }
         animate();
 
-        // 3. Skills Overlay Logic
+        // 3. Dev Mode Trigger Logic
         trigger.addEventListener('mouseenter', () => {
             overlay.classList.add('active');
-            cursor.style.width = '100px'; cursor.style.height = '100px'; cursor.style.opacity = '0.1';
         });
         overlay.addEventListener('mouseleave', () => {
             overlay.classList.remove('active');
-            cursor.style.width = '8px'; cursor.style.height = '8px'; cursor.style.opacity = '1';
         });
 
         // 4. Loader

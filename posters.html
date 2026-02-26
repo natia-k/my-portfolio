@@ -36,75 +36,47 @@
         }
         nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
 
-        .stack-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .stack-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
         .poster-section {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg);
-            padding: 20px;
+            position: sticky; top: 0; height: 100vh; width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg); padding: 20px;
         }
 
         .poster-frame {
-            width: 100%;
-            height: 75vh;
-            max-width: 800px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            will-change: transform, opacity, filter;
+            width: 100%; height: 75vh; max-width: 800px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; will-change: transform, opacity, filter;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .poster-frame img {
-            max-width: 90%;
-            max-height: 100%;
-            object-fit: contain; 
-            display: block;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            background: #0a0a0a;
+            max-width: 90%; max-height: 100%; object-fit: contain; 
+            display: block; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            background: #0a0a0a; transition: transform 0.4s ease;
         }
 
+        /* ZOOM STATE */
+        .poster-frame.zoomed { z-index: 2000; transform: scale(1.2) !important; opacity: 1 !important; filter: none !important; }
+        .poster-frame.zoomed img { cursor: zoom-out; }
+        .poster-frame:not(.zoomed) img { cursor: zoom-in; }
+
         .meta {
-            position: absolute;
-            bottom: -40px;
-            right: 0;
-            font-size: 9px;
-            letter-spacing: 0.3em;
-            opacity: 0.4;
-            text-transform: uppercase;
+            position: absolute; bottom: -40px; right: 0;
+            font-size: 9px; letter-spacing: 0.3em; opacity: 0.4; text-transform: uppercase;
         }
 
         .footer-nav {
-            position: relative;
-            z-index: 1001;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 100px 8% 80px;
-            border-top: 1px solid var(--line);
-            background: var(--bg);
+            position: relative; z-index: 1001;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 100px 8% 80px; border-top: 1px solid var(--line); background: var(--bg);
         }
 
         .footer-nav a {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 4px;
-            text-decoration: none;
-            color: var(--text);
-            text-transform: uppercase;
-            opacity: 0.4;
-            transition: 0.3s;
+            font-size: 10px; font-weight: 700; letter-spacing: 4px;
+            text-decoration: none; color: var(--text); text-transform: uppercase;
+            opacity: 0.4; transition: 0.3s;
         }
         .footer-nav a:hover { opacity: 1; }
 
@@ -112,6 +84,7 @@
             * { cursor: auto !important; }
             #aura { display: none; }
             .poster-frame { height: 65vh; }
+            .poster-frame.zoomed { transform: scale(1.05) !important; }
         }
     </style>
 </head>
@@ -134,50 +107,50 @@
 
         <section class="poster-section">
             <div class="poster-frame">
+                <img data-src="circle.jpg" class="auto-fix" alt="Circle of Life">
+                <div class="meta">02 / CIRCLE OF LIFE</div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="poster-frame">
                 <img data-src="dreamer.jpg" class="auto-fix" alt="Dreamer">
-                <div class="meta">02 / DREAMER</div>
+                <div class="meta">03 / DREAMER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="flashbacks.jpg" class="auto-fix" alt="Flashbacks">
-                <div class="meta">03 / FLASHBACKS</div>
+                <div class="meta">04 / FLASHBACKS</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="universe1.jpg" class="auto-fix" alt="Universe 1">
-                <div class="meta">04 / UNIVERSE_01</div>
+                <div class="meta">05 / UNIVERSE_01</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="space-flower.jpg" class="auto-fix" alt="Space Flower">
-                <div class="meta">05 / SPACE_FLOWER</div>
+                <div class="meta">06 / SPACE_FLOWER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="huzzzman.jpg" class="auto-fix" alt="Huzzzman">
-                <div class="meta">06 / HUZZZMAN</div>
+                <div class="meta">07 / HUZZZMAN</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="sun.jpg" class="auto-fix" alt="Sun">
-                <div class="meta">07 / SOLAR</div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="poster-frame">
-                <img data-src="circle.jpg" class="auto-fix" alt="Circle">
-                <div class="meta">08 / GEOMETRY</div>
+                <div class="meta">08 / SOLAR</div>
             </div>
         </section>
     </div>
@@ -193,21 +166,9 @@
         document.querySelectorAll('.auto-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];
-            const variants = [
-                raw,
-                base + ".png",
-                base + ".JPG",
-                base + ".webp",
-                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg"
-            ];
-
+            const variants = [raw, base + ".png", base + ".JPG", base + ".webp", base.charAt(0).toUpperCase() + base.slice(1) + ".jpg"];
             let i = 0;
-            const tryLoad = () => {
-                if (i < variants.length) {
-                    img.src = variants[i];
-                    i++;
-                }
-            };
+            const tryLoad = () => { if (i < variants.length) { img.src = variants[i]; i++; } };
             img.onerror = tryLoad;
             tryLoad();
         });
@@ -215,10 +176,14 @@
         // CURSOR
         const aura = document.getElementById('aura');
         document.addEventListener('mousemove', (e) => {
-            if(aura) {
-                aura.style.left = e.clientX + 'px';
-                aura.style.top = e.clientY + 'px';
-            }
+            if(aura) { aura.style.left = e.clientX + 'px'; aura.style.top = e.clientY + 'px'; }
+        });
+
+        // ZOOM FUNCTIONALITY
+        document.querySelectorAll('.poster-frame').forEach(frame => {
+            frame.addEventListener('click', () => {
+                frame.classList.toggle('zoomed');
+            });
         });
 
         // STACKING EFFECT
@@ -228,15 +193,18 @@
                 const rect = section.getBoundingClientRect();
                 const frame = section.querySelector('.poster-frame');
                 
-                if (rect.top <= 0) {
-                    const progress = Math.abs(rect.top) / window.innerHeight;
-                    frame.style.transform = `scale(${Math.max(1 - (progress * 0.15), 0.85)}) translateY(${progress * 50}px)`;
-                    frame.style.opacity = Math.max(1 - (progress * 0.9), 0);
-                    frame.style.filter = `blur(${progress * 20}px)`;
-                } else {
-                    frame.style.transform = `scale(1) translateY(0)`;
-                    frame.style.opacity = 1;
-                    frame.style.filter = `blur(0px)`;
+                // Only animate if not currently zoomed
+                if (!frame.classList.contains('zoomed')) {
+                    if (rect.top <= 0) {
+                        const progress = Math.abs(rect.top) / window.innerHeight;
+                        frame.style.transform = `scale(${Math.max(1 - (progress * 0.15), 0.85)}) translateY(${progress * 50}px)`;
+                        frame.style.opacity = Math.max(1 - (progress * 0.9), 0);
+                        frame.style.filter = `blur(${progress * 20}px)`;
+                    } else {
+                        frame.style.transform = `scale(1) translateY(0)`;
+                        frame.style.opacity = 1;
+                        frame.style.filter = `blur(0px)`;
+                    }
                 }
             });
         });

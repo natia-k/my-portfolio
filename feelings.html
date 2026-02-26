@@ -7,10 +7,8 @@
     <style>
         :root {
             --bg: #050505;
-            --pink: #ff007f; /* The specific pink we used */
+            --pink: #ff007f;
             --text: #f5f5f7;
-            --red: #ff0000;
-            --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -18,8 +16,8 @@
 
         body {
             background-color: var(--bg);
-            color: var(--text);
-            font-family: var(--main-font);
+            color: var(--pink); /* Pink as the primary text color */
+            font-family: "Inter", sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -30,117 +28,123 @@
             transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s;
         }
 
-        /* 1. BUBBLY TEXT ALIGNMENT */
-        .content-wrapper { padding: 15vh 8%; }
+        /* HEADER ALIGNMENT */
+        .header {
+            position: fixed; top: 0; width: 100%; padding: 40px 8%;
+            display: flex; justify-content: space-between; z-index: 1000;
+        }
+        .header a { color: var(--pink); text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 0.3em; }
+
+        /* THE FEELINGS LAYOUT */
+        .content { padding: 25vh 8% 10vh; }
         
-        .feelings-header {
-            font-size: clamp(40px, 12vw, 180px);
+        .feelings-title {
+            font-size: clamp(50px, 15vw, 220px);
             font-weight: 900;
-            color: var(--pink);
-            text-transform: uppercase;
             letter-spacing: -0.07em;
-            margin-bottom: 10vh;
+            line-height: 0.8;
+            margin-bottom: 20vh;
         }
 
-        .project-section {
+        .section {
+            margin-bottom: 40vh;
             display: flex;
             flex-direction: column;
-            gap: 15vh;
-            max-width: 1200px;
-            margin: 0 auto;
+            align-items: flex-start; /* Hard-aligned to the left as we discussed */
         }
 
-        .text-block {
-            font-size: clamp(24px, 4.5vw, 48px);
-            line-height: 1.4;
+        /* THE BUBBLY POETRY TEXT */
+        .poem-block {
+            font-size: clamp(28px, 5vw, 56px);
+            line-height: 1.2;
             font-weight: 500;
-            letter-spacing: -0.03em;
-            color: var(--pink); /* Back to pink */
+            letter-spacing: -0.04em;
             max-width: 900px;
+            margin-bottom: 80px;
         }
 
-        /* BUBBLY WATER EFFECT */
         .word { 
             display: inline-block; 
             margin-right: 0.15em; 
-            transition: transform 0.6s var(--ease-out), filter 0.6s ease;
+            transition: transform 0.6s var(--ease-out), filter 0.6s ease, color 0.4s;
         }
         .word:hover { 
-            transform: scale(1.15) translateY(-5px); 
-            filter: blur(4px); 
-            color: #fff; 
+            transform: scale(1.1) translateY(-5px); 
+            filter: blur(3px); 
+            color: #ffffff; /* Turns white on hover like water shimmer */
         }
 
-        .img-container { width: 100%; display: flex; justify-content: center; }
-        .work-img { width: 100%; max-width: 1000px; height: auto; border: 1px solid rgba(255,0,127,0.2); }
+        .image-wrap { width: 100%; display: flex; justify-content: flex-end; }
+        .work-img { width: 100%; max-width: 1100px; height: auto; border: 1px solid rgba(255, 0, 127, 0.3); }
 
-        /* 2. NAVIGATION (STRICTLY AT BOTTOM) */
+        /* UNIVERSAL NAVIGATION */
         .project-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 150px 8% 80px;
-            margin-top: 10vh;
-            border-top: 1px solid rgba(255, 0, 127, 0.1);
+            padding: 100px 8% 60px;
+            border-top: 1px solid rgba(255, 0, 127, 0.2);
+            margin-top: 100px;
         }
-
-        .nav-btn {
+        .nav-link {
             color: var(--pink);
             text-decoration: none;
             font-weight: 900;
             font-size: 11px;
             letter-spacing: 0.3em;
-            text-transform: uppercase;
             transition: 0.3s;
         }
-        .nav-btn:hover { color: #fff; filter: blur(2px); }
-        .nav-btn.index { opacity: 0.4; font-size: 9px; }
-
-        @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
+        .nav-link:hover { color: #fff; filter: blur(2px); }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
 
-    <main class="content-wrapper">
-        <h1 class="feelings-header">FEELINGS</h1>
+    <header class="header">
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="mailto:natia.kurtanidze@gmail.com">CONTACT</a>
+    </header>
 
-        <div class="project-section">
-            <div class="text-block" id="p1">
+    <main class="content">
+        <h1 class="feelings-title">FEELINGS</h1>
+
+        <section class="section">
+            <div class="poem-block" id="p1">
                 I made a heart. I broke it. Fragments orbit me—tiny planets of pain that refuse to burn.
             </div>
-            <div class="img-container">
+            <div class="image-wrap">
                 <img src="heartbreak-2.jpg" class="work-img">
             </div>
+        </section>
 
-            <div class="text-block" id="p2">
+        <section class="section">
+            <div class="poem-block" id="p2">
                 Since I was five I have stood at the edge of sleep. Wanting to jump. Terrified of the splash.
             </div>
-            <div class="img-container">
+            <div class="image-wrap">
                 <img src="insomnia-1.jpg" class="work-img">
             </div>
-        </div>
+        </section>
     </main>
 
     <nav class="project-nav">
-        <a href="the-others.html" class="nav-btn">← PREVIOUS</a>
-        <a href="index.html" class="nav-btn index">ARCHIVE</a>
-        <a href="nurture.html" class="nav-btn">NEXT →</a>
+        <a href="the-others.html" class="nav-link">← PREV</a>
+        <a href="index.html" class="nav-link" style="opacity:0.4">ARCHIVE</a>
+        <a href="nurture.html" class="nav-link">NEXT →</a>
     </nav>
 
     <script>
-        // CURSOR
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // RE-APPLYING BUBBLY WATER EFFECT TO ALL TEXT BLOCKS
-        const textBlocks = document.querySelectorAll('.text-block');
-        textBlocks.forEach(block => {
-            block.innerHTML = block.innerText.split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
+        // RE-APPLYING BUBBLY WATER EFFECT
+        document.querySelectorAll('.poem-block').forEach(block => {
+            const words = block.innerText.split(' ');
+            block.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
         });
     </script>
 </body>

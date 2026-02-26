@@ -6,34 +6,35 @@
     <title>FEELINGS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #FFD1DC; /* Baby Pink */
-            --bone: #F2ECE4; /* Bone Title */
+            --bg: #FFD1DC; /* Your signature Pink */
+            --white: #ffffff;
             --black: #1a1a1a;
-            --aura: rgba(255, 255, 255, 0.4);
+            --caustic: rgba(255, 255, 255, 0.45);
         }
 
+        /* 1️⃣ HIGH-END TYPOGRAPHY (Helvetica Neue / Inter) */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
         body {
             background-color: var(--bg);
             color: var(--black);
-            font-family: 'Inter', sans-serif;
+            font-family: "Helvetica Neue", Helvetica, "Inter", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         #aura {
             position: fixed; width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--aura) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--caustic) 0%, transparent 70%);
             border-radius: 50%; pointer-events: none; z-index: 999;
             transform: translate(-50%, -50%); mix-blend-mode: overlay;
-            filter: blur(40px);
+            filter: blur(60px);
         }
 
         nav { position: fixed; top: 40px; width: 100%; padding: 0 6%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.3; }
+        nav a { color: var(--black); text-decoration: none; font-size: 10px; letter-spacing: 4px; font-weight: 700; opacity: 0.4; }
 
-        /* THE CLOUD-FLOAT ANCHOR */
+        /* 2️⃣ MONOCHROME SUNLIGHT TITLE */
         .intro { 
             height: 100vh; 
             display: flex; 
@@ -44,37 +45,28 @@
         }
 
         .hero-title {
-            font-size: clamp(60px, 18vw, 220px);
+            font-size: clamp(80px, 20vw, 260px);
             font-weight: 900;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.06em;
             text-transform: uppercase;
+            color: var(--white); /* Single color: White */
             display: flex;
             gap: 10px;
-            color: var(--bone);
         }
 
-        /* CLOUD BUBBLY EFFECT */
         .hero-title span { 
             display: inline-block; 
-            animation: cloud-float 7s ease-in-out infinite; 
+            animation: underwater-sparkle 10s ease-in-out infinite; 
             filter: blur(2px);
-            opacity: 0.9;
         }
 
-        /* Organic staggered cloud movement */
-        .hero-title span:nth-child(1) { animation-delay: 0.1s; }
-        .hero-title span:nth-child(2) { animation-delay: 0.8s; }
-        .hero-title span:nth-child(3) { animation-delay: 0.3s; }
-        .hero-title span:nth-child(4) { animation-delay: 1.2s; }
-        .hero-title span:nth-child(5) { animation-delay: 0.5s; }
-        .hero-title span:nth-child(6) { animation-delay: 1.5s; }
-        .hero-title span:nth-child(7) { animation-delay: 0.2s; }
-        .hero-title span:nth-child(8) { animation-delay: 0.9s; }
+        /* Staggered organic movement */
+        .hero-title span:nth-child(odd) { animation-delay: -1s; }
+        .hero-title span:nth-child(even) { animation-delay: -4s; }
 
-        @keyframes cloud-float {
-            0%, 100% { transform: translate(0, 0) scale(1); filter: blur(2px); }
-            33% { transform: translate(8px, -20px) scale(1.1); filter: blur(5px); opacity: 0.7; }
-            66% { transform: translate(-8px, -10px) scale(1.05); filter: blur(3px); opacity: 0.8; }
+        @keyframes underwater-sparkle {
+            0%, 100% { transform: translate(0, 0) scale(1) skew(0deg); filter: blur(2px) brightness(1); text-shadow: 0 0 0px var(--white); }
+            50% { transform: translate(10px, -25px) scale(1.05) skew(2deg); filter: blur(10px) brightness(1.8); text-shadow: 0 0 40px var(--white); }
         }
 
         .sub-whisper {
@@ -82,53 +74,76 @@
             letter-spacing: 0.5em;
             text-transform: uppercase;
             opacity: 0.4;
-            margin-top: 20px;
+            margin-top: 15px;
+            color: var(--black);
         }
 
-        /* GALLERY & TEXT INTEGRATION */
+        /* 3️⃣ ASYMMETRICAL EDITORIAL LAYOUT */
         .gallery { 
-            padding: 20vh 0 40vh; 
+            padding: 20vh 8% 40vh; 
             display: flex; 
             flex-direction: column; 
-            align-items: center; 
-            gap: 30vh; 
+            gap: 45vh; 
         }
 
-        .art-item {
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            flex-direction: column;
+        .exhibition-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr; /* Text on left, Pic on right */
+            gap: 80px;
             align-items: center;
-            animation: slow-drift 12s ease-in-out infinite;
+            width: 100%;
         }
 
-        @keyframes slow-drift {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        /* TEXTES ON THE LEFT SIDE */
+        .wall-text {
+            text-align: left;
+        }
+
+        .poem {
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 500;
+            color: var(--black);
+            white-space: pre-line;
+            margin-bottom: 25px;
+            letter-spacing: -0.01em;
+        }
+
+        .commentary {
+            font-size: 12px;
+            line-height: 1.9;
+            opacity: 0.4;
+            font-style: italic;
+            max-width: 320px;
+        }
+
+        /* 4️⃣ SUBTLE FLOAT */
+        .pic-frame {
+            animation: gentle-drift 12s ease-in-out infinite;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        @keyframes gentle-drift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(0.5deg); }
         }
 
         img { 
-            width: 90%; 
+            width: 100%; 
+            max-width: 800px;
             height: auto; 
             border-radius: 2px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.03);
-            margin-bottom: 30px;
-        }
-
-        .art-text {
-            max-width: 500px;
-            text-align: center;
-            font-size: 14px;
-            line-height: 1.8;
-            letter-spacing: 0.02em;
-            opacity: 0.5;
-            white-space: pre-line;
-            font-weight: 400;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.06);
         }
 
         .reveal-trigger { opacity: 0; transform: translateY(30px); transition: 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal { opacity: 1 !important; transform: translateY(0) !important; }
+
+        @media (max-width: 1000px) {
+            .exhibition-row { grid-template-columns: 1fr; gap: 40px; }
+            .pic-frame { justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -149,45 +164,89 @@
 
     <main class="gallery">
         
-        <div class="art-item reveal-trigger">
-            <img src="heartbreak-2.jpg">
-            <div class="art-text">
-                I made a heart. I broke it.
-                Fragments orbit me— tiny planets of pain that refuse to burn.
-                The first time this sadness touches you it never leaves.
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">I made a heart.
+                I broke it.
+                Fragments orbit me—
+                tiny planets of pain
+                that refuse to burn.
+                The first time
+                this sadness touches you
+                it never leaves.</div>
+                <div class="commentary">For this piece, I literally created a heart shape and broke it. The fragments became the orbiting pieces you see, like echoes of heartbreak. [cite: 3-12]</div>
             </div>
-        </div>
-
-        <div class="art-item reveal-trigger">
-            <img src="insomnia-1.jpg">
-            <div class="art-text">
-                Since I was five I have stood at the edge of sleep. 
-                Wanting to jump. Terrified of the splash.
-                I speak to the dark. It watches.
-                Sleep is one step away— always a lifetime away.
+            <div class="pic-frame">
+                <img src="heartbreak-2.jpg" alt="Heartbreak">
             </div>
-        </div>
+        </section>
 
-        <div class="art-item reveal-trigger">
-            <img src="pleasure.jpg">
-            <div class="art-text">
-                Warmth turns into gravity. You fall upward. Willingly.
-                Again and Again. A 1001 times, Alive, Infinite.
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Since I was five
+                I have stood at the edge of sleep.
+                Wanting to jump.
+                Terrified of the splash.
+                I speak to the dark.
+                It watches.
+                Sleep is one step away—
+                always a lifetime away.</div>
+                <div class="commentary">I've struggled with this since I was five. Lately, I've learned to take it as a gift—longer days to watch the world quietly unfold. [cite: 25-34]</div>
             </div>
-        </div>
-
-        <div class="art-item reveal-trigger">
-            <img src="emptiness.jpg">
-            <div class="art-text">
-                It arrives without sound. It swallows everything. 
-                Even your echo disappears. A black hole rises inside.
-                It feels empty, but it is heavy. It can hold everything. 
-                You carry space alone.
+            <div class="pic-frame" style="animation-delay: -6s;">
+                <img src="insomnia-1.jpg" alt="Insomnia">
             </div>
-        </div>
+        </section>
 
-        <div class="art-item reveal-trigger"><img src="love.jpg"></div>
-        <div class="art-item reveal-trigger"><img src="desire.jpg"></div>
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Warmth turns into gravity.
+                You fall upward.
+                Willingly.
+                Again and Again.
+                A 1001 times,
+                Alive, Infinite. [cite: 15-22]</div>
+            </div>
+            <div class="pic-frame">
+                <img src="pleasure.jpg" alt="Pleasure">
+            </div>
+        </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">It arrives without sound.
+                It swallows everything.
+                Even your echo disappears.
+                A black hole rises inside.
+                It feels empty,
+                but it is heavy.
+                It can hold everything.
+                You carry space alone. [cite: 37-41]</div>
+            </div>
+            <div class="pic-frame" style="animation-delay: -3s;">
+                <img src="emptiness.jpg" alt="Emptiness">
+            </div>
+        </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Love is what remains
+                after explanation leaves.</div>
+            </div>
+            <div class="pic-frame">
+                <img src="love.jpg" alt="Love">
+            </div>
+        </section>
+
+        <section class="exhibition-row reveal-trigger">
+            <div class="wall-text">
+                <div class="poem">Desire is what moves
+                before permission.</div>
+            </div>
+            <div class="pic-frame" style="animation-delay: -8s;">
+                <img src="desire.jpg" alt="Desire">
+            </div>
+        </section>
 
     </main>
 

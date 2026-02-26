@@ -12,112 +12,115 @@
             --line: rgba(232, 232, 227, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
         body {
             background-color: var(--bg);
             color: var(--bone);
-            /* THE HELVETICA STACK */
-            font-family: "Helvetica Neue", "Neue Haas Grotesk Display Pro", "Helvetica", Arial, sans-serif;
+            font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         nav {
-            position: fixed; top: 40px; width: 100%; padding: 0 6%;
-            display: flex; justify-content: flex-start; z-index: 1000;
+            position: fixed; top: 40px; left: 6%; z-index: 1000;
         }
         nav a { 
             color: var(--bone); text-decoration: none; font-size: 10px; 
             font-weight: 900; letter-spacing: 5px; text-transform: uppercase; 
         }
 
-        /* PUNCHY HERO - ALL CAPS */
+        /* LEFT-ALIGNED HERO */
         .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 8%;
+            align-items: flex-start; /* Aligned Left */
+            padding: 0 10%;
         }
 
         .hero h1 { 
-            font-size: 11px; letter-spacing: 2.2em; text-transform: uppercase; 
-            margin-bottom: 60px; font-weight: 400; opacity: 0.3;
+            font-size: 11px; letter-spacing: 1.5em; text-transform: uppercase; 
+            margin-bottom: 40px; font-weight: 400; opacity: 0.3;
         }
 
         .hero .main-statement { 
-            max-width: 1400px; font-size: 85px; line-height: 0.9; 
+            max-width: 1000px; font-size: 80px; line-height: 0.9; 
             font-weight: 900; letter-spacing: -0.05em; 
-            text-transform: uppercase; margin-bottom: 15px;
+            text-transform: uppercase; margin-bottom: 10px;
+            text-align: left;
         }
 
         .hero .sub-statement { 
-            font-size: 30px; font-weight: 700; line-height: 1.2;
+            font-size: 28px; font-weight: 700; line-height: 1.2;
             letter-spacing: -0.02em; text-transform: uppercase; opacity: 0.7;
+            text-align: left;
         }
 
-        .hero .sub-statement.last { opacity: 0.4; font-weight: 400; }
+        .hero .sub-statement.last { opacity: 0.4; font-weight: 400; margin-bottom: 30px; }
 
-        /* POSTER SECTIONS */
+        .hero .buy-prints {
+            font-size: 12px; font-style: italic; font-weight: 400;
+            color: var(--bone-dim); letter-spacing: 0.05em;
+            max-width: 500px; line-height: 1.6;
+        }
+
+        /* POSTER SECTIONS - LEFT ALIGNED */
         .stack-container { width: 100%; }
         .poster-section {
             position: sticky; top: 0; height: 100vh; width: 100%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: flex-start;
             background: var(--bg);
+            padding-left: 10%;
         }
 
         .exhibition-container {
-            display: flex; align-items: center; justify-content: center;
-            gap: 100px; width: 90%; max-width: 1600px;
+            display: flex; align-items: flex-start; justify-content: flex-start;
+            gap: 80px; width: 100%; max-width: 1800px;
         }
 
         .poster-frame {
-            width: 100%; height: 80vh; max-width: 800px;
+            width: 45vw; height: 75vh;
             display: flex; align-items: center; justify-content: center;
             position: relative;
         }
         .poster-frame img { 
             max-width: 100%; max-height: 100%; object-fit: contain; 
-            box-shadow: 0 100px 200px rgba(0,0,0,0.9);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
         }
 
-        .exhibition-text { max-width: 440px; text-align: left; }
-        .ex-title { font-size: 34px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.03em; }
-        .ex-subtitle { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 40px; color: var(--bone-dim); }
+        .exhibition-text { max-width: 400px; text-align: left; margin-top: 20px; }
+        .ex-title { font-size: 32px; font-weight: 900; margin-bottom: 5px; text-transform: uppercase; letter-spacing: -0.03em; }
+        .ex-subtitle { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 30px; color: var(--bone-dim); }
         
         .ex-body { 
-            font-size: 16px; line-height: 1.8; font-weight: 400; 
-            color: var(--bone-dim); max-height: 60vh; overflow-y: auto; padding-right: 20px;
+            font-size: 15px; line-height: 1.8; font-weight: 400; 
+            color: var(--bone-dim); max-height: 50vh; overflow-y: auto; padding-right: 15px;
         }
         .ex-body::-webkit-scrollbar { width: 1px; }
         .ex-body::-webkit-scrollbar-thumb { background: var(--line); }
-        .ex-body p { margin-bottom: 30px; white-space: pre-line; }
+        .ex-body p { margin-bottom: 25px; white-space: pre-line; }
 
         .meta { 
-            position: absolute; bottom: -60px; right: 0; 
+            position: absolute; bottom: -40px; left: 0; 
             font-size: 9px; letter-spacing: 0.5em; opacity: 0.3; 
             font-weight: 700; text-transform: uppercase;
         }
 
-        /* PRINT NOTICE */
-        .print-notice { width: 100%; text-align: center; padding: 150px 10% 40px; background: var(--bg); }
-        .print-notice p { font-size: 14px; font-style: italic; font-weight: 400; color: var(--bone-dim); }
-
         .footer-nav {
+            position: relative; z-index: 1001;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 80px 8% 100px; border-top: 1px solid var(--line); background: var(--bg);
+            padding: 100px 10% 100px; border-top: 1px solid var(--line); background: var(--bg);
         }
         .footer-nav a { font-size: 10px; font-weight: 900; letter-spacing: 5px; text-decoration: none; color: var(--bone); opacity: 0.4; transition: 0.4s; }
         .footer-nav a:hover { opacity: 1; }
 
         @media (max-width: 1100px) {
-            .hero .main-statement { font-size: 44px; }
-            .poster-section { height: auto; position: relative; padding: 100px 20px; }
-            .exhibition-container { flex-direction: column; gap: 60px; }
-            .poster-frame { height: 50vh; }
+            .hero .main-statement { font-size: 40px; }
+            .poster-section { height: auto; position: relative; padding: 100px 6%; }
+            .exhibition-container { flex-direction: column; gap: 40px; }
+            .poster-frame { width: 100%; height: 50vh; }
         }
     </style>
 </head>
@@ -130,6 +133,9 @@
         <div class="main-statement">Between memory and atmosphere.</div>
         <div class="sub-statement">Some were shown in rooms.</div>
         <div class="sub-statement last">All were made in silence.</div>
+        <div class="buy-prints">
+            *Some works in this series were created for exhibition settings and are available as limited art prints upon request.
+        </div>
     </header>
 
     <div class="stack-container">
@@ -182,99 +188,7 @@
             </div>
         </section>
 
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="universe1.jpg" class="deep-fix" alt="New Beginning">
-                    <div class="meta">REF / 003</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">New Beginning</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2023</p>
-                    <div class="ex-body"><p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="space-flower.jpg" class="deep-fix" alt="Flower">
-                    <div class="meta">REF / 004</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">Flower</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2023</p>
-                    <div class="ex-body"><p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="huzzzman.jpg" class="deep-fix" alt="Human / Connection">
-                    <div class="meta">REF / 005</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">Human / Connection</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2023</p>
-                    <div class="ex-body">
-                        <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
-
-                        Yet we forget, we take, we harm, we break what we were meant to hold. 
-                        We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="dreamer.jpg" class="deep-fix" alt="Dreamer">
-                    <div class="meta">REF / 006</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">Dreamer</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2025</p>
-                    <div class="ex-body"><p>She believes in what isn’t here yet.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="flashbacks.jpg" class="deep-fix" alt="Flashbacks">
-                    <div class="meta">REF / 007</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">Flashbacks</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2025</p>
-                    <div class="ex-body"><p>It didn’t happen again. It just never really left. Some moments stay longer than we do.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="exhibition-container">
-                <div class="poster-frame">
-                    <img data-src="sun.jpg" class="deep-fix" alt="Solar">
-                    <div class="meta">REF / 008</div>
-                </div>
-                <div class="exhibition-text">
-                    <h2 class="ex-title">Solar</h2>
-                    <p class="ex-subtitle">Digital Illustration / 2023</p>
-                    <div class="ex-body"><p>They loved. They could not stay.</p></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="print-notice">
-        <p>*Some works in this series were created for exhibition settings and are available as limited art prints upon request.</p>
-    </div>
+        </div>
 
     <footer class="footer-nav">
         <a href="index.html">← PREV</a>
@@ -283,7 +197,7 @@
     </footer>
 
     <script>
-        // SMART IMAGE LOADER - TO FIX GITHUB ISSUES
+        // SMART IMAGE LOADER - CASE SENSITIVITY FIX
         document.querySelectorAll('.deep-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];
@@ -293,8 +207,7 @@
                 base.toUpperCase() + ".jpg",
                 base.charAt(0).toUpperCase() + base.slice(1) + ".jpg",
                 base + ".png",
-                base + ".JPG",
-                base + ".webp"
+                base + ".JPG"
             ];
             let i = 0;
             const tryLoad = () => {
@@ -314,7 +227,7 @@
                 const frame = section.querySelector('.poster-frame');
                 if (frame && rect.top <= 0) {
                     const progress = Math.abs(rect.top) / window.innerHeight;
-                    frame.style.transform = `scale(${Math.max(1 - (progress * 0.1), 0.9)}) translateY(${progress * 50}px)`;
+                    frame.style.transform = `scale(${Math.max(1 - (progress * 0.1), 0.9)}) translateX(${-progress * 20}px)`;
                     frame.style.opacity = Math.max(1 - (progress * 1.2), 0);
                 }
             });

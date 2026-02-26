@@ -128,25 +128,38 @@
         }
         nav a { color: var(--black); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; }
 
-        .loop-footer {
-            height: 60vh;
+        /* UNIVERSAL FOOTER NAVIGATION */
+        .footer-nav {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            padding: 100px 8% 80px;
             border-top: 1px solid var(--line);
+            background: var(--white);
         }
 
-        .loop-link {
-            font-size: clamp(40px, 12vw, 180px);
-            font-weight: 900;
+        .footer-nav a {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 4px;
             text-decoration: none;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--black);
-            transition: 0.6s;
+            color: var(--black);
+            text-transform: uppercase;
+            opacity: 0.4;
+            transition: 0.3s;
         }
+        .footer-nav a:hover { opacity: 1; }
 
-        .loop-link:hover { color: var(--black); -webkit-text-stroke: 1px transparent; }
+        /* MOBILE FIXES */
+        @media (max-width: 800px) {
+            * { cursor: auto !important; }
+            #aura { display: none; }
+            .hero h1 { opacity: 1; filter: blur(0); position: relative; font-size: 80px; text-align: center; }
+            .hero { height: auto; padding-top: 120px; flex-direction: column; }
+            .hero-container { transform: none !important; }
+            .parallax-wrap { padding: 40px 5%; }
+            .footer-nav { padding: 60px 8%; }
+        }
     </style>
 </head>
 <body>
@@ -194,9 +207,10 @@
         <img src="oat-mockup3.jpg" class="parallax-img reveal" data-speed="0.03">
     </div>
 
-    <footer class="loop-footer">
-        <span style="font-size: 10px; letter-spacing: 5px; margin-bottom: 20px;">Next</span>
-        <a href="others.html" class="loop-link">OTHERS</a>
+    <footer class="footer-nav">
+        <a href="feelings.html">← PREV</a>
+        <a href="index.html">MAIN</a>
+        <a href="others.html">NEXT →</a>
     </footer>
 
     <script>
@@ -208,9 +222,11 @@
             aura.style.left = `${x}px`;
             aura.style.top = `${y}px`;
 
-            const moveX = (window.innerWidth / 2 - x) / 80;
-            const moveY = (window.innerHeight / 2 - y) / 80;
-            heroImg.style.transform = `rotateX(${moveY}deg) rotateY(${-moveX}deg)`;
+            if (window.innerWidth > 800) {
+                const moveX = (window.innerWidth / 2 - x) / 80;
+                const moveY = (window.innerHeight / 2 - y) / 80;
+                heroImg.style.transform = `rotateX(${moveY}deg) rotateY(${-moveX}deg)`;
+            }
         });
 
         const observer = new IntersectionObserver((entries) => {

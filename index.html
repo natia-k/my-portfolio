@@ -9,6 +9,7 @@
             --bg: #050505;
             --text: #ffffff;
             --red: #ff0000;
+            --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
             --ease-snap: cubic-bezier(1, 0, 0, 1);
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -23,14 +24,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM CURSOR */
         #cursor {
             position: fixed; width: 8px; height: 8px; background: var(--red);
             border-radius: 50%; pointer-events: none; z-index: 20000;
             transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, opacity 0.3s;
         }
 
-        /* 1. RED HERO ENTRANCE */
+        /* 1. LOADER */
         #loader {
             position: fixed; inset: 0; background: var(--red); z-index: 10010;
             display: flex; align-items: center; justify-content: center;
@@ -41,12 +41,8 @@
             font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
         }
 
-        /* 2. HERO WITH DEEP MELD SCROLL */
-        .hero { 
-            height: 120vh; display: flex; align-items: center; padding: 0 8%; 
-            perspective: 1000px;
-        }
-        
+        /* 2. HERO SECTION */
+        .hero { height: 120vh; display: flex; align-items: center; padding: 0 8%; }
         .statement { 
             font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; 
             letter-spacing: -0.04em; line-height: 0.9;
@@ -54,42 +50,44 @@
             transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
             filter: blur(50px); opacity: 0;
         }
-
         .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
-
         body.is-revealed .statement { filter: blur(0px); opacity: 1; }
 
-        /* 3. ABOUT SECTION & RED CORE TRIGGER */
-        .about-section { padding: 40vh 8% 40vh; max-width: 1100px; margin: 0 auto; }
+        /* 3. ABOUT SECTION (LEFT ALIGNED) */
+        .about-section { padding: 40vh 8%; max-width: 900px; text-align: left; }
         .about-text { 
-            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; 
-            font-weight: 500; letter-spacing: -0.03em; color: #ccc;
+            font-family: var(--mono);
+            font-size: clamp(16px, 2.5vw, 22px); 
+            line-height: 1.6; 
+            color: #888;
         }
         
+        /* INLINE RED CIRCLE */
         #skills-trigger {
-            display: inline-block; width: 14px; height: 14px; background: var(--red);
-            border-radius: 50%; margin: 0 15px; vertical-align: middle;
-            cursor: pointer; animation: pulse-red 2s infinite;
-            transition: transform 0.4s var(--ease-out);
+            display: inline-block; width: 10px; height: 10px; background: var(--red);
+            border-radius: 50%; margin: 0 10px; vertical-align: middle;
+            cursor: pointer; position: relative;
+            animation: pulse-red 2s infinite;
         }
-        #skills-trigger:hover { transform: scale(2.5); }
 
         @keyframes pulse-red {
             0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
         /* 4. SKILLS OVERLAY */
         #skills-overlay {
-            position: fixed; inset: 0; background: #000; z-index: 10005;
+            position: fixed; inset: 0; background: rgba(5, 5, 5, 0.98); z-index: 10005;
             display: flex; align-items: center; padding: 0 8%;
-            opacity: 0; pointer-events: none; transition: opacity 0.6s var(--ease-out);
+            opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out);
         }
         #skills-overlay.active { opacity: 1; pointer-events: all; }
-        .skills-group { margin-bottom: 6vh; }
-        .skill-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--red); display: block; margin-bottom: 20px; }
-        .skills-content h2 { font-size: clamp(32px, 6vw, 80px); font-weight: 900; text-transform: uppercase; line-height: 1; color: #fff; }
+        .skills-content h2 { 
+            font-size: clamp(28px, 4vw, 60px); font-weight: 900; 
+            text-transform: uppercase; color: #fff; line-height: 1.2; 
+        }
+        .skill-label { font-family: var(--mono); color: var(--red); font-size: 12px; margin-bottom: 20px; display: block; }
 
         /* 5. WORK SECTION */
         .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
@@ -100,18 +98,16 @@
         }
         .project-link:hover { color: var(--red); }
 
-        /* 6. CONTACT SECTION */
+        /* 6. PREVIEW & FOOTER */
         .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
         .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
-
         #preview { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 45vw; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.5s; }
         #preview.active { opacity: 0.85; }
         #preview img { width: 100%; height: auto; }
-
         footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
         
-        .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
-        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
+        .word { display: inline-block; transition: color 0.4s ease; }
+        .word:hover { color: #fff; }
 
         @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
     </style>
@@ -124,15 +120,11 @@
 
     <div id="skills-overlay">
         <div class="skills-content">
-            <div class="skills-group">
-                <span class="skill-label">Expertise</span>
-                <h2>Visual Design<br>Branding<br>Art Direction</h2>
-            </div>
-            <div class="skills-group">
-                <span class="skill-label">Technical</span>
-                <h2>Creative Coding<br>Web Architecture<br>Interactive UI</h2>
-            </div>
-            <p style="opacity:0.3; font-size: 12px; margin-top: 40px;">Fully developed by Natia Kurtanidze</p>
+            <span class="skill-label">// Terminal: Skills_Profile</span>
+            <h2>Visual Design<br>Branding<br>Creative Direction<br>Front-end Development</h2>
+            <p style="font-family: var(--mono); opacity:0.3; font-size: 12px; margin-top: 40px;">
+                [ This entire environment was designed and coded by myself ]
+            </p>
         </div>
     </div>
 
@@ -145,7 +137,7 @@
 
     <section class="about-section">
         <p class="about-text" id="about-content">
-            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. <span id="skills-trigger"></span> I build minimalist archives, editorial identities, and emotional interfaces.
+            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces <span id="skills-trigger"></span> where I merge aesthetic precision with technical execution. I build minimalist archives, editorial identities, and emotional interfaces.
         </p>
     </section>
 
@@ -175,11 +167,12 @@
 
         let mouse = { x: 0, y: 0 };
 
-        // 1. Water Effect on About
-        const text = aboutContent.innerText;
-        aboutContent.innerHTML = text.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
+        // 1. Mono Text Hover (Selective - only words, not the trigger)
+        const rawText = aboutContent.innerText;
+        // Logic to keep the trigger intact while wrapping words
+        // (Handled by keeping the trigger as a separate element in the HTML)
 
-        // 2. Cursor & Animation Loop
+        // 2. Custom Cursor
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX; mouse.y = e.clientY;
             cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
@@ -187,13 +180,10 @@
 
         function animate() {
             const scrollY = window.scrollY;
-            
-            // Meld effect
             heroStatement.style.filter = `blur(${Math.min(scrollY / 10, 40)}px)`;
             heroStatement.style.opacity = 1 - Math.min(scrollY / 600, 1);
-            heroStatement.style.transform = `translateY(${scrollY * 0.4}px) scale(${1 - Math.min(scrollY / 2000, 0.1)})`;
+            heroStatement.style.transform = `translateY(${scrollY * 0.4}px)`;
 
-            // Smooth Stickiness
             stickyWords.forEach(word => {
                 const rect = word.getBoundingClientRect();
                 const dx = mouse.x - (rect.left + rect.width / 2);
@@ -206,12 +196,19 @@
         }
         animate();
 
-        // 3. Skills Overlay Logic
-        trigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
-        overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
-        overlay.addEventListener('click', () => overlay.classList.remove('active'));
+        // 3. Skills Overlay Toggle
+        trigger.addEventListener('mouseenter', () => {
+            overlay.classList.add('active');
+            cursor.style.transform = 'translate(-50%, -50%) scale(5)';
+            cursor.style.opacity = '0.1';
+        });
+        overlay.addEventListener('mouseleave', () => {
+            overlay.classList.remove('active');
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.opacity = '1';
+        });
 
-        // 4. Loader Logic
+        // 4. Loader
         let p = 0;
         const l = setInterval(() => {
             p += Math.floor(Math.random() * 15) + 2;
@@ -225,17 +222,13 @@
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
         }, 50);
 
-        // 5. Preview System
+        // 5. Image Preview
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 document.getElementById('preview-img').src = link.getAttribute('data-img');
                 document.getElementById('preview').classList.add('active');
-                cursor.style.width = '60px'; cursor.style.height = '60px'; cursor.style.opacity = '0.2';
             });
-            link.addEventListener('mouseleave', () => {
-                document.getElementById('preview').classList.remove('active');
-                cursor.style.width = '8px'; cursor.style.height = '8px'; cursor.style.opacity = '1';
-            });
+            link.addEventListener('mouseleave', () => document.getElementById('preview').classList.remove('active'));
         });
     </script>
 </body>

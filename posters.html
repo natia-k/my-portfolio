@@ -47,7 +47,7 @@
         /* EXHIBITION LAYOUT */
         .exhibition-container {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             gap: 100px;
             width: 90%;
@@ -57,13 +57,12 @@
         .exhibition-text {
             max-width: 420px;
             text-align: left;
-            padding-top: 5vh;
         }
 
         .ex-title { font-size: 28px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.02em; }
         .ex-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 40px; opacity: 0.5; }
         .ex-body { font-size: 14px; line-height: 1.7; font-weight: 300; }
-        .ex-body p { margin-bottom: 20px; }
+        .ex-body p { margin-bottom: 20px; white-space: pre-line; } /* Maintains your line breaks */
         .ex-divider { margin: 30px 0; height: 1px; background: rgba(255,255,255,0.15); width: 40px; }
 
         /* POSTER FRAME & ZOOM */
@@ -107,7 +106,7 @@
             #aura { display: none; }
             .poster-section { height: auto; position: relative; padding: 120px 20px; }
             .exhibition-container { flex-direction: column; gap: 50px; align-items: center; }
-            .exhibition-text { max-width: 100%; padding-top: 0; }
+            .exhibition-text { max-width: 100%; }
             .poster-frame { height: 60vh; }
         }
     </style>
@@ -128,24 +127,13 @@
                     <img data-src="nostalgia.jpg" class="auto-fix" alt="Nostalgia">
                     <div class="meta">01 / NOSTALGIA</div>
                 </div>
-                
                 <div class="exhibition-text">
                     <h2 class="ex-title">Nostalgia</h2>
                     <p class="ex-subtitle">Digital Illustration / print 2025</p>
                     <div class="ex-body">
-                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.</p>
-                        
+                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore.</p>
                         <p>I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.</p>
-                        
-                        <p>I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.</p>
-
-                        <div class="ex-divider"></div>
-
-                        <p>This work is a translation of that in-between state. The sitting figure is me: present, but fading. The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be.</p>
-                        
-                        <p>It also feels like when someone is cut out of an old photograph there is still an empty space where they used to be, but only in memory, a memory that fades more and more with time.</p>
-
-                        <p>“Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither. Existing slightly out of focus—alive, visible, but never completely seen.</p>
+                        <p>“Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither.</p>
                     </div>
                 </div>
             </div>
@@ -157,18 +145,80 @@
                     <img data-src="circle.jpg" class="auto-fix" alt="Circle of Life">
                     <div class="meta">02 / CIRCLE OF LIFE</div>
                 </div>
-                
                 <div class="exhibition-text">
                     <h2 class="ex-title">Circle of Life</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2025</p>
                     <div class="ex-body">
                         <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat.</p>
-                        
                         <p>And when our light goes out, we don’t disappear. We fall back into the universe, into dust and cloud and soft darkness, maybe even becoming stars again.</p>
-                        
-                        <p>This piece is the whole circle in one glow: becoming, shining, dissolving, returning.</p>
-                        
-                        <p>Little stars walking on a planet made of older stars — finding our way back to the light that made us.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="universe1.jpg" class="auto-fix" alt="New Beginning">
+                    <div class="meta">03 / NEW BEGINNING</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">New Beginning</h2>
+                    <p class="ex-subtitle">Digital illustration / print, 2023</p>
+                    <div class="ex-body">
+                        <p>Before anything,
+                        there was a light
+                        that wanted to exist.
+                        No sound, no shape —
+                        only the quiet pulse
+                        to begin.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="space-flower.jpg" class="auto-fix" alt="Flower">
+                    <div class="meta">04 / FLOWER</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Flower</h2>
+                    <p class="ex-subtitle">Digital illustration / print, 2023</p>
+                    <div class="ex-body">
+                        <p>From that light,
+                        something opened.
+                        A flower made of breath,
+                        color shifting like a secret.
+                        Nothing stays still;
+                        everything moves outward.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="poster-section">
+            <div class="exhibition-container">
+                <div class="poster-frame">
+                    <img data-src="huzzzman.jpg" class="auto-fix" alt="Human / Connection">
+                    <div class="meta">05 / HUMAN / CONNECTION</div>
+                </div>
+                <div class="exhibition-text">
+                    <h2 class="ex-title">Human / Connection</h2>
+                    <p class="ex-subtitle">Digital illustration / print, 2023</p>
+                    <div class="ex-body">
+                        <p>Then came a figure.
+                        A piece of the universe,
+                        born to guard, to care.
+                        We grow,
+                        we watch,
+                        we continue the circle.</p>
+                        <p>We are not the center.
+                        Only guests,
+                        called to protect
+                        what is fragile,
+                        what is alive.</p>
                     </div>
                 </div>
             </div>
@@ -177,35 +227,14 @@
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="dreamer.jpg" class="auto-fix" alt="Dreamer">
-                <div class="meta">03 / DREAMER</div>
+                <div class="meta">06 / DREAMER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
                 <img data-src="flashbacks.jpg" class="auto-fix" alt="Flashbacks">
-                <div class="meta">04 / FLASHBACKS</div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="poster-frame">
-                <img data-src="universe1.jpg" class="auto-fix" alt="Universe 1">
-                <div class="meta">05 / UNIVERSE_01</div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="poster-frame">
-                <img data-src="space-flower.jpg" class="auto-fix" alt="Space Flower">
-                <div class="meta">06 / SPACE_FLOWER</div>
-            </div>
-        </section>
-
-        <section class="poster-section">
-            <div class="poster-frame">
-                <img data-src="huzzzman.jpg" class="auto-fix" alt="Huzzzman">
-                <div class="meta">07 / HUZZZMAN</div>
+                <div class="meta">07 / FLASHBACKS</div>
             </div>
         </section>
 

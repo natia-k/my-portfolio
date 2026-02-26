@@ -16,111 +16,113 @@
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body { 
             background: var(--bg); color: var(--text); font-family: var(--main);
-            height: 100vh; overflow: hidden; /* Disable vertical scroll */
+            height: 100vh; overflow: hidden; perspective: 1500px; /* Crucial for 3D */
         }
 
         #cursor {
-            position: fixed; width: 12px; height: 12px; background: var(--red);
+            position: fixed; width: 10px; height: 10px; background: var(--red);
             border-radius: 50%; pointer-events: none; z-index: 9999;
             transform: translate(-50%, -50%); mix-blend-mode: difference;
         }
 
-        /* 1. BACKGROUND TYPOGRAPHY (PARALLAX) */
-        .bg-text {
-            position: fixed; top: 50%; left: 0; transform: translateY(-50%);
-            font-size: 25vw; font-weight: 900; color: #111;
-            white-space: nowrap; z-index: 1; pointer-events: none;
-            text-transform: uppercase; letter-spacing: -0.05em;
-        }
-
-        /* 2. TOP UI */
+        /* UI ELEMENTS */
         .nav-ui {
-            position: fixed; top: 40px; left: 50px; right: 50px;
+            position: fixed; top: 40px; left: 5%; right: 5%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        .studio-btn { text-decoration: none; color: #fff; font-weight: 900; font-size: 14px; }
-        .arch-trigger { 
-            font-family: var(--mono); color: var(--red); font-size: 11px; 
-            border: 1px solid var(--red); padding: 5px 12px; cursor: pointer;
+        .logo { text-decoration: none; color: #fff; font-weight: 900; font-size: 14px; text-transform: uppercase; }
+        .arch-trigger { font-family: var(--mono); color: var(--red); font-size: 10px; cursor: pointer; border: 1px solid var(--red); padding: 5px 10px; }
+
+        /* 3D STAGE */
+        .scene {
+            width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
+            transform-style: preserve-3d;
         }
 
-        /* 3. HORIZONTAL DRAG CANVAS */
-        .slider-container {
-            height: 100vh; width: 100vw; display: flex; align-items: center;
-            padding-left: 10vw; padding-right: 20vw; gap: 10vw;
-            cursor: grab; z-index: 10; position: relative;
+        .carousel {
+            display: flex; gap: 10vw; transform-style: preserve-3d;
+            will-change: transform; cursor: grab;
         }
-        .slider-container:active { cursor: grabbing; }
+        .carousel:active { cursor: grabbing; }
 
+        /* CIRCULAR ITEM LOGIC */
         .poster-item {
             position: relative; flex-shrink: 0;
-            transition: transform 0.1s ease-out;
+            width: 40vh; transform-style: preserve-3d;
+            transition: filter 0.5s ease;
         }
+        
         .poster-item img {
-            height: 60vh; width: auto; filter: grayscale(1);
-            transition: filter 0.5s ease; pointer-events: none;
+            width: 100%; height: auto; filter: grayscale(1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            pointer-events: none;
         }
+        
         .poster-item:hover img { filter: grayscale(0); }
 
-        /* Staggered offsets for Etienne look */
-        .poster-item:nth-child(even) { transform: translateY(10vh); }
-        .poster-item:nth-child(odd) { transform: translateY(-5vh); }
-
         .label {
-            position: absolute; bottom: -30px; left: 0;
-            font-family: var(--mono); font-size: 10px; color: #444;
+            position: absolute; bottom: -40px; left: 0;
+            font-family: var(--mono); font-size: 9px; color: #444;
+            transform: translateZ(20px); /* Lift text off the surface */
         }
 
-        /* 4. THE PLAYFUL CODE OVERLAY */
-        #code-overlay {
-            position: fixed; inset: 0; background: rgba(5,5,5,0.98);
-            z-index: 2000; display: none; align-items: center; justify-content: center;
-            font-family: var(--mono); color: #fff;
+        /* BIG BG TEXT */
+        .bg-text {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) translateZ(-500px);
+            font-size: 30vw; font-weight: 900; color: #0a0a0a; z-index: -1;
+            text-transform: uppercase; pointer-events: none;
         }
-        .code-box { width: 600px; border-left: 1px solid var(--red); padding: 40px; }
-        .cyan { color: #00f0ff; }
 
-        /* 5. FOOTER NAV */
+        /* NAVIGATION FOOTER */
         .footer-nav {
-            position: fixed; bottom: 40px; left: 50px; right: 50px;
+            position: fixed; bottom: 40px; left: 5%; right: 5%;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        .nav-link { text-decoration: none; color: #fff; font-weight: 900; font-size: 4vw; }
+        .nav-link { text-decoration: none; color: #fff; font-weight: 900; font-size: 4vw; letter-spacing: -0.05em; }
         .nav-link:hover { color: var(--red); }
 
+        /* ARCHITECT OVERLAY */
+        #code-overlay {
+            position: fixed; inset: 0; background: rgba(5,5,5,0.95);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 14px; line-height: 1.8;
+        }
+        .code-box { border-left: 1px solid var(--red); padding-left: 30px; }
+
+        @media (max-width: 768px) { #cursor { display: none; } body { cursor: auto; } }
     </style>
 </head>
 <body>
 
 <div id="cursor"></div>
-
-<div class="bg-text" id="bg-parallax">POSTERS / 2026 / ARCHIVE</div>
+<div class="bg-text">ARCHIVE</div>
 
 <div class="nav-ui">
-    <a href="index.html" class="studio-btn">NATIA STUDIO</a>
-    <div class="arch-trigger" id="arch-btn">SYSTEM_ARCHITECTURE</div>
+    <a href="index.html" class="logo">NATIA STUDIO</a>
+    <div class="arch-trigger" id="arch-btn">ARCH_CORE_07</div>
 </div>
 
 <div id="code-overlay">
     <div class="code-box">
-        <p class="cyan">// ARCHITECT_MODE: ON</p>
-        <p>const designer = "Natia Kurtanidze";</p>
-        <p>let environment = "Hand-coded from scratch";</p>
-        <p style="margin-top:20px">// Turns out, this entire web experience was architected by me.</p>
-        <p style="color:#555; margin-top:10px; font-size:12px;">Click anywhere to exit</p>
+        <p style="color:var(--red)">// SYSTEM_STATUS: VIRTUAL_GALLERY</p>
+        <p>Architected & Coded by Natia Kurtanidze</p>
+        <p>This environment uses 3D CSS mapping.</p>
+        <p style="margin-top:20px">// "Reality is just a silent form I designed."</p>
     </div>
 </div>
 
-<main class="slider-container" id="slider">
-    <div class="poster-item"><img src="nostalgia.jpg" alt=""><span class="label">01 / NOSTALGIA</span></div>
-    <div class="poster-item"><img src="universe1.jpg" alt=""><span class="label">02 / UNIVERSE</span></div>
-    <div class="poster-item"><img src="space flower-universe2.jpg" alt=""><span class="label">03 / FLORAL</span></div>
-    <div class="poster-item"><img src="circle.jpg" alt=""><span class="label">04 / GEOMETRY</span></div>
-    <div class="poster-item"><img src="sun.jpg" alt=""><span class="label">05 / SOLAR</span></div>
-    <div class="poster-item"><img src="huzzzman-universe3.jpg" alt=""><span class="label">06 / COSMOS</span></div>
-    <div class="poster-item"><img src="dreamer.jpg" alt=""><span class="label">07 / DREAMER</span></div>
-    <div class="poster-item"><img src="flashbacks.jpg" alt=""><span class="label">08 / FLASHBACKS</span></div>
-</main>
+<div class="scene">
+    <div class="carousel" id="carousel">
+        <div class="poster-item"><img src="nostalgia.jpg" alt=""><span class="label">01 / NOSTALGIA</span></div>
+        <div class="poster-item"><img src="universe1.jpg" alt=""><span class="label">02 / UNIVERSE</span></div>
+        <div class="poster-item"><img src="space flower-universe2.jpg" alt=""><span class="label">03 / FLORAL</span></div>
+        <div class="poster-item"><img src="circle.jpg" alt=""><span class="label">04 / GEOMETRY</span></div>
+        <div class="poster-item"><img src="sun.jpg" alt=""><span class="label">05 / SOLAR</span></div>
+        <div class="poster-item"><img src="huzzzman-universe3.jpg" alt=""><span class="label">06 / COSMOS</span></div>
+        <div class="poster-item"><img src="dreamer.jpg" alt=""><span class="label">07 / DREAMER</span></div>
+        <div class="poster-item"><img src="flashbacks.jpg" alt=""><span class="label">08 / FLASHBACKS</span></div>
+    </div>
+</div>
 
 <footer class="footer-nav">
     <a href="go-left.html" class="nav-link">PREV</a>
@@ -128,62 +130,65 @@
 </footer>
 
 <script>
-    const slider = document.getElementById('slider');
-    const bg = document.getElementById('bg-parallax');
+    const carousel = document.getElementById('carousel');
     const cursor = document.getElementById('cursor');
     const archBtn = document.getElementById('arch-btn');
     const overlay = document.getElementById('code-overlay');
+    const items = document.querySelectorAll('.poster-item');
 
     let isDown = false;
     let startX;
     let scrollLeft;
-    let x = 0;
-    let targetX = 0;
+    let rotation = 0;
+    let targetRotation = 0;
 
-    // Custom Cursor
+    // 1. Cursor Move
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
     });
 
-    // 1. HORIZONTAL DRAG LOGIC
-    slider.addEventListener('mousedown', (e) => {
+    // 2. Drag Logic
+    window.addEventListener('mousedown', (e) => {
         isDown = true;
-        startX = e.pageX - x;
+        startX = e.pageX;
     });
 
     window.addEventListener('mouseup', () => { isDown = false; });
 
     window.addEventListener('mousemove', (e) => {
         if (!isDown) return;
-        e.preventDefault();
-        const mouseX = e.pageX - startX;
-        targetX = mouseX;
+        const x = e.pageX - startX;
+        targetRotation += x * 0.05; // Sensitivity
+        startX = e.pageX;
     });
 
-    // 2. KINETIC SMOOTHING & PARALLAX
-    function update() {
-        // Smoothly interpolate position (0.1 = friction)
-        x += (targetX - x) * 0.1;
-        
-        slider.style.transform = `translateX(${x}px)`;
-        
-        // Background text moves at half speed for depth
-        bg.style.transform = `translateY(-50%) translateX(${x * 0.5}px)`;
+    // 3. 3D Circular Animation Engine
+    function animate() {
+        rotation += (targetRotation - rotation) * 0.1; // Smoothing
 
-        // Image Tilt Effect
-        const tilt = (targetX - x) * 0.05;
-        document.querySelectorAll('.poster-item').forEach(item => {
-            item.style.transform = `rotate(${tilt}deg) translateY(${item.classList.contains('even') ? '10vh' : '-5vh'})`;
+        items.forEach((item, index) => {
+            // Calculate position on the circle
+            const angle = (index / items.length) * Math.PI * 2 + (rotation * 0.02);
+            const x = Math.sin(angle) * 800; // Radius
+            const z = Math.cos(angle) * 800; // Depth
+            const rotY = angle * (180 / Math.PI); // Rotate face to center
+
+            item.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}px)`;
+            
+            // Blur items in the background
+            const blurVal = Math.max(0, (z + 400) / 50);
+            item.style.filter = `blur(${blurVal}px) grayscale(${z < 0 ? 0 : 1})`;
+            item.style.opacity = z < 500 ? 1 : 0.2;
         });
 
-        requestAnimationFrame(update);
+        requestAnimationFrame(animate);
     }
-    update();
+    animate();
 
-    // 3. ARCHITECT OVERLAY
-    archBtn.addEventListener('click', () => { overlay.style.display = 'flex'; });
-    overlay.addEventListener('click', () => { overlay.style.display = 'none'; });
+    // 4. Architect Interaction
+    archBtn.addEventListener('click', () => overlay.style.display = 'flex');
+    overlay.addEventListener('click', () => overlay.style.display = 'none');
 
 </script>
 </body>

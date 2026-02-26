@@ -3,129 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>07 POSTERS | NATIA KURTANIDZE</title>
+    <title>07 POSTERS | NATIA STUDIO</title>
     <style>
         :root {
             --bg: #050505;
             --text: #ffffff;
             --red: #ff0000;
             --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
-            --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --mono: "SFMono-Regular", Consolas, monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: var(--bg); color: var(--text); font-family: var(--main-font); overflow-x: hidden; }
-
-        #cursor {
-            position: fixed; width: 8px; height: 8px; background: var(--red);
-            border-radius: 50%; pointer-events: none; z-index: 20000;
-            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s;
-        }
-
-        /* PROJECT HEADER */
-        .project-hero { padding: 15vh 8% 10vh; }
-        .project-num { font-family: var(--mono); color: var(--red); font-size: 14px; margin-bottom: 10px; display: block; }
-        .project-title-container { display: flex; align-items: baseline; }
-        .project-title { font-size: clamp(40px, 10vw, 120px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.05em; }
         
-        #skills-trigger {
-            width: 12px; height: 12px; background: var(--red);
-            border-radius: 50%; margin-left: 20px;
-            cursor: pointer; animation: pulse-red 3s infinite;
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--main-font); 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        /* CUSTOM RED CURSOR */
+        #cursor {
+            position: fixed; 
+            width: 10px; 
+            height: 10px; 
+            background: var(--red);
+            border-radius: 50%; 
+            pointer-events: none; 
+            z-index: 20000;
+            transform: translate(-50%, -50%); 
+            transition: transform 0.08s ease-out;
         }
 
-        /* ARCHITECT OVERLAY */
-        #skills-overlay {
-            position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
-            display: flex; align-items: center; padding: 0 8%;
-            opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out);
+        /* TOP NAVIGATION */
+        nav.top-nav {
+            position: fixed; 
+            top: 40px; 
+            left: 5%; 
+            right: 5%;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .logo { 
+            font-weight: 900; 
+            text-decoration: none; 
+            color: #fff; 
+            letter-spacing: -0.05em; 
+            font-size: clamp(14px, 2vw, 18px); 
+            text-transform: uppercase;
+        }
+        
+        .logo:hover { color: var(--red); }
+        
+        .project-id { 
+            font-family: var(--mono); 
+            font-size: 10px; 
+            color: var(--red); 
+            letter-spacing: 0.2em; 
+        }
+
+        /* KINETIC FLOATING ARCHIVE */
+        .vessel { 
+            padding: 25vh 0 10vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        .item { 
+            position: relative; 
+            margin-bottom: 30vh; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column;
+            will-change: transform;
+        }
+
+        .item img { 
+            width: 45vw; 
+            height: auto; 
+            filter: grayscale(100%); 
+            transition: filter 0.8s ease, transform 0.5s ease;
+        }
+
+        .item:hover img { 
+            filter: grayscale(0%); 
+            transform: scale(1.03); 
+        }
+
+        /* Alternating Layout */
+        .item:nth-child(odd) { align-items: flex-start; padding-left: 10%; }
+        .item:nth-child(even) { align-items: flex-end; padding-right: 10%; }
+
+        .item-label {
+            margin-top: 20px;
             font-family: var(--mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #444;
+            letter-spacing: 0.1em;
         }
-        #skills-overlay.active { opacity: 1; pointer-events: all; }
-        .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; color: #fff; }
+        
+        .item:hover .item-label { color: var(--red); }
 
-        /* IMAGE GRID - Optimized for your file list */
-        .content-grid { padding: 0 8% 20vh; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .content-grid img { width: 100%; height: auto; transition: transform 0.8s var(--ease-out); background: #111; }
-        .content-grid img:hover { transform: scale(1.02); }
-        .full-width { grid-column: 1 / -1; }
+        /* BRUTALIST FOOTER NAV */
+        .footer-nav {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid #111;
+        }
 
-        /* NAV */
-        .project-nav-footer { display: flex; justify-content: space-between; align-items: center; padding: 10vh 8%; border-top: 1px solid rgba(255,255,255,0.1); }
-        .nav-block { text-decoration: none; color: #fff; flex: 1; }
-        .nav-label { display: block; font-size: 10px; color: var(--red); font-weight: 900; margin-bottom: 5px; }
-        .nav-title { font-size: 24px; font-weight: 900; text-transform: uppercase; }
+        .nav-large-text {
+            font-size: clamp(80px, 18vw, 300px);
+            font-weight: 900;
+            text-decoration: none;
+            color: transparent;
+            -webkit-text-stroke: 1px #333;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            transition: all 0.4s ease;
+            line-height: 0.8;
+        }
 
-        @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } #cursor { display: none; } }
+        .nav-large-text:hover {
+            color: var(--red);
+            -webkit-text-stroke: 1px var(--red);
+            transform: scale(1.05);
+        }
+
+        .sub-nav-links {
+            margin-top: 60px;
+            display: flex;
+            gap: 40px;
+            font-family: var(--mono);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .sub-nav-links a {
+            text-decoration: none;
+            color: #555;
+            transition: color 0.3s;
+        }
+        
+        .sub-nav-links a:hover { color: #fff; }
+
+        @media (max-width: 768px) {
+            .item img { width: 85vw; }
+            .item:nth-child(odd), .item:nth-child(even) { align-items: center; padding: 0; }
+            #cursor { display: none; }
+            * { cursor: auto; }
+        }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
 
-    <div id="skills-overlay">
-        <div class="skills-content">
-            <h2>
-                Visual Design / Branding / Art Direction / Web Dev<br><br>
-                Turns out, this entire digital environment was architected, <br> 
-                designed, and hand-coded by Natia Kurtanidze.
-            </h2>
+    <nav class="top-nav">
+        <a href="index.html" class="logo">NATIA STUDIO</a>
+        <div class="project-id">PRJ_07 / POSTER_ARCHIVE</div>
+    </nav>
+
+    <div class="vessel">
+        <div class="item" data-speed="1.5">
+            <img src="nostalgia.jpg" alt="Nostalgia">
+            <span class="item-label">01 // nostalgia.jpg</span>
+        </div>
+
+        <div class="item" data-speed="-1.2">
+            <img src="universe1.jpg" alt="Universe 1">
+            <span class="item-label">02 // universe_01.jpg</span>
+        </div>
+
+        <div class="item" data-speed="2.5">
+            <img src="space flower-universe2.jpg" alt="Space Flower">
+            <span class="item-label">03 // space_flower.jpg</span>
+        </div>
+
+        <div class="item" data-speed="0.8">
+            <img src="circle.jpg" alt="Circle">
+            <span class="item-label">04 // geometry_circle.jpg</span>
+        </div>
+
+        <div class="item" data-speed="-2">
+            <img src="huzzzman-universe3.jpg" alt="Huzzzman">
+            <span class="item-label">05 // huzzman_universe.jpg</span>
+        </div>
+
+        <div class="item" data-speed="1.9">
+            <img src="sun.jpg" alt="Sun">
+            <span class="item-label">06 // solar_core.jpg</span>
+        </div>
+        
+        <div class="item" data-speed="-0.7">
+            <img src="dreamer.jpg" alt="Dreamer">
+            <span class="item-label">07 // dreamer_state.jpg</span>
+        </div>
+
+        <div class="item" data-speed="2.2">
+            <img src="flashbacks.jpg" alt="Flashbacks">
+            <span class="item-label">08 // flashback_memory.jpg</span>
         </div>
     </div>
 
-    <header class="project-hero">
-        <span class="project-num">PROJECT_07</span>
-        <div class="project-title-container">
-            <h1 class="project-title">POSTERS</h1>
-            <div id="skills-trigger"></div>
+    <footer class="footer-nav">
+        <a href="kombucha.html" class="nav-large-text">NEXT</a>
+        
+        <div class="sub-nav-links">
+            <a href="go-left.html">← GO LEFT</a>
+            <a href="index.html">STUDIO INDEX</a>
         </div>
-    </header>
-
-    <section class="content-grid">
-        <img src="nostalgia.jpg" alt="Nostalgia" class="full-width">
-        
-        <img src="universe1.jpg" alt="Universe 1">
-        <img src="space flower-universe2.jpg" alt="Space Flower">
-        <img src="huzzzman-universe3.jpg" alt="Huzzzman Universe">
-        <img src="sun.jpg" alt="Sun">
-        
-        <img src="dreamer.jpg" alt="Dreamer">
-        <img src="flashbacks.jpg" alt="Flashbacks">
-        
-        <img src="circle.jpg" alt="Circle Geometry" class="full-width">
-    </section>
-
-    <nav class="project-nav-footer">
-        <a href="go-left.html" class="nav-block">
-            <span class="nav-label">PREVIOUS</span>
-            <span class="nav-title">GO LEFT</span>
-        </a>
-        <a href="index.html" style="text-decoration:none; color:rgba(255,255,255,0.3); font-size:12px; font-weight:900;">INDEX</a>
-        <a href="kombucha.html" class="nav-block" style="text-align:right;">
-            <span class="nav-label">NEXT</span>
-            <span class="nav-title">KOMBUCHA</span>
-        </a>
-    </nav>
+    </footer>
 
     <script>
         const cursor = document.getElementById('cursor');
-        const trigger = document.getElementById('skills-trigger');
-        const overlay = document.getElementById('skills-overlay');
 
+        // Cursor tracking
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        trigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
-        overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
+        // Parallax scroll logic
+        window.addEventListener('scroll', () => {
+            const items = document.querySelectorAll('.item');
+            const scrollY = window.pageYOffset;
+
+            items.forEach(item => {
+                const speed = item.getAttribute('data-speed');
+                const yPos = (scrollY * speed) / 10;
+                item.style.transform = `translateY(${yPos}px)`;
+            });
+        });
     </script>
 </body>
 </html>

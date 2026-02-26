@@ -9,177 +9,181 @@
             --bg: #050505;
             --text: #ffffff;
             --red: #ff0000;
-            --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-            --main: "Inter", "Helvetica Neue", sans-serif;
+            --mono: "SFMono-Regular", Consolas, monospace;
+            --main: "Inter", sans-serif;
         }
 
-        /* 1. RESET & FOUNDATION */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body { 
             background: var(--bg); color: var(--text); font-family: var(--main);
-            height: 100vh; overflow: hidden; /* Lock scroll to use drag */
-            -webkit-font-smoothing: antialiased;
+            height: 100vh; overflow: hidden; /* Disable vertical scroll */
         }
 
         #cursor {
-            position: fixed; width: 10px; height: 10px; background: var(--red);
-            border-radius: 50%; pointer-events: none; z-index: 20000;
-            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s;
+            position: fixed; width: 12px; height: 12px; background: var(--red);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%); mix-blend-mode: difference;
         }
 
-        /* 2. THE NATIA STUDIO LOGO & TRIGGER */
-        .header-ui {
-            position: fixed; top: 40px; left: 5%; right: 5%;
-            display: flex; justify-content: space-between; align-items: flex-start;
-            z-index: 1000; pointer-events: none;
-        }
-        .logo { 
-            pointer-events: all; font-weight: 900; text-decoration: none; 
-            color: #fff; font-size: 14px; text-transform: uppercase; 
-        }
-        .code-trigger {
-            pointer-events: all; font-family: var(--mono); font-size: 10px;
-            color: var(--red); text-transform: uppercase; letter-spacing: 0.1em;
-            border-bottom: 1px solid var(--red); padding-bottom: 2px;
+        /* 1. BACKGROUND TYPOGRAPHY (PARALLAX) */
+        .bg-text {
+            position: fixed; top: 50%; left: 0; transform: translateY(-50%);
+            font-size: 25vw; font-weight: 900; color: #111;
+            white-space: nowrap; z-index: 1; pointer-events: none;
+            text-transform: uppercase; letter-spacing: -0.05em;
         }
 
-        /* 3. THE CODE REVEAL (Playful Terminal) */
-        #code-overlay {
-            position: fixed; inset: 0; background: rgba(5,5,5,0.98);
-            z-index: 900; display: none; align-items: center; padding: 10%;
-            font-family: var(--mono); font-size: 1.5vw; line-height: 1.6;
-        }
-        .code-window { border-left: 2px solid var(--red); padding-left: 40px; }
-
-        /* 4. DRAGGABLE HORIZONTAL CANVAS */
-        .canvas {
-            display: flex; align-items: center; height: 100%;
-            padding: 0 10vw; gap: 8vw;
-            will-change: transform; user-select: none;
-        }
-
-        .poster-frame {
-            position: relative; flex-shrink: 0;
-            transform-origin: center;
-            transition: transform 0.2s ease-out;
-        }
-
-        /* Alternating heights like Etienne Studio */
-        .poster-frame:nth-child(odd) { margin-top: -5vh; }
-        .poster-frame:nth-child(even) { margin-top: 5vh; }
-
-        .poster-frame img {
-            height: 60vh; width: auto; 
-            filter: grayscale(1);
-            transition: filter 0.5s ease;
-        }
-
-        .poster-frame:hover img { filter: grayscale(0); }
-
-        .poster-info {
-            position: absolute; bottom: -40px; left: 0;
-            font-family: var(--mono); font-size: 9px; color: #555;
-            text-transform: uppercase;
-        }
-
-        /* 5. NAVIGATION */
-        .bottom-nav {
-            position: fixed; bottom: 40px; left: 5%; right: 5%;
+        /* 2. TOP UI */
+        .nav-ui {
+            position: fixed; top: 40px; left: 50px; right: 50px;
             display: flex; justify-content: space-between; z-index: 1000;
         }
-        .nav-link { 
-            text-decoration: none; color: #fff; font-weight: 900; 
-            font-size: 5vw; letter-spacing: -0.04em; 
-            transition: color 0.3s;
+        .studio-btn { text-decoration: none; color: #fff; font-weight: 900; font-size: 14px; }
+        .arch-trigger { 
+            font-family: var(--mono); color: var(--red); font-size: 11px; 
+            border: 1px solid var(--red); padding: 5px 12px; cursor: pointer;
         }
+
+        /* 3. HORIZONTAL DRAG CANVAS */
+        .slider-container {
+            height: 100vh; width: 100vw; display: flex; align-items: center;
+            padding-left: 10vw; padding-right: 20vw; gap: 10vw;
+            cursor: grab; z-index: 10; position: relative;
+        }
+        .slider-container:active { cursor: grabbing; }
+
+        .poster-item {
+            position: relative; flex-shrink: 0;
+            transition: transform 0.1s ease-out;
+        }
+        .poster-item img {
+            height: 60vh; width: auto; filter: grayscale(1);
+            transition: filter 0.5s ease; pointer-events: none;
+        }
+        .poster-item:hover img { filter: grayscale(0); }
+
+        /* Staggered offsets for Etienne look */
+        .poster-item:nth-child(even) { transform: translateY(10vh); }
+        .poster-item:nth-child(odd) { transform: translateY(-5vh); }
+
+        .label {
+            position: absolute; bottom: -30px; left: 0;
+            font-family: var(--mono); font-size: 10px; color: #444;
+        }
+
+        /* 4. THE PLAYFUL CODE OVERLAY */
+        #code-overlay {
+            position: fixed; inset: 0; background: rgba(5,5,5,0.98);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            font-family: var(--mono); color: #fff;
+        }
+        .code-box { width: 600px; border-left: 1px solid var(--red); padding: 40px; }
+        .cyan { color: #00f0ff; }
+
+        /* 5. FOOTER NAV */
+        .footer-nav {
+            position: fixed; bottom: 40px; left: 50px; right: 50px;
+            display: flex; justify-content: space-between; z-index: 1000;
+        }
+        .nav-link { text-decoration: none; color: #fff; font-weight: 900; font-size: 4vw; }
         .nav-link:hover { color: var(--red); }
 
-        @media (max-width: 768px) {
-            .canvas { overflow-x: scroll; cursor: grab; }
-            #cursor { display: none; }
-        }
     </style>
 </head>
 <body>
 
 <div id="cursor"></div>
 
-<div class="header-ui">
-    <a href="index.html" class="logo">NATIA STUDIO</a>
-    <div class="code-trigger" id="open-code">Open Architecture</div>
+<div class="bg-text" id="bg-parallax">POSTERS / 2026 / ARCHIVE</div>
+
+<div class="nav-ui">
+    <a href="index.html" class="studio-btn">NATIA STUDIO</a>
+    <div class="arch-trigger" id="arch-btn">SYSTEM_ARCHITECTURE</div>
 </div>
 
 <div id="code-overlay">
-    <div class="code-window">
-        <p style="color:#555">// NATIA_STUDIO_CORE</p>
-        <p>status: <span style="color:var(--red)">Experimental</span></p>
-        <p>arch: <span style="color:var(--red)">Hand-coded Environment</span></p>
-        <p>build: 2026.02.26</p>
-        <p style="margin-top:20px">// "Turns out whole web was architected by me"</p>
+    <div class="code-box">
+        <p class="cyan">// ARCHITECT_MODE: ON</p>
+        <p>const designer = "Natia Kurtanidze";</p>
+        <p>let environment = "Hand-coded from scratch";</p>
+        <p style="margin-top:20px">// Turns out, this entire web experience was architected by me.</p>
+        <p style="color:#555; margin-top:10px; font-size:12px;">Click anywhere to exit</p>
     </div>
 </div>
 
-<div class="canvas" id="canvas">
-    <div class="poster-frame"><img src="nostalgia.jpg" alt=""><span class="poster-info">01_Nostalgia</span></div>
-    <div class="poster-frame"><img src="universe1.jpg" alt=""><span class="poster-info">02_Universe</span></div>
-    <div class="poster-frame"><img src="space flower-universe2.jpg" alt=""><span class="poster-info">03_Floral_Core</span></div>
-    <div class="poster-frame"><img src="circle.jpg" alt=""><span class="poster-info">04_Silent_Geometry</span></div>
-    <div class="poster-frame"><img src="sun.jpg" alt=""><span class="poster-info">05_Solar_Study</span></div>
-    <div class="poster-frame"><img src="huzzzman-universe3.jpg" alt=""><span class="poster-info">06_Cosmos</span></div>
-</div>
+<main class="slider-container" id="slider">
+    <div class="poster-item"><img src="nostalgia.jpg" alt=""><span class="label">01 / NOSTALGIA</span></div>
+    <div class="poster-item"><img src="universe1.jpg" alt=""><span class="label">02 / UNIVERSE</span></div>
+    <div class="poster-item"><img src="space flower-universe2.jpg" alt=""><span class="label">03 / FLORAL</span></div>
+    <div class="poster-item"><img src="circle.jpg" alt=""><span class="label">04 / GEOMETRY</span></div>
+    <div class="poster-item"><img src="sun.jpg" alt=""><span class="label">05 / SOLAR</span></div>
+    <div class="poster-item"><img src="huzzzman-universe3.jpg" alt=""><span class="label">06 / COSMOS</span></div>
+    <div class="poster-item"><img src="dreamer.jpg" alt=""><span class="label">07 / DREAMER</span></div>
+    <div class="poster-item"><img src="flashbacks.jpg" alt=""><span class="label">08 / FLASHBACKS</span></div>
+</main>
 
-<div class="bottom-nav">
+<footer class="footer-nav">
     <a href="go-left.html" class="nav-link">PREV</a>
     <a href="kombucha.html" class="nav-link">NEXT</a>
-</div>
+</footer>
 
 <script>
+    const slider = document.getElementById('slider');
+    const bg = document.getElementById('bg-parallax');
     const cursor = document.getElementById('cursor');
-    const canvas = document.getElementById('canvas');
-    const trigger = document.getElementById('open-code');
+    const archBtn = document.getElementById('arch-btn');
     const overlay = document.getElementById('code-overlay');
 
-    // 1. MOUSE TRACKING
-    document.addEventListener('mousemove', e => {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let x = 0;
+    let targetX = 0;
+
+    // Custom Cursor
+    document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
     });
 
-    // 2. ETIENNE-STYLE DRAG PHYSICS
-    let isDragging = false;
-    let startX;
-    let scrollLeft;
-    let x = 0;
-    let currentX = 0;
-    let velocity = 0;
-
-    window.addEventListener('mousedown', e => {
-        isDragging = true;
-        startX = e.pageX;
-        cursor.style.width = '30px';
-        cursor.style.height = '30px';
+    // 1. HORIZONTAL DRAG LOGIC
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - x;
     });
 
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-        cursor.style.width = '10px';
-        cursor.style.height = '10px';
+    window.addEventListener('mouseup', () => { isDown = false; });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const mouseX = e.pageX - startX;
+        targetX = mouseX;
     });
 
-    window.addEventListener('mousemove', e => {
-        if (!isDragging) return;
-        const walk = (e.pageX - startX) * 1.5;
-        currentX = x + walk;
-        canvas.style.transform = `translateX(${currentX}px)`;
-    });
+    // 2. KINETIC SMOOTHING & PARALLAX
+    function update() {
+        // Smoothly interpolate position (0.1 = friction)
+        x += (targetX - x) * 0.1;
+        
+        slider.style.transform = `translateX(${x}px)`;
+        
+        // Background text moves at half speed for depth
+        bg.style.transform = `translateY(-50%) translateX(${x * 0.5}px)`;
 
-    window.addEventListener('mouseup', () => {
-        x = currentX;
-    });
+        // Image Tilt Effect
+        const tilt = (targetX - x) * 0.05;
+        document.querySelectorAll('.poster-item').forEach(item => {
+            item.style.transform = `rotate(${tilt}deg) translateY(${item.classList.contains('even') ? '10vh' : '-5vh'})`;
+        });
 
-    // 3. ARCHITECT TRIGGER
-    trigger.addEventListener('mouseenter', () => overlay.style.display = 'flex');
-    overlay.addEventListener('mouseleave', () => overlay.style.display = 'none');
+        requestAnimationFrame(update);
+    }
+    update();
+
+    // 3. ARCHITECT OVERLAY
+    archBtn.addEventListener('click', () => { overlay.style.display = 'flex'; });
+    overlay.addEventListener('click', () => { overlay.style.display = 'none'; });
 
 </script>
 </body>

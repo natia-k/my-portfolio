@@ -68,11 +68,12 @@
         }
 
         .poster-frame img {
-            max-width: 100%;
+            max-width: 90%;
             max-height: 100%;
             object-fit: contain; 
             display: block;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            background: #0a0a0a; /* Placeholder while loading */
         }
 
         .meta {
@@ -112,8 +113,8 @@
         @media (max-width: 800px) {
             * { cursor: auto !important; }
             #aura { display: none; }
-            .poster-frame { height: 60vh; }
-            .footer-nav { padding: 60px 8%; flex-direction: column; gap: 30px; }
+            .poster-frame { height: 65vh; }
+            .footer-nav { padding: 60px 8%; }
         }
     </style>
 </head>
@@ -129,56 +130,56 @@
     <div class="stack-container">
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="nostalgia.jpg" alt="Nostalgia">
+                <img data-src="nostalgia.jpg" class="auto-fix" alt="Nostalgia">
                 <div class="meta">01 / NOSTALGIA</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="dreamer.jpg" alt="Dreamer">
+                <img data-src="dreamer.jpg" class="auto-fix" alt="Dreamer">
                 <div class="meta">02 / DREAMER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="flashbacks.jpg" alt="Flashbacks">
+                <img data-src="flashbacks.jpg" class="auto-fix" alt="Flashbacks">
                 <div class="meta">03 / FLASHBACKS</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="huzzzman-universe3.jpg" alt="Universe 3">
+                <img data-src="huzzzman-universe3.jpg" class="auto-fix" alt="Universe 3">
                 <div class="meta">04 / UNIVERSE_03</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="space flower-universe2.jpg" alt="Universe 2">
+                <img data-src="space flower-universe2.jpg" class="auto-fix" alt="Universe 2">
                 <div class="meta">05 / SPACE_FLOWER</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="sun.jpg" alt="Sun">
+                <img data-src="sun.jpg" class="auto-fix" alt="Sun">
                 <div class="meta">06 / SOLAR</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="universe1.jpg" alt="Universe 1">
+                <img data-src="universe1.jpg" class="auto-fix" alt="Universe 1">
                 <div class="meta">07 / UNIVERSE_01</div>
             </div>
         </section>
 
         <section class="poster-section">
             <div class="poster-frame">
-                <img src="circle.jpg" alt="Circle">
+                <img data-src="circle.jpg" class="auto-fix" alt="Circle">
                 <div class="meta">08 / GEOMETRY</div>
             </div>
         </section>
@@ -191,14 +192,44 @@
     </footer>
 
     <script>
-        // CURSOR AURA
-        const aura = document.getElementById('aura');
-        document.addEventListener('mousemove', (e) => {
-            aura.style.left = e.clientX + 'px';
-            aura.style.top = e.clientY + 'px';
+        // 1. IMAGE AUTO-REPAIR LOGIC
+        document.querySelectorAll('.auto-fix').forEach(img => {
+            const raw = img.getAttribute('data-src');
+            const base = raw.split('.')[0];
+            
+            // Potential naming fixes
+            const variants = [
+                raw,
+                base + ".png",
+                base + ".JPG",
+                base + ".webp",
+                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg", // Capitalize
+                raw.replace(/ /g, '-'), // Replace space with dash
+                raw.replace(/ /g, '%20') // Replace space with web-safe space
+            ];
+
+            let i = 0;
+            const tryLoad = () => {
+                if (i < variants.length) {
+                    img.src = variants[i];
+                    i++;
+                }
+            };
+
+            img.onerror = tryLoad;
+            tryLoad(); // Initial call
         });
 
-        // STACKING ANIMATION
+        // 2. CURSOR AURA
+        const aura = document.getElementById('aura');
+        document.addEventListener('mousemove', (e) => {
+            if(aura) {
+                aura.style.left = e.clientX + 'px';
+                aura.style.top = e.clientY + 'px';
+            }
+        });
+
+        // 3. STACKING ANIMATION
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.poster-section');
             sections.forEach(section => {

@@ -38,6 +38,7 @@
         }
         nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
 
+        /* CINEMATIC HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
@@ -45,11 +46,38 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 10%;
+            padding: 0 12%;
+            background: var(--bg);
         }
-        .hero h1 { font-size: 10px; letter-spacing: 1.4em; text-transform: uppercase; margin-bottom: 50px; font-weight: 400; opacity: 0.5; }
-        .hero p { max-width: 650px; font-size: 16px; line-height: 1.9; font-weight: 300; color: #777; letter-spacing: 0.03em; }
-        .hero .accent-text { color: var(--text); margin-top: 28px; display: block; opacity: 0.9; }
+
+        .hero h1 { 
+            font-size: 9px; 
+            letter-spacing: 1.8em; /* Cinematic wide tracking */
+            text-transform: uppercase; 
+            margin-bottom: 60px; 
+            font-weight: 400; 
+            opacity: 0.4; 
+        }
+
+        .hero p { 
+            max-width: 750px; 
+            font-size: 15px; 
+            line-height: 2.2; /* airy leading */
+            font-weight: 300; 
+            color: #666; 
+            letter-spacing: 0.08em; /* atmospheric spacing */
+            text-transform: lowercase; /* OATS style minimal aesthetic */
+        }
+
+        .hero .accent-text { 
+            color: var(--text); 
+            margin-top: 35px; 
+            display: block; 
+            opacity: 0.8; 
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: none; /* keep original case for the emotional part */
+        }
 
         .stack-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
@@ -64,30 +92,19 @@
             gap: 120px; width: 90%; max-width: 1400px;
         }
 
-        .exhibition-text { max-width: 380px; text-align: left; }
+        /* LABEL TEXT STYLING */
+        .exhibition-text { max-width: 420px; text-align: left; }
         .ex-title { font-size: 22px; font-weight: 400; margin-bottom: 6px; letter-spacing: -0.01em; color: var(--text); }
         .ex-subtitle { font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.35em; margin-bottom: 40px; opacity: 0.3; }
         
         .ex-body { 
             font-size: 13px; line-height: 2.1; font-weight: 300; color: var(--text-dim); letter-spacing: 0.02em;
+            max-height: 60vh; overflow-y: auto; padding-right: 15px;
         }
 
-        .collapsible .ex-body {
-            max-height: 160px; overflow: hidden; position: relative;
-            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-            transition: max-height 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .exhibition-text.expanded .ex-body { max-height: 1800px; mask-image: none; -webkit-mask-image: none; }
+        .ex-body::-webkit-scrollbar { width: 2px; }
+        .ex-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
         .ex-body p { margin-bottom: 25px; white-space: pre-line; }
-
-        .read-more-btn {
-            background: none; border: none; color: var(--text); font-size: 9px; font-weight: 700;
-            letter-spacing: 3px; text-transform: uppercase; margin-top: 30px; opacity: 0.25;
-            border-bottom: 1px solid transparent; transition: 0.4s;
-        }
-        .read-more-btn:hover { opacity: 0.8; border-bottom: 1px solid var(--text); }
 
         .poster-frame {
             width: 100%; height: 75vh; max-width: 700px;
@@ -109,9 +126,10 @@
         @media (max-width: 1100px) {
             * { cursor: auto !important; }
             #aura { display: none; }
-            .poster-section { height: auto; position: relative; padding: 120px 20px; }
-            .exhibition-container { flex-direction: column; gap: 70px; }
-            .poster-frame { height: 60vh; }
+            .poster-section { height: auto; position: relative; padding: 100px 20px; }
+            .exhibition-container { flex-direction: column; gap: 60px; }
+            .poster-frame { height: 50vh; }
+            .ex-body { max-height: none; }
         }
     </style>
 </head>
@@ -121,11 +139,12 @@
     <nav><a href="index.html">NATIA STUDIO</a></nav>
 
     <header class="hero">
-        <h1>POSTERS</h1>
+        <h1>POSTERS / ARCHIVE</h1>
         <p>
-            An archive of fragments — light, orbit, nostalgia, dream states.
+            an archive of fragments — light, orbit, nostalgia, dream states. 
+            some of these works were created specifically for exhibition settings, designed to exist not only on paper but within space.
             <span class="accent-text">
-                Some of these works were created specifically for exhibition settings, designed to exist not only on paper but within space.
+                They move between personal memory and collective atmosphere.
             </span>
         </p>
     </header>
@@ -137,14 +156,24 @@
                     <img data-src="nostalgia.jpg" class="auto-fix" alt="Nostalgia">
                     <div class="meta">01 / NOSTALGIA</div>
                 </div>
-                <div class="exhibition-text collapsible">
+                <div class="exhibition-text">
                     <h2 class="ex-title">Nostalgia</h2>
                     <p class="ex-subtitle">Digital Illustration / 2025</p>
                     <div class="ex-body">
-                        <p>Two years ago, after five years away, I returned to my home city... (Full Narrative Restored)</p>
-                        <p>“Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither.</p>
+                        <p>Two years ago, after five years away, I returned to my home city to the streets I knew by heart, the places where I grew up, where I was shaped mentally, where I knew almost everyone. And suddenly I felt like a stranger there. Everything was familiar, yet nothing felt like mine anymore. I wasn’t myself either. I have changed, things have changed. I walked through my own memories like a ghost, watching a life I once lived move past me without recognizing me.
+
+                        I ghosted my own life there, I ghosted my family’s life and my friends’ lives and sadly, life is not a movie where you can go back.
+
+                        I always knew that the place where I live now would never fully become my home either. Even here I remain the “Ausländer” always slightly out of place. Not fully here, not fully there, stuck between two worlds that feel close and unreachable at the same time.
+
+                        This work is a translation of that in-between state.
+                        The sitting figure is me: present, but fading.
+                        The ghostly shapes are the versions of myself I carry— who I was, who I might have become, who I am expected to be. They move through the room while I stay still, trying to understand where I actually belong.
+
+                        It also feels like when someone is cut out of an old photograph there is still an empty space where they used to be, but only in memory, a memory that fades more and more with time.
+
+                        “Outsider” is about the quiet loneliness of migration, the weight of nostalgia, and the feeling of having two homes yet belonging to neither. Existing slightly out of focus alive, visible, but never completely seen.</p>
                     </div>
-                    <button class="read-more-btn" onclick="toggleText(this)">Full Story</button>
                 </div>
             </div>
         </section>
@@ -155,13 +184,17 @@
                     <img data-src="circle.jpg" class="auto-fix" alt="Circle of Life">
                     <div class="meta">02 / CIRCLE OF LIFE</div>
                 </div>
-                <div class="exhibition-text collapsible">
+                <div class="exhibition-text">
                     <h2 class="ex-title">Circle of Life</h2>
                     <p class="ex-subtitle">Digital illustration / 2025</p>
                     <div class="ex-body">
-                        <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. This piece is the whole circle in one glow: becoming, shining, dissolving, returning.</p>
+                        <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a breath, a heartbeat.
+
+                        And when our light goes out, we don’t disappear. We fall back into the universe, into dust and cloud and soft darkness, maybe even becoming stars again.
+
+                        This piece is the whole circle in one glow: becoming, shining, dissolving, returning.
+                        Little stars walking on a planet made of older stars — finding our way back to the light that made us.</p>
                     </div>
-                    <button class="read-more-btn" onclick="toggleText(this)">Full Story</button>
                 </div>
             </div>
         </section>
@@ -204,15 +237,15 @@
                     <img data-src="huzzzman.jpg" class="auto-fix" alt="Human / Connection">
                     <div class="meta">05 / HUMAN / CONNECTION</div>
                 </div>
-                <div class="exhibition-text collapsible">
+                <div class="exhibition-text">
                     <h2 class="ex-title">Human / Connection</h2>
                     <p class="ex-subtitle">Digital illustration / 2023</p>
                     <div class="ex-body">
                         <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
-                        
-                        Yet we forget, we take, we harm, we break what we were meant to hold. We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
+
+                        Yet we forget, we take, we harm, we break what we were meant to hold. 
+                        We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
                     </div>
-                    <button class="read-more-btn" onclick="toggleText(this)">Full Story</button>
                 </div>
             </div>
         </section>
@@ -243,7 +276,9 @@
                     <h2 class="ex-title">Flashbacks</h2>
                     <p class="ex-subtitle">Digital Illustration / 2025</p>
                     <div class="ex-body">
-                        <p>It didn’t happen again. It just never really left. Some moments stay longer than we do.</p>
+                        <p>It didn’t happen again.
+                        It just never really left.
+                        Some moments stay longer than we do.</p>
                     </div>
                 </div>
             </div>
@@ -259,7 +294,8 @@
                     <h2 class="ex-title">Solar</h2>
                     <p class="ex-subtitle">Digital Illustration / 2023</p>
                     <div class="ex-body">
-                        <p>They loved. They could not stay.</p>
+                        <p>They loved.
+                        They could not stay.</p>
                     </div>
                 </div>
             </div>
@@ -273,12 +309,6 @@
     </footer>
 
     <script>
-        function toggleText(btn) {
-            const container = btn.parentElement;
-            container.classList.toggle('expanded');
-            btn.innerText = container.classList.contains('expanded') ? "Close" : "Full Story";
-        }
-
         document.querySelectorAll('.auto-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];

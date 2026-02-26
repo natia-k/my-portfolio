@@ -6,9 +6,9 @@
     <title>FEELINGS | NATIA STUDIO</title>
     <style>
         :root {
-            --bg: #FFD1DC; /* That specific Baby Pink */
-            --pink-text: #ff007f; /* Electric Pink for the bubbly words */
-            --black: #1a1a1a;
+            --bg: #050505;
+            --pink: #ff007f;
+            --text: #f5f5f7;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -16,166 +16,156 @@
         
         body {
             background-color: var(--bg);
-            color: var(--black);
+            color: var(--text);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM CURSOR */
         #cursor {
-            position: fixed; width: 10px; height: 10px; background: var(--pink-text);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
+            position: fixed; width: 8px; height: 8px; background: var(--pink);
+            border-radius: 50%; pointer-events: none; z-index: 10000;
             transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s;
         }
 
-        nav { position: fixed; top: 40px; width: 100%; padding: 0 8%; display: flex; justify-content: space-between; z-index: 2000; }
-        nav a { color: var(--pink-text); text-decoration: none; font-size: 11px; letter-spacing: 3px; font-weight: 900; }
-
-        /* THE BUBBLY TITLE */
-        .hero { height: 80vh; display: flex; align-items: center; padding: 0 8%; }
-        .hero-title {
-            font-size: clamp(60px, 18vw, 220px);
-            font-weight: 900;
-            letter-spacing: -0.06em;
-            color: var(--pink-text);
-            text-transform: uppercase;
-        }
-
-        /* CONTENT ALIGNMENT (The part we worked hard on) */
-        .gallery { padding: 0 8% 200px; display: flex; flex-direction: column; gap: 30vh; }
-
-        .exhibition-piece {
+        /* THE EXACT ALIGNMENT WE WORKED ON */
+        .project-container {
+            padding: 20vh 8%;
             display: flex;
             flex-direction: column;
-            width: 100%;
+            gap: 40vh;
         }
 
-        /* TEXT ON LEFT */
-        .poem-text {
-            font-size: clamp(24px, 5vw, 52px);
-            line-height: 1.1;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            color: var(--pink-text);
-            max-width: 800px;
-            margin-bottom: 60px;
-            text-align: left;
-        }
-
-        /* WATER EFFECT FOR WORDS */
-        .word { 
-            display: inline-block; 
-            margin-right: 0.15em; 
-            transition: transform 0.6s var(--ease), filter 0.6s ease, color 0.4s;
-        }
-        .word:hover { 
-            transform: scale(1.15) translateY(-8px); 
-            filter: blur(4px); 
-            color: #fff; /* Shimmers to white */
-        }
-
-        /* IMAGES ON RIGHT */
-        .img-wrap {
+        .item {
+            position: relative;
             width: 100%;
             display: flex;
-            justify-content: flex-end; /* Pushes image to the right */
+            flex-direction: column;
         }
 
-        .img-wrap img {
+        .item.right { align-items: flex-end; }
+        .item.left { align-items: flex-start; }
+
+        .image-wrapper {
+            width: 60%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.8s var(--ease);
+        }
+        
+        .image-wrapper img {
             width: 100%;
-            max-width: 900px;
             height: auto;
-            box-shadow: 0 40px 100px rgba(255, 0, 127, 0.15);
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.8s var(--ease), transform 0.8s var(--ease);
         }
 
-        /* PROJECT NAV - UNIVERSAL */
-        .footer-nav {
+        .image-wrapper:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* THE OVERLAPPING PINK BUBBLY TEXT */
+        .floating-text {
+            position: absolute;
+            z-index: 10;
+            color: var(--pink);
+            font-size: clamp(30px, 6vw, 80px);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            pointer-events: none;
+            mix-blend-mode: difference;
+        }
+
+        .item.left .floating-text { top: -40px; right: -10%; text-align: right; }
+        .item.right .floating-text { bottom: -40px; left: -10%; text-align: left; }
+
+        /* BUBBLY ANIMATION */
+        .bubbly {
+            display: inline-block;
+            transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+        }
+        
+        /* NAVIGATION */
+        .nav-footer {
             display: flex;
             justify-content: space-between;
             padding: 100px 8% 60px;
             border-top: 1px solid rgba(255, 0, 127, 0.2);
+            margin-top: 20vh;
         }
-        .footer-nav a {
-            color: var(--pink-text);
+        .nav-footer a {
+            color: var(--pink);
             text-decoration: none;
             font-weight: 900;
             font-size: 11px;
-            letter-spacing: 2px;
-            transition: 0.3s;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
-        .footer-nav a:hover { filter: blur(2px); color: #fff; }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
 
-    <nav>
-        <a href="index.html">NATIA STUDIO</a>
-        <a href="mailto:natia.kurtanidze@gmail.com">CONTACT</a>
-    </nav>
+    <main class="project-container">
+        <div class="item left">
+            <div class="image-wrapper">
+                <img src="heartbreak-2.jpg" alt="Heartbreak">
+            </div>
+            <div class="floating-text">
+                I MADE A HEART.<br>I BROKE IT.
+            </div>
+        </div>
 
-    <header class="hero">
-        <h1 class="hero-title">FEELINGS</h1>
-    </header>
+        <div class="item right">
+            <div class="floating-text">
+                EDGE OF SLEEP.<br>THE SPLASH.
+            </div>
+            <div class="image-wrapper">
+                <img src="insomnia-1.jpg" alt="Insomnia">
+            </div>
+        </div>
 
-    <main class="gallery">
-        <section class="exhibition-piece">
-            <div class="poem-text" id="p1">
-                I made a heart. I broke it. Fragments orbit me—tiny planets of pain that refuse to burn.
+        <div class="item left">
+            <div class="image-wrapper">
+                <img src="emptiness.jpg" alt="Emptiness">
             </div>
-            <div class="img-wrap">
-                <img src="heartbreak-2.jpg">
+            <div class="floating-text">
+                IT SWALLOWS<br>EVERYTHING.
             </div>
-        </section>
-
-        <section class="exhibition-piece">
-            <div class="poem-text" id="p2">
-                Since I was five I have stood at the edge of sleep. Wanting to jump. Terrified of the splash.
-            </div>
-            <div class="img-wrap">
-                <img src="insomnia-1.jpg">
-            </div>
-        </section>
-
-        <section class="exhibition-piece">
-            <div class="poem-text" id="p3">
-                It arrives without sound. It swallows everything. Even your echo disappears.
-            </div>
-            <div class="img-wrap">
-                <img src="emptiness.jpg">
-            </div>
-        </section>
+        </div>
     </main>
 
-    <nav class="footer-nav">
-        <a href="the-others.html">← PREVIOUS</a>
-        <a href="index.html" style="opacity:0.3">INDEX</a>
-        <a href="nurture.html">NEXT PROJECT →</a>
-    </nav>
+    <footer class="nav-footer">
+        <a href="the-others.html">← PREV</a>
+        <a href="index.html" style="opacity: 0.3;">INDEX</a>
+        <a href="nurture.html">NEXT →</a>
+    </footer>
 
     <script>
-        // CURSOR LOGIC
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // THE BUBBLY WATER SCRIPT
-        // This splits your text into words so they float on hover
-        document.querySelectorAll('.poem-text').forEach(block => {
-            const content = block.innerText;
-            block.innerHTML = content.split(' ').map(word => 
-                `<span class="word">${word}</span>`
-            ).join(' ');
-        });
-
-        // Hover effect for cursor
-        document.querySelectorAll('a, .word').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(4)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+        // The "Liquid" hover for images
+        document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('mouseenter', () => {
+                cursor.style.width = '80px';
+                cursor.style.height = '80px';
+                cursor.style.background = 'transparent';
+                cursor.style.border = '1px solid #ff007f';
+            });
+            wrapper.addEventListener('mouseleave', () => {
+                cursor.style.width = '8px';
+                cursor.style.height = '8px';
+                cursor.style.background = '#ff007f';
+                cursor.style.border = 'none';
+            });
         });
     </script>
 </body>

@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #050505;
-            --text: #ffffff;
+            --text: #f5f5f7; /* OFF-WHITE / BONE */
             --red: #ff0000;
             --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
             --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -52,7 +52,10 @@
 
         /* 3. ABOUT SECTION */
         .about-section { padding: 40vh 8% 30vh; max-width: 1000px; text-align: left; }
-        .about-text { font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; letter-spacing: -0.03em; color: #ccc; }
+        .about-text { 
+            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; 
+            letter-spacing: -0.03em; color: var(--text); /* CHANGED TO BONE */
+        }
         
         #skills-trigger {
             display: inline-block; width: 10px; height: 10px; background: var(--red);
@@ -66,7 +69,7 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
-        /* 4. THE WHITE MONO OVERLAY (DEV MODE) */
+        /* 4. OVERLAY */
         #skills-overlay {
             position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
             display: flex; align-items: center; padding: 0 8%;
@@ -75,7 +78,7 @@
         }
         #skills-overlay.active { opacity: 1; pointer-events: all; }
         
-        .skills-content { color: #fff; width: 100%; }
+        .skills-content { color: var(--text); width: 100%; }
         .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; text-transform: none; }
         .code-label { color: var(--red); font-size: 12px; letter-spacing: 0.2em; display: block; margin-bottom: 30px; }
 
@@ -98,7 +101,7 @@
         footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
         
         .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
-        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
+        .word:hover { transform: scale(1.05); filter: blur(2px); color: var(--text); }
 
         @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
     </style>
@@ -159,22 +162,28 @@
 
         let mouse = { x: 0, y: 0 };
 
-        // 1. Water Effect Logic (Split by parts to keep trigger safe)
         const parts = aboutContent.innerHTML.split('<span id="skills-trigger"></span>');
         aboutContent.innerHTML = parts[0].split(' ').map(w => `<span class="word">${w}</span>`).join(' ') + ' <span id="skills-trigger"></span> ' + parts[1].split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
 
-        // 2. Custom Cursor
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX; mouse.y = e.clientY;
             cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
         });
 
-        // 3. Magnetic & Scroll Animations
         function animate() {
             const scrollY = window.scrollY;
+            
+            // HERO MELT
             heroStatement.style.filter = `blur(${Math.min(scrollY / 10, 40)}px)`;
             heroStatement.style.opacity = 1 - Math.min(scrollY / 600, 1);
             heroStatement.style.transform = `translateY(${scrollY * 0.4}px)`;
+
+            // ABOUT MELT (SAME AS HERO)
+            // Starts melting as you scroll past it
+            const aboutScroll = Math.max(0, scrollY - 400); 
+            aboutContent.style.filter = `blur(${Math.min(aboutScroll / 15, 40)}px)`;
+            aboutContent.style.opacity = 1 - Math.min(aboutScroll / 800, 1);
+            aboutContent.style.transform = `translateY(${aboutScroll * 0.2}px)`;
 
             stickyWords.forEach(word => {
                 const rect = word.getBoundingClientRect();
@@ -188,12 +197,10 @@
         }
         animate();
 
-        // 4. Trigger & Overlay Interaction
         const finalTrigger = document.getElementById('skills-trigger');
         finalTrigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
         overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
 
-        // 5. Loader
         let p = 0;
         const l = setInterval(() => {
             p += Math.floor(Math.random() * 15) + 2;
@@ -207,7 +214,6 @@
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
         }, 50);
 
-        // 6. Project Preview
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 document.getElementById('preview-img').src = link.getAttribute('data-img');

@@ -1,36 +1,242 @@
-<style>
-    /* ... existing root and base styles ... */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATIA KURTANIDZE | VISUAL DESIGNER</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --red: #ff0000;
+            --ease-snap: cubic-bezier(1, 0, 0, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-    /* 2. UPDATED HERO (Slightly shorter to bring About up sooner) */
-    .hero { 
-        height: 100vh; 
-        display: flex; 
-        align-items: center; 
-        padding: 0 8%; 
-        perspective: 1000px;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
-    /* 3. UPDATED ABOUT SECTION (More Space & Airy Typography) */
-    .about-section { 
-        padding: 40vh 8% 40vh; /* Massive vertical space for a boutique feel */
-        max-width: 1100px; 
-        margin: 0 auto; /* Centered for better balance */
-    }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .about-text { 
-        font-size: clamp(24px, 4.5vw, 48px); /* Slightly larger */
-        line-height: 1.4; /* Increased from 1.1 for better readability */
-        font-weight: 500; 
-        letter-spacing: -0.03em; 
-        color: #ccc;
-    }
+        /* CUSTOM CURSOR */
+        #cursor {
+            position: fixed; width: 8px; height: 8px; background: var(--red);
+            border-radius: 50%; pointer-events: none; z-index: 20000;
+            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, opacity 0.3s;
+        }
 
-    /* Ensure words have enough tracking and gap */
-    .word { 
-        display: inline-block; 
-        margin-right: 0.2em; /* Space between words */
-        transition: transform 0.6s var(--ease-out), filter 0.6s ease; 
-    }
+        /* 1. RED HERO ENTRANCE */
+        #loader {
+            position: fixed; inset: 0; background: var(--red); z-index: 10010;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1s var(--ease-snap);
+        }
+        #loader-count { 
+            font-size: 5vw; font-weight: 900; color: #000; 
+            font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
+        }
 
-    /* ... rest of the existing styles (Project links, etc.) ... */
-</style>
+        /* 2. HERO WITH DEEP MELD SCROLL */
+        .hero { 
+            height: 120vh; display: flex; align-items: center; padding: 0 8%; 
+            perspective: 1000px;
+        }
+        
+        .statement { 
+            font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; 
+            letter-spacing: -0.04em; line-height: 0.9;
+            will-change: filter, opacity, transform;
+            transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
+            filter: blur(50px); opacity: 0;
+        }
+
+        .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
+
+        body.is-revealed .statement { filter: blur(0px); opacity: 1; }
+
+        /* 3. ABOUT SECTION & RED CORE TRIGGER */
+        .about-section { padding: 40vh 8% 40vh; max-width: 1100px; margin: 0 auto; }
+        .about-text { 
+            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; 
+            font-weight: 500; letter-spacing: -0.03em; color: #ccc;
+        }
+        
+        #skills-trigger {
+            display: inline-block; width: 14px; height: 14px; background: var(--red);
+            border-radius: 50%; margin: 0 15px; vertical-align: middle;
+            cursor: pointer; animation: pulse-red 2s infinite;
+            transition: transform 0.4s var(--ease-out);
+        }
+        #skills-trigger:hover { transform: scale(2.5); }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+        /* 4. SKILLS OVERLAY */
+        #skills-overlay {
+            position: fixed; inset: 0; background: #000; z-index: 10005;
+            display: flex; align-items: center; padding: 0 8%;
+            opacity: 0; pointer-events: none; transition: opacity 0.6s var(--ease-out);
+        }
+        #skills-overlay.active { opacity: 1; pointer-events: all; }
+        .skills-group { margin-bottom: 6vh; }
+        .skill-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--red); display: block; margin-bottom: 20px; }
+        .skills-content h2 { font-size: clamp(32px, 6vw, 80px); font-weight: 900; text-transform: uppercase; line-height: 1; color: #fff; }
+
+        /* 5. WORK SECTION */
+        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
+        .project-link {
+            font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
+            color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
+            padding: 20px 0; display: block; width: fit-content; transition: color 0.3s ease;
+        }
+        .project-link:hover { color: var(--red); }
+
+        /* 6. CONTACT SECTION */
+        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
+        .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
+
+        #preview { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 45vw; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.5s; }
+        #preview.active { opacity: 0.85; }
+        #preview img { width: 100%; height: auto; }
+
+        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
+        
+        .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
+        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
+
+        @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="preview"><img id="preview-img" src="" alt=""></div>
+    <div id="loader"><div id="loader-count">00</div></div>
+
+    <div id="skills-overlay">
+        <div class="skills-content">
+            <div class="skills-group">
+                <span class="skill-label">Expertise</span>
+                <h2>Visual Design<br>Branding<br>Art Direction</h2>
+            </div>
+            <div class="skills-group">
+                <span class="skill-label">Technical</span>
+                <h2>Creative Coding<br>Web Architecture<br>Interactive UI</h2>
+            </div>
+            <p style="opacity:0.3; font-size: 12px; margin-top: 40px;">Fully developed by Natia Kurtanidze</p>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="statement" id="sticky-hero">
+            <span class="sticky-word">VISUAL</span> <span class="sticky-word">DESIGNER</span> — <br> 
+            <span class="sticky-word">I</span> <span class="sticky-word">CREATE</span> <span class="sticky-word">SILENT</span> <span class="sticky-word">FORMS</span>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <p class="about-text" id="about-content">
+            I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. <span id="skills-trigger"></span> I build minimalist archives, editorial identities, and emotional interfaces.
+        </p>
+    </section>
+
+    <main class="work-section">
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">01 KOMBUCHA</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">02 OAT MILK</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">03 THE OTHERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">04 FEELINGS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">05 NURTURE</a>
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">06 GO LEFT</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">07 POSTERS</a>
+    </main>
+
+    <section class="contact-section">
+        <a href="mailto:natia.kurtanidze@gmail.com" class="direct-email">natia@design</a>
+    </section>
+
+    <footer>NATIA KURTANIDZE © 2026</footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        const heroStatement = document.getElementById('sticky-hero');
+        const stickyWords = document.querySelectorAll('.sticky-word');
+        const aboutContent = document.getElementById('about-content');
+        const trigger = document.getElementById('skills-trigger');
+        const overlay = document.getElementById('skills-overlay');
+
+        let mouse = { x: 0, y: 0 };
+
+        // 1. Water Effect on About
+        const text = aboutContent.innerText;
+        aboutContent.innerHTML = text.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
+
+        // 2. Cursor & Animation Loop
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX; mouse.y = e.clientY;
+            cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
+        });
+
+        function animate() {
+            const scrollY = window.scrollY;
+            
+            // Meld effect
+            heroStatement.style.filter = `blur(${Math.min(scrollY / 10, 40)}px)`;
+            heroStatement.style.opacity = 1 - Math.min(scrollY / 600, 1);
+            heroStatement.style.transform = `translateY(${scrollY * 0.4}px) scale(${1 - Math.min(scrollY / 2000, 0.1)})`;
+
+            // Smooth Stickiness
+            stickyWords.forEach(word => {
+                const rect = word.getBoundingClientRect();
+                const dx = mouse.x - (rect.left + rect.width / 2);
+                const dy = mouse.y - (rect.top + rect.height / 2);
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 150) word.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+                else word.style.transform = `translate(0, 0)`;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 3. Skills Overlay Logic
+        trigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
+        overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
+        overlay.addEventListener('click', () => overlay.classList.remove('active'));
+
+        // 4. Loader Logic
+        let p = 0;
+        const l = setInterval(() => {
+            p += Math.floor(Math.random() * 15) + 2;
+            if (p >= 100) {
+                p = 100; clearInterval(l);
+                setTimeout(() => {
+                    document.getElementById('loader').style.transform = "translateY(-100%)";
+                    document.body.classList.add('is-revealed');
+                }, 400);
+            }
+            document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
+        }, 50);
+
+        // 5. Preview System
+        document.querySelectorAll('.project-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                document.getElementById('preview-img').src = link.getAttribute('data-img');
+                document.getElementById('preview').classList.add('active');
+                cursor.style.width = '60px'; cursor.style.height = '60px'; cursor.style.opacity = '0.2';
+            });
+            link.addEventListener('mouseleave', () => {
+                document.getElementById('preview').classList.remove('active');
+                cursor.style.width = '8px'; cursor.style.height = '8px'; cursor.style.opacity = '1';
+            });
+        });
+    </script>
+</body>
+</html>

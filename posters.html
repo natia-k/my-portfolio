@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POSTERS | NATIA STUDIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050505;
@@ -12,12 +13,13 @@
             --aura-color: rgba(255, 255, 255, 0.05);
         }
 
+        /* CHANGED FONT TO INTER */
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -49,27 +51,28 @@
         }
 
         .hero h1 {
-            font-size: 12px;
-            letter-spacing: 1em;
+            font-size: 11px;
+            letter-spacing: 1.2em;
             text-transform: uppercase;
-            margin-bottom: 40px;
-            font-weight: 300;
-            opacity: 0.8;
+            margin-bottom: 45px;
+            font-weight: 400;
+            opacity: 0.9;
         }
 
         .hero p {
-            max-width: 600px;
-            font-size: 18px;
-            line-height: 1.6;
+            max-width: 650px;
+            font-size: 17px;
+            line-height: 1.7;
             font-weight: 300;
             letter-spacing: -0.01em;
-            color: #888;
+            color: #a0a0a0;
         }
 
         .hero .accent-text {
             color: var(--text);
-            margin-top: 20px;
+            margin-top: 24px;
             display: block;
+            font-weight: 300;
         }
 
         /* STACK LOGIC */
@@ -95,27 +98,28 @@
             flex-direction: column;
         }
         
-        .ex-title { font-size: 28px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.02em; }
-        .ex-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 30px; opacity: 0.5; }
+        .ex-title { font-size: 26px; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.03em; }
+        .ex-subtitle { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 35px; opacity: 0.4; }
         
         .ex-body { 
-            font-size: 14px; line-height: 1.8; font-weight: 300; 
+            font-size: 14px; line-height: 1.85; font-weight: 300; 
             max-height: 140px; overflow: hidden; position: relative;
             mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #d1d1d1;
         }
 
         .exhibition-text.expanded .ex-body { 
             max-height: 1200px; mask-image: none; -webkit-mask-image: none;
-            overflow-y: auto; /* Scroll if it exceeds screen */
+            overflow-y: auto;
         }
 
         .ex-body p { margin-bottom: 20px; white-space: pre-line; }
 
         .read-more-btn {
             background: none; border: none; color: var(--text);
-            font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+            font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
             margin-top: 20px; opacity: 0.4; border-bottom: 1px solid transparent;
             transition: 0.3s; width: fit-content;
         }
@@ -133,7 +137,7 @@
         .poster-frame.zoomed img { cursor: zoom-out; }
         .poster-frame:not(.zoomed) img { cursor: zoom-in; }
 
-        .meta { position: absolute; bottom: -40px; right: 0; font-size: 9px; letter-spacing: 0.3em; opacity: 0.4; text-transform: uppercase; }
+        .meta { position: absolute; bottom: -40px; right: 0; font-size: 9px; letter-spacing: 0.3em; opacity: 0.4; text-transform: uppercase; font-weight: 600;}
 
         .footer-nav {
             position: relative; z-index: 1001;
@@ -227,12 +231,7 @@
                     <h2 class="ex-title">New Beginning</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
-                        <p>Before anything,
-                        there was a light
-                        that wanted to exist.
-                        No sound, no shape —
-                        only the quiet pulse
-                        to begin.</p>
+                        <p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p>
                     </div>
                 </div>
             </div>
@@ -248,12 +247,7 @@
                     <h2 class="ex-title">Flower</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
-                        <p>From that light,
-                        something opened.
-                        A flower made of breath,
-                        color shifting like a secret.
-                        Nothing stays still;
-                        everything moves outward.</p>
+                        <p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p>
                     </div>
                 </div>
             </div>
@@ -269,12 +263,9 @@
                     <h2 class="ex-title">Human / Connection</h2>
                     <p class="ex-subtitle">Digital illustration / print, 2023</p>
                     <div class="ex-body">
-                        <p>Then came a figure.
-                        A piece of the universe, born to guard, to care.
-                        We grow, we watch, we continue the circle.
+                        <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
                         
-                        Yet we forget, we take, we harm, we break what we were meant to hold. 
-                        We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
+                        Yet we forget, we take, we harm, we break what we were meant to hold. We are not the center. Only guests, called to protect what is fragile, what is alive.</p>
                     </div>
                     <button class="read-more-btn" onclick="toggleText(this)">Read Story</button>
                 </div>
@@ -287,7 +278,7 @@
     </div>
 
     <footer class="footer-nav">
-        <a href="others.html">← PREV</a>
+        <a href="go-left.html">← PREV</a>
         <a href="index.html">MAIN</a>
         <a href="ferment.html">NEXT →</a>
     </footer>
@@ -296,7 +287,7 @@
         function toggleText(btn) {
             const container = btn.parentElement;
             container.classList.toggle('expanded');
-            btn.innerText = container.classList.contains('expanded') ? "Close Story" : "Read Story";
+            btn.innerText = container.classList.contains('expanded') ? "Close" : "Read Story";
         }
 
         document.querySelectorAll('.auto-fix').forEach(img => {

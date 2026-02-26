@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POSTERS | NATIA KURTANIDZE</title>
+    <title>POSTERS | NATIA STUDIO</title>
     <style>
         :root {
             --bg: #050505;
-            --text: #f5f5f7; /* BONE WHITE */
-            --red: #ff0000;
+            --text: #f5f5f7;
+            --line: rgba(255, 255, 255, 0.1);
+            --aura-color: rgba(255, 255, 255, 0.05);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg);
@@ -21,18 +22,20 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .back-link {
-            position: fixed;
-            top: 40px;
-            left: 40px;
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 900;
-            z-index: 1000;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.3em;
+        /* CUSTOM CURSOR AURA */
+        #aura {
+            position: fixed; width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--aura-color) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 999;
+            transform: translate(-50%, -50%);
         }
+
+        nav {
+            position: fixed; top: 40px; width: 100%; padding: 0 6%;
+            display: flex; justify-content: space-between;
+            z-index: 1000; mix-blend-mode: difference;
+        }
+        nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
 
         .stack-container {
             width: 100%;
@@ -55,7 +58,7 @@
 
         .poster-frame {
             width: 100%;
-            height: 85vh; /* Larger view area */
+            height: 75vh;
             max-width: 800px;
             display: flex;
             align-items: center;
@@ -67,26 +70,61 @@
         .poster-frame img {
             max-width: 100%;
             max-height: 100%;
-            /* 'contain' ensures the whole picture is visible without cutting */
             object-fit: contain; 
             display: block;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
         .meta {
             position: absolute;
-            bottom: -30px;
+            bottom: -40px;
             right: 0;
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            opacity: 0.5;
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            opacity: 0.4;
             text-transform: uppercase;
+        }
+
+        /* UNIVERSAL FOOTER NAVIGATION */
+        .footer-nav {
+            position: relative;
+            z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 8% 80px;
+            border-top: 1px solid var(--line);
+            background: var(--bg);
+        }
+
+        .footer-nav a {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: var(--text);
+            text-transform: uppercase;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+        .footer-nav a:hover { opacity: 1; }
+
+        @media (max-width: 800px) {
+            * { cursor: auto !important; }
+            #aura { display: none; }
+            .poster-frame { height: 60vh; }
+            .footer-nav { padding: 60px 8%; flex-direction: column; gap: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="back-link">← Archive</a>
+    <div id="aura"></div>
+
+    <nav>
+        <a href="index.html">NATIA STUDIO</a>
+        <a href="others.html">OTHERS</a>
+    </nav>
 
     <div class="stack-container">
         <section class="poster-section">
@@ -146,7 +184,21 @@
         </section>
     </div>
 
+    <footer class="footer-nav">
+        <a href="others.html">← PREV</a>
+        <a href="index.html">MAIN</a>
+        <a href="ferment.html">NEXT →</a>
+    </footer>
+
     <script>
+        // CURSOR AURA
+        const aura = document.getElementById('aura');
+        document.addEventListener('mousemove', (e) => {
+            aura.style.left = e.clientX + 'px';
+            aura.style.top = e.clientY + 'px';
+        });
+
+        // STACKING ANIMATION
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.poster-section');
             sections.forEach(section => {
@@ -155,16 +207,15 @@
                 
                 if (rect.top <= 0) {
                     const progress = Math.abs(rect.top) / window.innerHeight;
-                    // Gentle shrink and fade as they stack
-                    const scale = 1 - (progress * 0.1);
-                    const opacity = 1 - (progress * 0.8);
-                    const blur = progress * 15;
+                    const scale = 1 - (progress * 0.15);
+                    const opacity = 1 - (progress * 0.9);
+                    const blur = progress * 20;
                     
-                    frame.style.transform = `scale(${Math.max(scale, 0.9)})`;
+                    frame.style.transform = `scale(${Math.max(scale, 0.85)}) translateY(${progress * 50}px)`;
                     frame.style.opacity = Math.max(opacity, 0);
                     frame.style.filter = `blur(${blur}px)`;
                 } else {
-                    frame.style.transform = `scale(1)`;
+                    frame.style.transform = `scale(1) translateY(0)`;
                     frame.style.opacity = 1;
                     frame.style.filter = `blur(0px)`;
                 }

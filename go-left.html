@@ -54,7 +54,6 @@
             will-change: transform;
         }
 
-        /* STAGING THE SEQUENCE */
         .sequence {
             display: flex;
             flex-direction: column;
@@ -62,20 +61,20 @@
             width: 100%;
         }
 
-        /* SMALLER PRINTS: Visible fully on full screen */
         .poster-wrapper {
             width: 100%;
-            height: 100vh; /* Takes up the screen but centers the image */
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-bottom: 10vh;
+            padding: 0 5%;
         }
 
         .poster-wrapper img {
-            max-height: 80vh; /* Ensures vertical visibility */
-            max-width: 85vw;  /* Ensures horizontal visibility */
+            max-height: 80vh; 
+            max-width: 85vw;  
             width: auto;
             height: auto;
             object-fit: contain;
@@ -89,26 +88,41 @@
             color: var(--subtle);
             margin: 20vh 0;
             text-align: center;
+            padding: 0 20px;
         }
 
-        footer {
-            height: 50vh;
+        /* UNIVERSAL FOOTER NAV */
+        .footer-nav {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            padding: 100px 8% 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        .next-link {
-            font-size: 11px;
-            font-weight: 900;
-            letter-spacing: 0.8em;
+        
+        .footer-nav a {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 4px;
             text-decoration: none;
             color: var(--text);
+            text-transform: uppercase;
             opacity: 0.4;
             transition: 0.3s;
         }
-        .next-link:hover { opacity: 1; }
+        .footer-nav a:hover { opacity: 1; }
 
+        /* MOBILE FRIENDLY FIXES */
+        @media (max-width: 800px) {
+            * { cursor: auto !important; }
+            #aura { display: none; }
+            header { height: 60vh; }
+            #scrolling-title { font-size: clamp(60px, 25vw, 120px); }
+            .poster-wrapper { height: auto; margin: 10vh 0; }
+            .poster-wrapper img { max-height: 70vh; max-width: 90vw; }
+            .statement { margin: 10vh 0; font-size: 12px; }
+            .footer-nav { padding: 60px 8%; }
+        }
     </style>
 </head>
 <body>
@@ -137,24 +151,29 @@
 
     </main>
 
-    <footer>
-        <a href="posters.html" class="next-link">NEXT</a>
+    <footer class="footer-nav">
+        <a href="nurture.html">← PREV</a>
+        <a href="index.html">MAIN</a>
+        <a href="posters.html">NEXT →</a>
     </footer>
 
     <script>
         // 1. CURSOR
         document.addEventListener('mousemove', (e) => {
             const aura = document.getElementById('aura');
-            aura.style.left = e.clientX + 'px';
-            aura.style.top = e.clientY + 'px';
+            if(aura) {
+                aura.style.left = e.clientX + 'px';
+                aura.style.top = e.clientY + 'px';
+            }
         });
 
         // 2. SCROLL EFFECT: Text goes LEFT and tilts
         window.addEventListener('scroll', () => {
             const title = document.getElementById('scrolling-title');
-            const scroll = window.scrollY;
-            // Moves left as you scroll down
-            title.style.transform = `translateX(-${scroll * 1.2}px) rotateY(${scroll * 0.02}deg)`;
+            if (window.innerWidth > 800) { // Only tilt on desktop
+                const scroll = window.scrollY;
+                title.style.transform = `translateX(-${scroll * 1.2}px) rotateY(${scroll * 0.02}deg)`;
+            }
         });
     </script>
 </body>

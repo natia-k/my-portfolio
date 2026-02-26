@@ -1,350 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>POSTERS | NATIA KURTANIDZE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07 POSTERS | NATIA STUDIO</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --red: #ff0000;
+            --mono: "SFMono-Regular", Consolas, monospace;
+        }
 
-  <style>
-    :root{
-      --bg:#050505;
-      --text:#ffffff;
-      --muted:rgba(255,255,255,.62);
-      --line:rgba(255,255,255,.12);
-      --ease:cubic-bezier(.16,1,.3,1);
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
+        body { 
+            background: var(--bg); color: var(--text); font-family: "Inter", sans-serif;
+            height: 100vh; width: 100vw; overflow: hidden;
+            perspective: 1200px; /* Perspective gives the 3D depth */
+        }
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
-      -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
-    }
+        #cursor {
+            position: fixed; width: 10px; height: 10px; background: var(--red);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%); mix-blend-mode: difference;
+        }
 
-    /* top bar like etienne: simple + clock */
-    header{
-      position:sticky; top:0; z-index:20;
-      padding:18px 6%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      border-bottom:1px solid var(--line);
-      background:rgba(5,5,5,.82);
-      backdrop-filter: blur(10px);
-    }
-    .nav{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .nav a{
-      color:var(--text);
-      text-decoration:none;
-      font-size:12px;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      opacity:.9;
-      transition:opacity .2s var(--ease), transform .2s var(--ease);
-    }
-    .nav a:hover{opacity:1; transform:translateY(-1px)}
-    .clock{
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-      white-space:nowrap;
-    }
+        /* UI */
+        .nav-ui {
+            position: fixed; top: 40px; left: 5%; right: 5%;
+            display: flex; justify-content: space-between; z-index: 1000;
+        }
+        .logo { text-decoration: none; color: #fff; font-weight: 900; font-size: 14px; text-transform: uppercase; }
+        .instructions { font-family: var(--mono); font-size: 9px; color: #444; text-transform: uppercase; }
 
-    /* layout: archive list left + viewer right */
-    .wrap{
-      padding:28px 6% 80px;
-      display:grid;
-      grid-template-columns: 1.1fr 1.4fr;
-      gap:34px;
-      min-height: calc(100vh - 68px);
-    }
+        /* THE 3D SCENE */
+        .stage {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            transform-style: preserve-3d;
+        }
 
-    .left{
-      padding-top:10px;
-    }
-    .kicker{
-      font-size:10px;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:18px;
-    }
-    .title{
-      font-size: clamp(34px, 5vw, 72px);
-      font-weight:900;
-      letter-spacing:-.06em;
-      text-transform:uppercase;
-      line-height:.95;
-      margin-bottom:18px;
-    }
-    .sub{
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.55);
-      max-width: 520px;
-      margin-bottom:26px;
-    }
+        .ring {
+            position: relative;
+            width: 300px; /* Width of a single poster */
+            height: 450px;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
 
-    .list{
-      border-top:1px solid var(--line);
-      margin-top:18px;
-      padding-top:14px;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
+        .poster-card {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            display: flex; flex-direction: column;
+        }
 
-    .item{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:18px;
-      padding:14px 0;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      cursor:pointer;
-      user-select:none;
-    }
-    .item:hover{ border-bottom-color: rgba(255,255,255,.16); }
-    .item .name{
-      font-size: clamp(18px, 2.2vw, 28px);
-      font-weight:800;
-      letter-spacing:-.03em;
-      text-transform:uppercase;
-      line-height:1.05;
-    }
-    .item .meta{
-      font-size:10px;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.45);
-      white-space:nowrap;
-      transform: translateY(-2px);
-    }
-    .item.active .name{ text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+        .poster-card img {
+            width: 100%; height: auto;
+            filter: grayscale(1);
+            transition: filter 0.5s ease;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
 
-    .right{
-      position:sticky;
-      top:84px;
-      align-self:start;
-      border-left:1px solid var(--line);
-      padding-left:34px;
-      min-height: 72vh;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
+        .poster-card:hover img { filter: grayscale(0); }
 
-    .viewer{
-      position:relative;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(255,255,255,.02);
-      box-shadow: 0 22px 90px rgba(0,0,0,.5);
-    }
-    .viewer img{
-      width:100%;
-      height:auto;
-      max-height:72vh;
-      object-fit:contain;
-      display:block;
-      transform: scale(1.01);
-      opacity:0;
-      filter: blur(10px);
-      transition: opacity .45s var(--ease), filter .45s var(--ease), transform .65s var(--ease);
-    }
-    .viewer img.on{
-      opacity:1;
-      filter: blur(0);
-      transform: scale(1);
-    }
+        .label {
+            margin-top: 15px; font-family: var(--mono); font-size: 10px;
+            color: #555; text-transform: uppercase;
+        }
 
-    .caption{
-      display:flex;
-      justify-content:space-between;
-      gap:16px;
-      align-items:flex-start;
-      color:rgba(255,255,255,.7);
-    }
-    .cap-title{
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.9);
-    }
-    .cap-sub{
-      margin-top:8px;
-      font-size:10px;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.55);
-    }
-    .cap-year{
-      font-size:10px;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.45);
-      white-space:nowrap;
-    }
+        /* BG TEXT */
+        .bg-text {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 20vw; font-weight: 900; color: #0a0a0a; z-index: -1;
+            text-transform: uppercase; pointer-events: none;
+        }
 
-    footer{
-      padding:26px 6% 34px;
-      border-top:1px solid var(--line);
-      font-size:10px;
-      letter-spacing:.4em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.45);
-    }
-
-    /* mobile: stack */
-    @media (max-width: 900px){
-      .wrap{ grid-template-columns: 1fr; }
-      .right{
-        position:relative;
-        top:auto;
-        border-left:none;
-        padding-left:0;
-        border-top:1px solid var(--line);
-        padding-top:22px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ transition:none!important; }
-      .viewer img{ filter:none!important; opacity:1!important; }
-    }
-  </style>
+        @media (max-width: 768px) { #cursor { display: none; } .ring { width: 200px; height: 300px; } }
+    </style>
 </head>
-
 <body>
 
-  <header>
-    <nav class="nav">
-      <a href="index.html">Work</a>
-      <a href="posters.html" aria-current="page">Archive</a>
-      <a href="index.html#contact">Info</a>
-    </nav>
-    <div class="clock" id="clock">--:--:--</div>
-  </header>
+    <div id="cursor"></div>
+    <div class="bg-text">ARCHIVE</div>
 
-  <section class="wrap">
-    <div class="left">
-      <div class="kicker">Archive · Posters</div>
-      <div class="title">Posters</div>
-      <div class="sub">Text-first archive. Hover or click an item to view. Minimal noise, maximum form.</div>
-
-      <div class="list" id="list">
-        <!-- Universe -->
-        <div class="item active" data-src="universe1.jpg" data-title="Universe 1" data-sub="Universe" data-year="2026">
-          <div class="name">Universe 1</div><div class="meta">Universe · 2026</div>
-        </div>
-        <div class="item" data-src="space%20flower-universe2.jpg" data-title="Space Flower" data-sub="Universe" data-year="2026">
-          <div class="name">Space Flower</div><div class="meta">Universe · 2026</div>
-        </div>
-        <div class="item" data-src="huzzzman-universe3.jpg" data-title="Huzzzman" data-sub="Universe" data-year="2026">
-          <div class="name">Huzzzman</div><div class="meta">Universe · 2026</div>
-        </div>
-
-        <!-- Nostalgia -->
-        <div class="item" data-src="flashbacks.jpg" data-title="Flashbacks" data-sub="Nostalgia" data-year="2026">
-          <div class="name">Flashbacks</div><div class="meta">Nostalgia · 2026</div>
-        </div>
-        <div class="item" data-src="nostalgia.jpg" data-title="Nostalgia" data-sub="Nostalgia" data-year="2026">
-          <div class="name">Nostalgia</div><div class="meta">Nostalgia · 2026</div>
-        </div>
-
-        <!-- Circle -->
-        <div class="item" data-src="dreamer.jpg" data-title="Dreamer" data-sub="Circle" data-year="2026">
-          <div class="name">Dreamer</div><div class="meta">Circle · 2026</div>
-        </div>
-        <div class="item" data-src="sun.jpg" data-title="Sun" data-sub="Circle" data-year="2026">
-          <div class="name">Sun</div><div class="meta">Circle · 2026</div>
-        </div>
-        <div class="item" data-src="circle.jpg" data-title="Circle" data-sub="Circle" data-year="2026">
-          <div class="name">Circle</div><div class="meta">Circle · 2026</div>
-        </div>
-      </div>
+    <div class="nav-ui">
+        <a href="index.html" class="logo">NATIA STUDIO</a>
+        <div class="instructions">[ DRAG TO ROTATE ]</div>
     </div>
 
-    <div class="right">
-      <div class="viewer">
-        <img id="viewerImg" class="on" src="universe1.jpg" alt="Universe 1 poster" />
-      </div>
-
-      <div class="caption">
-        <div>
-          <div class="cap-title" id="capTitle">Universe 1</div>
-          <div class="cap-sub" id="capSub">Universe</div>
+    <div class="stage">
+        <div class="ring" id="ring">
+            <div class="poster-card"><img src="nostalgia.jpg" alt=""><span class="label">01 // nostalgia</span></div>
+            <div class="poster-card"><img src="universe1.jpg" alt=""><span class="label">02 // universe</span></div>
+            <div class="poster-card"><img src="space flower-universe2.jpg" alt=""><span class="label">03 // floral</span></div>
+            <div class="poster-card"><img src="circle.jpg" alt=""><span class="label">04 // geometry</span></div>
+            <div class="poster-card"><img src="sun.jpg" alt=""><span class="label">05 // solar</span></div>
+            <div class="poster-card"><img src="huzzzman-universe3.jpg" alt=""><span class="label">06 // cosmos</span></div>
+            <div class="poster-card"><img src="dreamer.jpg" alt=""><span class="label">07 // dreamer</span></div>
+            <div class="poster-card"><img src="flashbacks.jpg" alt=""><span class="label">08 // memory</span></div>
         </div>
-        <div class="cap-year" id="capYear">2026</div>
-      </div>
     </div>
-  </section>
 
-  <footer>NATIA KURTANIDZE · ARCHIVE ROOM</footer>
+    <script>
+        const ring = document.getElementById('ring');
+        const cards = document.querySelectorAll('.poster-card');
+        const cursor = document.getElementById('cursor');
 
-  <script>
-    // Live clock (etienne vibe)
-    const clockEl = document.getElementById("clock");
-    function tickClock(){
-      const d = new Date();
-      const hh = String(d.getHours()).padStart(2,"0");
-      const mm = String(d.getMinutes()).padStart(2,"0");
-      const ss = String(d.getSeconds()).padStart(2,"0");
-      clockEl.textContent = `${hh}:${mm}:${ss}`;
-    }
-    tickClock();
-    setInterval(tickClock, 1000);
+        let isDown = false;
+        let startX;
+        let rotation = 0;
+        let targetRotation = 0;
 
-    // Archive viewer
-    const items = Array.from(document.querySelectorAll(".item"));
-    const img = document.getElementById("viewerImg");
-    const capTitle = document.getElementById("capTitle");
-    const capSub = document.getElementById("capSub");
-    const capYear = document.getElementById("capYear");
+        // 1. Position posters in a 3D circle
+        // Using a Radius that fits within the viewport
+        const radius = window.innerWidth > 768 ? 600 : 300; 
+        
+        cards.forEach((card, i) => {
+            const angle = (i / cards.length) * 360;
+            card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+        });
 
-    // preload
-    items.forEach(i => { const p = new Image(); p.src = i.dataset.src; });
+        // 2. Mouse Tracking
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-    let currentSrc = img.getAttribute("src");
+        // 3. Drag Logic
+        window.addEventListener('mousedown', e => { isDown = true; startX = e.pageX; });
+        window.addEventListener('mouseup', () => isDown = false);
+        window.addEventListener('mousemove', e => {
+            if (!isDown) return;
+            const x = e.pageX - startX;
+            targetRotation += x * 0.1; // Rotation speed
+            startX = e.pageX;
+        });
 
-    function setActive(el){
-      items.forEach(i => i.classList.toggle("active", i === el));
+        // 4. Smooth Animation Loop
+        function animate() {
+            rotation += (targetRotation - rotation) * 0.05; // Easing/Inertia
+            ring.style.transform = `rotateY(${rotation}deg)`;
 
-      const src = el.dataset.src;
-      if (src === currentSrc) return;
+            // Depth Filtering (Blur posters that are far away)
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const centerDiff = Math.abs((window.innerWidth / 2) - (rect.left + rect.width / 2));
+                const blur = Math.min(centerDiff / 100, 10);
+                const opacity = Math.max(0.1, 1 - (centerDiff / 800));
+                
+                card.style.filter = `blur(${blur}px) grayscale(1)`;
+                card.style.opacity = opacity;
+            });
 
-      currentSrc = src;
-      capTitle.textContent = el.dataset.title || "";
-      capSub.textContent = (el.dataset.sub || "").toUpperCase();
-      capYear.textContent = el.dataset.year || "";
-
-      img.classList.remove("on");
-      const next = new Image();
-      next.onload = () => {
-        img.src = src;
-        img.alt = (el.dataset.title || "Poster") + " poster";
-        requestAnimationFrame(() => img.classList.add("on"));
-      };
-      next.src = src;
-    }
-
-    // hover (desktop) + click (mobile)
-    items.forEach(el => {
-      el.addEventListener("mouseenter", () => setActive(el));
-      el.addEventListener("click", () => setActive(el));
-    });
-  </script>
-
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>

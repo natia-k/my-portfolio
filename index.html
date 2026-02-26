@@ -48,7 +48,6 @@
             filter: blur(50px);
             opacity: 0;
             transform: translateY(30px);
-            /* Long, cinematic 4-second transition */
             transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out), transform 4s var(--ease-out);
         }
 
@@ -58,11 +57,40 @@
             transform: translateY(0);
         }
 
-        /* 3. ABOUT SECTION */
-        .about-section { padding: 15vh 8%; max-width: 900px; }
-        .about-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--red); margin-bottom: 30px; font-weight: 900; }
-        .about-text { font-size: clamp(20px, 3vw, 36px); line-height: 1.2; font-weight: 500; letter-spacing: -0.02em; color: #ccc; }
-        .about-text b { color: #fff; font-weight: 900; }
+        /* 3. ABOUT SECTION + REVEAL EFFECT */
+        .about-section { padding: 25vh 8%; max-width: 1000px; }
+        .about-label { 
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.5em; 
+            color: var(--red); margin-bottom: 30px; font-weight: 900;
+            opacity: 0; transform: translateY(10px);
+            transition: all 1s var(--ease-out);
+        }
+        
+        .about-text { 
+            font-size: clamp(22px, 4vw, 42px); line-height: 1.1; 
+            font-weight: 500; letter-spacing: -0.02em; color: #888; 
+            transition: color 1s ease;
+        }
+
+        /* Scroll Effect Classes */
+        .about-text span {
+            display: inline-block;
+            opacity: 0.1;
+            filter: blur(10px);
+            transform: translateY(10px);
+            transition: all 1.5s var(--ease-out);
+        }
+
+        .about-section.visible .about-label { opacity: 1; transform: translateY(0); }
+        .about-section.visible .about-text span {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
+            color: #ccc;
+        }
+        .about-section.visible .about-text b { color: #fff; }
+
+        .about-text b { color: #444; transition: color 1.5s ease; font-weight: 900; }
 
         /* 4. REORDERED WORK SECTION */
         .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
@@ -117,9 +145,9 @@
         <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
     </section>
 
-    <section class="about-section">
+    <section class="about-section" id="about">
         <p class="about-label">Identity</p>
-        <p class="about-text">
+        <p class="about-text" id="about-content">
             I am <b>Natia Kurtanidze</b>, a visual designer focused on the <b>silent geometry</b> of digital spaces. I build minimalist archives, editorial identities, and emotional interfaces.
         </p>
     </section>
@@ -144,6 +172,14 @@
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
 
+        // Wrap about text words in spans for the reveal effect
+        const aboutContent = document.getElementById('about-content');
+        const text = aboutContent.innerHTML;
+        const words = text.split(/(\s+)/);
+        aboutContent.innerHTML = words.map(word => 
+            word.trim() ? `<span>${word}</span>` : word
+        ).join('');
+
         // LOADER
         let p = 0;
         const loader = document.getElementById('loader');
@@ -158,6 +194,21 @@
             }
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
         }, 50);
+
+        // SCROLL OBSERVER FOR ABOUT SECTION
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Add staggered delay to each word
+                    entry.target.querySelectorAll('span').forEach((span, i) => {
+                        span.style.transitionDelay = `${i * 0.05}s`;
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(document.getElementById('about'));
 
         // PREVIEW
         document.querySelectorAll('.project-link').forEach(link => {

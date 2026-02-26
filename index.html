@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #050505;
-            --text: #ffffff;
+            --text: #f5f5f7; /* Off-white */
             --red: #ff0000;
             --main-font: "Inter", "Helvetica Neue", Arial, sans-serif;
             --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -46,17 +46,25 @@
             letter-spacing: -0.04em; line-height: 0.9;
             filter: blur(50px); opacity: 0;
             transition: filter 4s var(--ease-out), opacity 3.5s var(--ease-out);
+            will-change: transform, filter, opacity;
         }
         .sticky-word { display: inline-block; margin-right: 0.15em; transition: transform 0.1s ease-out; }
         body.is-revealed .statement { filter: blur(0px); opacity: 1; }
 
-        /* 3. ABOUT SECTION */
-        .about-section { padding: 40vh 8% 30vh; max-width: 1000px; text-align: left; }
-        .about-text { font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; letter-spacing: -0.03em; color: #ccc; }
+        /* 3. ABOUT SECTION - NOW SYNCED WITH HERO LOGIC */
+        .about-section { 
+            height: 120vh; padding: 0 8%; display: flex; align-items: center; 
+            max-width: 1200px; text-align: left; 
+        }
+        .about-text { 
+            font-size: clamp(24px, 4.5vw, 48px); line-height: 1.4; font-weight: 500; 
+            letter-spacing: -0.03em; color: #ccc; 
+            will-change: transform, filter, opacity;
+        }
         
         #skills-trigger {
-            display: inline-block; width: 10px; height: 10px; background: var(--red);
-            border-radius: 50%; margin-left: 5px; vertical-align: baseline;
+            display: inline-block; width: 12px; height: 12px; background: var(--red);
+            border-radius: 50%; margin-left: 10px; vertical-align: middle;
             cursor: pointer; animation: pulse-red 3s infinite;
         }
 
@@ -66,7 +74,7 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
-        /* 4. THE WHITE MONO OVERLAY (DEV MODE) */
+        /* 4. SKILLS OVERLAY */
         #skills-overlay {
             position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 10005;
             display: flex; align-items: center; padding: 0 8%;
@@ -74,13 +82,11 @@
             font-family: var(--mono);
         }
         #skills-overlay.active { opacity: 1; pointer-events: all; }
-        
-        .skills-content { color: #fff; width: 100%; }
-        .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; text-transform: none; }
         .code-label { color: var(--red); font-size: 12px; letter-spacing: 0.2em; display: block; margin-bottom: 30px; }
+        .skills-content h2 { font-size: clamp(20px, 2.5vw, 40px); line-height: 1.5; font-weight: 400; color: var(--text); }
 
         /* 5. WORK SECTION */
-        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; }
+        .work-section { padding: 5vh 8% 25vh; display: flex; flex-direction: column; position: relative; z-index: 20; }
         .project-link {
             font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
             color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
@@ -92,13 +98,10 @@
         #preview.active { opacity: 0.85; }
         #preview img { width: 100%; height: auto; }
         
-        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; }
+        .contact-section { background: var(--red); color: #000; height: 80vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 20; }
         .direct-email { font-size: clamp(32px, 8vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -0.05em; }
 
-        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.4; text-align: center; }
-        
-        .word { display: inline-block; margin-right: 0.15em; transition: transform 0.6s var(--ease-out), filter 0.6s ease; }
-        .word:hover { transform: scale(1.05); filter: blur(2px); color: #fff; }
+        footer { background: var(--red); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.6; text-align: center; }
 
         @media (max-width: 768px) { * { cursor: auto; } #cursor { display: none; } }
     </style>
@@ -114,21 +117,20 @@
             <span class="code-label">// SYSTEM_ARCHITECTURE</span>
             <h2>
                 Visual Design / Branding / Art Direction / Interaction Design<br><br>
-                Turns out, this entire digital environment was architected, <br> 
-                designed, and hand-coded by Natia Kurtanidze.
+                This entire digital environment was architected, designed, and hand-coded by Natia Kurtanidze.
             </h2>
         </div>
     </div>
 
     <section class="hero">
-        <div class="statement" id="sticky-hero">
+        <div class="statement" id="hero-statement">
             <span class="sticky-word">VISUAL</span> <span class="sticky-word">DESIGNER</span> — <br> 
             <span class="sticky-word">I</span> <span class="sticky-word">CREATE</span> <span class="sticky-word">SILENT</span> <span class="sticky-word">FORMS</span>
         </div>
     </section>
 
     <section class="about-section">
-        <p class="about-text" id="about-content">
+        <p class="about-text" id="about-statement">
             I am Natia Kurtanidze, a visual designer focused on the silent geometry of digital spaces. I build minimalist archives, editorial identities, and emotional <span id="skills-trigger"></span> interfaces.
         </p>
     </section>
@@ -151,31 +153,38 @@
 
     <script>
         const cursor = document.getElementById('cursor');
-        const heroStatement = document.getElementById('sticky-hero');
+        const heroS = document.getElementById('hero-statement');
+        const aboutS = document.getElementById('about-statement');
         const stickyWords = document.querySelectorAll('.sticky-word');
-        const aboutContent = document.getElementById('about-content');
         const trigger = document.getElementById('skills-trigger');
         const overlay = document.getElementById('skills-overlay');
 
         let mouse = { x: 0, y: 0 };
 
-        // 1. Water Effect Logic (Split by parts to keep trigger safe)
-        const parts = aboutContent.innerHTML.split('<span id="skills-trigger"></span>');
-        aboutContent.innerHTML = parts[0].split(' ').map(w => `<span class="word">${w}</span>`).join(' ') + ' <span id="skills-trigger"></span> ' + parts[1].split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
-
-        // 2. Custom Cursor
+        // 1. Custom Cursor
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX; mouse.y = e.clientY;
             cursor.style.left = mouse.x + 'px'; cursor.style.top = mouse.y + 'px';
         });
 
-        // 3. Magnetic & Scroll Animations
+        // 2. The Melting Animation Engine
         function animate() {
             const scrollY = window.scrollY;
-            heroStatement.style.filter = `blur(${Math.min(scrollY / 10, 40)}px)`;
-            heroStatement.style.opacity = 1 - Math.min(scrollY / 600, 1);
-            heroStatement.style.transform = `translateY(${scrollY * 0.4}px)`;
+            const wh = window.innerHeight;
 
+            // Hero Statement Melt (Sync)
+            heroS.style.filter = `blur(${Math.min(scrollY / 10, 50)}px)`;
+            heroS.style.opacity = 1 - Math.min(scrollY / 600, 1);
+            heroS.style.transform = `translateY(${scrollY * 0.4}px)`;
+
+            // About Statement Melt (Sync)
+            // Starts fading once the user begins scrolling past the initial view
+            const aboutScroll = Math.max(0, scrollY - (wh * 0.6)); 
+            aboutS.style.filter = `blur(${Math.min(aboutScroll / 10, 50)}px)`;
+            aboutS.style.opacity = 1 - Math.min(aboutScroll / 600, 1);
+            aboutS.style.transform = `translateY(${aboutScroll * 0.3}px)`;
+
+            // Magnetic Words effect for Hero
             stickyWords.forEach(word => {
                 const rect = word.getBoundingClientRect();
                 const dx = mouse.x - (rect.left + rect.width / 2);
@@ -184,16 +193,16 @@
                 if (dist < 150) word.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
                 else word.style.transform = `translate(0, 0)`;
             });
+
             requestAnimationFrame(animate);
         }
         animate();
 
-        // 4. Trigger & Overlay Interaction
-        const finalTrigger = document.getElementById('skills-trigger');
-        finalTrigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
+        // 3. Overlay Interaction
+        trigger.addEventListener('mouseenter', () => overlay.classList.add('active'));
         overlay.addEventListener('mouseleave', () => overlay.classList.remove('active'));
 
-        // 5. Loader
+        // 4. Loader Logic
         let p = 0;
         const l = setInterval(() => {
             p += Math.floor(Math.random() * 15) + 2;
@@ -207,7 +216,7 @@
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
         }, 50);
 
-        // 6. Project Preview
+        // 5. Project Preview Hover
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 document.getElementById('preview-img').src = link.getAttribute('data-img');

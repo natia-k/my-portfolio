@@ -10,7 +10,7 @@
             --text: #ffffff;
             --baby-pink: #fce4ec; 
             --red: #ff0000;
-            --ease: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
@@ -31,168 +31,163 @@
             pointer-events: none; z-index: 9999; opacity: 0.12; mix-blend-mode: overlay;
         }
 
-        /* 1. PRELOADER (Black Numbers, Red Screen) */
+        /* 1. FULL-BLEED RED LOADER */
         #loader {
-            position: fixed; inset: 0; background: var(--red); z-index: 10010;
+            position: fixed; inset: 0; 
+            background: var(--red); 
+            z-index: 10010;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.8s cubic-bezier(1, 0, 0, 1); /* Instant sharp exit */
         }
         #loader-count { 
-            font-size: 8vw; font-weight: 900; color: #000; 
-            font-variant-numeric: tabular-nums; letter-spacing: -0.05em;
+            font-size: 5vw; 
+            font-weight: 900; 
+            color: #000; 
+            font-variant-numeric: tabular-nums; 
+            letter-spacing: -0.05em;
         }
 
-        /* 2. LAYOUT SECTIONS */
-        section, main { position: relative; width: 100%; }
-
+        /* 2. SHARP HOMEPAGE CONTENT */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
         
+        .statement { 
+            font-size: clamp(30px, 7vw, 90px); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: -0.04em; 
+            line-height: 0.9;
+            /* No Blur - Instant Sharpness */
+        }
+
         .work-section { padding: 10vh 8% 20vh; display: flex; flex-direction: column; }
 
-        /* 3. TYPOGRAPHY & BREATHING CORE */
-        .statement, .project-link {
-            transition: letter-spacing 2s var(--ease), filter 1.5s var(--ease), opacity 1.5s var(--ease), color 0.5s ease;
-            will-change: filter, letter-spacing;
-        }
-
-        .statement { font-size: clamp(30px, 7vw, 90px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.9; }
-
         .project-link {
-            font-size: clamp(40px, 12vw, 180px); font-weight: 900; text-decoration: none; 
-            color: var(--text); text-transform: uppercase; letter-spacing: -0.07em;
-            padding: 20px 0; display: block; width: fit-content;
+            font-size: clamp(40px, 12vw, 180px); 
+            font-weight: 900; 
+            text-decoration: none; 
+            color: var(--text); 
+            text-transform: uppercase; 
+            letter-spacing: -0.07em;
+            padding: 20px 0; 
+            display: block; 
+            width: fit-content;
+            transition: color 0.4s ease, transform 0.4s var(--ease);
         }
 
-        .project-link:hover { color: var(--baby-pink); filter: blur(0px) !important; opacity: 1 !important; }
+        .project-link:hover { color: var(--baby-pink); transform: translateX(20px); }
 
-        /* 4. CONTACT AREA (Solid & Sharp) */
+        /* 3. MINIMAL EMAIL SECTION */
         .contact-section {
-            background: var(--baby-pink); color: #000;
-            min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-            padding: 10vh 8%; z-index: 10;
+            background: var(--baby-pink); 
+            color: #000;
+            padding: 15vh 8%; 
+            display: flex; 
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        .contact-label { font-size: 14px; font-weight: 900; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; opacity: 0.4; }
+        .contact-label { 
+            font-size: 11px; 
+            font-weight: 900; 
+            letter-spacing: 0.4em; 
+            text-transform: uppercase; 
+            margin-bottom: 15px; 
+            opacity: 0.5; 
+        }
 
+        /* Scaled down as requested */
         .direct-email {
-            font-size: clamp(30px, 8vw, 120px); font-weight: 900; color: #000;
-            text-decoration: none; letter-spacing: -0.05em; line-height: 0.9;
-            transition: opacity 0.3s ease; word-break: break-all;
+            font-size: clamp(20px, 4vw, 45px); 
+            font-weight: 900; 
+            color: #000;
+            text-decoration: none; 
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s ease;
         }
         .direct-email:hover { opacity: 0.4; }
 
-        .socials { margin-top: 60px; display: flex; gap: 30px; }
-        .socials a { color: #000; text-decoration: none; font-weight: 900; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
+        .socials { margin-top: 40px; display: flex; gap: 25px; }
+        .socials a { 
+            color: #000; 
+            text-decoration: none; 
+            font-weight: 900; 
+            font-size: 11px; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+        }
 
-        /* 5. IMAGE PREVIEW */
+        /* 4. IMAGE PREVIEW */
         #preview {
             position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%);
             width: 45vw; max-width: 800px; pointer-events: none; z-index: 5; opacity: 0;
-            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
         }
         #preview.active { opacity: 0.8; transform: translate(-50%, -48%); }
         #preview img { width: 100%; height: auto; object-fit: contain; }
 
-        footer { background: var(--baby-pink); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.3; text-align: center; letter-spacing: 0.4em; }
+        footer { background: var(--baby-pink); color: #000; padding: 40px 8%; font-size: 10px; opacity: 0.3; text-align: left; letter-spacing: 0.4em; }
 
-        /* MOBILE FIXES */
         @media (max-width: 768px) {
             #preview { width: 80vw; left: 50%; }
             .project-link { font-size: 12vw; }
+            .direct-email { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
     <div id="preview"><img id="preview-img" src="" alt=""></div>
-    <div id="loader"><div id="loader-count">00</div></div>
-
-    <div id="smooth-wrapper">
-        <section class="hero">
-            <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
-        </section>
-
-        <main class="work-section">
-            <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
-            <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
-            <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
-            <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 OAT MILK</a>
-            <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
-            <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
-            <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
-        </main>
-
-        <section class="contact-section">
-            <p class="contact-label">Direct Archive Contact</p>
-            <a href="mailto:natiadesign@gmail.com" class="direct-email">NATIADESIGN@GMAIL.COM</a>
-            
-            <div class="socials">
-                <a href="#">Instagram</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Behance</a>
-            </div>
-        </section>
-
-        <footer>NATIA KURTANIDZE © 2026</footer>
+    
+    <div id="loader">
+        <div id="loader-count">00</div>
     </div>
 
+    <section class="hero">
+        <div class="statement">VISUAL DESIGNER — <br> I CREATE SILENT FORMS</div>
+    </section>
+
+    <main class="work-section">
+        <a href="go-left.html" class="project-link" data-img="goleft-main.jpg">01 GO LEFT</a>
+        <a href="the-others.html" class="project-link" data-img="others.jpg">02 THE OTHERS</a>
+        <a href="nurture.html" class="project-link" data-img="nurture-hero.jpg">03 NURTURE</a>
+        <a href="oat-milk.html" class="project-link" data-img="oat-hero.jpg">04 Oat Milk</a>
+        <a href="kombucha.html" class="project-link" data-img="kombucha-hero.jpg">05 KOMBUCHA</a>
+        <a href="posters.html" class="project-link" data-img="nostalgia.jpg">06 POSTERS</a>
+        <a href="feelings.html" class="project-link" data-img="feelings-hero.jpg">07 FEELINGS</a>
+    </main>
+
+    <section class="contact-section">
+        <p class="contact-label">ENQUIRIES</p>
+        <a href="mailto:natiahotmail@gmail.com" class="direct-email">NATIAHOTMAIL.DESIGN</a>
+        
+        <div class="socials">
+            <a href="https://instagram.com/yourhandle">Instagram</a>
+            <a href="https://linkedin.com/in/yourhandle">LinkedIn</a>
+        </div>
+    </section>
+
+    <footer>NATIA KURTANIDZE © 2026</footer>
+
     <script>
-        const links = document.querySelectorAll('.project-link, .statement');
         const preview = document.getElementById('preview');
         const previewImg = document.getElementById('preview-img');
-        let lastMove = Date.now();
-        let isQuiet = false;
 
-        // 1. LOADER SCRIPT
+        // 1. FAST LOADER SCRIPT
         let p = 0;
         const l = setInterval(() => {
-            p += Math.floor(Math.random() * 20) + 1;
+            p += Math.floor(Math.random() * 25) + 2; // Fast, energetic count
             if (p >= 100) { 
-                p = 100; clearInterval(l); 
-                setTimeout(() => document.getElementById('loader').style.transform = "translateY(-100%)", 500);
+                p = 100; 
+                clearInterval(l); 
+                setTimeout(() => {
+                    // Instant reveal: moves loader up and out of view
+                    document.getElementById('loader').style.transform = "translateY(-100%)";
+                }, 400);
             }
             document.getElementById('loader-count').innerText = p.toString().padStart(2, '0');
-        }, 60);
+        }, 50);
 
-        // 2. BREATHING LOGIC (Only triggers on project section)
-        function checkAttention() {
-            const idle = Date.now() - lastMove;
-            const scrollPos = window.scrollY;
-            const contactTop = document.querySelector('.contact-section').offsetTop;
-
-            // If we are in the contact section, stay sharp
-            if (scrollPos > contactTop - 400) {
-                links.forEach(l => { l.style.filter = "blur(0px)"; l.style.opacity = "1"; });
-                return requestAnimationFrame(checkAttention);
-            }
-
-            if (idle > 1000) { // If user stops moving for 1s
-                if (!isQuiet) {
-                    isQuiet = true;
-                    links.forEach(l => { 
-                        l.style.letterSpacing = "0.02em"; 
-                        l.style.filter = "blur(0px)"; 
-                        l.style.opacity = "1"; 
-                    });
-                }
-            } else {
-                if (isQuiet) {
-                    isQuiet = false;
-                    links.forEach(l => { 
-                        l.style.letterSpacing = l.classList.contains('statement') ? "-0.04em" : "-0.07em"; 
-                        l.style.filter = "blur(15px)"; 
-                        l.style.opacity = "0.15"; 
-                    });
-                }
-            }
-            requestAnimationFrame(checkAttention);
-        }
-
-        document.addEventListener('mousemove', () => lastMove = Date.now());
-        document.addEventListener('scroll', () => lastMove = Date.now());
-        checkAttention();
-
-        // 3. IMAGE PREVIEW
+        // 2. IMAGE PREVIEW (STAYS SHARP)
         document.querySelectorAll('.project-link').forEach(link => {
             link.addEventListener('mouseenter', () => {
                 previewImg.src = link.getAttribute('data-img');

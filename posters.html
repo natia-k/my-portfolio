@@ -18,7 +18,8 @@
         body {
             background-color: var(--bg);
             color: var(--bone);
-            font-family: 'Inter', sans-serif;
+            /* Targeting Neue Haas Grotesk with system fallbacks */
+            font-family: "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk", "Inter", sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -32,7 +33,7 @@
             font-weight: 900; letter-spacing: 5px; text-transform: uppercase; 
         }
 
-        /* HERO - MASSIVE PUNCHY CAPS */
+        /* MASSIVE NEUE HAAS HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -49,19 +50,19 @@
         }
 
         .hero .main-statement { 
-            max-width: 1400px; font-size: 82px; line-height: 0.95; 
-            font-weight: 900; letter-spacing: -0.04em; 
+            max-width: 1400px; font-size: 85px; line-height: 0.9; 
+            font-weight: 900; letter-spacing: -0.05em; 
             text-transform: uppercase; margin-bottom: 15px;
         }
 
         .hero .sub-statement { 
-            font-size: 28px; font-weight: 700; line-height: 1.2;
+            font-size: 30px; font-weight: 700; line-height: 1.2;
             letter-spacing: -0.02em; text-transform: uppercase; opacity: 0.7;
         }
 
         .hero .sub-statement.last { opacity: 0.4; font-weight: 400; }
 
-        /* CONTENT STACK */
+        /* POSTER SECTIONS */
         .stack-container { width: 100%; }
         .poster-section {
             position: sticky; top: 0; height: 100vh; width: 100%;
@@ -85,11 +86,11 @@
         }
 
         .exhibition-text { max-width: 440px; text-align: left; }
-        .ex-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--bone); }
-        .ex-subtitle { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 40px; color: var(--bone-dim); }
+        .ex-title { font-size: 34px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.03em; }
+        .ex-subtitle { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 40px; color: var(--bone-dim); }
         
         .ex-body { 
-            font-size: 15px; line-height: 2; font-weight: 300; 
+            font-size: 16px; line-height: 1.8; font-weight: 400; 
             color: var(--bone-dim); max-height: 60vh; overflow-y: auto; padding-right: 20px;
         }
         .ex-body::-webkit-scrollbar { width: 1px; }
@@ -102,9 +103,9 @@
             font-weight: 700; text-transform: uppercase;
         }
 
-        /* FOOTER & NOTICE */
-        .print-notice { width: 100%; text-align: center; padding: 120px 10% 40px; background: var(--bg); }
-        .print-notice p { font-size: 13px; font-style: italic; font-weight: 300; color: var(--bone-dim); letter-spacing: 0.02em; }
+        /* FOOTER & PRINT NOTICE */
+        .print-notice { width: 100%; text-align: center; padding: 150px 10% 40px; background: var(--bg); }
+        .print-notice p { font-size: 14px; font-style: italic; font-weight: 300; color: var(--bone-dim); letter-spacing: 0.02em; }
 
         .footer-nav {
             display: flex; justify-content: space-between; align-items: center;
@@ -115,7 +116,7 @@
 
         @media (max-width: 1100px) {
             .hero .main-statement { font-size: 48px; }
-            .poster-section { height: auto; position: relative; padding: 100px 20px; }
+            .poster-section { height: auto; position: relative; padding: 80px 20px; }
             .exhibition-container { flex-direction: column; gap: 60px; }
             .poster-frame { height: 50vh; }
         }
@@ -169,7 +170,7 @@
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Circle of Life</h2>
-                    <p class="ex-subtitle">Digital illustration / 2025</p>
+                    <p class="ex-subtitle">Digital Illustration / 2025</p>
                     <div class="ex-body">
                         <p>A soft sphere holds the first quiet shape of life, floating in light like something that remembers the stars. Because we do come from stars — tiny pieces of ancient suns gathered for a moment into a body, a heartbeat.
 
@@ -190,10 +191,8 @@
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">New Beginning</h2>
-                    <p class="ex-subtitle">Digital illustration / 2023</p>
-                    <div class="ex-body">
-                        <p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p>
-                    </div>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <div class="ex-body"><p>Before anything, there was a light that wanted to exist. No sound, no shape — only the quiet pulse to begin.</p></div>
                 </div>
             </div>
         </section>
@@ -206,10 +205,8 @@
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Flower</h2>
-                    <p class="ex-subtitle">Digital illustration / 2023</p>
-                    <div class="ex-body">
-                        <p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p>
-                    </div>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
+                    <div class="ex-body"><p>From that light, something opened. A flower made of breath, color shifting like a secret. Nothing stays still; everything moves outward.</p></div>
                 </div>
             </div>
         </section>
@@ -222,7 +219,7 @@
                 </div>
                 <div class="exhibition-text">
                     <h2 class="ex-title">Human / Connection</h2>
-                    <p class="ex-subtitle">Digital illustration / 2023</p>
+                    <p class="ex-subtitle">Digital Illustration / 2023</p>
                     <div class="ex-body">
                         <p>Then came a figure. A piece of the universe, born to guard, to care. We grow, we watch, we continue the circle. 
 
@@ -242,9 +239,7 @@
                 <div class="exhibition-text">
                     <h2 class="ex-title">Dreamer</h2>
                     <p class="ex-subtitle">Digital Illustration / 2025</p>
-                    <div class="ex-body">
-                        <p>She believes in what isn’t here yet.</p>
-                    </div>
+                    <div class="ex-body"><p>She believes in what isn’t here yet.</p></div>
                 </div>
             </div>
         </section>
@@ -258,11 +253,7 @@
                 <div class="exhibition-text">
                     <h2 class="ex-title">Flashbacks</h2>
                     <p class="ex-subtitle">Digital Illustration / 2025</p>
-                    <div class="ex-body">
-                        <p>It didn’t happen again.
-                        It just never really left.
-                        Some moments stay longer than we do.</p>
-                    </div>
+                    <div class="ex-body"><p>It didn’t happen again. It just never really left. Some moments stay longer than we do.</p></div>
                 </div>
             </div>
         </section>
@@ -276,10 +267,7 @@
                 <div class="exhibition-text">
                     <h2 class="ex-title">Solar</h2>
                     <p class="ex-subtitle">Digital Illustration / 2023</p>
-                    <div class="ex-body">
-                        <p>They loved.
-                        They could not stay.</p>
-                    </div>
+                    <div class="ex-body"><p>They loved. They could not stay.</p></div>
                 </div>
             </div>
         </section>
@@ -296,24 +284,19 @@
     </footer>
 
     <script>
-        // Deep Scan script to force images to load regardless of case-sensitivity
+        // Deep Scan script to handle Case-Sensitive GitHub filenames
         document.querySelectorAll('.deep-fix').forEach(img => {
             const raw = img.getAttribute('data-src');
             const base = raw.split('.')[0];
-            const ext = raw.split('.')[1];
-            
-            // Try every possible combination GitHub might be looking for
             const variants = [
                 raw,
-                base.toLowerCase() + "." + ext,
-                base.toUpperCase() + "." + ext,
-                base.charAt(0).toUpperCase() + base.slice(1) + "." + ext,
+                base.toLowerCase() + ".jpg",
+                base.toUpperCase() + ".jpg",
+                base.charAt(0).toUpperCase() + base.slice(1) + ".jpg",
                 base + ".png",
                 base + ".JPG",
-                base + ".webp",
                 base.toLowerCase() + ".png"
             ];
-            
             let i = 0;
             const tryLoad = () => {
                 if (i < variants.length) {
@@ -325,21 +308,15 @@
             tryLoad();
         });
 
-        // Simple scroll parallax
+        // Sticky Scale Animation
         window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('.poster-section');
-            sections.forEach(section => {
+            document.querySelectorAll('.poster-section').forEach(section => {
                 const rect = section.getBoundingClientRect();
                 const frame = section.querySelector('.poster-frame');
-                if (frame) {
-                    if (rect.top <= 0) {
-                        const progress = Math.abs(rect.top) / window.innerHeight;
-                        frame.style.transform = `scale(${Math.max(1 - (progress * 0.1), 0.9)}) translateY(${progress * 40}px)`;
-                        frame.style.opacity = Math.max(1 - (progress * 1.1), 0);
-                    } else {
-                        frame.style.transform = `scale(1) translateY(0)`; 
-                        frame.style.opacity = 1;
-                    }
+                if (frame && rect.top <= 0) {
+                    const progress = Math.abs(rect.top) / window.innerHeight;
+                    frame.style.transform = `scale(${Math.max(1 - (progress * 0.15), 0.85)}) translateY(${progress * 50}px)`;
+                    frame.style.opacity = Math.max(1 - (progress * 1.2), 0);
                 }
             });
         });

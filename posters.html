@@ -297,11 +297,62 @@
         </section>
     </div>
 
-    <footer class="footer-nav">
-        <span>THE END</span>
-        <a href="index.html">GO TO MAIN</a>
+   <footer class="footer-nav">
+        <div class="end-container">
+            <div class="sub-statement" style="opacity: 0.4; animation: none;">THE END</div>
+            <a href="index.html" class="main-btn">GO TO MAIN</a>
+        </div>
     </footer>
 
+    <style>
+        /* REPLACE YOUR .footer-nav CSS WITH THIS */
+        .footer-nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 150px 0; 
+            border-top: 1px solid var(--line);
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .end-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* This uses your exact sub-statement style from the top */
+        .end-container .sub-statement {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .main-btn {
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-decoration: none;
+            color: var(--bone);
+            opacity: 0.4;
+            transition: 0.4s;
+            text-transform: uppercase;
+            border: 1px solid var(--line);
+            padding: 12px 24px;
+        }
+
+        .main-btn:hover {
+            opacity: 1;
+            border-color: var(--bone);
+        }
+    </style>
     <script>
         // FORCED SCAN FOR GITHUB FILENAMES
         document.querySelectorAll('.deep-fix').forEach(img => {
